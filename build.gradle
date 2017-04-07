@@ -1,0 +1,53 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.2.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+plugins {
+    id 'com.moowork.node' version '1.1.1'
+}
+
+node {
+    version = '7.6.0'
+    npmVersion = '4.1.2'
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-data-rest')
+	compile('org.springframework.boot:spring-boot-starter-security')
+	runtime('org.springframework.boot:spring-boot-devtools')
+	runtime('mysql:mysql-connector-java')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+task npmRunBuild(type: NpmTask) {
+	args = ['run', 'build']
+}
+
+task npmRunStart(type: NpmTask) {
+	args = ['run', 'start']
+}
+
+npmRunBuild.dependsOn(npmSetup, npmInstall)
+bootRun.dependsOn(npmRunBuild)
+
+// npmRunStart.dependsOn(bootRun)
