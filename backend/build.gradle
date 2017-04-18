@@ -1,0 +1,14 @@
+plugins {
+    id 'org.springframework.boot' version '1.5.2.RELEASE'
+}
+
+springBoot {
+    mainClass = 'edu.hsog.flat.backend.Application'
+}
+
+dependencies {
+    compile project(':frontend')
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-actuator'
+    testCompile 'junit:junit'
+}
