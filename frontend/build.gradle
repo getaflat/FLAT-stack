@@ -1,24 +1,32 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.2.RELEASE'
+    }
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
 plugins {
-	id 'org.springframework.boot' version '1.5.2.RELEASE'
+    id 'org.springframework.boot' version '1.5.2.RELEASE'
 	id 'com.moowork.node' version '1.1.1'
+}
+
+repositories {
+    jcenter()
 }
 
 bootRepackage {
     enabled = false
 }
 
-jar {
-	from 'build/dist'
-}
-
 node {
     version = '7.9.0'
     npmVersion = '4.5.0'
-}
-
-dependencies {
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	download = true
 }
 
 task dependencies(type: NpmTask) {
@@ -33,4 +41,4 @@ task test(type: NpmTask, dependsOn: 'dependencies', overwrite: true) {
 	args = ['test']
 }
 
-jar.dependsOn bundle
+// jar.dependsOn bundle
