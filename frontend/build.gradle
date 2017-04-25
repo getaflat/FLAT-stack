@@ -1,27 +1,26 @@
 buildscript {
-    ext {
-        springBootVersion = '1.5.2.RELEASE'
-    }
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+    repositories { mavenCentral() }
 }
 
 plugins {
-    id 'org.springframework.boot' version '1.5.2.RELEASE'
-	id 'com.moowork.node' version '1.1.1'
+	id "io.spring.dependency-management" version "1.0.2.RELEASE"
+    id "com.moowork.node" version "1.1.1"
 }
 
-repositories {
-    jcenter()
+ext { springBootVersion = '1.5.3.RELEASE' }
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+jar {
+    baseName = 'flat-stack-frontend'
+    version = '0.0.1-SNAPSHOT'
+	enabled = false
 }
 
-bootRepackage {
-    enabled = false
-}
+sourceCompatibility = 1.8
+
+repositories { mavenCentral() }
 
 node {
     version = '7.9.0'
@@ -37,8 +36,54 @@ task bundle(type: NpmTask, dependsOn: 'dependencies') {
 	args = ['run', 'build']
 }
 
+task development(type: NpmTask, dependsOn: 'dependencies') {
+	args = ['run', 'dev']
+}
+
 task test(type: NpmTask, dependsOn: 'dependencies', overwrite: true) {
 	args = ['test']
 }
 
-// jar.dependsOn bundle
+dependencies {
+	compile 'org.springframework.boot:spring-boot-starter'
+	testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
+
+dependencyManagement {
+	imports { mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}") }
+}
+
+jar.dependsOn bundle
+
+// buildscript {
+//     ext {
+//         springBootVersion = '1.5.3.RELEASE'
+//     }
+//     repositories {
+//         mavenCentral()
+//     }
+//     dependencies {
+//         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+//     }
+// }
+
+// apply plugin: 'java'
+// apply plugin: 'idea'
+// apply plugin: 'org.springframework.boot'
+
+// springBoot {
+//     mainClass = 'edu.hsog.flat.backend.Application'
+// }
+
+// allprojects {
+//     apply plugin: 'java'
+//     apply plugin: 'idea'
+//     apply plugin: 'org.springframework.boot'
+
+//     version = '0.0.1-SNAPSHOT'
+//     sourceCompatibility = 1.8
+
+//     repositories {
+//         mavenCentral()
+//     }
+// }

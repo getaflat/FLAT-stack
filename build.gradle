@@ -1,0 +1,39 @@
+/* apply plugin: 'java'
+
+subprojects.each { subproject -> evaluationDependsOn( subproject.path ) }
+
+jar.dependsOn subprojects.tasks['classes']
+
+ jar {
+   // baseName = 'MyApp'
+   baseName = 'flat-stack-full'
+   version = '0.0.1-SNAPSHOT'
+    manifest {
+     attributes 'Main-Class': 'edu.hsog.flat.backend.FlatStackApplication'
+   }
+   subprojects.each { subproject ->
+     from subproject.sourceSets.main.output.classesDir
+     from subproject.sourceSets.main.output.resourcesDir
+   }
+} */
+
+subprojects {
+	apply plugin: 'java'
+}
+
+project(':backend') {
+	dependencies {
+		compile project(':frontend')
+	}
+}
+
+/* task runJar(type: Jar) {
+	javaexec {
+		main = "-jar"
+		args = [
+		    "backend/build/libs/flat-stack-backend-0.0.1-SNAPSHOT.jar"
+		]
+	}
+} */
+
+// runJar.dependsOn(':backend:bootRepackage')

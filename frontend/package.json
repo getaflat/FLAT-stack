@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack -p",
+    "dev": "webpack-dev-server",
     "test": "mocha --require babel-core/register src/test/javascript/setup.js src/test/javascript/**/*.spec.js"
   },
   "keywords": [],
@@ -12,7 +13,9 @@
   "description": "",
   "dependencies": {
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1"
   },
   "devDependencies": {
     "babel": "^6.23.0",
@@ -26,6 +29,7 @@
     "mocha": "^3.2.0",
     "react-addons-test-utils": "^15.5.1",
     "sinon": "^2.1.0",
-    "webpack": "^2.4.1"
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.4.4"
   }
 }

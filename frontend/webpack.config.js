@@ -15,5 +15,16 @@ module.exports = {
         loaders: [
             { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ }
         ]
+    },
+    devServer: {
+        port: 9090,
+        proxy: {
+            '/': {
+                target: 'http://localhost:8080',
+                secure: false,
+                prependPath: false
+            }
+        },
+        publicPath: 'http://localhost:9090/dist/'
     }
 };

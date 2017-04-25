@@ -1,56 +1,57 @@
 buildscript {
-    ext {
-        springBootVersion = '1.5.2.RELEASE'
-    }
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+	ext {
+		springBootVersion = '1.5.3.RELEASE'
+	}
+	repositories {
+		jcenter()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
 }
 
-plugins {
-    id 'org.springframework.boot' version '1.5.2.RELEASE'
-    id 'com.moowork.node' version '1.1.1'
-}
-
-// compileJava.options.encoding = 'UTF-8'
-
+// apply plugin: 'java'
+apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
-apply plugin: 'java'
-apply plugin: 'idea'
+apply plugin: 'application'
 
-springBoot {
-    mainClass = 'edu.hsog.flat.backend.Application'
-}
+mainClassName = 'edu.hsog.flat.backend.FlatStackApplication'
 
 jar {
-    baseName = 'flat-stack'
-    version = '0.1.0'
+    baseName = 'flat-stack-backend'
+    version = '0.0.1-SNAPSHOT'
+
+	from('../frontend/src/main/resources/') {
+		into 'resources/'
+	}
+
+	manifest {
+		attributes 'Main-Class' : 'edu.hsog.flat.backend.FlatStackApplication'
+	}
 }
 
 sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 repositories {
-    jcenter()
+	jcenter()
 }
 
 dependencies {
-    // compile project(':frontend')
-    compile('org.springframework.boot:spring-boot-starter-web') {
-        exclude module: 'spring-boot-starter-tomcat'
+	compileOnly "org.projectlombok:lombok:1.16.16"
+
+	compile('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
     }
     compile 'org.springframework.boot:spring-boot-starter-jetty'
-    compile 'org.springframework.boot:spring-boot-starter-actuator'
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
-    compile('org.springframework.boot:spring-boot-starter-data-rest')
-    compile('org.springframework.boot:spring-boot-starter-security')
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-starter-data-rest')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 
-    runtime('org.springframework.boot:spring-boot-devtools')
-    runtime('mysql:mysql-connector-java')
+	compile project(':frontend')
 
-    testCompile 'junit:junit'
-    testCompile "org.springframework.boot:spring-boot-starter-test"
+	runtime('mysql:mysql-connector-java')
+
+	runtime('org.springframework.boot:spring-boot-devtools')
+
+	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
