@@ -1,55 +1,36 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import Home from './components/Home';
-import Login from './components/Login';
+import Booking from './pages/Booking';
+import GTC from './pages/GTC';
+import Home from './pages/Home';
+import Imprint from './pages/Imprint';
+import Login from './pages/Login';
+import Region from './pages/Region';
+import Register from './pages/Register';
+import User from './pages/User';
 
-import api from './api';
+import Header from './components/Header';
 
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {employees: []};
-    }
-
-    componentDidMount() {
-        api.get('/employee').then(response => {
-            this.setState({
-                employees: response.data._embedded.employee
-            })
-        })
     }
 
     render() {
         return (
             <Router>
                 <div>
-                    <ul>
-                        <li><Link to="/">Home</Link></li>
-                        <li><Link to="/login">Login</Link></li>
-                    </ul>
-
-                    <hr />
+                    <Header />
 
                     <Route exact path="/" component={Home} />
+                    <Route path="/booking" component={Booking} />
+                    <Route path="/gtc" component={GTC} />
+                    <Route path="/imprint" component={Imprint} />
                     <Route path="/login" component={Login} />
-
-                    <table>
-                        <tbody>
-                            <tr>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Description</th>
-                            </tr>
-                            {this.state.employees.map((employee, index) =>
-                                <tr key={index}>
-                                    <td>{employee.firstName}</td>
-                                    <td>{employee.lastName}</td>
-                                    <td>{employee.description}</td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
+                    <Route path="/region" component={Region} />
+                    <Route path="/register" component={Register} />
+                    <Route path="/user" component={User} />
                 </div>
             </Router>
         );

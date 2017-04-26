@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 
 const propTypes = {};
 
@@ -10,7 +10,7 @@ class Login extends React.Component {
     }
 
     render() {
-        return (<h1>Login page</h1>);
+        return (<h1>Login</h1>);
     }
 }
 

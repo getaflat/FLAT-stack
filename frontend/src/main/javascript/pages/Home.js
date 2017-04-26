@@ -1,4 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+
+import { getEmployeeByLastName } from '../services/api';
 
 const propTypes = {};
 
@@ -10,7 +12,7 @@ class Home extends React.Component {
     }
 
     render() {
-        return (<h1>Server is running, horray!</h1>);
+        return (<h1>Startseite</h1>);
     }
 }
 

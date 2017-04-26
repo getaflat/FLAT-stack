@@ -1,5 +1,6 @@
-package edu.hsog.flat.backend;
+package edu.hsog.flat.backend.repository;
 
+import edu.hsog.flat.backend.model.Employee;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;

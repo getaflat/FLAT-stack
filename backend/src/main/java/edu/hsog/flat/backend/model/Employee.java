@@ -1,13 +1,17 @@
-package edu.hsog.flat.backend;
+package edu.hsog.flat.backend.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Table(name = "employees")
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,12 +29,4 @@ public class Employee {
     @NotNull
     @Column(name = "description")
 	private String description;
-
-	private Employee() {}
-
-	public Employee(String firstName, String lastName, String description) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.description = description;
-	}
 }
