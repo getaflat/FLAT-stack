@@ -6,6 +6,7 @@ build
 .mtj.tmp/
 
 # Package Files #
+!gradle-wrapper.jar
 *.jar
 *.war
 *.ear
