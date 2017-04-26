@@ -1,29 +1,57 @@
 import React from 'react';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
-import Home from './Home';
-import Login from './Login';
+import Home from './components/Home';
+import Login from './components/Login';
+
+import api from './api';
 
 class App extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {employees: []};
+    }
+
+    componentDidMount() {
+        api.get('/employee').then(response => {
+            this.setState({
+                employees: response.data._embedded.employee
+            })
+        })
     }
 
     render() {
         return (
-            <div>
-                <ul>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/login">Login</Link></li>
-                </ul>
+            <Router>
+                <div>
+                    <ul>
+                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/login">Login</Link></li>
+                    </ul>
 
-                <hr />
+                    <hr />
 
-                <BrowserRouter>
                     <Route exact path="/" component={Home} />
                     <Route path="/login" component={Login} />
-                </BrowserRouter>
-            </div>
+
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Description</th>
+                            </tr>
+                            {this.state.employees.map((employee, index) =>
+                                <tr key={index}>
+                                    <td>{employee.firstName}</td>
+                                    <td>{employee.lastName}</td>
+                                    <td>{employee.description}</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+            </Router>
         );
     }
 }
