@@ -5,7 +5,7 @@
 Zur Installation des Projektes wird das folgenede Git-Repository mit einem entsprechenden Client heruntergeladen.
 Je nach System ist ein Git-Client über das Terminal zu erreichen. Andernfalls kann auch ein Client mit graphischer Benutzeroberfläche installiert werden.
 
-Zum Beispiel [GitKraken](https://www.gitkraken.com/download). Ein einfacher und übersichtlicher Client der plattformunabhängig verwendet werden kann.
+> Zum Beispiel [GitKraken](https://www.gitkraken.com/download). Ein einfacher und übersichtlicher Client der plattformunabhängig verwendet werden kann.
 
 ```
 git clone https://github.com/getaflat/FLAT-stack.git

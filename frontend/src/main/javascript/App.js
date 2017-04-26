@@ -9,7 +9,7 @@ import api from './api';
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {employees: []};
+        this.state = { employees: [] };
     }
 
     componentDidMount() {
