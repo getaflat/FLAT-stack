@@ -91,3 +91,10 @@ typings/
 
 
 # End of https://www.gitignore.io/api/node
+frontend/src/main/resources/static/dist/bundle\.js
+
+frontend/src/main/resources/static/dist/bundle\.js\.map
+
+gradle/wrapper/gradle-wrapper\.jar
+
+gradle/wrapper/gradle-wrapper\.properties
