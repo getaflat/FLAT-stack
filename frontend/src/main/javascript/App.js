@@ -9,8 +9,11 @@ import Login from './pages/Login';
 import Region from './pages/Region';
 import Register from './pages/Register';
 import User from './pages/User';
+import FeWo from './pages/FeWo';
 
 import Header from './components/Header';
+import Footer from "./components/Footer";
+
 
 class App extends React.Component {
     constructor(props) {
@@ -31,6 +34,9 @@ class App extends React.Component {
                     <Route path="/region" component={Region} />
                     <Route path="/register" component={Register} />
                     <Route path="/user" component={User} />
+                    <Route path="/fewo" component={FeWo} />
+
+                    <Footer />
                 </div>
             </Router>
         );
