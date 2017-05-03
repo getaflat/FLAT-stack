@@ -5,7 +5,7 @@ const SRC = resolve(__dirname, 'src/main/javascript/')
 const DIST = resolve(__dirname, 'src/main/resources/static/dist')
 
 module.exports = {
-    devtool: 'source-map',
+    devtool: 'eval-source-map',
     entry: resolve(SRC, 'index.js'),
     output: {
         path: DIST,
@@ -13,8 +13,36 @@ module.exports = {
     },
     module: {
         loaders: [
-            { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ }
+            {
+                test: /\.jsx?$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                options: { presets: [ ['es2015', { modules: false }], 'react' ]  }
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    {
+                        loader: 'style-loader'
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true,
+                            modules: true,
+                            importLoaders: 1,
+                            localIdentName: '[name]__[local]___[hash:base64:5]'
+                        }
+                    },
+                    {
+                        loader: 'postcss-loader'
+                    }
+                ]
+            }
         ]
+    },
+    resolve: {
+        extensions: ['.js', '.jsx']
     },
     devServer: {
         port: 9090,
