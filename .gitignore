@@ -98,3 +98,5 @@ frontend/src/main/resources/static/dist/bundle\.js\.map
 gradle/wrapper/gradle-wrapper\.jar
 
 gradle/wrapper/gradle-wrapper\.properties
+
+\.DS_Store

@@ -9,10 +9,10 @@ import Login from './pages/Login';
 import Region from './pages/Region';
 import Register from './pages/Register';
 import User from './pages/User';
-import FeWo from './pages/FeWo';
+import FeWo from './pages/FeWo/FeWo';
 
-import Header from './components/Header';
-import Footer from "./components/Footer";
+import Header from './components/Header/Header';
+import Footer from "./components/Footer/Footer";
 
 
 class App extends React.Component {
