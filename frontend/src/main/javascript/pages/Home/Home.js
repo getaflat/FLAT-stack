@@ -1,6 +1,7 @@
 import React from 'react';
 
-import api from '../services/api';
+import api from '../../services/api';
+import './Home.css'
 
 const propTypes = {};
 const defaultProps = {};

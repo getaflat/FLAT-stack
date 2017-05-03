@@ -326,3 +326,8 @@ template {
 [hidden] {
     display: none !important;
 }
+
+#header {
+    display:flex;
+    flex-direction: row;
+}
