@@ -54,36 +54,3 @@ dependencyManagement {
 }
 
 jar.dependsOn bundle
-
-// buildscript {
-//     ext {
-//         springBootVersion = '1.5.3.RELEASE'
-//     }
-//     repositories {
-//         mavenCentral()
-//     }
-//     dependencies {
-//         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-//     }
-// }
-
-// apply plugin: 'java'
-// apply plugin: 'idea'
-// apply plugin: 'org.springframework.boot'
-
-// springBoot {
-//     mainClass = 'edu.hsog.flat.backend.Application'
-// }
-
-// allprojects {
-//     apply plugin: 'java'
-//     apply plugin: 'idea'
-//     apply plugin: 'org.springframework.boot'
-
-//     version = '0.0.1-SNAPSHOT'
-//     sourceCompatibility = 1.8
-
-//     repositories {
-//         mavenCentral()
-//     }
-// }
