@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import styles from './header.css';
+
 class Header extends React.Component {
     constructor(props) {
         super(props);
@@ -8,7 +10,7 @@ class Header extends React.Component {
 
     render() {
         return (
-            <header>
+            <header className={styles.container}>
                 <div id="Logo">
                     <a>Logo</a>
                 </div>

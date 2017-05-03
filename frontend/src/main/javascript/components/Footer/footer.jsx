@@ -1,4 +1,7 @@
 import React from 'react';
+
+import styles from './footer.css';
+
 import { Link } from 'react-router-dom';
 
 class Footer extends React.Component {
@@ -8,7 +11,7 @@ class Footer extends React.Component {
 
     render() {
         return (
-            <footer>
+            <footer className={styles.container}>
                 <hr />
                 <ul>
                     <li><Link to="/imprint">Impressum</Link></li>

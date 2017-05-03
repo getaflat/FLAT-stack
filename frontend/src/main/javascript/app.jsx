@@ -1,18 +1,18 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import Booking from './pages/Booking/Booking';
-import GTC from './pages/GTC/GTC';
-import Home from './pages/Home';
-import Imprint from './pages/Imprint/Imprint';
-import Login from './pages/Login/Login';
-import Region from './pages/Region/Region';
-import Register from './pages/Register/Register';
-import User from './pages/User/User';
-import FeWo from './pages/FeWo/FeWo';
+import Booking from './pages/booking/Booking';
+import GTC from './pages/gtc/GTC';
+import Home from './pages/home';
+import Imprint from './pages/imprint/Imprint';
+import Login from './pages/login/Login';
+import Region from './pages/region/Region';
+import Register from './pages/register/Register';
+import User from './pages/user/User';
+import FeWo from './pages/fewo/FeWo';
 
-import Header from './components/Header/Header';
-import Footer from "./components/Footer/Footer";
+import Header from './components/header/Header';
+import Footer from "./components/footer/Footer";
 
 
 class App extends React.Component {
