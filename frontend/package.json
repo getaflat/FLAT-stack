@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack -p",
-    "dev": "webpack-dev-server",
+    "dev": "webpack-dev-server --progress --hot --inline --watch-poll",
     "test": "mocha --require babel-core/register src/test/javascript/setup.js src/test/javascript/**/*.spec.js"
   },
   "keywords": [],
