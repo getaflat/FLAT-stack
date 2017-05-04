@@ -15,7 +15,7 @@ class Home extends React.Component {
             firstName: '',
             lastName: '',
             description: ''
-        }
+        };
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFirstName = this.handleFirstName.bind(this);
