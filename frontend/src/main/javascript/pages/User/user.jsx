@@ -32,7 +32,7 @@ class User extends React.Component {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <div className={styles.leftDash}>
                     <div className={styles.pictureName}>
-                        <img src='https://placehold.it/300' alt="Userimage" className={styles.userPicture}/>
+                        <img src='http://www.texted.ch/wp-content/uploads/2015/02/Beaty.jpg' alt="Userimage" className={styles.userPicture}/>
                         {this.state.users.map((user) =>
                             <h3>test</h3>)}
                     </div>
@@ -54,11 +54,11 @@ class User extends React.Component {
                             </label>)}<br />
                     </div>
                     <div className={styles.buttons}>
-                        <input type="button" value={"bearbeiten"}/>
-                        <input type="button" value={"bewerten"} />
+                        <button className={styles.button}>bearbeiten</button>
+                        <button className={styles.button}>bewerten</button>
                     </div>
                 </div>
-
+                <hr className={styles.invis}/>
                 <div className={styles.rightDash}>
                     <table className={styles.userTable}>
                         <tbody>
@@ -78,9 +78,10 @@ class User extends React.Component {
                         )}
                         </tbody>
                     </table>
-                    <input type="button" value={"stornieren"}/>
+                    <div className={styles.buttonright}>
+                    <button className={styles.button}>stornieren</button>
+                    </div>
                 </div>
-
             </div>
         );
     }

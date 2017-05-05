@@ -2,13 +2,41 @@
     box-sizing: border-box;
 }
 
-html {
-    font-family: "Lucida Sans", sans-serif;
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: #333333;
+}
+
+.button {
+    border-top: 1px solid #96d1f8;
+    background: lightsteelblue;
+    padding: 6px 12px;
+    margin-right: 10px;
+    margin-top: 5px;
+    border-radius: 6px;
+    box-shadow: rgba(0,0,0,1) 0 1px 0;
+    text-shadow: rgba(0,0,0,.4) 0 1px 0;
+    color: black;
+    font-size: 14px;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+.button:hover {
+    border-top-color: #28597a;
+    background: #28597a;
+    color: #ccc;
+}
+
+.button:active {
+    border-top-color: #1b435e;
+    background: #1b435e;
 }
 
 .wrapper {
-    background-image: linear-gradient(lightcyan, lightblue);
+    background-image: linear-gradient(lightgray, lightblue);
     padding: 15px;
+    width: 100vw;
 }
 
 .wrapper:after {
@@ -28,7 +56,7 @@ html {
 /*              */
 
 .userPicture {
-    max-width: 25%;
+    width: 100%;
     height: auto;
 }
 
@@ -40,20 +68,29 @@ th, td {
     border-bottom: 1px solid black;
 }
 
-tr:nth-child(even) {background-color: lightblue}
-
 th, td {
     text-align: left;
     padding: 3px;
 }
 
 th {
-    background-color: #4CAF50;
+    background-color: lightsteelblue;
     color: white;
 }
 
-.userStats input {
+.userTable {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    margin: 0;
+}
 
+.invis {
+    display: block;
+}
+
+.buttons {
+    padding-bottom: 20px;
 }
 
 @media only screen and (min-width: 600px) {
@@ -63,9 +100,7 @@ th {
     }
 
 
-    .leftDash, .rightDash {
-        padding-left: 15vw;
-    }
+
 }
 
 
@@ -74,23 +109,40 @@ th {
         height: 75vh;
     }
 
+    .userPicture {
+        max-width: 40%;
+        height: auto;
+    }
+
     /* desktop */
     .leftDash {
         width: 50%;
         float: left;
-        padding: 15px;
+        padding: 0px;
+    }
+
+    .buttonright {
+        float: right;
     }
 
     .rightDash {
         width: 50%;
         float: left;
-        padding: 15px;
+        padding: 0px;
+    }
+
+    .invis {
+        display: none;
     }
 
     th, td {
-        padding: 10px;
+        padding: 20px;
     }
 
-    tr:hover {background-color: lightsteelblue}
+    .buttons {
+        padding-top: 10px;
+    }
+
+    tr:hover {background-color: lightgray}
 
 }
