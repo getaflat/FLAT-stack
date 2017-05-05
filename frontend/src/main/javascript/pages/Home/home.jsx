@@ -11,10 +11,12 @@ class Home extends React.Component {
         super(props);
 
         this.state = {
-            employees: [],
-            firstName: '',
-            lastName: '',
-            description: ''
+            user: [],
+            username: '',
+            birthdate: '',
+            password: '',
+            email: '',
+            contractnumber: ''
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,34 +27,36 @@ class Home extends React.Component {
 
     componentDidMount() {
         api.get('/employee').then(({ data }) => {
-            this.setState({ employees: data._embedded.employee });
+            this.setState({ users: data._embedded.employee });
         });
     }
 
     handleSubmit(event) {
         event.preventDefault();
 
-        api.post('/employee', {
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            description: this.state.description
+        api.post('/user', {
+            username: this.state.username,
+            birthdate: this.state.birthdate,
+            password: this.state.password,
+            email: this.state.email,
+            contractnumber: this.state.contractnumber
         }).then(() => {
-            return api.get('/employee')
+            return api.get('/user')
         }).then(({ data }) => {
-            this.setState({ employees: data._embedded.employee });
+            this.setState({ user: data._embedded.user });
         });
     }
 
     handleFirstName(event) {
-        this.setState({ firstName: event.target.value });
+       // this.setState({ firstName: event.target.value });
     }
 
     handleLastName(event) {
-        this.setState({ lastName: event.target.value });
+       // this.setState({ lastName: event.target.value });
     }
 
     handleDescription(event) {
-        this.setState({ description: event.target.value });
+      //  this.setState({ description: event.target.value });
     }
 
     render() {

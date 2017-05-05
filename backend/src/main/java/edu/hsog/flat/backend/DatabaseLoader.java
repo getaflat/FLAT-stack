@@ -1,25 +1,25 @@
 package edu.hsog.flat.backend;
 
-import edu.hsog.flat.backend.repository.EmployeeRepository;
+import edu.hsog.flat.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DatabaseLoader implements CommandLineRunner {
-	private final EmployeeRepository repository;
+	private final UserRepository repository;
 
 	@Autowired
-	public DatabaseLoader(EmployeeRepository repository) {
+	public DatabaseLoader(UserRepository repository) {
 		this.repository = repository;
 	}
 
 	@Override
 	public void run(String... strings) throws Exception {
-		// this.repository.save(new Employee("Katharina", "Schwab", "Teamleiter"));
-		// this.repository.save(new Employee("Carmen", "Schmider", "Frontend"));
-		// this.repository.save(new Employee("Josua", "Weber", "Frontend"));
-		// this.repository.save(new Employee("Tobin", "Choinowski", "Backend"));
-		// this.repository.save(new Employee("Jonas", "Hauß", "Backend"));
+		// this.repository.save(new User("Katharina", "Schwab", "Teamleiter"));
+		// this.repository.save(new User("Carmen", "Schmider", "Frontend"));
+		// this.repository.save(new User("Josua", "Weber", "Frontend"));
+		// this.repository.save(new User("Tobin", "Choinowski", "Backend"));
+		// this.repository.save(new User("Jonas", "Hauß", "Backend"));
 	}
 }

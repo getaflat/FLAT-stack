@@ -32,7 +32,7 @@
     align-self: flex-end;
 }
 
-.buttons button {
+.buttons input {
     margin-left: 10px;
     margin-top:5px
 }

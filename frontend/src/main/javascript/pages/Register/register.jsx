@@ -36,46 +36,45 @@ class Register extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    componentDidMount() {
-        api.get('/employee').then(({ data }) => {
-            this.setState({ employees: data._embedded.employee });
+    /*componentDidMount() {
+        api.get('/user').then(({ data }) => {
+            this.setState({ users: data._embedded.employee });
         });
-    }
+    }*/
 
     handleUserName(event) {
-        alert('name: ' + this.state.username);
-
+        //alert('name: ' + this.state.username);
+        this.setState({username: event.target.value});
     }
 
     handleBirthdate(event) {
-
+        this.setState({birthdate: event.target.value});
     }
 
     handlePassword(event) {
-
+        this.setState({password: event.target.value});
     }
 
     handleEmailAdress(event) {
-
+        this.setState({email: event.target.value});
     }
 
     handleContractNumber(event) {
-
+        this.setState({contractnumber: event.target.value});
     }
 
     handleChange(event) {
-        this.setState({username: event.target.value});
+       /*
         if(this.state.username === "hallo") {
             textInput.style.backgroundColor = "red";
             buttonssa.style.disabled = true;
         }
         else
-            textInput.style.backgroundColor = "white";
+            textInput.style.backgroundColor = "white";*/
     }
 
     handleSubmit(event) {
-       // MyComponent();
-        /*event.preventDefault();
+        event.preventDefault();
 
         api.post('/user', {
             username: this.state.username,
@@ -86,44 +85,46 @@ class Register extends React.Component {
         }).then(() => {
             return api.get('/user')
         }).then(({ data }) => {
-            this.setState({ user: data._embedded.employee });
-        });*/
+            this.setState({ user: data._embedded.user });
+        });
+        alert("name: " + this.state.username + " birt: " + this.state.birthdate + " pass: " + this.state.password + " email: " + this.state.email + " contract: " + this.state.contractnumber)
     }
 
     render() {
         return (
             <div className={styles.wrapper}>
                 <div className={styles.buchung}>
-                    <form onSubmit={this.handleUserName}>
+                    <form onSubmit={this.handleSubmit}>
                         <label>
                             Username:
-                            <input value={this.state.username} ref={(input) => { textInput = input; }} onChange={this.handleChange} type="text" />
+                            <input value={this.state.username} ref={(input) => { textInput = input; }} onChange={this.handleUserName} type="text" />
                         </label>
                         <label>
                             Geburtsdatum:
-                            <input type="text" onChange={this.handleBirthdate}/>
+                            <input value={this.state.birthdate} type="text" onChange={this.handleBirthdate}/>
                         </label>
 
                         <label>
                             Passwort:
-                            <input type="text" onChange={this.handlePassword}/>
+                            <input value={this.state.password} type="password" onChange={this.handlePassword}/>
+                        </label>
+                        <label>
+                            Passwort bestätigen:
+                            <input value={this.state.password} type="password" onChange={this.handlePassword}/>
                         </label>
                         <label>
                             Email Adresse:
-                            <input type="text" onChange={this.handleEmailAdress}/>
+                            <input value={this.state.email} type="text" onChange={this.handleEmailAdress}/>
                         </label>
                         <label>
                             Vertragsnummer:
-                            <input type="text" onChange={this.handleContractNumber}/>
+                            <input value={this.state.contractnumber} type="text" onChange={this.handleContractNumber}/>
                         </label>
 
                         <div className={styles.buttons}>
-                            <button type="reset">
-                                abbrechen
-                            </button>
-                            <button type="submit" ref={(input) => { buttonssa = input; }}>
-                                registrieren
-                            </button>
+                            <input type="reset" />
+                            <input type="submit"/>
+
                         </div>
                     </form>
                 </div>
