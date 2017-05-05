@@ -23,8 +23,8 @@ public class User {
 	private String username;
 
     @NotNull
-    @Column(name = "birtdate")
-	private String birtdate;
+    @Column(name = "birthdate")
+	private String birthdate;
 
     @NotNull
     @Column(name = "password")

@@ -8,11 +8,11 @@ const propTypes = {};
 const defaultProps = {};
 
 let textInput = null;
-let buttonssa = null;
+//let buttonssa = null;
 
-function MyComponent() {
-    textInput.style.backgroundColor = "red";
-}
+//function MyComponent() {
+ //   textInput.style.backgroundColor = "red";
+//}
 
 class Register extends React.Component {
     constructor(props) {
@@ -94,7 +94,7 @@ class Register extends React.Component {
         return (
             <div className={styles.wrapper}>
                 <div className={styles.buchung}>
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={this.handleSubmit} action="/user">
                         <label>
                             Username:
                             <input value={this.state.username} ref={(input) => { textInput = input; }} onChange={this.handleUserName} type="text" />
