@@ -37,4 +37,16 @@ public class User {
     @NotNull
     @Column(name = "contractnumber")
     private String contractnumber;
+
+    @NotNull
+    @Column(name = "firstname")
+    private String firstname;
+
+    @NotNull
+    @Column(name = "lastname")
+    private String lastname;
+
+    @NotNull
+    @Column(name = "score")
+    private String score;
 }

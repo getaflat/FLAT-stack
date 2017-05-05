@@ -1,85 +1,96 @@
-
-
-.wrapper {
-    background-image: linear-gradient(lightgray, lightblue);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    height: 75vh;
+* {
+    box-sizing: border-box;
 }
 
+html {
+    font-family: "Lucida Sans", sans-serif;
+}
+
+.wrapper {
+    background-image: linear-gradient(lightcyan, lightblue);
+    padding: 15px;
+}
+
+.wrapper:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* for mobile   */
 .leftDash {
-    display: flex;
-    flex-direction: column;
-    margin-left: 280px;
-    margin-top: 100px;
+    width: 100%;
 }
 
 .rightDash {
-    display: flex;
-    margin-right: 280px;
-    margin-top: 100px;
+    width: 100%;
+}
+/*              */
+
+.userPicture {
+    max-width: 25%;
+    height: auto;
 }
 
-.buttons {
-    display: flex;
-    justify-content: space-between;
+table {
+    border-collapse: collapse;
 }
 
-.buttons input {
+th, td {
+    border-bottom: 1px solid black;
+}
+
+tr:nth-child(even) {background-color: lightblue}
+
+th, td {
+    text-align: left;
+    padding: 3px;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.userStats input {
 
 }
 
-.pictureName {
-    display: flex;
-    justify-content: space-between;
-}
-
-.userTable {
-    border: double red;
-}
-
-
-/* responsive Handy usw. */
-@media only screen and (max-device-width: 768px) {
+@media only screen and (min-width: 600px) {
+    /* tablet */
     .wrapper {
-        flex-direction: column;
-        align-content: space-between;
-        background-color: lightcyan;
+        width: 100vw;
     }
 
+
+    .leftDash, .rightDash {
+        padding-left: 15vw;
+    }
+}
+
+
+@media only screen and (min-width: 1025px) {
+    .wrapper {
+        height: 75vh;
+    }
+
+    /* desktop */
     .leftDash {
-        width: 100%;
+        width: 50%;
+        float: left;
+        padding: 15px;
     }
 
     .rightDash {
-        width: 100%;
-    }
-
-    .pictureName {
-
-    }
-}
-
-/* responsive Tablet usw. */
-@media only screen and (min-width: 768px) and (max-width: 1250px) {
-    .wrapper {
-        background-color: lightskyblue;
-    }
-
-    .leftDash {
         width: 50%;
-        margin-right: 10%;
-        margin-top: 10%;
+        float: left;
+        padding: 15px;
     }
 
-    .rightDash {
-        width: 50%;
-        margin-right: 10%;
-        margin-top: 10%;
+    th, td {
+        padding: 10px;
     }
 
-    .pictureName {
-        justify-content: flex-start;
-    }
+    tr:hover {background-color: lightsteelblue}
+
 }
