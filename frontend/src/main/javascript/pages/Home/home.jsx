@@ -25,11 +25,11 @@ class Home extends React.Component {
         this.handleDescription = this.handleDescription.bind(this);
     }
 
-    /*componentDidMount() {
+    componentDidMount() {
         api.get('/user').then(({ data }) => {
             this.setState({ users: data._embedded.user });
         });
-    }*/
+    }
 
     handleSubmit(event) {
         event.preventDefault();
