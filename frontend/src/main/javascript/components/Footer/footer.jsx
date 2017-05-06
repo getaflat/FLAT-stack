@@ -16,6 +16,7 @@ class Footer extends React.Component {
                     <li><Link to="/imprint">Impressum</Link></li>
                     <li><Link to="/GTC">Allgemeine Geschäftsbedingungen</Link></li>
                 </ul>
+                <input type="button" value={"bewerten"}/>
 
             </footer>
         );

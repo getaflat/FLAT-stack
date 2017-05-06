@@ -28,13 +28,13 @@ class App extends React.Component {
                 <div className={styles.wrapper}>
                     <Header />
 
-                    <Route exact path="/register" component={Home} />
+                    <Route exact path="/ " component={Home} />
                     <Route path="/booking" component={Booking} />
                     <Route path="/gtc" component={GTC} />
                     <Route path="/imprint" component={Imprint} />
                     <Route path="/login" component={Login} />
                     <Route path="/region" component={Region} />
-                    <Route path="/" component={Register} />
+                    <Route path="/register" component={Register} />
                     <Route path="/user" component={User} />
                     <Route path="/fewo" component={FeWo} />
 

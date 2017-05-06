@@ -53,7 +53,6 @@ class User extends React.Component {
                     </div>
                     <div className={styles.buttons}>
                         <button className={styles.button}>bearbeiten</button>
-                        <button className={styles.button}>bewerten</button>
                     </div>
                 </div>
 

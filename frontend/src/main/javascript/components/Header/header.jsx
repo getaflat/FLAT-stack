@@ -18,7 +18,6 @@ class Header extends React.Component {
 
                 <div className={styles.topnav}>
                     <a><Link to="/">Startseite</Link></a>
-                    <a><Link to="/region">Gebiete</Link></a>
                     <a><Link to="/booking">Buchung</Link></a>
                     <a><Link to="/region">Gebiete</Link></a>
                     <a><Link to="/fewo">Ferienwohnung</Link></a>

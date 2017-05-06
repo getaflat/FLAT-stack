@@ -23,9 +23,12 @@ body {
     text-align: center;
 }
 
-.buchung input {
-    float:left;
-    width:130px;
+.buchung label {
+    width: 160px;
+}
+
+.input {
+    min-width: 250px;
 }
 
 .button {
@@ -41,6 +44,7 @@ body {
     font-size: 14px;
     text-decoration: none;
     vertical-align: middle;
+    min-width: 100px;
 }
 
 .button:hover {

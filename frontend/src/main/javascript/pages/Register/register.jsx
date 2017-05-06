@@ -24,7 +24,9 @@ class Register extends React.Component {
             birthdate: '',
             password: '',
             email: '',
-            contractnumber: ''
+            contractnumber: '',
+            firstname: '',
+            lastname: ''
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,6 +38,7 @@ class Register extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleFirstName = this.handleFirstName.bind(this);
         this.handleLastName = this.handleLastName.bind(this);
+        this.clearInputs = this.clearInputs.bind(this);
     }
 
     /*componentDidMount() {
@@ -63,14 +66,19 @@ class Register extends React.Component {
 
     handleContractNumber(event) {
         this.setState({contractnumber: event.target.value});
+
     }
 
     handleFirstName(event) {
-        this.setState({contractnumber: event.target.value});
+        this.setState({firstname: event.target.value});
     }
 
     handleLastName(event) {
-        this.setState({contractnumber: event.target.value});
+        this.setState({lastname: event.target.value});
+    }
+
+    clearInputs(event) {
+        alert("hi");
     }
 
     handleChange(event) {
@@ -97,7 +105,9 @@ class Register extends React.Component {
         }).then(({ data }) => {
             this.setState({ user: data._embedded.user });
         });
-        alert("name: " + this.state.username + " birt: " + this.state.birthdate + " pass: " + this.state.password + " email: " + this.state.email + " contract: " + this.state.contractnumber)
+        alert("vorname: " + this.state.firstname + " nachname: " + this.state.lastname + " username: " +
+            this.state.username + " birt: " + this.state.birthdate + " pass: " + this.state.password +
+            " email: " + this.state.email + " contract: " + this.state.contractnumber)
     }
 
     render() {
@@ -105,43 +115,42 @@ class Register extends React.Component {
             <div className={styles.wrapper}>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <div className={styles.buchung}>
-                    <form onSubmit={this.handleSubmit} action="/user">
+                    <h3>Registrierung</h3>
+                        <form onSubmit={this.handleSubmit} onReset={this.clearInputs} action="/user">
                         <label>
                             Username:
-                            <input value={this.state.username} ref={(input) => { textInput = input; }} onChange={this.handleUserName} type="text" />
-                        </label><br />
+                        </label>
+                        <input className={styles.input} value={this.state.username} ref={(input) => { textInput = input; }} onChange={this.handleUserName} type="text" /><br />
                         <label>
                             Vorname:
-                            <input value={this.state.birthdate} type="text" onChange={this.handleBirthdate}/>
-                        </label><br />
+                        </label>
+                        <input className={styles.input} value={this.state.firstname} type="text" onChange={this.handleFirstName}/><br />
                         <label>
                             Nachname:
-                            <input value={this.state.birthdate} type="text" onChange={this.handleBirthdate}/>
-                        </label><br />
+                        </label>
+                        <input className={styles.input} value={this.state.lastname} type="text" onChange={this.handleLastName}/><br />
                         <label>
                             Geburtsdatum:
-                            <input value={this.state.birthdate} type="text" onChange={this.handleBirthdate}/>
-                        </label><br />
+                        </label>
+                        <input className={styles.input} value={this.state.birthdate} type="date" onChange={this.handleBirthdate}/><br />
                         <label>
                             Passwort:
-                            <input value={this.state.password} type="password" onChange={this.handlePassword}/>
-                        </label><br />
+                        </label>
+                        <input className={styles.input} value={this.state.password} type="password" onChange={this.handlePassword}/><br />
                         <label>
-                            Passwort bestätigen:
-                            <input value={this.state.password} type="password" onChange={this.handlePassword}/>
-                        </label><br />
+                            bestätigen:
+                        </label>
+                        <input className={styles.input} type="password" onChange={this.handlePassword}/><br />
                         <label>
                             Email Adresse:
-                            <input value={this.state.email} type="text" onChange={this.handleEmailAdress}/>
-                        </label><br />
+                        </label>
+                        <input className={styles.input} value={this.state.email} type="text" onChange={this.handleEmailAdress}/><br />
                         <label>
                             Vertragsnummer:
-                            <input value={this.state.contractnumber} type="text" onChange={this.handleContractNumber}/>
                         </label>
-                        <div className={styles.buttonright}>
-                            <button className={styles.button}>abbrechen</button>
-                            <button className={styles.button}>senden</button>
-                        </div>
+                        <input className={styles.input} value={this.state.contractnumber} type="text" onChange={this.handleContractNumber}/><br />
+                        <input className={styles.button} type="reset" name="abbrechen"/>
+                        <button className={styles.button}>senden</button>
                     </form>
                 </div>
             </div>
