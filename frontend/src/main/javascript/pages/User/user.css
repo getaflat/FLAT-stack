@@ -9,7 +9,7 @@ body {
 
 .button {
     border-top: 1px solid #96d1f8;
-    background: lightsteelblue;
+    background: white;
     padding: 6px 12px;
     margin-right: 10px;
     margin-top: 5px;
@@ -23,8 +23,8 @@ body {
 }
 
 .button:hover {
-    border-top-color: #28597a;
-    background: #28597a;
+    border-top-color: white;
+    background: lightcyan;
     color: #ccc;
 }
 
@@ -34,11 +34,10 @@ body {
 }
 
 .wrapper {
-    background-image: linear-gradient(lightgray, lightblue);
-    padding: 15px;
     width: 100vw;
+    background-color: cadetblue;
+    padding: 15px;
 }
-
 .wrapper:after {
     content: "";
     clear: both;
@@ -60,31 +59,6 @@ body {
     height: auto;
 }
 
-table {
-    border-collapse: collapse;
-}
-
-th, td {
-    border-bottom: 1px solid black;
-}
-
-th, td {
-    text-align: left;
-    padding: 3px;
-}
-
-th {
-    background-color: lightsteelblue;
-    color: white;
-}
-
-.userTable {
-    width: 100%;
-    height: auto;
-    padding: 0;
-    margin: 0;
-}
-
 .invis {
     display: block;
 }
@@ -93,42 +67,103 @@ th {
     padding-bottom: 20px;
 }
 
+.tg  {
+    border-collapse:collapse;
+    border-spacing:0;
+    border-color:#aabcfe;
+    margin:0 auto;
+}
+
+.tg td{
+    font-family:Arial, sans-serif;
+    font-size:14px;
+    padding:10px 5px;
+    overflow:hidden;
+    word-break:normal;
+    color: black;
+    background: white;
+    border: 1px solid #aabcfe;
+    border-right-width: 0;
+    border-left-width: 0;
+}
+
+.tg th{
+    font-family:Arial, sans-serif;
+    font-size:14px;
+    font-weight:normal;
+    padding:10px 5px;
+    overflow:hidden;
+    word-break:normal;
+    color:#039;
+    background-color:lightgray;
+    border: 1px solid #aabcfe;
+    border-right-width: 0;
+    border-left-width: 0;
+}
+
+.tg .tgyw4l{
+    vertical-align: top;
+}
+
+.tg {
+    width: 100%;
+}
+
+.tg col {
+    width: auto !important;
+}
+
+.tgwrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: auto 0;
+}
+
+.check {
+    width: 10%;
+}
+
+
 @media only screen and (min-width: 600px) {
     /* tablet */
     .wrapper {
         width: 100vw;
     }
-
-
-
 }
 
 
 @media only screen and (min-width: 1025px) {
     .wrapper {
-        height: 75vh;
+        height: 83vh;
+        padding-top: 30px;
+        padding-right: 60px;
+        padding-left: 60px;
+
     }
 
     .userPicture {
-        max-width: 40%;
+        max-width: 100%;
         height: auto;
     }
 
     /* desktop */
     .leftDash {
-        width: 50%;
+        width: 20%;
         float: left;
-        padding: 0px;
+    }
+
+    .rightDash {
+        width: 80%;
+        float: left;
+    }
+
+    .tg {
+        margin-right: 0 !important;
+        width: 70%;
     }
 
     .buttonright {
         float: right;
-    }
-
-    .rightDash {
-        width: 50%;
-        float: left;
-        padding: 0px;
     }
 
     .invis {
@@ -143,6 +178,9 @@ th {
         padding-top: 10px;
     }
 
-    tr:hover {background-color: lightgray}
+    .button {
+        margin-right: 0;
+    }
 
+    tr:hover {background-color: lightgray}
 }
