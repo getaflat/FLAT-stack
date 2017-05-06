@@ -14,8 +14,8 @@ body {
     margin-right: 10px;
     margin-top: 5px;
     border-radius: 6px;
-    box-shadow: rgba(0,0,0,1) 0 1px 0;
-    text-shadow: rgba(0,0,0,.4) 0 1px 0;
+    box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+    text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
     color: black;
     font-size: 14px;
     text-decoration: none;
@@ -38,6 +38,7 @@ body {
     background-color: cadetblue;
     padding: 15px;
 }
+
 .wrapper:after {
     content: "";
     clear: both;
@@ -52,34 +53,24 @@ body {
 .rightDash {
     width: 100%;
 }
-/*              */
-
-.userPicture {
-    width: 100%;
-    height: auto;
-}
-
-.invis {
-    display: block;
-}
 
 .buttons {
     padding-bottom: 20px;
 }
 
-.tg  {
-    border-collapse:collapse;
-    border-spacing:0;
-    border-color:#aabcfe;
-    margin:0 auto;
+.tg {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-color: #aabcfe;
+    margin: 0 auto;
 }
 
-.tg td{
-    font-family:Arial, sans-serif;
-    font-size:14px;
-    padding:10px 5px;
-    overflow:hidden;
-    word-break:normal;
+.tg td {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    padding: 10px 5px;
+    overflow: hidden;
+    word-break: normal;
     color: black;
     background: white;
     border: 1px solid #aabcfe;
@@ -87,21 +78,21 @@ body {
     border-left-width: 0;
 }
 
-.tg th{
-    font-family:Arial, sans-serif;
-    font-size:14px;
-    font-weight:normal;
-    padding:10px 5px;
-    overflow:hidden;
-    word-break:normal;
-    color:#039;
-    background-color:lightgray;
+.tg th {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    padding: 10px 5px;
+    overflow: hidden;
+    word-break: normal;
+    color: #039;
+    background-color: lightgray;
     border: 1px solid #aabcfe;
     border-right-width: 0;
     border-left-width: 0;
 }
 
-.tg .tgyw4l{
+.tg .tgyw4l {
     vertical-align: top;
 }
 
@@ -115,7 +106,6 @@ body {
 
 .tgwrap {
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
     margin: auto 0;
 }
 
@@ -123,27 +113,31 @@ body {
     width: 10%;
 }
 
-
 @media only screen and (min-width: 600px) {
     /* tablet */
     .wrapper {
         width: 100vw;
+        height: 83vh;
+        padding: 30px;
+    }
+
+    .tg {
+        margin-right: 0 !important;
+        width: 70%;
+        float: left;
     }
 }
-
 
 @media only screen and (min-width: 1025px) {
     .wrapper {
         height: 83vh;
-        padding-top: 30px;
+        padding-top: 10px;
         padding-right: 60px;
         padding-left: 60px;
-
     }
 
-    .userPicture {
-        max-width: 100%;
-        height: auto;
+    .test {
+
     }
 
     /* desktop */
@@ -155,11 +149,11 @@ body {
     .rightDash {
         width: 80%;
         float: left;
+        padding-top: 40px;
     }
 
     .tg {
-        margin-right: 0 !important;
-        width: 70%;
+        float: right;
     }
 
     .buttonright {
@@ -182,5 +176,7 @@ body {
         margin-right: 0;
     }
 
-    tr:hover {background-color: lightgray}
+    tr:hover {
+        background-color: lightgray
+    }
 }
