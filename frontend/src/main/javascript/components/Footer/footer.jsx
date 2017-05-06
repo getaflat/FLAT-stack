@@ -12,7 +12,6 @@ class Footer extends React.Component {
     render() {
         return (
             <footer className={styles.container}>
-                <hr />
                 <ul>
                     <li><Link to="/imprint">Impressum</Link></li>
                     <li><Link to="/GTC">Allgemeine Geschäftsbedingungen</Link></li>

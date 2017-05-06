@@ -39,7 +39,7 @@ class User extends React.Component {
                     <div className={styles.userStats}>
                         {this.state.users.map((user) =>
                             <label>Vorname: {user.email} \
-                            </label>)}<br />
+                            </label>)}<br /><hr />
                         {this.state.users.map((user) =>
                             <label>Nachname: {user.email} \
                             </label>)}<br />
