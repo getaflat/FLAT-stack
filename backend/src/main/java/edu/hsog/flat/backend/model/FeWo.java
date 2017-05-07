@@ -30,19 +30,6 @@ public class FeWo {
     @Column(name = "Verfuegbar")
     private Boolean Verfuegbar;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "BildID")
-    private Long BildID1;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "BildID")
-    private Long BildID2;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "BildID")
-    @Column(name = "bildID3")
-    private Long BildID3;
-
     @NotNull
     @Column(name = "Name")
     private String Name;

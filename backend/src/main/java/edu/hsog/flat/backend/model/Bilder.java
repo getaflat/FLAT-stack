@@ -22,6 +22,10 @@ public class Bilder {
     @Column(name = "BildID")
     private Long BildID;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "FeWoID")
+    private Long FeWoID;
+
     @NotNull
     @Column(name = "Bild")
     private Image Bild;
