@@ -5,7 +5,6 @@ import api from '../../services/api';
 import * as ReactDOM from "react-dom";
 
 const propTypes = {};
-
 const defaultProps = {};
 
 class Register extends React.Component {
@@ -13,10 +12,11 @@ class Register extends React.Component {
         super(props);
 
         this.state = {
-            user: [],
+            customer: [],
             username: '',
             birthdate: '',
             password: '',
+            reppassword: '',
             email: '',
             contractnumber: '',
             firstname: '',
@@ -27,23 +27,15 @@ class Register extends React.Component {
         this.handleUserName = this.handleUserName.bind(this);
         this.handleBirthdate = this.handleBirthdate.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
+        this.handleRepPassword = this.handleRepPassword.bind(this);
         this.handleEmailAdress = this.handleEmailAdress.bind(this);
         this.handleContractNumber = this.handleContractNumber.bind(this);
-        this.handleChange = this.handleChange.bind(this);
         this.handleFirstName = this.handleFirstName.bind(this);
         this.handleLastName = this.handleLastName.bind(this);
         this.clearInputs = this.clearInputs.bind(this);
     }
 
-    /*componentDidMount() {
-        api.get('/user').then(({ data }) => {
-            this.setState({ users: data._embedded.employee });
-        });
-    }*/
-
     handleUserName(event) {
-        if(event.target.value < 5)
-            ReactDOM.findDOMNode(this.refs.myInput).style.borderColor = "red";
         this.setState({username: event.target.value});
     }
 
@@ -55,13 +47,16 @@ class Register extends React.Component {
         this.setState({password: event.target.value});
     }
 
+    handleRepPassword(event) {
+        this.setState({reppassword: event.target.value});
+    }
+
     handleEmailAdress(event) {
         this.setState({email: event.target.value});
     }
 
     handleContractNumber(event) {
         this.setState({contractnumber: event.target.value});
-
     }
 
     handleFirstName(event) {
@@ -76,44 +71,62 @@ class Register extends React.Component {
         this.setState({username: ''});
         this.setState({birthdate: ''});
         this.setState({password: ''});
+        this.setState({reppassword: ''});
         this.setState({email: ''});
         this.setState({contractnumber: ''});
         this.setState({firstname: ''});
         this.setState({lastname: ''});
         ReactDOM.findDOMNode(this.refs.usernameInput).focus();
-        ReactDOM.findDOMNode(this.refs.firstnameInput).focus();
-        ReactDOM.findDOMNode(this.refs.birthdateInput).focus();
-        ReactDOM.findDOMNode(this.refs.passwordInput).focus();
-        ReactDOM.findDOMNode(this.refs.passwordrepInput).focus();
-        ReactDOM.findDOMNode(this.refs.emailInput).focus();
-        ReactDOM.findDOMNode(this.refs.lastnameInput).focus();
-        ReactDOM.findDOMNode(this.refs.contractnumberInput).focus();
-    }
-
-    handleChange(event) {
-       /*
-        if(this.state.username === "hallo") {
-            textInput.style.backgroundColor = "red";
-            buttonssa.style.disabled = true;
-        }
-        else
-            textInput.style.backgroundColor = "white";*/
     }
 
     handleSubmit(event) {
+        let m = 0;
         event.preventDefault();
+        ReactDOM.findDOMNode(this.refs.usernameInput).style.borderColor = "black";
+        ReactDOM.findDOMNode(this.refs.firstnameInput).style.borderColor = "black";
+        ReactDOM.findDOMNode(this.refs.lastnameInput).style.borderColor = "black";
+        ReactDOM.findDOMNode(this.refs.birthdateInput).style.borderColor = "black";
+        ReactDOM.findDOMNode(this.refs.passwordInput).style.borderColor = "black";
+        ReactDOM.findDOMNode(this.refs.passwordrepInput).style.borderColor = "black";
+        ReactDOM.findDOMNode(this.refs.emailInput).style.borderColor = "black";
+        ReactDOM.findDOMNode(this.refs.contractnumberInput).style.borderColor = "black";
 
-        api.post('/user', {
-            username: this.state.username,
-            birthdate: this.state.birthdate,
-            password: this.state.password,
+        /*if(this.state.password !== this.state.reppassword) {
+            this.clearInputs();
+            ReactDOM.findDOMNode(this.refs.passwordInput).style.borderColor = "red";
+            ReactDOM.findDOMNode(this.refs.passwordrepInput).style.borderColor = "red";
+            m = 1;
+        }*/
+        if(this.state.username === '1000000'/* vorhanden */) {
+            ReactDOM.findDOMNode(this.refs.usernameInput).style.borderColor = "red";
+            m = 1;
+        }
+        if(this.state.contractnumber === '1000000'/* vorhanden */) {
+            ReactDOM.findDOMNode(this.refs.contractnumberInput).style.borderColor = "red";
+            m = 1;
+        }
+        if(this.state.email === '1000000'/* vorhanden */) {
+            ReactDOM.findDOMNode(this.refs.emailInput).style.borderColor = "red";
+            m = 1;
+        }
+        if(m === 1)
+            return;
+
+        alert(" : " + this.state.username + " : " + this.state.birthdate + " : " + this.state.password + " : " + this.state.email + " : " + this.state.contractnumber);
+        api.post('/customer', {
+            contract_number: this.state.contractnumber,
+            date_of_birth: this.state.birthdate,
             email: this.state.email,
-            contractnumber: this.state.contractnumber
-        }).then(() => {
-            return api.get('/user')
+            first_name: this.state.firstname,
+            last_name: this.state.lastname,
+            password: this.state.password,
+            total_score: 0,
+            username: this.state.username
+        });/*.then(() => {
+            return api.get('/customer')
         }).then(({ data }) => {
-            this.setState({ user: data._embedded.user });
-        });
+            this.setState({ customer: data._embedded.customer });
+        });*/
     }
 
     render() {
@@ -146,7 +159,7 @@ class Register extends React.Component {
                         <label>
                             bestätigen:
                         </label>
-                        <input className={styles.input} type="password" ref = "passwordrepInput" onChange={this.handlePassword}/><br />
+                        <input className={styles.input} value={this.state.reppassword} type="password" ref = "passwordrepInput" onChange={this.handleRepPassword}/><br />
                         <label>
                             Email Adresse:
                         </label>

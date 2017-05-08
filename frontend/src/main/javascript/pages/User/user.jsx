@@ -1,4 +1,5 @@
 import React from 'react';
+import Modal from 'react-modal';
 import styles from './user.css';
 import api from '../../services/api';
 
@@ -33,7 +34,6 @@ class User extends React.Component {
         };
 
         this.handleStorno = this.handleStorno.bind(this);
-        this.handleEdit = this.handleEdit.bind(this);
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
         this.handleCloseModalSave = this.handleCloseModalSave.bind(this);
@@ -51,14 +51,14 @@ class User extends React.Component {
         this.setState({showModal: false});
         event.preventDefault();
 
-        api.post('/user', {     // tabelle noch anpassen
+        api.post('/Customer', {     // tabelle noch anpassen
             username: this.state.username,
             birthdate: this.state.birthdate,
             password: this.state.password,
             email: this.state.email,
             contractnumber: this.state.contractnumber
         }).then(() => {
-            return api.get('/user')
+            return api.get('/Customer')
         }).then(({ data }) => {
             this.setState({ user: data._embedded.user });
         });
@@ -66,11 +66,11 @@ class User extends React.Component {
 
     handleStorno(event) {
         //if(ReactDOM.findDOMNode(this.refs.checkbox).checked === true) {   // weiß nicht, welches hier besser ist
-        if (event.target.value === true) {
-            api.delete('/booking?name=' + this.state.name).then(({data}) => {
-                this.setState({bookings: data._embedded.booking});
+       /* if (event.target.value === true) {
+            api.delete('/Booking?bookingId=' + this.state.name).then(({data}) => {
+                this.setState({bookings: data._embedded.Booking});
             });
-        }
+        }*/
     }
 
 componentDidMount()
@@ -79,18 +79,18 @@ componentDidMount()
      this.setState({users: data._embedded.user});
      });*/
 
-    api.get('/booking').then(({data}) => {
+    /*api.get('/booking').then(({data}) => {
         this.setState({bookings: data._embedded.booking});
-    });
+    });*/
 
-    api.get('/user?').then(({data}) => {
+    /*api.get('/customer').then(({data}) => {
         this.setState({loggedIn: data._embedded.user});
-    });
-    this.state.firstname = loggedIn.firstname;
+    });*/
+   /* this.state.firstname = loggedIn.firstname;
     this.state.lastname = loggedIn.lastname;
     this.state.firstname = loggedIn.firstname;
     this.state.email = loggedIn.email;
-    this.state.contractnumber = loggedIn.contractnumber;
+    this.state.contractnumber = loggedIn.contractnumber;*/
 }
 
 render()
@@ -146,7 +146,7 @@ render()
                             <th className={styles.tgyw4l}>Status</th>
                             <th className={styles.tgyw4l}>Auswahl</th>
                         </tr>
-                        {this.state.bookings.map((booking, index) =>
+                        /*{this.state.bookings.map((booking, index) =>
                             <tr key={index}>
                                 <td>{booking.name}</td>
                                 <td>{booking.start}</td>
@@ -154,7 +154,7 @@ render()
                                 <td>{booking.status}</td>
                                 <td className={styles.check} ref="checkbox"><input type="checkbox"/></td>
                             </tr>
-                        )}
+                        )}*/
                     </table>
                 </div>
                 <div className={styles.buttonright}>
