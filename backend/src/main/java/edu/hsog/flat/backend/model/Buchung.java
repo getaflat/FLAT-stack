@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 /**
  * Created by tobin on 07.05.17.
@@ -24,12 +25,12 @@ public class Buchung {
     @NotNull
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "Vertragsnummer")
-    private Long Vertragsnummer;
+    private Set<Long> Vertragsnummer;
 
     @NotNull
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "FeWoID")
-    private Long FeWoID;
+    private Set<Long> FeWoID;
 
     @NotNull
     @Column(name = "Woche1")

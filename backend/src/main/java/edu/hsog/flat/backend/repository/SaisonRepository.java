@@ -9,5 +9,5 @@ import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "Saison", path = "Saison")
 public interface SaisonRepository extends CrudRepository<Saison, Long> {
-    List<Saison> findByKW(@Param("name") String name);
+    List<Saison> findByFaktorID(@Param("name") String name);
 }
