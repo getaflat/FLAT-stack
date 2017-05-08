@@ -14,27 +14,17 @@ class Header extends React.Component {
                 <div>
                     <a>Logo</a>
                 </div>
-                <div>
-                    <ul>
-                        <li><Link to="/login">Login</Link></li>
-                        <li><Link to="/register">Registrieren</Link></li>
-                    </ul>
-                    <ul>
-                        <li><Link to="/User">Dashboard</Link></li>
-                        <div id="punkte">Punkteanzeige</div>
-                    </ul>
-                </div>
-                <nav>
-                    <li><Link to="/">Startseite</Link></li>
-                    <li><Link to="/region">Gebiete</Link></li>
-                </nav>
 
-                <ul>
-                    <li><Link to="/booking">Buchung</Link></li>
-                    <li><Link to="/region">Gebiete</Link></li>
-                    <li><Link to="/fewo">Ferienwohnung</Link></li>
-                </ul>
-                <hr />
+
+                <div className={styles.topnav}>
+                    <a><Link to="/">Startseite</Link></a>
+                    <a><Link to="/booking">Buchung</Link></a>
+                    <a><Link to="/region">Gebiete</Link></a>
+                    <a><Link to="/fewo">Ferienwohnung</Link></a>
+                    <a><Link to="/login">Login</Link></a>
+                    <a><Link to="/register">Registrieren</Link></a>
+                    <a><Link to="/User">Dashboard</Link></a>
+                </div>
             </header>
         );
     }

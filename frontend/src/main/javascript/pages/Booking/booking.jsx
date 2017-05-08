@@ -3,6 +3,7 @@ import React from 'react';
 const propTypes = {};
 
 const defaultProps = {};
+import styles from './booking.css'
 
 class Booking extends React.Component {
     constructor(props) {
@@ -11,7 +12,7 @@ class Booking extends React.Component {
 
     render() {
         return (
-            <wrapper>
+            <div className={styles.wrapper}>
                 <h1>Buchung</h1>
                 <div id="FeWoT&B">Text & Bild</div>
                 <div id="Buchung">
@@ -44,7 +45,7 @@ class Booking extends React.Component {
                         </button>
                     </form>
                 </div>
-            </wrapper>
+            </div>
 
         );
     }

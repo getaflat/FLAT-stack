@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './login.css';
 
 const propTypes = {};
 
@@ -10,7 +11,11 @@ class Login extends React.Component {
     }
 
     render() {
-        return (<h1>Login</h1>);
+        return (
+            <div className={styles.wrapper}>
+                <h1>Login</h1>
+            </div>
+        );
     }
 }
 

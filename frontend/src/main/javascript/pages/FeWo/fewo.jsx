@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './fewo.css';
 
 const propTypes = {};
 
@@ -11,7 +12,7 @@ class FeWo extends React.Component {
 
     render() {
         return (
-           <wrapper>
+           <div className={styles.wrapper}>
                <h1>FeWo Default Seite</h1>
                <div id="Bilder">
                    <div id="großesBild">
@@ -25,7 +26,7 @@ class FeWo extends React.Component {
                        <a>blablabla</a>
                    </div>
                </div>
-           </wrapper>
+           </div>
         );
     }
 }

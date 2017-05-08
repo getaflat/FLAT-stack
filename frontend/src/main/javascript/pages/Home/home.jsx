@@ -2,6 +2,7 @@ import React from 'react';
 
 import api from '../../services/api';
 import './Home.css'
+import styles from './home.css';
 
 const propTypes = {};
 const defaultProps = {};
@@ -25,11 +26,11 @@ class Home extends React.Component {
         this.handleDescription = this.handleDescription.bind(this);
     }
 
-    /*componentDidMount() {
+    componentDidMount() {
         api.get('/user').then(({ data }) => {
             this.setState({ users: data._embedded.user });
         });
-    }*/
+    }
 
     handleSubmit(event) {
         event.preventDefault();
@@ -61,7 +62,7 @@ class Home extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className={styles.wrapper}>
                 <h1>Startseite</h1>
 
                 <form onSubmit={this.handleSubmit}>

@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './imprint.css';
 
 const propTypes = {};
 
@@ -11,7 +12,7 @@ class Imprint extends React.Component {
 
     render() {
         return (
-            <div id="wrapper">
+            <div className={styles.wrapper}>
 
                 <h1>Impressum</h1>
                 <p>
