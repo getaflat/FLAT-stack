@@ -20,7 +20,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class Kunde {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Vetragsnummer")
     private Long Vertragsnummer;
 
