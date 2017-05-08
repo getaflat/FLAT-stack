@@ -7,7 +7,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 /**
  * Created by hauss on 08.05.2017.
  */
-@RepositoryRestResource(collectionResourceRel = "factor", path = "factor")
+@RepositoryRestResource(collectionResourceRel = "factors", path = "factors")
 public interface FactorRepository extends CrudRepository<Factor, Long> {
 
 }

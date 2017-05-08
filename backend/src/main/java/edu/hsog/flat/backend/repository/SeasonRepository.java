@@ -7,7 +7,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 /**
  * Created by hauss on 08.05.2017.
  */
-@RepositoryRestResource(collectionResourceRel = "season", path = "season")
+@RepositoryRestResource(collectionResourceRel = "seasons", path = "seasons")
 public interface SeasonRepository extends CrudRepository<Season, Long> {
 
 }

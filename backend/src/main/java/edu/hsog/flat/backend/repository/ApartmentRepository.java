@@ -7,7 +7,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 /**
  * Created by hauss on 08.05.2017.
  */
-@RepositoryRestResource(collectionResourceRel = "apartment", path = "apartment")
+@RepositoryRestResource(collectionResourceRel = "apartments", path = "apartments")
 public interface ApartmentRepository extends CrudRepository<Apartment, Long> {
 
 }

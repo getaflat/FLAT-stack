@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by hauss on 08.05.2017.
  */
-@RepositoryRestResource(collectionResourceRel = "customer", path = "customer")
+@RepositoryRestResource(collectionResourceRel = "customers", path = "customers")
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
     Customer findByContractNumber(@Param("contract_number") Long contractNumber);
     // List<Customer> findByLastName(String lastName);
