@@ -16,19 +16,53 @@ let email = null;
 class User extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {users: []};
+        this.state = {
+            bookings: [],
+            loggedIn: [],
+            firstname: '',
+            lastname: '',
+            contractnumber: '',
+            email: '',
+            birthdate: '',
+            name: '',
+            start: '',
+            end: '',
+            status: ''
+        };
 
-        this.handleChange = this.handleChange.bind(this);
+        this.handleStorno = this.handleStorno.bind(this);
+        this.handleEdit = this.handleEdit.bind(this);
     }
 
-    handleChange(event) {
-        email.disabled = false;
+    handleStorno(event) {
+        if(ReactDOM.findDOMNode(this.refs.checkbox).checked === true) {
+            api.delete('/booking?name=' + this.state.name).then(({data}) => {
+                this.setState({bookings: data._embedded.booking});
+            });
+        }
+    }
+
+    handleEdit(event) {
+
     }
 
     componentDidMount() {
-        api.get('/user').then(({data}) => {
+        /*api.get('/user').then(({data}) => {
             this.setState({users: data._embedded.user});
+        });*/
+
+        api.get('/booking').then(({data}) => {
+            this.setState({bookings: data._embedded.booking});
         });
+
+        api.get('/user?').then(({data}) => {
+            this.setState({loggedIn: data._embedded.user});
+        });
+        this.state.firstname = loggedIn.firstname;
+        this.state.lastname = loggedIn.lastname;
+        this.state.firstname = loggedIn.firstname;
+        this.state.email = loggedIn.email;
+        this.state.contractnumber = loggedIn.contractnumber;
     }
 
     render() {
@@ -40,19 +74,19 @@ class User extends React.Component {
                     <h3>tWiedler</h3>
                     <hr />
                     <div className={styles.userStats}>
-                        <label>Vorname: Thomas
+                        <label>Vorname: {this.state.firstname}
                         </label><br />
-                        <label>Nachname: Wiedler
+                        <label>Nachname: {this.state.lastname}
                         </label><br />
-                        <label>Vertragsnummer: 123412341234
+                        <label>Vertragsnummer: {this.state.contractnumber}
                         </label><br />
-                        <label>Email-Adresse: test@gmail.com
+                        <label>Email-Adresse: {this.state.email}
                         </label><br />
-                        <label>Geburtsdatum: 19.11.1994
+                        <label>Geburtsdatum: {this.state.birthdate}
                         </label><br />
                     </div>
                     <div className={styles.buttons}>
-                        <button className={styles.button}>bearbeiten</button>
+                        <button onClick={this.handleEdit} className={styles.button}>bearbeiten</button>
                     </div>
                 </div>
 
@@ -65,18 +99,19 @@ class User extends React.Component {
                                 <th className={styles.tgyw4l}>Status</th>
                                 <th className={styles.tgyw4l}>Auswahl</th>
                             </tr>
-                            {this.state.users.map((user, index) =>
+                            {this.state.bookings.map((booking, index) =>
                                 <tr key={index}>
-                                    <td>{user.email}</td>
-                                    <td>{user.birthdate}</td>
-                                    <td>{user.email}</td>
-                                    <td className={styles.check}><input type="checkbox"/></td>
+                                    <td>{booking.name}</td>
+                                    <td>{booking.start}</td>
+                                    <td>{booking.end}</td>
+                                    <td>{booking.status}</td>
+                                    <td className={styles.check} ref="checkbox"><input type="checkbox"/></td>
                                 </tr>
                             )}
                         </table>
                     </div>
                     <div className={styles.buttonright}>
-                        <button className={styles.button}>stornieren</button>
+                        <button onClick={this.handleStorno} className={styles.button}>stornieren</button>
                     </div>
                 </div>
             </div>

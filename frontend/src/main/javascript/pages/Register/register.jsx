@@ -2,17 +2,11 @@ import React from 'react';
 
 import styles from './register.css';
 import api from '../../services/api';
+import * as ReactDOM from "react-dom";
 
 const propTypes = {};
 
 const defaultProps = {};
-
-let textInput = null;
-//let buttonssa = null;
-
-//function MyComponent() {
- //   textInput.style.backgroundColor = "red";
-//}
 
 class Register extends React.Component {
     constructor(props) {
@@ -48,7 +42,8 @@ class Register extends React.Component {
     }*/
 
     handleUserName(event) {
-        //alert('name: ' + this.state.username);
+        if(event.target.value < 5)
+            ReactDOM.findDOMNode(this.refs.myInput).style.borderColor = "red";
         this.setState({username: event.target.value});
     }
 
@@ -77,8 +72,22 @@ class Register extends React.Component {
         this.setState({lastname: event.target.value});
     }
 
-    clearInputs(event) {
-        alert("hi");
+    clearInputs() {
+        this.setState({username: ''});
+        this.setState({birthdate: ''});
+        this.setState({password: ''});
+        this.setState({email: ''});
+        this.setState({contractnumber: ''});
+        this.setState({firstname: ''});
+        this.setState({lastname: ''});
+        ReactDOM.findDOMNode(this.refs.usernameInput).focus();
+        ReactDOM.findDOMNode(this.refs.firstnameInput).focus();
+        ReactDOM.findDOMNode(this.refs.birthdateInput).focus();
+        ReactDOM.findDOMNode(this.refs.passwordInput).focus();
+        ReactDOM.findDOMNode(this.refs.passwordrepInput).focus();
+        ReactDOM.findDOMNode(this.refs.emailInput).focus();
+        ReactDOM.findDOMNode(this.refs.lastnameInput).focus();
+        ReactDOM.findDOMNode(this.refs.contractnumberInput).focus();
     }
 
     handleChange(event) {
@@ -105,9 +114,6 @@ class Register extends React.Component {
         }).then(({ data }) => {
             this.setState({ user: data._embedded.user });
         });
-        alert("vorname: " + this.state.firstname + " nachname: " + this.state.lastname + " username: " +
-            this.state.username + " birt: " + this.state.birthdate + " pass: " + this.state.password +
-            " email: " + this.state.email + " contract: " + this.state.contractnumber)
     }
 
     render() {
@@ -120,35 +126,35 @@ class Register extends React.Component {
                         <label>
                             Username:
                         </label>
-                        <input className={styles.input} value={this.state.username} ref={(input) => { textInput = input; }} onChange={this.handleUserName} type="text" /><br />
+                        <input className={styles.input} value={this.state.username} ref = "usernameInput" onChange={this.handleUserName} type="text" /><br />
                         <label>
                             Vorname:
                         </label>
-                        <input className={styles.input} value={this.state.firstname} type="text" onChange={this.handleFirstName}/><br />
+                        <input className={styles.input} value={this.state.firstname} ref = "firstnameInput" type="text" onChange={this.handleFirstName}/><br />
                         <label>
                             Nachname:
                         </label>
-                        <input className={styles.input} value={this.state.lastname} type="text" onChange={this.handleLastName}/><br />
+                        <input className={styles.input} value={this.state.lastname} ref = "lastnameInput" type="text" onChange={this.handleLastName}/><br />
                         <label>
                             Geburtsdatum:
                         </label>
-                        <input className={styles.input} value={this.state.birthdate} type="date" onChange={this.handleBirthdate}/><br />
+                        <input className={styles.input} value={this.state.birthdate} ref = "birthdateInput" type="date" onChange={this.handleBirthdate}/><br />
                         <label>
                             Passwort:
                         </label>
-                        <input className={styles.input} value={this.state.password} type="password" onChange={this.handlePassword}/><br />
+                        <input className={styles.input} value={this.state.password} ref = "passwordInput" type="password" onChange={this.handlePassword}/><br />
                         <label>
                             bestätigen:
                         </label>
-                        <input className={styles.input} type="password" onChange={this.handlePassword}/><br />
+                        <input className={styles.input} type="password" ref = "passwordrepInput" onChange={this.handlePassword}/><br />
                         <label>
                             Email Adresse:
                         </label>
-                        <input className={styles.input} value={this.state.email} type="text" onChange={this.handleEmailAdress}/><br />
+                        <input className={styles.input} value={this.state.email} type="text" ref = "emailInput" onChange={this.handleEmailAdress}/><br />
                         <label>
                             Vertragsnummer:
                         </label>
-                        <input className={styles.input} value={this.state.contractnumber} type="text" onChange={this.handleContractNumber}/><br />
+                        <input className={styles.input} value={this.state.contractnumber} type="text" ref = "contractnumberInput" onChange={this.handleContractNumber}/><br />
                         <input className={styles.button} type="reset" name="abbrechen"/>
                         <button className={styles.button}>senden</button>
                     </form>
