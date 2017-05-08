@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.awt.*;
+import java.util.Set;
 
 /**
  * Created by tobin on 07.05.17.
@@ -24,7 +25,7 @@ public class Saison {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "FaktorID")
-    private Long FaktorID;
+    private Set<Long> FaktorID;
 
 
 

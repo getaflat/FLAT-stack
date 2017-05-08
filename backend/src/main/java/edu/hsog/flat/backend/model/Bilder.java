@@ -30,7 +30,4 @@ public class Bilder {
     @Column(name = "Bild")
     private Image Bild;
 
-
-
-
 }
