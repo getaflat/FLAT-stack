@@ -22,7 +22,7 @@ public class Bilder {
     @Column(name = "BildID")
     private Long BildID;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, targetEntity = FeWo.class)
     @JoinColumn(name = "FeWoID")
     private Long FeWoID;
 

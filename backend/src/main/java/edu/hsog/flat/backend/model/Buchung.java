@@ -23,12 +23,12 @@ public class Buchung {
     private Long BuchungsID;
 
     @NotNull
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Kunde.class)
     @JoinColumn(name = "Vertragsnummer")
     private Set<Long> Vertragsnummer;
 
     @NotNull
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = FeWo.class)
     @JoinColumn(name = "FeWoID")
     private Set<Long> FeWoID;
 

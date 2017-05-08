@@ -23,7 +23,7 @@ public class FeWo {
     private Long FeWoID;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Komplex.class)
     @JoinColumn(name = "KomplexID")
     private Long KomplexID;
 

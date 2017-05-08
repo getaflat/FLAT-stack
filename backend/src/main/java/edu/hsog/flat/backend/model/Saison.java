@@ -23,7 +23,7 @@ public class Saison {
     @Column(name = "KW")
     private Integer KW;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Faktor.class)
     @JoinColumn(name = "FaktorID")
     private Set<Long> FaktorID;
 
