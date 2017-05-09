@@ -25,6 +25,7 @@ body {
 
 .buchung label {
     width: 160px;
+    max-width: 100%;
 }
 
 .input {
@@ -56,10 +57,6 @@ body {
 .button:active {
     border-top-color: #1b435e;
     background: #1b435e;
-}
-
-.buchung label {
-    max-width: 100%;
 }
 
 @media only screen and (min-width: 600px) {

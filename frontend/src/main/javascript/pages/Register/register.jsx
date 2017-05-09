@@ -152,7 +152,7 @@ class Register extends React.Component {
                             Geburtsdatum:
                         </label>
                         <input className={styles.input} value={this.state.birthdate} ref = "birthdateInput" type="date" onChange={this.handleBirthdate}/><br />
-                        <label>
+                        <label>sad
                             Passwort:
                         </label>
                         <input className={styles.input} value={this.state.password} ref = "passwordInput" type="password" onChange={this.handlePassword}/><br />

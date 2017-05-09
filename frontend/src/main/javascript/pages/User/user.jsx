@@ -1,7 +1,7 @@
 import React from 'react';
-//import Modal from 'react-modal';
 import styles from './user.css';
 import api from '../../services/api';
+import Modal from '../../components/Modal/modal';
 
 const propTypes = {};
 const defaultProps = {};
@@ -16,6 +16,7 @@ class User extends React.Component {
             firstname: '',
             lastname: '',
             password: '',
+            username: '',
             contractnumber: '',
             email: '',
             birthdate: '',
@@ -23,33 +24,115 @@ class User extends React.Component {
             start: '',
             end: '',
             status: '',
-            showModal: false
+            isModalOpen: false,
+            vname: '',
+            nname: '',
+            vnum: '',
+            emaddr: '',
+            bday: '',
+            pw: ''
         };
-
         this.handleStorno = this.handleStorno.bind(this);
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
         this.handleCloseModalSave = this.handleCloseModalSave.bind(this);
+        this.handleUserName = this.handleUserName.bind(this);
+        this.handleBirthdate = this.handleBirthdate.bind(this);
+        this.handlePassword = this.handlePassword.bind(this);
+        this.handleRepPassword = this.handleRepPassword.bind(this);
+        this.handleEmailAdress = this.handleEmailAdress.bind(this);
+        this.handleContractNumber = this.handleContractNumber.bind(this);
+        this.handleFirstName = this.handleFirstName.bind(this);
+        this.handleLastName = this.handleLastName.bind(this);
+        this.handlevname = this.handlevname.bind(this);
+        this.handlenname = this.handlenname.bind(this);
+        this.handlebday = this.handlebday.bind(this);
+        this.handleemaddr = this.handleemaddr.bind(this);
+        this.handlepw = this.handlepw.bind(this);
+        this.handlevnum = this.handlevnum.bind(this);
+    }
+
+    handleUserName(event) {
+        this.setState({username: event.target.value});
+    }
+
+    handleBirthdate(event) {
+        this.setState({birthdate: event.target.value});
+    }
+
+    handlePassword(event) {
+        this.setState({password: event.target.value});
+    }
+
+    handleRepPassword(event) {
+        this.setState({reppassword: event.target.value});
+    }
+
+    handleEmailAdress(event) {
+        this.setState({email: event.target.value});
+    }
+
+    handleContractNumber(event) {
+        this.setState({contractnumber: event.target.value});
+    }
+
+    handleFirstName(event) {
+        this.setState({firstname: event.target.value});
+    }
+
+    handleLastName(event) {
+        this.setState({lastname: event.target.value});
     }
 
     handleOpenModal() {
-        this.setState({showModal: true});
+        this.setState({isModalOpen: true})
     }
 
     handleCloseModal() {
-        this.setState({showModal: false});
+        this.setState({isModalOpen: false})
+    }
+
+    handlevname(event) {
+        this.setState({vname: event.target.value});
+    }
+
+    handlenname(event) {
+        this.setState({nname: event.target.value});
+    }
+
+    handlevnum(event) {
+        this.setState({vnum: event.target.value});
+    }
+
+    handleemaddr(event) {
+        this.setState({emaddr: event.target.value});
+    }
+
+    handlebday(event) {
+        this.setState({bday: event.target.value});
+    }
+
+    handlepw(event) {
+        this.setState({pw: event.target.value});
     }
 
     handleCloseModalSave() {
         this.setState({showModal: false});
         event.preventDefault();
+        this.state.firstname = this.state.vname;
+        this.state.lastname = this.state.nname;
+        this.state.contractnumber = this.state.vnum;
+        this.state.email = this.state.emaddr;
+        this.state.birthdate = this.state.bday;
+        this.state.password = this.state.pw;
 
         api.post('/Customer', {     // tabelle noch anpassen
-            username: this.state.username,
-            birthdate: this.state.birthdate,
-            password: this.state.password,
+            contract_number: this.state.contractnumber,
+            date_of_birth: this.state.birthdate,
             email: this.state.email,
-            contractnumber: this.state.contractnumber
+            first_name: this.state.firstname,
+            last_name: this.state.lastname,
+            password: this.state.password
         }).then(() => {
             return api.get('/Customer')
         }).then(({data}) => {
@@ -83,6 +166,12 @@ class User extends React.Component {
         this.state.firstname = loggedIn.firstname;
         this.state.email = loggedIn.email;
         this.state.contractnumber = loggedIn.contractnumber;
+        this.state.vname = this.state.firstname;
+        this.state.nname = this.state.lastname;
+        this.state.bday = this.state.birthdate;
+        this.state.emaddr = this.state.email;
+        this.state.pw = this.state.password;
+        this.state.vnum = this.state.contractnumber;
     }
 
     render() {
@@ -104,6 +193,35 @@ class User extends React.Component {
                         <label>Geburtsdatum: {this.state.birthdate}
                         </label><br />
                     </div>
+
+                    <Modal isOpen={this.state.isModalOpen} onClose={() => this.handleCloseModal}>
+                        <div className={styles.buchung}>
+                            <h1>User bearbeiten</h1>
+                            <form onSubmit={this.handleCloseModalSave}>
+                                <label>Vorname: </label>
+                                <input value={this.state.vname} className={styles.input} onChange={this.handlevname}
+                                       type="text"/><br />
+                                <label>Nachname: </label>
+                                <input value={this.state.nname} className={styles.input} onChange={this.handlenname}
+                                       type="text"/><br />
+                                <label>Vertragsnummer: </label>
+                                <input value={this.state.vnum} className={styles.input} onChange={this.handlevnum}
+                                       type="text"/><br />
+                                <label>Email: </label>
+                                <input value={this.state.emaddr} className={styles.input} onChange={this.handleemaddr}
+                                       type="text"/><br />
+                                <label>Geburtsdatum: </label>
+                                <input value={this.state.bday} className={styles.input} onChange={this.handlebday}
+                                       type="text"/><br />
+                                <label>Passwort: </label>
+                                <input value={this.state.pw} className={styles.input} onChange={this.handlepw}
+                                       type="text"/><br />
+                                <button onClick={this.handleCloseModal}>abbrechen</button>
+                                <button onClick={this.handleCloseModalSave}>speichern</button>
+                            </form>
+                        </div>
+                    </Modal>
+
                     <div className={styles.buttons}>
                         <button onClick={this.handleOpenModal} className={styles.button}>bearbeiten</button>
                     </div>
@@ -139,26 +257,6 @@ class User extends React.Component {
     }
 }
 
-/*
- <ReactModal isOpen={this.state.showModal} contentLabel="bearbeiten der user Daten">
- <form onSubmit={this.handleSubmit} action="/user">
- <label>Vorname: </label>
- <input value={this.state.firstname} type="text"/>
- <label>Nachname: </label>
- <input value={this.state.lastname} type="text"/>
- <label>Vertragsnummer: </label>
- <input value={this.state.contractnumber} type="text"/>
- <label>Email: </label>
- <input value={this.state.email} type="text"/>
- <label>Geburtsdatum: </label>
- <input value={this.state.birthdate} type="text"/>
- <label>Passwort: </label>
- <input value={this.state.password} type="text"/>
- <button onClick={this.handleCloseModal}>abbrechen</button>
- <button onClick={this.handleCloseModalSave}>speichern</button>
- </form>
- </ReactModal>
- */
 
 User.propTypes = propTypes;
 User.defaultProps = defaultProps;
