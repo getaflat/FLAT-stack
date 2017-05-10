@@ -7,7 +7,6 @@ import lombok.*;
 @Entity
 @Data
 @RequiredArgsConstructor
-@NoArgsConstructor
 public class Season {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
