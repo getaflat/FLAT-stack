@@ -4,10 +4,7 @@ import lombok.*;
 
 import org.hibernate.validator.constraints.Email;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -18,24 +15,25 @@ import java.util.List;
 public class Customer {
 	@Id
 	@NonNull
-	@Getter @Setter private Long contractNumber;
+	private Long contractNumber;
 
-	@OneToMany(mappedBy = "contractNumber", targetEntity = Rating.class, fetch= FetchType.EAGER)
-	@Getter @Setter private List<Rating> ratings;
+	@OneToMany(mappedBy = "bookingId", targetEntity = Booking.class, fetch=FetchType.EAGER)
+	private List<Long> bookingId;
 
-	@NonNull
-	@Getter @Setter private String lastName;
 
 	@NonNull
-	@Getter @Setter private String firstName;
+	private String lastName;
 
 	@NonNull
-	@Getter @Setter private Date dateOfBirth;
+	private String firstName;
+
+	@NonNull
+	private Date dateOfBirth;
 
 	@Email
-	@Getter @Setter private String email;
+	private String email;
 
-	@Getter @Setter private String username;
-	@Getter @Setter private String password;
-	@Getter @Setter private Integer totalScore;
+	private String username;
+	private String password;
+	private Integer totalScore;
 }

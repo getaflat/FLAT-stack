@@ -1,23 +1,24 @@
 package edu.hsog.flat.backend.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity
+@Data
+@RequiredArgsConstructor
+@NoArgsConstructor
 public class Rating {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	@Getter @Setter private Long ratingId;
+	private Long ratingId;
 
 	@NonNull
-	@Getter @Setter private Long contractNumber;
+	@OneToOne(mappedBy = "contractNumber", targetEntity = Customer.class, fetch= FetchType.EAGER)
+	private Long contractNumber;
 
 	@NonNull
-	@Getter @Setter private Double score;
+	private Double score;
 
-	@Getter @Setter private String comment;
+	private String comment;
 }

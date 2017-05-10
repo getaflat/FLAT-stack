@@ -13,12 +13,13 @@ import javax.validation.constraints.NotNull;
 public class Image {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	@Getter @Setter private Long imageId;
+	private Long imageId;
 
 	@NonNull
-	@Getter @Setter private Long apartmentId;
+	@ManyToOne (targetEntity = Apartment.class, fetch = FetchType.EAGER)
+	private Long apartmentId;
 
 	@NonNull
 	@Lob
-	@Getter @Setter private Byte[] image;
+	private Image image;
 }

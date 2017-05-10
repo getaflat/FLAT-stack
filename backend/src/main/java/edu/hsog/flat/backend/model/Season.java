@@ -1,17 +1,18 @@
 package edu.hsog.flat.backend.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 import lombok.*;
 
 @Entity
+@Data
+@RequiredArgsConstructor
+@NoArgsConstructor
 public class Season {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	@Getter @Setter private Integer calenderWeek;
+	private Integer calenderWeek;
 
-
-	@Getter @Setter private Long factorId;
+	@ManyToOne(targetEntity = Factor.class, fetch = FetchType.EAGER)
+	private Long factorId;
 }

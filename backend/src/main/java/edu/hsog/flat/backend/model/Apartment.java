@@ -15,34 +15,35 @@ public class Apartment {
 	private Long apartmentId;
 
 	@OneToMany(mappedBy = "apartmentId", targetEntity = Image.class, fetch=FetchType.EAGER)
-	@Getter @Setter private List<Image> images;
+	private List<Image> images;
 
 	@NonNull
-	@Getter @Setter private Long residentialBlockId;
+	@ManyToOne(targetEntity = ResidentialBlock.class, fetch = FetchType.EAGER)
+	private Long residentialBlockId;
 
 	@NonNull
-	@Getter @Setter private Boolean isAvailable;
+	private Boolean isAvailable;
 
 	@NonNull
-	@Getter @Setter private String name;
+	private String name;
 
 	@NonNull
-	@Getter @Setter private Integer numberOfRooms;
+	private Integer numberOfRooms;
 
-	@Getter @Setter private Double size;
-
-	@NonNull
-	@Getter @Setter private Integer numberOfPersons;
+	private Double size;
 
 	@NonNull
-	@Getter @Setter private Integer basePrice;
+	private Integer numberOfPersons;
 
 	@NonNull
-	@Getter @Setter private Boolean hasBalcony;
+	private Integer basePrice;
 
 	@NonNull
-	@Getter @Setter private Boolean animalsAllowed;
+	private Boolean hasBalcony;
 
 	@NonNull
-	@Getter @Setter private Boolean infantsAllowed;
+	private Boolean animalsAllowed;
+
+	@NonNull
+	private Boolean infantsAllowed;
 }

@@ -5,29 +5,40 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
+@Data
+@RequiredArgsConstructor
+@NoArgsConstructor
 public class Booking {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	@Getter @Setter private Long bookingId;
+	private Long bookingId;
 
 	@NonNull
-	@Getter @Setter private Long contractNumber;
+	@ManyToOne(targetEntity = Customer.class, fetch= FetchType.EAGER)
+	private Long contractNumber;
 
 	@NonNull
-	@Getter @Setter private Long aparmentId;
+    @ManyToOne(targetEntity = Apartment.class, fetch =  FetchType.EAGER)
+	private Long aparmentId;
 
 	@NonNull
-	@Getter @Setter private Integer week1;
+    @ManyToOne(targetEntity = Season.class, fetch = FetchType.EAGER)
+	private Integer week1;
 
-	@Getter @Setter private Integer week2;
-	@Getter @Setter private Integer week3;
-	@Getter @Setter private Integer week4;
+    @ManyToOne(targetEntity = Season.class, fetch = FetchType.EAGER)
+    private Integer week2;
+
+    @ManyToOne(targetEntity = Season.class, fetch = FetchType.EAGER)
+	private Integer week3;
+
+    @ManyToOne(targetEntity = Season.class, fetch = FetchType.EAGER)
+	private Integer week4;
 
 	@NonNull
-	@Getter @Setter private Integer price;
+	private Integer price;
 
-	@Getter @Setter private Float additionalCharge;
+	private Float additionalCharge;
 
 	@NonNull
-	@Getter @Setter private String status;
+	private String status;
 }

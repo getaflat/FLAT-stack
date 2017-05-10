@@ -2,17 +2,21 @@ package edu.hsog.flat.backend.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
+@Data
+@RequiredArgsConstructor
+@NoArgsConstructor
 public class Factor {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	@Getter @Setter private Long factorId;
+	private Long factorId;
+
+	@OneToMany(mappedBy = "calenderWeek", targetEntity = Setter.class, fetch = FetchType.EAGER)
+	private List<Integer> calenderWeek;
 
 	@NonNull
 	private Double value;
