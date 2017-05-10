@@ -1,32 +1,33 @@
 package edu.hsog.flat.backend.model;
 
+import lombok.*;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 public class Booking {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	private Long bookingId;
+	@Getter @Setter private Long bookingId;
 
-	@NotNull
-	private Long contractNumber;
+	@NonNull
+	@Getter @Setter private Long contractNumber;
 
-	@NotNull
-	private Long aparmentId;
+	@NonNull
+	@Getter @Setter private Long aparmentId;
 
-	@NotNull
-	private Integer week1;
-	
-	private Integer week2;
-	private Integer week3;
-	private Integer week4;
+	@NonNull
+	@Getter @Setter private Integer week1;
 
-	@NotNull
-	private Integer price;
+	@Getter @Setter private Integer week2;
+	@Getter @Setter private Integer week3;
+	@Getter @Setter private Integer week4;
 
-	private Float additionalCharge;
+	@NonNull
+	@Getter @Setter private Integer price;
 
-	@NotNull
-	private String status;
+	@Getter @Setter private Float additionalCharge;
+
+	@NonNull
+	@Getter @Setter private String status;
 }

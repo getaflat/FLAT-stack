@@ -5,18 +5,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import lombok.*;
 
 @Entity
 public class Rating {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	private Long ratingId;
+	@Getter @Setter private Long ratingId;
 
-	@NotNull
-	private Long contractNumber;
+	@NonNull
+	@Getter @Setter private Long contractNumber;
 
-	@NotNull
-	private Double score;
+	@NonNull
+	@Getter @Setter private Double score;
 
-	private String comment;
+	@Getter @Setter private String comment;
 }

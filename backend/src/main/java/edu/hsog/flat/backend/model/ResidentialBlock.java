@@ -1,9 +1,6 @@
 package edu.hsog.flat.backend.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,24 +12,24 @@ import java.util.List;
 public class ResidentialBlock {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	private Long residentialBlockId;
+	@Getter @Setter private Long residentialBlockId;
 
 	@OneToMany(mappedBy = "residentialBlockId", targetEntity = Apartment.class, fetch=FetchType.EAGER)
-	private List<Apartment> apartments;
+	@Getter @Setter private List<Apartment> apartments;
 
 	@NonNull
-	private String name;
+	@Getter @Setter private String name;
 
 	@NonNull
-	private String details;
+	@Getter @Setter private String details;
 
 	@NonNull
 	@Lob
-	private Byte[] image1;
+	@Getter @Setter private Byte[] image1;
 
 	@Lob
-	private Byte[] image2;
+	@Getter @Setter private Byte[] image2;
 
 	@Lob
-	private Byte[] image3;
+	@Getter @Setter private Byte[] image3;
 }

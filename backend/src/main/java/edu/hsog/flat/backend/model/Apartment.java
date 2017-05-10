@@ -1,9 +1,6 @@
 package edu.hsog.flat.backend.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,34 +15,34 @@ public class Apartment {
 	private Long apartmentId;
 
 	@OneToMany(mappedBy = "apartmentId", targetEntity = Image.class, fetch=FetchType.EAGER)
-	private List<Image> images;
+	@Getter @Setter private List<Image> images;
 
 	@NonNull
-	private Long residentialBlockId;
+	@Getter @Setter private Long residentialBlockId;
 
 	@NonNull
-	private Boolean isAvailable;
+	@Getter @Setter private Boolean isAvailable;
 
 	@NonNull
-	private String name;
+	@Getter @Setter private String name;
 
 	@NonNull
-	private Integer numberOfRooms;
+	@Getter @Setter private Integer numberOfRooms;
 
-	private Double size;
-
-	@NonNull
-	private Integer numberOfPersons;
+	@Getter @Setter private Double size;
 
 	@NonNull
-	private Integer basePrice;
+	@Getter @Setter private Integer numberOfPersons;
 
 	@NonNull
-	private Boolean hasBalcony;
+	@Getter @Setter private Integer basePrice;
 
 	@NonNull
-	private Boolean animalsAllowed;
+	@Getter @Setter private Boolean hasBalcony;
 
 	@NonNull
-	private Boolean infantsAllowed;
+	@Getter @Setter private Boolean animalsAllowed;
+
+	@NonNull
+	@Getter @Setter private Boolean infantsAllowed;
 }

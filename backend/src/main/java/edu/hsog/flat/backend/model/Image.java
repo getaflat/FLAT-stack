@@ -1,9 +1,6 @@
 package edu.hsog.flat.backend.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,12 +13,12 @@ import javax.validation.constraints.NotNull;
 public class Image {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	private Long imageId;
+	@Getter @Setter private Long imageId;
 
 	@NonNull
-	private Long apartmentId;
+	@Getter @Setter private Long apartmentId;
 
 	@NonNull
 	@Lob
-	private Byte[] image;
+	@Getter @Setter private Byte[] image;
 }

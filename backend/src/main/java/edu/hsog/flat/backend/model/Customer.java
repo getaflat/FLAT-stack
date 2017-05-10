@@ -1,10 +1,7 @@
 package edu.hsog.flat.backend.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
-import lombok.RequiredArgsConstructor;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.Entity;
@@ -21,24 +18,24 @@ import java.util.List;
 public class Customer {
 	@Id
 	@NonNull
-	private Long contractNumber;
+	@Getter @Setter private Long contractNumber;
 
 	@OneToMany(mappedBy = "contractNumber", targetEntity = Rating.class, fetch= FetchType.EAGER)
-	private List<Rating> ratings;
+	@Getter @Setter private List<Rating> ratings;
 
 	@NonNull
-	private String lastName;
+	@Getter @Setter private String lastName;
 
 	@NonNull
-	private String firstName;
+	@Getter @Setter private String firstName;
 
 	@NonNull
-	private Date dateOfBirth;
+	@Getter @Setter private Date dateOfBirth;
 
 	@Email
-	private String email;
+	@Getter @Setter private String email;
 
-	private String username;
-	private String password;
-	private Integer totalScore;
+	@Getter @Setter private String username;
+	@Getter @Setter private String password;
+	@Getter @Setter private Integer totalScore;
 }
