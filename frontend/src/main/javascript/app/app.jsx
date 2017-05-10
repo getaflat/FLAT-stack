@@ -28,8 +28,8 @@ class App extends React.Component {
                 <div className={styles.wrapper}>
                     <Header />
 
-                    <Route exact path="/booking" component={Home} />
-                    <Route path="/" component={Booking} />
+                    <Route exact path="/ " component={Home} />
+                    <Route path="/booking" component={Booking} />
                     <Route path="/gtc" component={GTC} />
                     <Route path="/imprint" component={Imprint} />
                     <Route path="/login" component={Login} />

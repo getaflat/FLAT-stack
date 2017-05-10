@@ -82,14 +82,14 @@ class Register extends React.Component {
     handleSubmit(event) {
         let m = 0;
         event.preventDefault();
-        ReactDOM.findDOMNode(this.refs.usernameInput).style.border = "none";
+      /*  ReactDOM.findDOMNode(this.refs.usernameInput).style.border = "none";
         ReactDOM.findDOMNode(this.refs.firstnameInput).style.border = "none";
         ReactDOM.findDOMNode(this.refs.lastnameInput).style.border = "none";
         ReactDOM.findDOMNode(this.refs.birthdateInput).style.border = "none";
         ReactDOM.findDOMNode(this.refs.passwordInput).style.border = "none";
         ReactDOM.findDOMNode(this.refs.passwordrepInput).style.border = "none";
         ReactDOM.findDOMNode(this.refs.emailInput).style.style.border = "none";
-        ReactDOM.findDOMNode(this.refs.contractnumberInput).style.border = "none";
+        ReactDOM.findDOMNode(this.refs.contractnumberInput).style.border = "none";*/
 
         /*if(this.state.password !== this.state.reppassword) {
             this.clearInputs();
@@ -97,23 +97,23 @@ class Register extends React.Component {
             ReactDOM.findDOMNode(this.refs.passwordrepInput).style.borderColor = "red";
             m = 1;
         }*/
-        if(this.state.username === '1000000'/* vorhanden */) {
+       /* if(this.state.username === '1000000' vorhanden ) {
             ReactDOM.findDOMNode(this.refs.usernameInput).style.borderColor = "red";
             m = 1;
         }
-        if(this.state.contractnumber === '1000000'/* vorhanden */) {
+        if(this.state.contractnumber === '1000000' vorhanden ) {
             ReactDOM.findDOMNode(this.refs.contractnumberInput).style.borderColor = "red";
             m = 1;
         }
-        if(this.state.email === '1000000'/* vorhanden */) {
+        if(this.state.email === '1000000' vorhanden ) {
             ReactDOM.findDOMNode(this.refs.emailInput).style.borderColor = "red";
             m = 1;
         }
         if(m === 1)
-            return;
+            return;*/
 
         alert(" : " + this.state.username + " : " + this.state.birthdate + " : " + this.state.password + " : " + this.state.email + " : " + this.state.contractnumber);
-        api.post('/customer', {
+        api.post('/customers', {
             contract_number: this.state.contractnumber,
             date_of_birth: this.state.birthdate,
             email: this.state.email,

@@ -20,8 +20,8 @@ class Booking extends React.Component {
             <div className={styles.wrapper}>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <h1>Buchung</h1>
-                <div id="FeWoT&B">Text & Bild</div>
-                <div className={styles.buchung}>
+                <div className={styles.leftBooking}>Text & Bild</div>
+                <div className={styles.rightBooking}>
                     <form onSubmit={this.handleSubmit}>
                         <label>
                             Anzahl Personen:

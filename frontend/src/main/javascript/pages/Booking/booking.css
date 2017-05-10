@@ -19,13 +19,19 @@ body {
     display: table;
 }
 
-.buchung {
-    text-align: right;
+/* for mobile   */
+.rightBooking {
+    width: 100%;
+    border: 1px solid red;
 }
 
-.buchung label {
+.rightBooking label {
     width: 160px;
     max-width: 100%;
+}
+
+.leftBooking {
+    width: 100%;
 }
 
 .input {
@@ -66,7 +72,7 @@ body {
         height: 83vh;
     }
 
-    .buchung {
+    .rightBooking {
         padding-top: 80px;
     }
 }
@@ -80,8 +86,16 @@ body {
         padding-left: 60px;
     }
 
-    .buchung {
-        padding-top: 150px;
+
+    .rightBooking {
+        width: 50%;
+        float: left;
     }
+
+    .leftBooking {
+        width: 50%;
+        float: left;
+    }
+
 }
 
