@@ -82,14 +82,14 @@ class Register extends React.Component {
     handleSubmit(event) {
         let m = 0;
         event.preventDefault();
-        ReactDOM.findDOMNode(this.refs.usernameInput).style.borderColor = "black";
-        ReactDOM.findDOMNode(this.refs.firstnameInput).style.borderColor = "black";
-        ReactDOM.findDOMNode(this.refs.lastnameInput).style.borderColor = "black";
-        ReactDOM.findDOMNode(this.refs.birthdateInput).style.borderColor = "black";
-        ReactDOM.findDOMNode(this.refs.passwordInput).style.borderColor = "black";
-        ReactDOM.findDOMNode(this.refs.passwordrepInput).style.borderColor = "black";
-        ReactDOM.findDOMNode(this.refs.emailInput).style.borderColor = "black";
-        ReactDOM.findDOMNode(this.refs.contractnumberInput).style.borderColor = "black";
+        ReactDOM.findDOMNode(this.refs.usernameInput).style.border = "none";
+        ReactDOM.findDOMNode(this.refs.firstnameInput).style.border = "none";
+        ReactDOM.findDOMNode(this.refs.lastnameInput).style.border = "none";
+        ReactDOM.findDOMNode(this.refs.birthdateInput).style.border = "none";
+        ReactDOM.findDOMNode(this.refs.passwordInput).style.border = "none";
+        ReactDOM.findDOMNode(this.refs.passwordrepInput).style.border = "none";
+        ReactDOM.findDOMNode(this.refs.emailInput).style.style.border = "none";
+        ReactDOM.findDOMNode(this.refs.contractnumberInput).style.border = "none";
 
         /*if(this.state.password !== this.state.reppassword) {
             this.clearInputs();
