@@ -26,12 +26,16 @@ class Login extends React.Component {
         this.setState({password: event.target.value});
     }
 
-    handleSubmit(event) {
-
+    handleSubmit() {
+        api.get('/customers?username='+this.state.username).then(({data}) => {
+            this.setState({loggedIn: data._embedded.user});
+        });
     }
 
     clearInputs(event) {
-
+        this.setState({username: ''});
+        this.setState({password: ''});
+        ReactDOM.findDOMNode(this.refs.usernameInput).focus();
     }
 
     render() {

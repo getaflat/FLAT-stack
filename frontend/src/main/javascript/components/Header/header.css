@@ -1,35 +1,94 @@
-.container {
-    display: flex;
-    flex-direction: row;
-    height: 7vh;
-    width: 100vw;
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: #333333;
+}
+
+Input {
+    border-color: black;
+}
+
+.wrapper {
     background-color: #333;
 }
 
-/* Add a black background color to the top navigation */
-.topnav {
-    background-color: #333;
-    overflow: hidden;
-}
-
-/* Style the links inside the navigation bar */
-.topnav a {
-    float: left;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-}
-
-/* Change the color of links on hover */
-.topnav a:hover {
-    background-color: #ddd;
+.button {
+    border-top: 1px solid #96d1f8;
+    background: white;
+    padding: 2px 4px;
+    margin-right: 5px;
+    margin-top: 2px;
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+    text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
     color: black;
+    font-size: 12px;
+    text-decoration: none;
+    vertical-align: middle;
 }
 
-/* Hide the link that should open and close the topnav on small screens */
-.topnav .icon {
-    display: none;
+.logo {
+    float: left;
+}
+
+.buttons {
+    float: right;
+}
+
+.userData {
+    float: right;
+    color: white;
+}
+
+.button:hover {
+    border-top-color: white;
+    background: lightcyan;
+    color: #ccc;
+}
+
+.button:active {
+    border-top-color: #1b435e;
+    background: #1b435e;
+}
+
+.topnav {
+    
+}
+
+
+@media only screen and (min-width: 600px) {
+    /* tablet */
+    .wrapper {
+
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    .wrapper {
+        height: 7vh;
+        width: 100vw;
+    }
+
+    /* desktop */
+    .leftDash {
+        width: 20%;
+        float: left;
+    }
+
+    .rightDash {
+        width: 80%;
+        float: left;
+        padding-top: 40px;
+    }
+
+    .buttons {
+        padding-top: 10px;
+    }
+
+    .button {
+        margin-right: 0;
+    }
 }
