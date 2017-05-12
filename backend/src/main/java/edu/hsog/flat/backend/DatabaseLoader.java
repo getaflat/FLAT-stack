@@ -1,24 +1,40 @@
 package edu.hsog.flat.backend;
 
+import edu.hsog.flat.backend.model.Customer;
+import edu.hsog.flat.backend.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DatabaseLoader implements CommandLineRunner {
-	// private final KundeRepository repository;
+	private final CustomerRepository cRepository;
 
 	@Autowired
-	public DatabaseLoader(/*KundeRepository repository*/) {
-		// this.repository = repository;
+	public DatabaseLoader(CustomerRepository cRepository) {
+		this.cRepository = cRepository;
 	}
 
 	@Override
 	public void run(String... strings) throws Exception {
-		// this.repository.save(new Kunde("Katharina", "Schwab", "Teamleiter"));
-		// this.repository.save(new Kunde("Carmen", "Schmider", "Frontend"));
-		// this.repository.save(new Kunde("Josua", "Weber", "Frontend"));
-		// this.repository.save(new Kunde("Tobin", "Choinowski", "Backend"));
-		// this.repository.save(new Kunde("Jonas", "Hauß", "Backend"));
+		Customer c = new Customer();
+		c.setContractNumber(123456789001L);
+		 this.cRepository.save(c);
+		c.setContractNumber(123456789002L);
+		 this.cRepository.save(c);
+		c.setContractNumber(123456789003L);
+		this.cRepository.save(c);
+		c.setContractNumber(123456789004L);
+		this.cRepository.save(c);
+		c.setContractNumber(123456789005L);
+		this.cRepository.save(c);
+		c.setContractNumber(123456789006L);
+		this.cRepository.save(c);
+		c.setContractNumber(123456789008L);
+		this.cRepository.save(c);
+		c.setContractNumber(123456789009L);
+		this.cRepository.save(c);
+		c.setContractNumber(123456789010L);
+		this.cRepository.save(c);
 	}
 }

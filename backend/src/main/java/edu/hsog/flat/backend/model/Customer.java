@@ -21,17 +21,12 @@ public class Customer {
 	@OneToMany(mappedBy = "bookingId", targetEntity = Booking.class, fetch=FetchType.EAGER)
 	private List<Long> bookingIds;
 
-
-	@NonNull
 	private String lastName;
 
-	@NonNull
 	private String firstName;
 
-	@NonNull
 	private Date dateOfBirth;
 
-	@Email
 	private String email;
 
 	private String username;
