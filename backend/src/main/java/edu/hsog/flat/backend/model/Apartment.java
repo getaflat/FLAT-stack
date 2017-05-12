@@ -14,11 +14,11 @@ public class Apartment {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long apartmentId;
 
-	@OneToMany(mappedBy = "apartmentId", targetEntity = Image.class, fetch=FetchType.EAGER)
-	private List<Image> images;
+	@OneToMany(mappedBy = "imageId", targetEntity = Image.class, fetch=FetchType.EAGER)
+	private List<Long> images;
 
 	@NonNull
-	@ManyToOne(targetEntity = ResidentialBlock.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity = ResidentialBlock.class)
 	private Long residentialBlockId;
 
 	@NonNull

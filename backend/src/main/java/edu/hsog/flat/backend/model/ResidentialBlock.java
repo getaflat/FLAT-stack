@@ -14,8 +14,8 @@ public class ResidentialBlock {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long residentialBlockId;
 
-	@OneToMany(mappedBy = "residentialBlockId", targetEntity = Apartment.class, fetch=FetchType.EAGER)
-	private List<Apartment> apartments;
+	@OneToMany(mappedBy = "apartmentId", targetEntity = Apartment.class, fetch=FetchType.EAGER)
+	private List<Long> apartmentIds;
 
 	@NonNull
 	private String name;
@@ -24,12 +24,11 @@ public class ResidentialBlock {
 	private String details;
 
 	@NonNull
-	@Lob
-	private Image image1;
+	private byte[] image1;
 
-	@Lob
-	private Image image2;
 
-	@Lob
-	private Image image3;
+	private byte[] image2;
+
+
+	private byte[] image3;
 }

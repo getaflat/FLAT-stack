@@ -10,8 +10,8 @@ import lombok.*;
 public class Season {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer calenderWeek;
+	private Long calenderWeek;
 
-	@ManyToOne(targetEntity = Factor.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity = Factor.class)
 	private Long factorId;
 }

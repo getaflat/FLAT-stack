@@ -1,6 +1,9 @@
 package edu.hsog.flat.backend.model;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
@@ -14,30 +17,30 @@ public class Booking {
 	private Long bookingId;
 
 	@NonNull
-	@ManyToOne(targetEntity = Customer.class, fetch= FetchType.EAGER)
+	@ManyToOne(targetEntity = Customer.class)
 	private Long contractNumber;
 
 	@NonNull
-    @ManyToOne(targetEntity = Apartment.class, fetch =  FetchType.EAGER)
-	private Long aparmentId;
+    @ManyToOne(targetEntity = Apartment.class)
+	private Long apartmentId;
 
 	@NonNull
-    @ManyToOne(targetEntity = Season.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Season.class)
 	private Integer week1;
 
-    @ManyToOne(targetEntity = Season.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Season.class)
     private Integer week2;
 
-    @ManyToOne(targetEntity = Season.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Season.class)
 	private Integer week3;
 
-    @ManyToOne(targetEntity = Season.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Season.class)
 	private Integer week4;
 
 	@NonNull
 	private Integer price;
 
-	private Float additionalCharge;
+	private Double additionalCharge;
 
 	@NonNull
 	private String status;

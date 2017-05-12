@@ -9,17 +9,15 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Data
 @RequiredArgsConstructor
-@NoArgsConstructor
 public class Image {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long imageId;
 
 	@NonNull
-	@ManyToOne (targetEntity = Apartment.class, fetch = FetchType.EAGER)
+	@ManyToOne (targetEntity = Apartment.class)
 	private Long apartmentId;
 
 	@NonNull
-	@Lob
-	private Image image;
+	private byte[] image;
 }

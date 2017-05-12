@@ -7,14 +7,13 @@ import lombok.*;
 @Entity
 @Data
 @RequiredArgsConstructor
-@NoArgsConstructor
 public class Rating {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long ratingId;
 
 	@NonNull
-	@OneToOne(mappedBy = "contractNumber", targetEntity = Customer.class, fetch= FetchType.EAGER)
+	@OneToOne(targetEntity = Customer.class, fetch= FetchType.EAGER)
 	private Long contractNumber;
 
 	@NonNull

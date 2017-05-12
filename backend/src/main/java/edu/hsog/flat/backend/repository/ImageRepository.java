@@ -13,5 +13,4 @@ import java.util.List;
  */
 @RepositoryRestResource(collectionResourceRel = "images", path = "images")
 public interface ImageRepository extends CrudRepository<Image, Long> {
-    List<Image> findByApartmentId(@Param("apartment_id") Long apartmentId);
 }

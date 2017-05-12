@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class Customer {
 	private Long contractNumber;
 
 	@OneToMany(mappedBy = "bookingId", targetEntity = Booking.class, fetch=FetchType.EAGER)
-	private List<Long> bookingId;
+	private List<Long> bookingIds;
 
 
 	@NonNull
