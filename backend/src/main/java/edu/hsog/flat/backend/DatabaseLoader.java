@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Component
 public class DatabaseLoader implements CommandLineRunner {
@@ -44,7 +44,7 @@ public class DatabaseLoader implements CommandLineRunner {
 		c.setFirstName("Test1");
 		c.setEmail("Test1.Testico1@go.de");
 		c.setUsername("testi1");
-		c.setDateOfBirth(new Date(1991, 1, 1));
+		c.setDateOfBirth(new Date(91, 0, 1));
 		c.setPassword("test1");
 		c.setTotalScore(400);
 		this.cRepository.save(c);
@@ -54,7 +54,7 @@ public class DatabaseLoader implements CommandLineRunner {
         c.setFirstName("Test2");
         c.setEmail("Test2.Testico2@go.de");
         c.setUsername("testi2");
-        c.setDateOfBirth(new Date(1992, 2, 2));
+        c.setDateOfBirth(new Date(92, 1, 2));
         c.setPassword("test2");
         c.setTotalScore(500);
         this.cRepository.save(c);
@@ -64,7 +64,7 @@ public class DatabaseLoader implements CommandLineRunner {
         c.setFirstName("Test3");
         c.setEmail("Test3.Testico3@go.de");
         c.setUsername("testi3");
-        c.setDateOfBirth(new Date(1993, 3, 3));
+        c.setDateOfBirth(new Date(93, 2, 3));
         c.setPassword("test3");
         c.setTotalScore(600);
         this.cRepository.save(c);
@@ -74,7 +74,7 @@ public class DatabaseLoader implements CommandLineRunner {
         c.setFirstName("Test4");
         c.setEmail("Test4.Testico4@go.de");
         c.setUsername("testi4");
-        c.setDateOfBirth(new Date(1994, 4, 4));
+        c.setDateOfBirth(new Date(94, 3, 4));
         c.setPassword("test4");
         c.setTotalScore(700);
         this.cRepository.save(c);
@@ -84,7 +84,7 @@ public class DatabaseLoader implements CommandLineRunner {
         c.setFirstName("Test5");
         c.setEmail("Test5.Testico5@go.de");
         c.setUsername("testi5");
-        c.setDateOfBirth(new Date(1995, 5, 5));
+        c.setDateOfBirth(new Date(95, 4, 5));
         c.setPassword("test5");
         c.setTotalScore(800);
         this.cRepository.save(c);
@@ -94,7 +94,7 @@ public class DatabaseLoader implements CommandLineRunner {
         c.setFirstName("Test6");
         c.setEmail("Test6.Testico6@go.de");
         c.setUsername("testi6");
-        c.setDateOfBirth(new Date(1996, 6, 6));
+        c.setDateOfBirth(new Date(96, 5, 6));
         c.setPassword("test6");
         c.setTotalScore(300);
         this.cRepository.save(c);
@@ -104,7 +104,7 @@ public class DatabaseLoader implements CommandLineRunner {
         c.setFirstName("Test7");
         c.setEmail("Test7.Testico7@go.de");
         c.setUsername("testi7");
-        c.setDateOfBirth(new Date(1997, 7, 7));
+        c.setDateOfBirth(new Date(97, 6, 7));
         c.setPassword("test7");
         c.setTotalScore(200);
         this.cRepository.save(c);
@@ -114,7 +114,7 @@ public class DatabaseLoader implements CommandLineRunner {
         c.setFirstName("Test8");
         c.setEmail("Test8.Testico8@go.de");
         c.setUsername("testi8");
-        c.setDateOfBirth(new Date(1998, 8, 8));
+        c.setDateOfBirth(new Date(98, 7, 8));
         c.setPassword("test8");
         c.setTotalScore(800);
         this.cRepository.save(c);
@@ -124,7 +124,7 @@ public class DatabaseLoader implements CommandLineRunner {
         c.setFirstName("Test9");
         c.setEmail("Test9.Testico9@go.de");
         c.setUsername("testi9");
-        c.setDateOfBirth(new Date(1999, 9, 9));
+        c.setDateOfBirth(new Date(99, 8, 9));
         c.setPassword("test9");
         c.setTotalScore(1000);
         this.cRepository.save(c);
