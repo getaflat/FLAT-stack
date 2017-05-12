@@ -7,9 +7,11 @@ import lombok.*;
 @Entity
 @Data
 @RequiredArgsConstructor
+@NoArgsConstructor
 public class Rating {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @NonNull
 	private Long ratingId;
 
 	@NonNull

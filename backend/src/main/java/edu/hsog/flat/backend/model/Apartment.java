@@ -12,6 +12,7 @@ import java.util.List;
 public class Apartment {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+	@NonNull
 	private Long apartmentId;
 
 	@OneToMany(mappedBy = "imageId", targetEntity = Image.class, fetch=FetchType.EAGER)

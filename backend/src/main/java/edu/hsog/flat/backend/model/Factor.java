@@ -16,6 +16,7 @@ import java.util.List;
 public class Factor {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @NonNull
 	private Long factorId;
 
     /*Error: Invocation of init method failed; nested exception is javax.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory

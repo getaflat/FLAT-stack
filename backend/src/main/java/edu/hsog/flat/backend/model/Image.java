@@ -9,9 +9,11 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Data
 @RequiredArgsConstructor
+@NoArgsConstructor
 public class Image {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+	@NonNull
 	private Long imageId;
 
 	@NonNull

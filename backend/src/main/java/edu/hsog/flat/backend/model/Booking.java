@@ -14,6 +14,7 @@ import javax.persistence.*;
 public class Booking {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+	@NonNull
 	private Long bookingId;
 
 	@NonNull
@@ -40,6 +41,7 @@ public class Booking {
 	@NonNull
 	private Integer price;
 
+	@NonNull
 	private Double additionalCharge;
 
 	@NonNull
