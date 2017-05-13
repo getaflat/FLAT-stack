@@ -1,4 +1,87 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: #333333;
+}
+
 .wrapper {
     background-color: cadetblue;
-    height: 83vh;
+    width: 100%;
+    padding: 15px;
 }
+
+.wrapper:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.buchung {
+    text-align: center;
+}
+
+.buchung label {
+    width: 160px;
+    max-width: 100%;
+}
+
+.input {
+    min-width: 250px;
+}
+
+.button {
+    border-top: 1px solid #96d1f8;
+    background: white;
+    padding: 6px 12px;
+    margin-right: 10px;
+    margin-top: 5px;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+    text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
+    color: black;
+    font-size: 14px;
+    text-decoration: none;
+    vertical-align: middle;
+    min-width: 100px;
+}
+
+.button:hover {
+    border-top-color: white;
+    background: lightcyan;
+    color: #ccc;
+}
+
+.button:active {
+    border-top-color: #1b435e;
+    background: #1b435e;
+}
+
+@media only screen and (min-width: 600px) {
+    /* tablet */
+    .wrapper {
+        width: 100vw;
+        height: 83vh;
+    }
+
+    .buchung {
+        padding-top: 80px;
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    /* Desktop */
+    .wrapper {
+        height: 83vh;
+        padding-top: 10px;
+        padding-right: 60px;
+        padding-left: 60px;
+    }
+
+    .buchung {
+        padding-top: 150px;
+    }
+}
+

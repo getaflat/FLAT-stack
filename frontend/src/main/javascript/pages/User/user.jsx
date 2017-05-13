@@ -150,15 +150,15 @@ class User extends React.Component {
     }
 
     componentDidMount() {
-        api.get('/user').then(({data}) => {
+        api.get('/users').then(({data}) => {
             this.setState({users: data._embedded.user});
         });
 
-        api.get('/booking').then(({data}) => {
+        api.get('/bookings').then(({data}) => {
             this.setState({bookings: data._embedded.booking});
         });
 
-        api.get('/customer').then(({data}) => {
+        api.get('/customers').then(({data}) => {
             this.setState({loggedIn: data._embedded.user});
         });
         this.state.firstname = loggedIn.firstname;
