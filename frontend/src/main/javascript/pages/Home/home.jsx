@@ -1,7 +1,8 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 import api from '../../services/api';
-import './Home.css'
 import styles from './home.css';
 
 const propTypes = {};
@@ -18,9 +19,12 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        alert("test");
-        api.get('/apartments?').then(({ data }) => {
+        // alert("test");
+        api.get('/customers/12345678901').then(({ data }) => {
+            console.log(data);
             this.setState({ apartments: data._embedded.apartment });
+        }).catch((err) => {
+            console.log(err.response)
         });
     }
 
@@ -42,6 +46,7 @@ class Home extends React.Component {
                         ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
                         dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
                     </p>
+                    <Link to="/error">This should not work.</Link>
                 </div>
 
             </div>

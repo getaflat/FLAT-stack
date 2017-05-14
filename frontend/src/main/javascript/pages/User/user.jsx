@@ -150,12 +150,15 @@ class User extends React.Component {
     }
 
     componentDidMount() {
+        let contractNumber = 123456789019;
+
         api.get('/bookings').then(({data}) => {
-            this.setState({bookings: data._embedded.booking});
+            this.setState({bookings: data._embedded.bookings});
         });
 
-        api.get('/customers?contract_number=123456789019').then(({data}) => {
-            this.setState({loggedIn: data._embedded.customer});
+        api.get(`/customers/${contractNumber}`).then(({data}) => {
+            // let user = data;
+            this.setState({loggedIn: data});
         });
        /* this.state.firstname = loggedIn.firstname;
         this.state.lastname = loggedIn.lastname;

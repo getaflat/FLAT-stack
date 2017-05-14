@@ -3,6 +3,9 @@ import React from 'react';
 import styles from './register.css';
 import api from '../../services/api';
 import * as ReactDOM from "react-dom";
+import moment from 'moment';
+
+import update from 'immutability-helper';
 
 const propTypes = {};
 const defaultProps = {};
@@ -12,70 +15,51 @@ class Register extends React.Component {
         super(props);
 
         this.state = {
-            customer: [],
-            username: '',
-            birthdate: '',
-            password: '',
-            reppassword: '',
-            email: '',
-            contractnumber: '',
-            firstname: '',
-            lastname: ''
+            customer: {
+                username: '',
+                birthdate: '',
+                password: '',
+                reppassword: '',
+                email: '',
+                contractnumber: '',
+                firstname: '',
+                lastname: ''
+            }
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleUserName = this.handleUserName.bind(this);
-        this.handleBirthdate = this.handleBirthdate.bind(this);
-        this.handlePassword = this.handlePassword.bind(this);
-        this.handleRepPassword = this.handleRepPassword.bind(this);
-        this.handleEmailAdress = this.handleEmailAdress.bind(this);
-        this.handleContractNumber = this.handleContractNumber.bind(this);
-        this.handleFirstName = this.handleFirstName.bind(this);
-        this.handleLastName = this.handleLastName.bind(this);
         this.clearInputs = this.clearInputs.bind(this);
+
+
+        this.handleInput = this.handleInput.bind(this);
     }
 
-    handleUserName(event) {
-        this.setState({username: event.target.value});
-    }
+    handleInput(event) {
+        let { name, value } = event.target;
 
-    handleBirthdate(event) {
-        this.setState({birthdate: event.target.value});
-    }
-
-    handlePassword(event) {
-        this.setState({password: event.target.value});
-    }
-
-    handleRepPassword(event) {
-        this.setState({reppassword: event.target.value});
-    }
-
-    handleEmailAdress(event) {
-        this.setState({email: event.target.value});
-    }
-
-    handleContractNumber(event) {
-        this.setState({contractnumber: event.target.value});
-    }
-
-    handleFirstName(event) {
-        this.setState({firstname: event.target.value});
-    }
-
-    handleLastName(event) {
-        this.setState({lastname: event.target.value});
+        this.setState((prev) => update(prev, {
+            customer: {
+                [name]: {
+                    $set: value
+                }
+            }
+        }));
     }
 
     clearInputs() {
-        this.setState({username: ''});
-        this.setState({birthdate: ''});
-        this.setState({password: ''});
-        this.setState({reppassword: ''});
-        this.setState({email: ''});
-        this.setState({contractnumber: ''});
-        this.setState({firstname: ''});
-        this.setState({lastname: ''});
+        this.setState({
+            customer: {
+                username: '',
+                birthdate: '',
+                password: '',
+                reppassword: '',
+                email: '',
+                contractnumber: '',
+                firstname: '',
+                lastname: ''
+            }
+        })
+
         ReactDOM.findDOMNode(this.refs.usernameInput).focus();
     }
 
@@ -112,8 +96,12 @@ class Register extends React.Component {
         if(m === 1)
             return;*/
 
-        alert(" : " + this.state.username + " : " + this.state.birthdate + " : " + this.state.password + " : " + this.state.email + " : " + this.state.contractnumber);
-        api.post('/customers', {
+        //alert(" : " + this.state.username + " : " + this.state.birthdate + " : " + this.state.password + " : " + this.state.email + " : " + this.state.contractnumber);
+
+        console.log(this.state.contractnumber.length)
+        console.log(moment(this.state.birthdate).format())
+
+        /* api.post('/customers', {
             contract_number: this.state.contractnumber,
             date_of_birth: this.state.birthdate,
             email: this.state.email,
@@ -122,7 +110,7 @@ class Register extends React.Component {
             password: this.state.password,
             total_score: 0,
             username: this.state.username
-        });/*.then(() => {
+        });*//*.then(() => {
             return api.get('/customer')
         }).then(({ data }) => {
             this.setState({ customer: data._embedded.customer });
@@ -139,35 +127,35 @@ class Register extends React.Component {
                         <label>
                             Username:
                         </label>
-                        <input className={styles.input} value={this.state.username} ref = "usernameInput" onChange={this.handleUserName} type="text" /><br />
+                        <input className={styles.input} name="username" value={this.state.username} ref = "usernameInput" onChange={this.handleInput} type="text" /><br />
                         <label>
                             Vorname:
                         </label>
-                        <input className={styles.input} value={this.state.firstname} ref = "firstnameInput" type="text" onChange={this.handleFirstName}/><br />
+                        <input className={styles.input} name="firstname" value={this.state.firstname} ref = "firstnameInput" type="text" onChange={this.handleInput}/><br />
                         <label>
                             Nachname:
                         </label>
-                        <input className={styles.input} value={this.state.lastname} ref = "lastnameInput" type="text" onChange={this.handleLastName}/><br />
+                        <input className={styles.input} name="lastname" value={this.state.lastname} ref = "lastnameInput" type="text" onChange={this.handleInput}/><br />
                         <label>
                             Geburtsdatum:
                         </label>
-                        <input className={styles.input} value={this.state.birthdate} ref = "birthdateInput" type="date" onChange={this.handleBirthdate}/><br />
+                        <input className={styles.input} name="birthdate" value={this.state.birthdate} ref = "birthdateInput" type="date" onChange={this.handleInput}/><br />
                         <label>sad
                             Passwort:
                         </label>
-                        <input className={styles.input} value={this.state.password} ref = "passwordInput" type="password" onChange={this.handlePassword}/><br />
+                        <input className={styles.input} name="password" value={this.state.password} ref = "passwordInput" type="password" onChange={this.handleInput}/><br />
                         <label>
                             bestätigen:
                         </label>
-                        <input className={styles.input} value={this.state.reppassword} type="password" ref = "passwordrepInput" onChange={this.handleRepPassword}/><br />
+                        <input className={styles.input} name="reppassword" value={this.state.reppassword} type="password" ref = "passwordrepInput" onChange={this.handleInput}/><br />
                         <label>
                             Email Adresse:
                         </label>
-                        <input className={styles.input} value={this.state.email} type="text" ref = "emailInput" onChange={this.handleEmailAdress}/><br />
+                        <input className={styles.input} name="email" value={this.state.email} type="text" ref = "emailInput" onChange={this.handleInput}/><br />
                         <label>
                             Vertragsnummer:
                         </label>
-                        <input className={styles.input} value={this.state.contractnumber} type="text" ref = "contractnumberInput" onChange={this.handleContractNumber}/><br />
+                        <input className={styles.input} name="contractnumber" value={this.state.contractnumber} type="text" ref = "contractnumberInput" onChange={this.handleInput}/><br />
                         <input className={styles.button} type="reset" name="abbrechen"/>
                         <button className={styles.button}>senden</button>
                     </form>
