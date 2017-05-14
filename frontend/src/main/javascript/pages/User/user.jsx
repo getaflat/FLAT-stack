@@ -126,7 +126,7 @@ class User extends React.Component {
         this.state.birthdate = this.state.bday;
         this.state.password = this.state.pw;
 
-        api.post('/Customer', {     // tabelle noch anpassen
+        api.post('/customers', {     // tabelle noch anpassen
             contract_number: this.state.contractnumber,
             date_of_birth: this.state.birthdate,
             email: this.state.email,
@@ -134,7 +134,7 @@ class User extends React.Component {
             last_name: this.state.lastname,
             password: this.state.password
         }).then(() => {
-            return api.get('/Customer')
+            return api.get('/customers')
         }).then(({data}) => {
             this.setState({user: data._embedded.user});
         });
@@ -150,22 +150,18 @@ class User extends React.Component {
     }
 
     componentDidMount() {
-        api.get('/users').then(({data}) => {
-            this.setState({users: data._embedded.user});
-        });
-
         api.get('/bookings').then(({data}) => {
             this.setState({bookings: data._embedded.booking});
         });
 
-        api.get('/customers').then(({data}) => {
-            this.setState({loggedIn: data._embedded.user});
+        api.get('/customers?contract_number=123456789019').then(({data}) => {
+            this.setState({loggedIn: data._embedded.customer});
         });
-        this.state.firstname = loggedIn.firstname;
+       /* this.state.firstname = loggedIn.firstname;
         this.state.lastname = loggedIn.lastname;
         this.state.firstname = loggedIn.firstname;
         this.state.email = loggedIn.email;
-        this.state.contractnumber = loggedIn.contractnumber;
+        this.state.contractnumber = loggedIn.contractnumber;*/
         this.state.vname = this.state.firstname;
         this.state.nname = this.state.lastname;
         this.state.bday = this.state.birthdate;
@@ -179,7 +175,7 @@ class User extends React.Component {
             <div className={styles.wrapper}>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <div className={styles.leftDash}>
-                    <h3>Wiedler</h3>
+                    <h3>Test</h3>
                     <hr />
                     <div className={styles.userStats}>
                         <label>Vorname: {this.state.firstname}
@@ -231,6 +227,7 @@ class User extends React.Component {
                 <div className={styles.rightDash}>
                     <div className={styles.tgwrap}>
                         <table className={styles.tg}>
+                            <tbody>
                             <tr>
                                 <th className={styles.tgyw4l}>Name (Buchung)</th>
                                 <th className={styles.tgyw4l}>Zeitraum</th>
@@ -246,6 +243,7 @@ class User extends React.Component {
                                     <td className={styles.check} ref="checkbox"><input type="checkbox"/></td>
                                 </tr>
                             )}
+                            </tbody>
                         </table>
                     </div>
                     <div className={styles.buttonright}>
