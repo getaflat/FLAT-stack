@@ -31,8 +31,8 @@ class Header extends React.Component {
             <header className={styles.wrapper}>
                 <div className={styles.topHeader}>
                     {/*<a className={styles.logo}>Logo</a>*/}
-                    <div> <img src="./logo.jpg" alt="logo"/> </div>
-                    <div>
+                    <div> <img className={styles.logo} src="./logo.jpg" alt="logo"/> </div>
+                    <div className={styles.buttons}>
                         <Link className={styles.button} to="/login">Login</Link>
                         <Link className={styles.button} to="/register">Registrieren</Link>
                         {/*<button className={styles.button} >login</button>*/}
@@ -40,8 +40,8 @@ class Header extends React.Component {
                         {/*<button className={styles.button}>registrieren</button>*/}
                     </div><br />
                     <div className={styles.userData}>
-                        <h3>{this.state.customer.username}TestUser</h3>
-                        <input type="text" disabled={true} value={this.state.customer.totalScore + " P."} />
+                        <div><h3>{this.state.customer.username}TestUser</h3></div>
+                        <div><input type="text" disabled={true} value={this.state.customer.totalScore + " P."} /></div>
                     </div>
                 </div>
 

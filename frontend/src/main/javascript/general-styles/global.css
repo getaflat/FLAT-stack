@@ -17,7 +17,7 @@ html {
 }
 
 @-ms-viewport {
-    width: device-width;
+    /*width: device-width;*/
 }
 
 body {
@@ -421,7 +421,7 @@ h2 {
 @media only screen and (min-width: 1025px) {
     /* Desktop */
     .wrapper {
-        height: 83vh;
+        height: 75vh;
         padding-top: 10px;
         padding-right: 60px;
         padding-left: 60px;
