@@ -60,7 +60,6 @@ class Login extends React.Component {
                                onChange={this.handlePassword}/><br />
 
                         <input className={globalStyles.button} type="reset" name="abbrechen" value="abbrechen"/>
-                        {/*<button className={styles.button}>abbrechen</button>*/}
                         <button className={globalStyles.button}>login</button>
                     </form>
                 </div>
