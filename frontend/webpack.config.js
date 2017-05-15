@@ -53,6 +53,7 @@ module.exports = {
                 prependPath: false
             }
         },
-        publicPath: 'http://localhost:9090/dist/'
+        publicPath: 'http://localhost:9090/dist/',
+        historyApiFallback: true
     }
 };

@@ -12,7 +12,8 @@ import Region from '../pages/Region/region';
 import Register from '../pages/Register/register';
 import User from '../pages/User/user';
 import FeWo from '../pages/FeWo/fewo';
-import NoMatch from '../pages/NoMatch/nomatch';
+import Error from '../pages/error/error';
+import NoMatch from '../pages/nomatch/nomatch';
 
 import Header from '../components/Header/header';
 import Footer from "../components/Footer/footer";
@@ -39,6 +40,7 @@ class App extends React.Component {
                         <Route path="/register" component={Register} />
                         <Route path="/user" component={User} />
                         <Route path="/fewo" component={FeWo} />
+                        <Route path="/error" component={Error} />
                         <Route component={NoMatch} />
                     </Switch>
 
