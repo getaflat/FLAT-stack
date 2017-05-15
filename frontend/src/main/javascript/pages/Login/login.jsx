@@ -51,12 +51,13 @@ class Login extends React.Component {
                         <input className={styles.input} value={this.state.username} ref="usernameInput"
                                onChange={this.handleUserName} type="text"/><br />
                         <label>
-                            Vorname:
+                            Passwort:
                         </label>
                         <input className={styles.input} value={this.state.password} ref="passwordInput" type="text"
                                onChange={this.handlePassword}/><br />
 
                         <input className={styles.button} type="reset" name="abbrechen"/>
+                        {/*<button className={styles.button}>abbrechen</button>*/}
                         <button className={styles.button}>login</button>
                     </form>
                 </div>

@@ -12,6 +12,8 @@ class Header extends React.Component {
         this.state = {
             customer: []
         };
+
+        //this.handleLogin== this.handleLogin.bind(this);
     }
 
     componentDidMount() {
@@ -20,20 +22,33 @@ class Header extends React.Component {
         });
     }
 
+    /*handleLogin(event){
+     <Route path="/" component={Login} />
+     }*/
+
     render() {
         return (
             <header className={styles.wrapper}>
                 <div className={styles.topHeader}>
-                    <a className={styles.logo}>Logo</a>
+                    {/*<a className={styles.logo}>Logo</a>*/}
+                    <div> <p> Logo</p> </div>
                     <div className={styles.buttons}>
-                        <button className={styles.button}>login</button>
-                        <button className={styles.button}>registrieren</button>
+                        <a><Link to="/login">Login</Link></a>
+                        <a><Link to="/register">Registrieren</Link></a>
+                        {/*<button className={styles.button} >login</button>*/}
+                        {/*<input className={styles.button} type="button" name="login" onClick="/login" component={Login} />*/}
+                        {/*<button className={styles.button}>registrieren</button>*/}
                     </div><br />
                     <div className={styles.userData}>
                         <h3>{this.state.customer.username}TestUser</h3>
                         <input type="text" disabled={true} value={this.state.customer.totalScore + " P."} />
                     </div>
                 </div>
+
+                <div>
+                    Homepage Gebietsauswahl
+                </div>
+
                 <div className={styles.topnav}>
                     <Link to="/">Startseite</Link>
                     <Link to="/booking">Buchung</Link>

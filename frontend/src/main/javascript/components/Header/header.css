@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+header{
+
+}
+
 body {
     font-family: 'Open Sans', sans-serif;
     color: #333333;
@@ -12,7 +16,10 @@ Input {
 }
 
 .wrapper {
-    background-color: #333;
+    /*background-color: #333;*/
+    background-color: #cccccc;
+    /*margin-bottom: 50px;*/
+    /*border: 2px solid black;*/
 }
 
 .button {
@@ -32,7 +39,13 @@ Input {
 
 .logo {
     float: left;
+    color: white;
 }
+
+/*p {
+    float: left;
+    color: white;
+}*/
 
 .buttons {
     float: right;
@@ -41,6 +54,8 @@ Input {
 .userData {
     float: right;
     color: white;
+    display: flex;
+    flex-direction: row;
 }
 
 .button:hover {
