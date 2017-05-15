@@ -55,6 +55,17 @@ class Home extends React.Component {
                         Ihr Smartphone bequem eine Ferienwohung zu buchen.
                     </p>
                     <br />
+
+                    <h2>Sonnige Weihnachten auf Mallorca</h2>
+                    <p>
+                        Weihnachten der besonderen Art können Sie dieses Jahr zum Special-Preis am Strand auf der sonnigen Insel Mallorca verbringen.
+                        Der neu renovierte Komplex San Cristo in exklusiver Lage können Sie nur über uns buchen.
+                        <br />
+                        <br />
+                        Buchen Sie bis zum 31. Dezember 2016 und Sie erhalten automatisch 24 % der Punkte als Bonus 01. Januar 2017 gutgeschrieben.
+                        So kann da neue Jahr beginnen!
+                    </p>
+                    <br />
                 </div>
 
             </div>

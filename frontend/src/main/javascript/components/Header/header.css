@@ -7,6 +7,7 @@ header{
 }
 
 body {
+
     font-family: 'Open Sans', sans-serif;
     color: #333333;
 }
@@ -15,11 +16,21 @@ Input {
     border-color: black;
 }
 
+/*footer {
+    position: fixed;
+    padding: 10px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}*/
+
 .wrapper {
     /*background-color: #333;*/
     background-color: #cccccc;
     /*margin-bottom: 50px;*/
     /*border: 2px solid black;*/
+    /*height: 200px;*/
+
 }
 
 .button {
@@ -36,6 +47,8 @@ Input {
     text-decoration: none;
     vertical-align: middle;
 }
+
+
 
 .logo {
     float: left;
@@ -82,6 +95,18 @@ Input {
 }
 
 @media only screen and (min-width: 1025px) {
+
+    header{
+        height: 10vh;
+    }
+   /* footer {
+        position: fixed;
+        padding: 10px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }*/
+
     .wrapper {
         height: 7vh;
         width: 100vw;
