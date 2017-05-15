@@ -20,7 +20,7 @@ public class DatabaseLoader implements CommandLineRunner {
 	@Override
 	public void run(String... strings) throws Exception {
 		Customer c = new Customer();
-		c.setContractNumber(123456789001L);
+		/* c.setContractNumber(123456789001L);
 		 this.cRepository.save(c);
 		c.setContractNumber(123456789002L);
 		 this.cRepository.save(c);
@@ -37,7 +37,7 @@ public class DatabaseLoader implements CommandLineRunner {
 		c.setContractNumber(123456789009L);
 		this.cRepository.save(c);
 		c.setContractNumber(123456789010L);
-		this.cRepository.save(c);
+		this.cRepository.save(c); */
 
 		c.setContractNumber(123456789011L);
 		c.setLastName("Testico1");
