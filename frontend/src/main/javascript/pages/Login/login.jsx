@@ -1,5 +1,8 @@
 import React from 'react';
 import styles from './login.css';
+import globalStyles from '../../general-styles/global.css';
+
+//modal = Popup
 
 const propTypes = {};
 
@@ -40,25 +43,25 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div className={styles.wrapper}>
+            <div className={globalStyles.wrapper}>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-                <div className={styles.buchung}>
+                <div className={globalStyles.buchung}>
                     <h3>Login</h3>
                     <form onSubmit={this.handleSubmit} onReset={this.clearInputs} action="/user">
                         <label>
                             Username:
                         </label>
-                        <input className={styles.input} value={this.state.username} ref="usernameInput"
+                        <input className={globalStyles.input} value={this.state.username} ref="usernameInput"
                                onChange={this.handleUserName} type="text"/><br />
                         <label>
                             Passwort:
                         </label>
-                        <input className={styles.input} value={this.state.password} ref="passwordInput" type="text"
+                        <input className={globalStyles.input} value={this.state.password} ref="passwordInput" type="text"
                                onChange={this.handlePassword}/><br />
 
-                        <input className={styles.button} type="reset" name="abbrechen" value="abbrechen"/>
+                        <input className={globalStyles.button} type="reset" name="abbrechen" value="abbrechen"/>
                         {/*<button className={styles.button}>abbrechen</button>*/}
-                        <button className={styles.button}>login</button>
+                        <button className={globalStyles.button}>login</button>
                     </form>
                 </div>
             </div>

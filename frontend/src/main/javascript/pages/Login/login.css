@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 
-body {
+/*body {
     font-family: 'Open Sans', sans-serif;
     color: #333333;
 }
@@ -17,22 +17,22 @@ body {
     content: "";
     clear: both;
     display: table;
-}
+}*/
 
-.buchung {
+/*.buchung {
     text-align: center;
-}
+}*/
 
-.buchung label {
+/*.buchung label {
     width: 160px;
     max-width: 100%;
-}
+}*/
 
-.input {
+/*.input {
     min-width: 250px;
-}
+}*/
 
-.button {
+/*.button {
     border-top: 1px solid #96d1f8;
     background: white;
     padding: 6px 12px;
@@ -57,10 +57,10 @@ body {
 .button:active {
     border-top-color: #1b435e;
     background: #1b435e;
-}
+}*/
 
-@media only screen and (min-width: 600px) {
-    /* tablet */
+/*@media only screen and (min-width: 600px) {
+    !* tablet *!
     .wrapper {
         width: 100vw;
         height: 83vh;
@@ -69,19 +69,19 @@ body {
     .buchung {
         padding-top: 80px;
     }
-}
+}*/
 
-@media only screen and (min-width: 1025px) {
-    /* Desktop */
-    .wrapper {
+/*@media only screen and (min-width: 1025px) {
+    !* Desktop *!
+    !*.wrapper {
         height: 83vh;
         padding-top: 10px;
         padding-right: 60px;
         padding-left: 60px;
-    }
+    }*!
 
     .buchung {
         padding-top: 150px;
     }
-}
+}*/
 

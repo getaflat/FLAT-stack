@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import api from '../../services/api';
 import styles from './home.css';
+import globalStyles from '../../general-styles/global.css';
 
 const propTypes = {};
 const defaultProps = {};
@@ -31,12 +32,12 @@ class Home extends React.Component {
 
     render() {
         return (
-            <div className={styles.wrapper}>
-                <div className={styles.leftStart}>
+            <div className={globalStyles.wrapper}>
+                <div className={globalStyles.leftStart}>
                     <img className={styles.picture} src={this.state.apartment.images} />
                     <h3>{this.state.apartment.name}Foto aus DB</h3>
                 </div>
-                <div className={styles.rightStart}>
+                <div className={globalStyles.rightStart}>
                     <br />
                     <h2>Alpenregion Karwendel</h2>
                     <p>
