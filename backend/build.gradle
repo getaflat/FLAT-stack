@@ -38,15 +38,18 @@ repositories {
 dependencies {
 	compileOnly "org.projectlombok:lombok:1.16.16"
 
+	compile 'io.jsonwebtoken:jjwt:0.7.0'
+
 	compile('org.springframework.boot:spring-boot-starter-web') {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
     }
     compile 'org.springframework.boot:spring-boot-starter-jetty'
 	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-data-rest')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 
-	compile project(':frontend')
+	// compile project(':frontend')
 
 	runtime('mysql:mysql-connector-java')
 
