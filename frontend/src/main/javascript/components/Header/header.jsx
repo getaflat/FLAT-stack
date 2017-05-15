@@ -33,8 +33,8 @@ class Header extends React.Component {
                     {/*<a className={styles.logo}>Logo</a>*/}
                     <div> <p> Logo</p> </div>
                     <div className={styles.buttons}>
-                        <a><Link to="/login">Login</Link></a>
-                        <a><Link to="/register">Registrieren</Link></a>
+                        <Link to="/login">Login</Link>
+                        <Link to="/register">Registrieren</Link>
                         {/*<button className={styles.button} >login</button>*/}
                         {/*<input className={styles.button} type="button" name="login" onClick="/login" component={Login} />*/}
                         {/*<button className={styles.button}>registrieren</button>*/}
@@ -46,8 +46,8 @@ class Header extends React.Component {
                 </div>
 
                 <div>
-                    <a><Link to="/">Homepage</Link></a>
-                    <a><Link to="/region">Gebietsauwahl</Link></a>
+                    <Link to="/">Homepage</Link>
+                    <Link to="/region">Gebietsauwahl</Link>
                 </div>
 
                 {/*<div className={styles.topnav}>
