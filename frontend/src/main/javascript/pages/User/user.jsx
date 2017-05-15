@@ -3,6 +3,9 @@ import styles from './user.css';
 import api from '../../services/api';
 import Modal from '../../components/Modal/modal';
 import moment from 'moment';
+import * as ReactDOM from "react-dom";
+
+import update from 'immutability-helper';
 
 const propTypes = {};
 const defaultProps = {};
@@ -12,31 +15,20 @@ class User extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            customer: {
+                password: '',
+                email: '',
+                firstname: '',
+                lastname: ''
+            },
             bookings: [],
             loggedIn: [],
-            name: '',
-            start: '',
-            end: '',
-            status: '',
             isModalOpen: false,
-            customer: {
-                vname: '',
-                nname: '',
-                emaddr: '',
-                bday: '',
-                pw: ''
-            }
         };
         this.handleStorno = this.handleStorno.bind(this);
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
         this.handleCloseModalSave = this.handleCloseModalSave.bind(this);
-        this.handlevname = this.handlevname.bind(this);
-        this.handlenname = this.handlenname.bind(this);
-        this.handlebday = this.handlebday.bind(this);
-        this.handleemaddr = this.handleemaddr.bind(this);
-        this.handlepw = this.handlepw.bind(this);
-        this.handlevnum = this.handlevnum.bind(this);
         this.handleInput = this.handleInput.bind(this);
     }
 
@@ -45,31 +37,47 @@ class User extends React.Component {
     }
 
     handleCloseModal() {
-        this.setState({isModalOpen: false})
+        this.setState({
+            isModalOpen: false,
+            customer: {
+                password: '',
+                email: '',
+                firstname: '',
+                lastname: ''
+            }
+        })
     }
 
-    handlevname(event) {
-        this.setState({vname: event.target.value});
-    }
+    handleCloseModalSave(event) {
+        event.preventDefault();
+        this.setState({showModal: false});
+        let m = 0;
 
-    handlenname(event) {
-        this.setState({nname: event.target.value});
-    }
+        if(this.state.customer.password !== '') {
+            ReactDOM.findDOMNode(this.refs.passwordInput).style.borderColor = "red";
+            m = 1;
+        }
+        if(!this.state.customer.email.includes("@") && this.state.customer.email !== '') {
+            ReactDOM.findDOMNode(this.refs.emailInput).style.borderColor = "red";
+            m = 1;
+        }
+        if (m === 1) {
+            //this.clearInputs();
+            return;
+        }
+        // abfragen was geändert wurde und das dann api.posten
 
-    handlevnum(event) {
-        this.setState({vnum: event.target.value});
-    }
-
-    handleemaddr(event) {
-        this.setState({emaddr: event.target.value});
-    }
-
-    handlebday(event) {
-        this.setState({bday: event.target.value});
-    }
-
-    handlepw(event) {
-        this.setState({pw: event.target.value});
+        api.post('/customers', {
+            contractNumber: this.state.loggedIn.contractNumber,
+            email: this.state.customer.email,
+            firstName: this.state.customer.firstname,
+            lastName: this.state.customer.lastname,
+            password: this.state.customer.password,
+        }).then(() => {
+            return api.get('/customers')
+        }).then(({data}) => {
+            this.setState({user: data._embedded.user});
+        });
     }
 
     handleInput(event) {
@@ -82,52 +90,6 @@ class User extends React.Component {
                 }
             }
         }));
-    }
-
-    handleCloseModalSave() {
-        this.setState({showModal: false});
-        event.preventDefault();
-
-        if (this.state.customer.password !== this.state.customer.reppassword || this.state.customer.password === '') {
-            this.refs.passwordInput.style.borderColor = "red";
-            ReactDOM.findDOMNode(this.refs.passwordrepInput).style.borderColor = "red";
-            m = 1;
-        }
-        if(this.state.customer.username === '') {
-            ReactDOM.findDOMNode(this.refs.usernameInput).style.borderColor = "red";
-            m = 1;
-        }
-        if (this.state.customer.contractnumber.length !== 12) {
-            ReactDOM.findDOMNode(this.refs.contractnumberInput).style.borderColor = "red";
-            m = 1;
-        }
-        if(!this.state.customer.email.includes("@") && this.state.customer.email !== '') {
-            ReactDOM.findDOMNode(this.refs.emailInput).style.borderColor = "red";
-            m = 1;
-        }
-        if(moment(this.state.customer.birthdate).year() < (new Date().getFullYear()-100)) {
-            ReactDOM.findDOMNode(this.refs.birthdateInput).style.borderColor = "red";
-            m = 1;
-        }
-        if (m === 1) {
-            this.clearInputs();
-            return;
-        }
-
-        api.post('/customers', {
-            contractNumber: this.state.customer.contractnumber,
-            //dateOfBirth: moment(this.state.customer.birthdate).format(),
-            dateOfBirth: this.state.customer.bday,
-            email: this.state.customer.email,
-            firstName: this.state.customer.firstname,
-            lastName: this.state.customer.lastname,
-            password: this.state.customer.password,
-            username: this.state.customer.username
-        }).then(() => {
-            return api.get('/customers')
-        }).then(({data}) => {
-            this.setState({user: data._embedded.user});
-        });
     }
 
     handleStorno(event) {
@@ -145,14 +107,16 @@ class User extends React.Component {
         });
 
         api.get(`/customers/123456789012`).then(({data}) => {
-            // let user = data;
             this.setState({loggedIn: data});
         });
-        this.state.vname = this.state.loggedIn.firstName;
-        this.state.nname = this.state.loggedIn.lastName;
-        this.state.bday = this.state.loggedIn.dateOfBirth;
-        this.state.emaddr = this.state.loggedIn.email;
-        this.state.pw = this.state.loggedIn.password;
+        this.setState({
+            customer: {
+                password: '',
+                email: '',
+                firstname: '',
+                lastname: ''
+            }
+        });
     }
 
     render() {
@@ -167,11 +131,11 @@ class User extends React.Component {
                         </label><br />
                         <label>Nachname: {this.state.loggedIn.lastName}
                         </label><br />
-                        <label>Vertragsnummer: {this.state.contractNumber}
+                        <label>Vertragsnummer: {this.state.loggedIn.contractNumber}123456789012 {/* wird nicht angezeigt, state beinahltet keine Vertragsnummer*/}
                         </label><br />
                         <label>Email-Adresse: {this.state.loggedIn.email}
                         </label><br />
-                        <label>Geburtsdatum: {moment(this.state.loggedIn.dateOfBirth).format()}
+                        <label>Geburtsdatum: {moment(this.state.loggedIn.dateOfBirth).day()}.{moment(this.state.loggedIn.dateOfBirth).month()}.{moment(this.state.loggedIn.dateOfBirth).year()}
                         </label><br />
                     </div>
 
@@ -180,19 +144,20 @@ class User extends React.Component {
                             <h1>User bearbeiten</h1>
                             <form onSubmit={this.handleCloseModalSave}>
                                 <label>Vorname: </label>
-                                <input value={this.state.vname} name="vname" className={styles.input} onChange={this.handleInput}
+                                <input value={this.state.customer.firstname} name="firstname" className={styles.input}
+                                       onChange={this.handleInput}
                                        type="text"/><br />
                                 <label>Nachname: </label>
-                                <input value={this.state.nname} name="nname" className={styles.input} onChange={this.handleInput}
+                                <input value={this.state.customer.lastname} name="lastname" className={styles.input}
+                                       onChange={this.handleInput}
                                        type="text"/><br />
                                 <label>Email: </label>
-                                <input value={this.state.emaddr} name="emaddr" className={styles.input} onChange={this.handleInput}
-                                       type="text"/><br />
-                                <label>Geburtsdatum: </label>
-                                <input value={this.state.bday} name="bday" className={styles.input} onChange={this.handleInput}
+                                <input value={this.state.customer.email} ref="emailInput" name="email" className={styles.input}
+                                       onChange={this.handleInput}
                                        type="text"/><br />
                                 <label>Passwort: </label>
-                                <input value={this.state.pw} name="pw" className={styles.input} onChange={this.handleInput}
+                                <input value={this.state.customer.password} ref="passwordInput" name="password" className={styles.input}
+                                       onChange={this.handleInput}
                                        type="text"/><br />
                                 <button onClick={this.handleCloseModal}>abbrechen</button>
                                 <button onClick={this.handleCloseModalSave}>speichern</button>

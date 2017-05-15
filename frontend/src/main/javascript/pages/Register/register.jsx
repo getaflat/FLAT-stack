@@ -1,5 +1,4 @@
 import React from 'react';
-
 import styles from './register.css';
 import api from '../../services/api';
 import * as ReactDOM from "react-dom";
@@ -9,20 +8,6 @@ import update from 'immutability-helper';
 
 const propTypes = {};
 const defaultProps = {};
-
-function test (error) {
-    if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-        if(error.response.status === 404) {
-            // rot färben Input
-
-            alert("Vertragsnummer nicht in Datenbank");
-            return 10;
-        }
-    }
-}
 
 class Register extends React.Component {
     constructor(props) {
