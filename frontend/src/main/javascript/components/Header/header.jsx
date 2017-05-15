@@ -46,10 +46,11 @@ class Header extends React.Component {
                 </div>
 
                 <div>
-                    Homepage Gebietsauswahl
+                    <a><Link to="/">Homepage</Link></a>
+                    <a><Link to="/region">Gebietsauwahl</Link></a>
                 </div>
 
-                <div className={styles.topnav}>
+                {/*<div className={styles.topnav}>
                     <Link to="/">Startseite</Link>
                     <Link to="/booking">Buchung</Link>
                     <Link to="/region">Gebiete</Link>
@@ -57,7 +58,7 @@ class Header extends React.Component {
                     <Link to="/login">Login</Link>
                     <Link to="/register">Registrieren</Link>
                     <Link to="/User">Dashboard</Link>
-                </div>
+                </div>*/}
             </header>
         );
     }
