@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './user.css';
 import api from '../../services/api';
 import Modal from '../../components/Modal/modal';
+import moment from 'moment';
 
 const propTypes = {};
 const defaultProps = {};
@@ -13,75 +14,30 @@ class User extends React.Component {
         this.state = {
             bookings: [],
             loggedIn: [],
-            firstname: '',
-            lastname: '',
-            password: '',
-            username: '',
-            contractnumber: '',
-            email: '',
-            birthdate: '',
             name: '',
             start: '',
             end: '',
             status: '',
             isModalOpen: false,
-            vname: '',
-            nname: '',
-            vnum: '',
-            emaddr: '',
-            bday: '',
-            pw: ''
+            customer: {
+                vname: '',
+                nname: '',
+                emaddr: '',
+                bday: '',
+                pw: ''
+            }
         };
         this.handleStorno = this.handleStorno.bind(this);
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
         this.handleCloseModalSave = this.handleCloseModalSave.bind(this);
-        this.handleUserName = this.handleUserName.bind(this);
-        this.handleBirthdate = this.handleBirthdate.bind(this);
-        this.handlePassword = this.handlePassword.bind(this);
-        this.handleRepPassword = this.handleRepPassword.bind(this);
-        this.handleEmailAdress = this.handleEmailAdress.bind(this);
-        this.handleContractNumber = this.handleContractNumber.bind(this);
-        this.handleFirstName = this.handleFirstName.bind(this);
-        this.handleLastName = this.handleLastName.bind(this);
         this.handlevname = this.handlevname.bind(this);
         this.handlenname = this.handlenname.bind(this);
         this.handlebday = this.handlebday.bind(this);
         this.handleemaddr = this.handleemaddr.bind(this);
         this.handlepw = this.handlepw.bind(this);
         this.handlevnum = this.handlevnum.bind(this);
-    }
-
-    handleUserName(event) {
-        this.setState({username: event.target.value});
-    }
-
-    handleBirthdate(event) {
-        this.setState({birthdate: event.target.value});
-    }
-
-    handlePassword(event) {
-        this.setState({password: event.target.value});
-    }
-
-    handleRepPassword(event) {
-        this.setState({reppassword: event.target.value});
-    }
-
-    handleEmailAdress(event) {
-        this.setState({email: event.target.value});
-    }
-
-    handleContractNumber(event) {
-        this.setState({contractnumber: event.target.value});
-    }
-
-    handleFirstName(event) {
-        this.setState({firstname: event.target.value});
-    }
-
-    handleLastName(event) {
-        this.setState({lastname: event.target.value});
+        this.handleInput = this.handleInput.bind(this);
     }
 
     handleOpenModal() {
@@ -116,23 +72,57 @@ class User extends React.Component {
         this.setState({pw: event.target.value});
     }
 
+    handleInput(event) {
+        let {name, value} = event.target;
+
+        this.setState((prev) => update(prev, {
+            customer: {
+                [name]: {
+                    $set: value
+                }
+            }
+        }));
+    }
+
     handleCloseModalSave() {
         this.setState({showModal: false});
         event.preventDefault();
-        this.state.firstname = this.state.vname;
-        this.state.lastname = this.state.nname;
-        this.state.contractnumber = this.state.vnum;
-        this.state.email = this.state.emaddr;
-        this.state.birthdate = this.state.bday;
-        this.state.password = this.state.pw;
 
-        api.post('/customers', {     // tabelle noch anpassen
-            contract_number: this.state.contractnumber,
-            date_of_birth: this.state.birthdate,
-            email: this.state.email,
-            first_name: this.state.firstname,
-            last_name: this.state.lastname,
-            password: this.state.password
+        if (this.state.customer.password !== this.state.customer.reppassword || this.state.customer.password === '') {
+            this.refs.passwordInput.style.borderColor = "red";
+            ReactDOM.findDOMNode(this.refs.passwordrepInput).style.borderColor = "red";
+            m = 1;
+        }
+        if(this.state.customer.username === '') {
+            ReactDOM.findDOMNode(this.refs.usernameInput).style.borderColor = "red";
+            m = 1;
+        }
+        if (this.state.customer.contractnumber.length !== 12) {
+            ReactDOM.findDOMNode(this.refs.contractnumberInput).style.borderColor = "red";
+            m = 1;
+        }
+        if(!this.state.customer.email.includes("@") && this.state.customer.email !== '') {
+            ReactDOM.findDOMNode(this.refs.emailInput).style.borderColor = "red";
+            m = 1;
+        }
+        if(moment(this.state.customer.birthdate).year() < (new Date().getFullYear()-100)) {
+            ReactDOM.findDOMNode(this.refs.birthdateInput).style.borderColor = "red";
+            m = 1;
+        }
+        if (m === 1) {
+            this.clearInputs();
+            return;
+        }
+
+        api.post('/customers', {
+            contractNumber: this.state.customer.contractnumber,
+            //dateOfBirth: moment(this.state.customer.birthdate).format(),
+            dateOfBirth: this.state.customer.bday,
+            email: this.state.customer.email,
+            firstName: this.state.customer.firstname,
+            lastName: this.state.customer.lastname,
+            password: this.state.customer.password,
+            username: this.state.customer.username
         }).then(() => {
             return api.get('/customers')
         }).then(({data}) => {
@@ -150,27 +140,19 @@ class User extends React.Component {
     }
 
     componentDidMount() {
-        let contractNumber = 123456789019;
-
         api.get('/bookings').then(({data}) => {
             this.setState({bookings: data._embedded.bookings});
         });
 
-        api.get(`/customers/${contractNumber}`).then(({data}) => {
+        api.get(`/customers/123456789012`).then(({data}) => {
             // let user = data;
             this.setState({loggedIn: data});
         });
-       /* this.state.firstname = loggedIn.firstname;
-        this.state.lastname = loggedIn.lastname;
-        this.state.firstname = loggedIn.firstname;
-        this.state.email = loggedIn.email;
-        this.state.contractnumber = loggedIn.contractnumber;*/
-        this.state.vname = this.state.firstname;
-        this.state.nname = this.state.lastname;
-        this.state.bday = this.state.birthdate;
-        this.state.emaddr = this.state.email;
-        this.state.pw = this.state.password;
-        this.state.vnum = this.state.contractnumber;
+        this.state.vname = this.state.loggedIn.firstName;
+        this.state.nname = this.state.loggedIn.lastName;
+        this.state.bday = this.state.loggedIn.dateOfBirth;
+        this.state.emaddr = this.state.loggedIn.email;
+        this.state.pw = this.state.loggedIn.password;
     }
 
     render() {
@@ -178,18 +160,18 @@ class User extends React.Component {
             <div className={styles.wrapper}>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <div className={styles.leftDash}>
-                    <h3>Test</h3>
+                    <h3>{this.state.loggedIn.username}</h3>
                     <hr />
                     <div className={styles.userStats}>
-                        <label>Vorname: {this.state.firstname}
+                        <label>Vorname: {this.state.loggedIn.firstName}
                         </label><br />
-                        <label>Nachname: {this.state.lastname}
+                        <label>Nachname: {this.state.loggedIn.lastName}
                         </label><br />
-                        <label>Vertragsnummer: {this.state.contractnumber}
+                        <label>Vertragsnummer: {this.state.contractNumber}
                         </label><br />
-                        <label>Email-Adresse: {this.state.email}
+                        <label>Email-Adresse: {this.state.loggedIn.email}
                         </label><br />
-                        <label>Geburtsdatum: {this.state.birthdate}
+                        <label>Geburtsdatum: {moment(this.state.loggedIn.dateOfBirth).format()}
                         </label><br />
                     </div>
 
@@ -198,22 +180,19 @@ class User extends React.Component {
                             <h1>User bearbeiten</h1>
                             <form onSubmit={this.handleCloseModalSave}>
                                 <label>Vorname: </label>
-                                <input value={this.state.vname} className={styles.input} onChange={this.handlevname}
+                                <input value={this.state.vname} name="vname" className={styles.input} onChange={this.handleInput}
                                        type="text"/><br />
                                 <label>Nachname: </label>
-                                <input value={this.state.nname} className={styles.input} onChange={this.handlenname}
-                                       type="text"/><br />
-                                <label>Vertragsnummer: </label>
-                                <input value={this.state.vnum} className={styles.input} onChange={this.handlevnum}
+                                <input value={this.state.nname} name="nname" className={styles.input} onChange={this.handleInput}
                                        type="text"/><br />
                                 <label>Email: </label>
-                                <input value={this.state.emaddr} className={styles.input} onChange={this.handleemaddr}
+                                <input value={this.state.emaddr} name="emaddr" className={styles.input} onChange={this.handleInput}
                                        type="text"/><br />
                                 <label>Geburtsdatum: </label>
-                                <input value={this.state.bday} className={styles.input} onChange={this.handlebday}
+                                <input value={this.state.bday} name="bday" className={styles.input} onChange={this.handleInput}
                                        type="text"/><br />
                                 <label>Passwort: </label>
-                                <input value={this.state.pw} className={styles.input} onChange={this.handlepw}
+                                <input value={this.state.pw} name="pw" className={styles.input} onChange={this.handleInput}
                                        type="text"/><br />
                                 <button onClick={this.handleCloseModal}>abbrechen</button>
                                 <button onClick={this.handleCloseModalSave}>speichern</button>

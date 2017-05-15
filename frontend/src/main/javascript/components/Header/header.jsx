@@ -48,6 +48,7 @@ class Header extends React.Component {
                 <div>
                     <Link to="/">Homepage</Link>
                     <Link to="/region">Gebietsauwahl</Link>
+                    <Link to="/User">Dashboard</Link>
                 </div>
 
                 {/*<div className={styles.topnav}>

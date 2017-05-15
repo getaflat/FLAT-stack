@@ -31,10 +31,11 @@ body {
 
 .input {
     min-width: 250px;
+    border: 1px solid;
 }
 
 .button {
-    border-top: 1px solid #96d1f8;
+    border-top: 1px solid black;
     background: white;
     padding: 6px 12px;
     margin-right: 10px;
