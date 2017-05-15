@@ -40,6 +40,12 @@ h2 {
         height: 83vh;
     }
 
+    p, h2 {
+        margin-right: 0 !important;
+        width: 70%;
+        float: left;
+    }
+
 }
 
 @media only screen and (min-width: 1025px) {
