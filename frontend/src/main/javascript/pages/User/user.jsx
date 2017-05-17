@@ -34,7 +34,7 @@ class User extends React.Component {
     }
 
     handleOpenModal() {
-        this.setState({isModalOpen: true})
+        this.setState({isModalOpen: true});
     }
 
     handleCloseModal() {
@@ -66,19 +66,29 @@ class User extends React.Component {
             //this.clearInputs();
             return;
         }
+        if(this.state.customer.firstname !== '' && this.state.customer.firstname !== this.state.loggedIn.firstName)
+            this.state.loggedIn.firstName = this.state.customer.firstname;
+        if(this.state.customer.lastname !== '' && this.state.customer.lastname !== this.state.loggedIn.lastName)
+            this.state.loggedIn.lastName = this.state.customer.lastname;
+        if(this.state.customer.email !== '' && this.state.customer.email !== this.state.loggedIn.email)
+            this.state.loggedIn.email = this.state.customer.email;
+        if(this.state.customer.password !== '' && this.state.customer.password !== this.state.loggedIn.password)
+            this.state.loggedIn.password = this.state.customer.password;
         // abfragen was geändert wurde und das dann api.posten
 
         api.post('/customers', {
             contractNumber: this.state.loggedIn.contractNumber,
-            email: this.state.customer.email,
-            firstName: this.state.customer.firstname,
-            lastName: this.state.customer.lastname,
-            password: this.state.customer.password,
+            email: this.state.loggedIn.email,
+            firstName: this.state.loggedIn.firstName,
+            lastName: this.state.loggedIn.lastName,
+            password: this.state.loggedIn.password,
         }).then(() => {
             return api.get('/customers')
         }).then(({data}) => {
             this.setState({user: data._embedded.user});
         });
+        // seite neu laden
+
     }
 
     handleInput(event) {
