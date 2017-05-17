@@ -4,6 +4,7 @@ import api from '../../services/api';
 import Modal from '../../components/Modal/modal';
 import moment from 'moment';
 import * as ReactDOM from "react-dom";
+import globalStyles from '../../general-styles/global.css';
 
 import update from 'immutability-helper';
 
@@ -93,12 +94,13 @@ class User extends React.Component {
     }
 
     handleStorno(event) {
-        //if(ReactDOM.findDOMNode(this.refs.checkbox).checked === true) {   // weiß nicht, welches hier besser ist
-        /* if (event.target.value === true) {
-         api.delete('/Booking?bookingId=' + this.state.name).then(({data}) => {
-         this.setState({bookings: data._embedded.Booking});
-         });
-         }*/
+         api.delete(`bookings/${event.target.value}`).then(() => {
+
+         }).then(() => {
+             api.get('/bookings').then(({data}) => {
+                 this.setState({bookings: data._embedded.bookings});
+             })
+        });
     }
 
     componentDidMount() {
@@ -121,7 +123,7 @@ class User extends React.Component {
 
     render() {
         return (
-            <div className={styles.wrapper}>
+            <div className={globalStyles.wrapper}>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <div className={styles.leftDash}>
                     <h3>{this.state.loggedIn.username}</h3>
@@ -135,7 +137,7 @@ class User extends React.Component {
                         </label><br />
                         <label>Email-Adresse: {this.state.loggedIn.email}
                         </label><br />
-                        <label>Geburtsdatum: {moment(this.state.loggedIn.dateOfBirth).day()}.{moment(this.state.loggedIn.dateOfBirth).month()}.{moment(this.state.loggedIn.dateOfBirth).year()}
+                        <label>Geburtsdatum: {moment(this.state.loggedIn.dateOfBirth).format('DD.MM.YYYY')}
                         </label><br />
                     </div>
 
@@ -166,7 +168,7 @@ class User extends React.Component {
                     </Modal>
 
                     <div className={styles.buttons}>
-                        <button onClick={this.handleOpenModal} className={styles.button}>bearbeiten</button>
+                        <button onClick={this.handleOpenModal} className={globalStyles.button}>bearbeiten</button>
                     </div>
 
                 </div>
@@ -187,14 +189,11 @@ class User extends React.Component {
                                     <td>{booking.start}</td>
                                     <td>{booking.end}</td>
                                     <td>{booking.status}</td>
-                                    <td className={styles.check} ref="checkbox"><input type="checkbox"/></td>
+                                    <td className={styles.check} ref="button"><input className={globalStyles.button} value={this.state.bookings.bookingId} onClick={this.handleStorno()} type="button"/></td>
                                 </tr>
                             )}
                             </tbody>
                         </table>
-                    </div>
-                    <div className={styles.buttonright}>
-                        <button onClick={this.handleStorno} className={styles.button}>stornieren</button>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './region.css';
+import globalStyles from '../../general-styles/global.css';
+
 
 const propTypes = {};
 
@@ -12,7 +14,7 @@ class Region extends React.Component {
 
     render() {
         return (
-            <div className={styles.wrapper}>
+            <div className={globalStyles.wrapper}>
                 <h1>Gebiete</h1>
             </div>
         );

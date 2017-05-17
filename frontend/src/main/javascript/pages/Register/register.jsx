@@ -3,6 +3,7 @@ import styles from './register.css';
 import api from '../../services/api';
 import * as ReactDOM from "react-dom";
 import moment from 'moment';
+import globalStyles from '../../general-styles/global.css';
 
 import update from 'immutability-helper';
 
@@ -129,7 +130,6 @@ class Register extends React.Component {
                 console.log(error.response.status);
                 console.log(error.response.headers);
                 if(error.response.status === 404) {
-                    // rot färben Input
                     input.style.borderColor = "red";
                     alert("Vertragsnummer nicht in Datenbank gefunden, bitte überprüfen");
                 }
@@ -139,7 +139,7 @@ class Register extends React.Component {
 
     render() {
         return (
-            <div className={styles.wrapper}>
+            <div className={globalStyles.wrapper}>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <div className={styles.buchung}>
                     <h3>Registrierung</h3>
@@ -184,8 +184,8 @@ class Register extends React.Component {
                         </label>
                         <input className={styles.input} name="contractnumber" value={this.state.contractnumber}
                                type="text" ref="contractnumberInput" onChange={this.handleInput}/><br />
-                        <input className={styles.button} type="reset" name="abbrechen"/>
-                        <button className={styles.button}>senden</button>
+                        <input className={globalStyles.button} type="reset" name="abbrechen"/>
+                        <button className={globalStyles.button}>senden</button>
                     </form>
                 </div>
             </div>

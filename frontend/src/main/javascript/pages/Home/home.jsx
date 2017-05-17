@@ -33,11 +33,11 @@ class Home extends React.Component {
     render() {
         return (
             <div className={globalStyles.wrapper}>
-                <div className={globalStyles.leftStart}>
+                <div className={styles.leftStart}>
                     <img className={styles.picture} src={this.state.apartment.images} />
                     <h3>{this.state.apartment.name}Foto aus DB</h3>
                 </div>
-                <div className={globalStyles.rightStart}>
+                <div className={styles.rightStart}>
                     <br />
                     <h2>Alpenregion Karwendel</h2>
                     <p>

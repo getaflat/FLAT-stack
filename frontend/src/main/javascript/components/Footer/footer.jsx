@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './footer.css';
+import globalStyles from '../../general-styles/global.css';
+
 
 import { Link } from 'react-router-dom';
 
@@ -16,7 +18,7 @@ class Footer extends React.Component {
                     <Link to="/imprint">Impressum</Link>
                     <Link to="/GTC">Allgemeine Geschäftsbedingungen</Link>
                 </div><br />
-                <input className={styles.button} type="button" value={"bewerten"}/>
+                <input className={globalStyles.button} type="button" value={"bewerten"}/>
             </footer>
         );
     }

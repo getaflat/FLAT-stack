@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './gtc.css';
+import globalStyles from '../../general-styles/global.css';
+
 
 const propTypes = {};
 
@@ -12,7 +14,7 @@ class GTC extends React.Component {
 
     render() {
         return (
-            <div className={styles.wrapper}>
+            <div className={globalStyles.wrapper}>
                 <h1>Allgemeine Geschäftsbedingungen</h1>
             </div>
         );

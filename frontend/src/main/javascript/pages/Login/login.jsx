@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './login.css';
 import globalStyles from '../../general-styles/global.css';
+import api from '../../services/api';
 
 //modal = Popup
 
@@ -30,7 +31,7 @@ class Login extends React.Component {
     }
 
     handleSubmit() {
-        api.get('/customers?username='+this.state.username).then(({data}) => {
+        api.get(`/customers${this.state.username}`).then(({data}) => {
             this.setState({loggedIn: data._embedded.user});
         });
     }
@@ -38,14 +39,13 @@ class Login extends React.Component {
     clearInputs(event) {
         this.setState({username: ''});
         this.setState({password: ''});
-        ReactDOM.findDOMNode(this.refs.usernameInput).focus();
     }
 
     render() {
         return (
             <div className={globalStyles.wrapper}>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-                <div className={globalStyles.buchung}>
+                <div className={styles.login}>
                     <h3>Login</h3>
                     <form onSubmit={this.handleSubmit} onReset={this.clearInputs} action="/user">
                         <label>

@@ -12,8 +12,13 @@ html {
 *,
 *::before,
 *::after {
-    -webkit-box-sizing: inherit;
-    box-sizing: inherit;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+header{
+    font-family: 'Open Sans', sans-serif;
+    color: #333333;
 }
 
 @-ms-viewport {
@@ -189,6 +194,10 @@ textarea {
     touch-action: manipulation;
 }
 
+Input {
+    border-color: black;
+}
+
 table {
     border-collapse: collapse;
 }
@@ -329,11 +338,6 @@ template {
     display: none !important;
 }
 
-#header {
-    display:flex;
-    flex-direction: row;
-}
-
 .wrapper {
     background-color: cadetblue;
     width: 100%;
@@ -344,45 +348,24 @@ template {
     content: "";
     clear: both;
     display: table;
-    padding: 15px;
-}
-
-.leftStart {
-    padding: 15px;
-}
-
-.rightStart {
-
-}
-
-h2 {
-    text-underline: single;
-}
-
-.buchung {
-    text-align: center;
-}
-
-.buchung label {
-    width: 160px;
-    max-width: 100%;
 }
 
 .input {
     min-width: 250px;
+    border: 1px solid;
 }
 
 .button {
     border-top: 1px solid #96d1f8;
     background: white;
-    padding: 6px 12px;
-    margin-right: 10px;
-    margin-top: 5px;
-    border-radius: 6px;
+    padding: 2px 4px;
+    margin-right: 8px;
+    margin-top: 4px;
+    border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
     text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
     color: black;
-    font-size: 14px;
+    font-size: 13px;
     text-decoration: none;
     vertical-align: middle;
     min-width: 100px;
@@ -404,41 +387,17 @@ h2 {
     .wrapper {
         width: 100vw;
         height: 83vh;
+        padding: 30px;
     }
-
-    p, h2 {
-        margin-right: 0 !important;
-        width: 70%;
-        float: left;
-    }
-
-    .buchung {
-        padding-top: 80px;
-    }
-
 }
 
 @media only screen and (min-width: 1025px) {
     /* Desktop */
     .wrapper {
         height: 75vh;
-        padding-top: 10px;
+        width: 100vw;
+       /* padding-top: 10px;
         padding-right: 60px;
-        padding-left: 60px;
+        padding-left: 60px;*/
     }
-
-    .leftStart {
-        width: 30%;
-        float: left;
-    }
-
-    .rightStart {
-        width: 70%;
-        float: left;
-    }
-
-    .buchung {
-        padding-top: 150px;
-    }
-
 }

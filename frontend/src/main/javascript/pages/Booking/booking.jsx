@@ -4,6 +4,8 @@ const propTypes = {};
 
 const defaultProps = {};
 import styles from './booking.css'
+import globalStyles from '../../general-styles/global.css';
+
 
 class Booking extends React.Component {
     constructor(props) {
@@ -17,7 +19,7 @@ class Booking extends React.Component {
 
     render() {
         return (
-            <div className={styles.wrapper}>
+            <div className={globalStyles.wrapper}>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <h1>Buchung</h1>
                 <div className={styles.leftBooking}>Text & Bild</div>
@@ -43,10 +45,10 @@ class Booking extends React.Component {
                             Bis:
                         </label>
                         <input type="text" /><br />
-                        <button className={styles.button} type="submit">
+                        <button className={globalStyles.button} type="submit">
                             abbrechen
                         </button>
-                        <button className={styles.button} type="reset">
+                        <button className={globalStyles.button} type="reset">
                             buchen
                         </button>
                     </form>

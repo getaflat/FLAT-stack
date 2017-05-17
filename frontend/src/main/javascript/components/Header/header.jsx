@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import api from '../../services/api';
 
 import styles from './header.css';
+import globalStyles from '../../general-styles/global.css';
+
 
 class Header extends React.Component {
     constructor(props) {
@@ -33,8 +35,8 @@ class Header extends React.Component {
                     {/*<a className={styles.logo}>Logo</a>*/}
                     <div> <img className={styles.logo} src="./logo.jpg" alt="logo"/> </div>
                     <div className={styles.buttons}>
-                        <Link className={styles.button} to="/login">Login</Link>
-                        <Link className={styles.button} to="/register">Registrieren</Link>
+                        <Link className={globalStyles.button} to="/login">Login</Link>
+                        <Link className={globalStyles.button} to="/register">Registrieren</Link>
                         {/*<button className={styles.button} >login</button>*/}
                         {/*<input className={styles.button} type="button" name="login" onClick="/login" component={Login} />*/}
                         {/*<button className={styles.button}>registrieren</button>*/}
@@ -46,9 +48,9 @@ class Header extends React.Component {
                 </div>
 
                 <div className={styles.tabs}>
-                    <Link className={styles.button} to="/">Homepage</Link>
-                    <Link className={styles.button} to="/region">Gebietsauwahl</Link>
-                    <Link className={styles.button} to="/User">Dashboard</Link>
+                    <Link className={globalStyles.button} to="/">Homepage</Link>
+                    <Link className={globalStyles.button} to="/region">Gebietsauwahl</Link>
+                    <Link className={globalStyles.button} to="/User">Dashboard</Link>
                 </div>
 
                 {/*<div className={styles.topnav}>
