@@ -1,4 +1,8 @@
 /* for mobile   */
+.wrapper {
+    flex-flow: wrap;
+}
+
 .leftDash {
     width: 100%;
 }
@@ -62,8 +66,16 @@
     margin: auto 0;
 }
 
-.check {
-    width: 10%;
+.modal {
+    text-align: center;
+    display: flex;
+    flex-flow: wrap;
+    padding: 5px;
+    background-color: cadetblue;
+}
+
+.modal label {
+    min-width: 130px;
 }
 
 .buchung {

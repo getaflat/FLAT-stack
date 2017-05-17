@@ -133,7 +133,7 @@ class User extends React.Component {
 
     render() {
         return (
-            <div className={globalStyles.wrapper}>
+            <div className={globalStyles.wrapper + ' ' + styles.wrapper}>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <div className={styles.leftDash}>
                     <h3>{this.state.loggedIn.username}</h3>
@@ -152,23 +152,22 @@ class User extends React.Component {
                     </div>
 
                     <Modal isOpen={this.state.isModalOpen} onClose={() => this.handleCloseModal}>
-                        <div className={styles.buchung}>
-                            <h1>User bearbeiten</h1>
+                        <div className={styles.modal}>
                             <form onSubmit={this.handleCloseModalSave}>
                                 <label>Vorname: </label>
-                                <input value={this.state.customer.firstname} name="firstname" className={styles.input}
+                                <input value={this.state.customer.firstname} name="firstname" className={globalStyles.input}
                                        onChange={this.handleInput}
                                        type="text"/><br />
                                 <label>Nachname: </label>
-                                <input value={this.state.customer.lastname} name="lastname" className={styles.input}
+                                <input value={this.state.customer.lastname} name="lastname" className={globalStyles.input}
                                        onChange={this.handleInput}
                                        type="text"/><br />
                                 <label>Email: </label>
-                                <input value={this.state.customer.email} ref="emailInput" name="email" className={styles.input}
+                                <input value={this.state.customer.email} ref="emailInput" name="email" className={globalStyles.input}
                                        onChange={this.handleInput}
                                        type="text"/><br />
                                 <label>Passwort: </label>
-                                <input value={this.state.customer.password} ref="passwordInput" name="password" className={styles.input}
+                                <input value={this.state.customer.password} ref="passwordInput" name="password" className={globalStyles.input}
                                        onChange={this.handleInput}
                                        type="text"/><br />
                                 <button onClick={this.handleCloseModal}>abbrechen</button>

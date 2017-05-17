@@ -139,7 +139,7 @@ class Register extends React.Component {
 
     render() {
         return (
-            <div className={globalStyles.wrapper}>
+            <div className={globalStyles.wrapper + ' ' + styles.wrapper}>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <div className={styles.buchung}>
                     <h3>Registrierung</h3>
@@ -147,42 +147,42 @@ class Register extends React.Component {
                         <label>
                             Username:*
                         </label>
-                        <input className={styles.input} name="username" value={this.state.username} ref="usernameInput"
+                        <input className={globalStyles.input} name="username" value={this.state.username} ref="usernameInput"
                                onChange={this.handleInput} type="text"/><br />
                         <label>
                             Vorname:
                         </label>
-                        <input className={styles.input} name="firstname" value={this.state.firstname}
+                        <input className={globalStyles.input} name="firstname" value={this.state.firstname}
                                ref="firstnameInput" type="text" onChange={this.handleInput}/><br />
                         <label>
                             Nachname:
                         </label>
-                        <input className={styles.input} name="lastname" value={this.state.lastname} ref="lastnameInput"
+                        <input className={globalStyles.input} name="lastname" value={this.state.lastname} ref="lastnameInput"
                                type="text" onChange={this.handleInput}/><br />
                         <label>
                             Geburtsdatum:
                         </label>
-                        <input className={styles.input} name="birthdate" value={this.state.birthdate}
+                        <input className={globalStyles.input} name="birthdate" value={this.state.birthdate}
                                ref="birthdateInput" type="date" onChange={this.handleInput}/><br />
                         <label>
                             Passwort:*
                         </label>
-                        <input className={styles.input} name="password" value={this.state.password} ref="passwordInput"
+                        <input className={globalStyles.input} name="password" value={this.state.password} ref="passwordInput"
                                type="password" onChange={this.handleInput}/><br />
                         <label>
                             bestätigen:*
                         </label>
-                        <input className={styles.input} name="reppassword" value={this.state.reppassword}
+                        <input className={globalStyles.input} name="reppassword" value={this.state.reppassword}
                                type="password" ref="passwordrepInput" onChange={this.handleInput}/><br />
                         <label>
                             Email Adresse:
                         </label>
-                        <input className={styles.input} name="email" value={this.state.email} type="text"
+                        <input className={globalStyles.input} name="email" value={this.state.email} type="text"
                                ref="emailInput" onChange={this.handleInput}/><br />
                         <label>
                             Vertragsnummer:*
                         </label>
-                        <input className={styles.input} name="contractnumber" value={this.state.contractnumber}
+                        <input className={globalStyles.input} name="contractnumber" value={this.state.contractnumber}
                                type="text" ref="contractnumberInput" onChange={this.handleInput}/><br />
                         <input className={globalStyles.button} type="reset" name="abbrechen"/>
                         <button className={globalStyles.button}>senden</button>
