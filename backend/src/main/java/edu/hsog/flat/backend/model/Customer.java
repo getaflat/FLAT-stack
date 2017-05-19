@@ -27,6 +27,7 @@ public class Customer {
 
 	private Date dateOfBirth;
 
+	@Column(unique=true)
 	private String email;
 
 	private String username;

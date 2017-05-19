@@ -1,24 +1,84 @@
 package edu.hsog.flat.backend;
 
-import edu.hsog.flat.backend.model.Customer;
-import edu.hsog.flat.backend.repository.CustomerRepository;
+import edu.hsog.flat.backend.model.*;
+import edu.hsog.flat.backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.io.*;
 import java.util.Date;
 
 @Component
 public class DatabaseLoader implements CommandLineRunner {
+    private final ApartmentRepository aRepository;
+    private final BookingRepository bRepository;
 	private final CustomerRepository cRepository;
+	private final FactorRepository fRepository;
+	private final ImageRepository iRepository;
+	private final RatingRepository raRepository;
+	private final ResidentialBlockRepository rbRepository;
+	private final SeasonRepository sRepository;
 
 	@Autowired
-	public DatabaseLoader(CustomerRepository cRepository) {
-		this.cRepository = cRepository;
+	public DatabaseLoader(ApartmentRepository aRepository, BookingRepository bRepository, CustomerRepository cRepository, FactorRepository fRepository, ImageRepository iRepository, RatingRepository raRepository, ResidentialBlockRepository rbRepository, SeasonRepository sRepository) {
+        this.aRepository = aRepository;
+        this.bRepository = bRepository;
+	    this.cRepository = cRepository;
+	    this.fRepository = fRepository;
+	    this.iRepository = iRepository;
+	    this.raRepository = raRepository;
+	    this.rbRepository = rbRepository;
+	    this.sRepository = sRepository;
 	}
 
 	@Override
 	public void run(String... strings) throws Exception {
+
+	    ResidentialBlock rb1 = new ResidentialBlock();
+	    rb1.setResidentialBlockId(1L);
+	    rb1.setName("Komplex-Mittelmeer-1");
+	    rb1.setDetails("Lorem Ipsum");
+        //rb.setImage1(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/Costa_Brava.JPG"));
+        //rb.setImage2(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/dorf.jpeg"));
+        this.rbRepository.save(rb1);
+
+        ResidentialBlock rb2 = new ResidentialBlock();
+        rb2.setResidentialBlockId(2L);
+        rb2.setName("Komplex-Mittelmeer-2");
+        rb2.setDetails("Lorem Ipsum");
+        //rb.setImage1(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/Costa_Brava.JPG"));
+        //rb.setImage2(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/dorf.jpeg"));
+        this.rbRepository.save(rb2);
+
+        ResidentialBlock rb3 = new ResidentialBlock();
+        rb3.setResidentialBlockId(3L);
+        rb3.setName("Komplex-Berge-1");
+        rb3.setDetails("Lorem Ipsum");
+        //rb.setImage1(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/Costa_Brava.JPG"));
+        //rb.setImage2(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/dorf.jpeg"));
+        this.rbRepository.save(rb3);
+
+        ResidentialBlock rb4 = new ResidentialBlock();
+        rb4.setResidentialBlockId(4L);
+        rb4.setName("Komplex-Nord-Ostsee-1");
+        rb4.setDetails("Lorem Ipsum");
+        //rb.setImage1(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/Costa_Brava.JPG"));
+        //rb.setImage2(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/dorf.jpeg"));
+        this.rbRepository.save(rb4);
+
+        ResidentialBlock rb5 = new ResidentialBlock();
+        rb5.setResidentialBlockId(5L);
+        rb5.setName("Komplex-Nord-Ostsee-2");
+        rb5.setDetails("Lorem Ipsum");
+        //rb.setImage1(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/Costa_Brava.JPG"));
+        //rb.setImage2(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/dorf.jpeg"));
+        this.rbRepository.save(rb5);
+
+
+	    //Apartment a = new Apartment();
+
+
 		Customer c = new Customer();
 		c.setContractNumber(123456789001L);
 		 this.cRepository.save(c);
@@ -128,5 +188,17 @@ public class DatabaseLoader implements CommandLineRunner {
         c.setPassword("test9");
         c.setTotalScore(1000);
         this.cRepository.save(c);
-	}
+
+
+
+    }
+
+    private byte[] readImage(String path) throws IOException {
+        File file = new File(path);
+        byte[] picInBytes = new byte[(int) file.length()];
+        FileInputStream fileInputStream = new FileInputStream(file);
+        fileInputStream.read(picInBytes);
+        fileInputStream.close();
+        return  picInBytes;
+    }
 }
