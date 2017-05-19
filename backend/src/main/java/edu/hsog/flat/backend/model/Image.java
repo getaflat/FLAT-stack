@@ -21,5 +21,6 @@ public class Image {
 	private Long apartmentId;
 
 	@NonNull
+	@Lob
 	private byte[] image;
 }
