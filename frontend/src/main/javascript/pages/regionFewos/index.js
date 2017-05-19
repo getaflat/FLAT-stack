@@ -1,3 +1,5 @@
-/**
- * Created by josuaweber on 19.05.17.
- */
+import React from 'react';
+
+import DOM from './regionFewos';
+
+export default DOM;

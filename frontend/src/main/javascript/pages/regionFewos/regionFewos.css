@@ -1,0 +1,50 @@
+.tg {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-color: #aabcfe;
+    margin: 0 auto;
+}
+
+.tg td {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    padding: 10px 5px;
+    overflow: hidden;
+    word-break: normal;
+    color: black;
+    background: white;
+    border: 1px solid #aabcfe;
+    border-right-width: 0;
+    border-left-width: 0;
+}
+
+.tg th {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    padding: 10px 5px;
+    overflow: hidden;
+    word-break: normal;
+    color: #039;
+    background-color: lightgray;
+    border: 1px solid #aabcfe;
+    border-right-width: 0;
+    border-left-width: 0;
+}
+
+.tg .tgyw4l {
+    vertical-align: top;
+}
+
+.tg {
+    width: 100%;
+}
+
+.tg col {
+    width: auto !important;
+}
+
+.tgwrap {
+    overflow-x: auto;
+    margin: auto 0;
+}

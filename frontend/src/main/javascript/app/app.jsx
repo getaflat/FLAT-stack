@@ -13,6 +13,7 @@ import Register from '../pages/Register/register';
 import User from '../pages/User/user';
 import FeWo from '../pages/FeWo/fewo';
 import NoMatch from '../pages/NoMatch/nomatch';
+import RegionFewo from '../pages/regionFewos/regionFewos'
 
 import Header from '../components/Header/header';
 import Footer from "../components/Footer/footer";
@@ -39,6 +40,7 @@ class App extends React.Component {
                         <Route path="/register" component={Register} />
                         <Route path="/user" component={User} />
                         <Route path="/fewo" component={FeWo} />
+                        <Route path="/regionFewo" component={RegionFewo} />
                         <Route component={NoMatch} />
                     </Switch>
 
