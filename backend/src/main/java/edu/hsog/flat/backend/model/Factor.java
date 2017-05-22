@@ -23,5 +23,5 @@ public class Factor {
 	private List<Long> calenderWeeks;
 
 	@NonNull
-	private Double value;
+	private Double factor;
 }

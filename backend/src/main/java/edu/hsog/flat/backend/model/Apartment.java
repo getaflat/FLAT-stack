@@ -10,17 +10,17 @@ import java.util.List;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class Apartment {
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-	@NonNull
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
 	private Long apartmentId;
 
 	@OneToMany(mappedBy = "imageId", targetEntity = Image.class, fetch=FetchType.EAGER)
 	private List<Long> images;
 
-	@NonNull
-	@ManyToOne(targetEntity = ResidentialBlock.class)
-	private Long residentialBlockId;
+
+	/*@ManyToOne(targetEntity = ResidentialBlock.class)
+	@JoinColumn(name="residential_Block_Id")
+	private Long residentialBlockId;*/
 
 	@NonNull
 	private Boolean isAvailable;
