@@ -236,6 +236,27 @@ public class DatabaseLoader implements CommandLineRunner {
         ra4.setComment("Test String");
         this.raRepository.save(ra4);
 
+        Factor f1 = new Factor();
+        f1.setFactor(2.5);
+        this.fRepository.save(f1);
+
+        Factor f2 = new Factor();
+        f2.setFactor(1.2);
+        this.fRepository.save(f2);
+
+        Factor f3 = new Factor();
+        f3.setFactor(1.8);
+        this.fRepository.save(f3);
+
+        Factor f4 = new Factor();
+        f4.setFactor(0.6);
+        this.fRepository.save(f4);
+
+        Factor f5 = new Factor();
+        f5.setFactor(3.1);
+        this.fRepository.save(f5);
+
+
 
 		Customer c = new Customer();
 		c.setContractNumber(123456789001L);
