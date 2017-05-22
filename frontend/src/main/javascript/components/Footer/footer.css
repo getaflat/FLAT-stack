@@ -1,6 +1,32 @@
-.container {
+.wrapper {
     background-color: white;
-    height: 10vh;
+    height: 5vh;
     width: 100vw;
+    display: flex;
+    flex-flow: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+
 }
 
+.menu {
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    align-self: center;
+}
+
+.button {
+    align-self: center;
+}
+
+.link {
+    margin-left: 15px;
+    text-align: center;
+    color: black;
+    text-decoration: underline;
+}
+
+.link:hover {
+    color: black;
+}

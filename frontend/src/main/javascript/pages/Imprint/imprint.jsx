@@ -14,7 +14,7 @@ class Imprint extends React.Component {
 
     render() {
         return (
-            <div className={globalStyles.wrapper}>
+            <div className={globalStyles.wrapper + ' ' + styles.wrapper}>
 
                 <h1>Impressum</h1>
                 <p>

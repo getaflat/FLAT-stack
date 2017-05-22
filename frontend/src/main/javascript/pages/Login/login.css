@@ -1,4 +1,12 @@
+.wrapper {
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+}
+
 .login {
+    display: flex;
+    flex-flow: wrap;
     text-align: center;
 }
 
