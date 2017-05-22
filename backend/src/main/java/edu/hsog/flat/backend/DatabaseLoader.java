@@ -78,7 +78,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
 	    Apartment a1 = new Apartment();
 	    a1.setApartmentId(1L);
-
+        //a1.setResidentialBlockId(1L);
 	    a1.setIsAvailable(true);
 	    a1.setName("FeWo-Mittelmeer-1");
 	    a1.setNumberOfRooms(4);
@@ -89,12 +89,10 @@ public class DatabaseLoader implements CommandLineRunner {
 	    a1.setAnimalsAllowed(false);
 	    a1.setInfantsAllowed(false);
 	    this.aRepository.save(a1);
-	    a1.setResidentialBlockId(1L);
-        this.aRepository.save(a1);
 
         Apartment a2 = new Apartment();
         a2.setApartmentId(2L);
-        a2.setResidentialBlockId(1L);
+        //a2.setResidentialBlockId(1L);
         a2.setIsAvailable(true);
         a2.setName("FeWo-Mittelmeer-2");
         a2.setNumberOfRooms(5);
@@ -108,7 +106,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
         Apartment a3 = new Apartment();
         a3.setApartmentId(3L);
-        a3.setResidentialBlockId(1L);
+        //a3.setResidentialBlockId(1L);
         a3.setIsAvailable(true);
         a3.setName("FeWo-Mittelmeer-3");
         a3.setNumberOfRooms(3);
@@ -122,7 +120,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
         Apartment a4 = new Apartment();
         a4.setApartmentId(4L);
-        a4.setResidentialBlockId(1L);
+        //a4.setResidentialBlockId(1L);
         a4.setIsAvailable(false);
         a4.setName("FeWo-Mittelmeer-4");
         a4.setNumberOfRooms(2);
@@ -136,7 +134,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
         Apartment a5 = new Apartment();
         a5.setApartmentId(5L);
-        a5.setResidentialBlockId(1L);
+        //a5.setResidentialBlockId(1L);
         a5.setIsAvailable(false);
         a5.setName("FeWo-Mittelmeer-5");
         a5.setNumberOfRooms(1);
@@ -148,9 +146,9 @@ public class DatabaseLoader implements CommandLineRunner {
         a5.setInfantsAllowed(false);
         this.aRepository.save(a5);
 
-        Apartment a6 = new Apartment();
+        /*Apartment a6 = new Apartment();
         a6.setApartmentId(6L);
-        a6.setResidentialBlockId(2L);
+        //a6.setResidentialBlockId(2L);
         a6.setIsAvailable(true);
         a6.setName("FeWo-Mittelmeer-6");
         a6.setNumberOfRooms(1);
@@ -164,7 +162,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
         Apartment a7 = new Apartment();
         a7.setApartmentId(7L);
-        a7.setResidentialBlockId(2L);
+        //a7.setResidentialBlockId(2L);
         a7.setIsAvailable(false);
         a7.setName("FeWo-Mittelmeer-7");
         a7.setNumberOfRooms(2);
@@ -178,7 +176,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
         Apartment a8 = new Apartment();
         a8.setApartmentId(8L);
-        a8.setResidentialBlockId(2L);
+        //a8.setResidentialBlockId(2L);
         a8.setIsAvailable(true);
         a8.setName("FeWo-Mittelmeer-8");
         a8.setNumberOfRooms(6);
@@ -192,7 +190,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
         Apartment a9 = new Apartment();
         a9.setApartmentId(9L);
-        a9.setResidentialBlockId(2L);
+        //a9.setResidentialBlockId(2L);
         a9.setIsAvailable(true);
         a9.setName("FeWo-Mittelmeer-9");
         a9.setNumberOfRooms(6);
@@ -206,7 +204,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
         Apartment a10 = new Apartment();
         a10.setApartmentId(10L);
-        a10.setResidentialBlockId(2L);
+        //a10.setResidentialBlockId(2L);
         a10.setIsAvailable(true);
         a10.setName("FeWo-Mittelmeer-10");
         a10.setNumberOfRooms(4);
@@ -216,7 +214,27 @@ public class DatabaseLoader implements CommandLineRunner {
         a10.setHasBalcony(true);
         a10.setAnimalsAllowed(false);
         a10.setInfantsAllowed(false);
-        this.aRepository.save(a10);
+        this.aRepository.save(a10);*/
+
+        Rating ra1 = new Rating();
+        ra1.setScore(3.5);
+        ra1.setComment("Test String");
+        this.raRepository.save(ra1);
+
+        Rating ra2 = new Rating();
+        ra2.setScore(4.5);
+        ra2.setComment("Test String");
+        this.raRepository.save(ra2);
+
+        Rating ra3 = new Rating();
+        ra3.setScore(4.1);
+        ra3.setComment("Test String");
+        this.raRepository.save(ra3);
+
+        Rating ra4 = new Rating();
+        ra4.setScore(2.4);
+        ra4.setComment("Test String");
+        this.raRepository.save(ra4);
 
 
 		Customer c = new Customer();
