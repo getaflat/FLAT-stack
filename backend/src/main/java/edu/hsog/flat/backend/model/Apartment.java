@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Apartment {
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
 	@NonNull
 	private Long apartmentId;
 
