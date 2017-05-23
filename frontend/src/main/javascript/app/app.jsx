@@ -32,15 +32,15 @@ class App extends React.Component {
 
                     <Switch>
                         <Route exact path="/" component={Home} />
-                        <Route path="/booking" component={Booking} />
+                        <Route path="/booking/:id" component={Booking} />
                         <Route path="/gtc" component={GTC} />
                         <Route path="/imprint" component={Imprint} />
                         <Route path="/login" component={Login} />
                         <Route path="/region" component={Region} />
                         <Route path="/register" component={Register} />
                         <Route path="/user" component={User} />
-                        <Route path="/fewo" component={FeWo} />
-                        <Route path="/regionFewo" component={RegionFewo} />
+                        <Route path="/fewo/:id" component={FeWo} />
+                        <Route path="/regionFewo/:id" component={RegionFewo} />
                         <Route component={NoMatch} />
                     </Switch>
 

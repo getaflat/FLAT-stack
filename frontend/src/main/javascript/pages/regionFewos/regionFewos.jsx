@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './regionFewos.css';
 import globalStyles from '../../general-styles/global.css';
 
+import { Link } from 'react-router-dom';
+
 
 const propTypes = {};
 const defaultProps = {};
@@ -23,8 +25,8 @@ class regionFewos extends React.Component {
     render() {
         return (
             <div className={globalStyles.wrapper}>
-                <h1>Region: {this.props.location.pathname}</h1>
-                <button value="HausNebelblick" onClick={this.handleClick} className={globalStyles.button + ' ' + styles.button}>buchen</button>
+                <h1>Region: {this.props.match.params.id}</h1>
+                <Link className={styles.link} to={"/fewo/" + this.props.match.params.id}>Testhaus</Link>
                 <div className={styles.tgwrap}>
                     <table className={styles.tg}>
                         <tbody>

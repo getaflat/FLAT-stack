@@ -387,7 +387,7 @@ template {
     /* tablet */
     .wrapper {
         width: 100vw;
-        height: 86vh;
+        min-height: 86vh;
         padding: 30px;
     }
 }
@@ -395,7 +395,7 @@ template {
 @media only screen and (min-width: 1025px) {
     /* Desktop */
     .wrapper {
-        height: 85vh;
+        min-height: 85vh;
         width: 100vw;
        /* padding-top: 10px;
         padding-right: 60px;

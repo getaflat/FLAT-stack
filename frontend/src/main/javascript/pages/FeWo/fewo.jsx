@@ -3,6 +3,8 @@ import styles from './fewo.css';
 import globalStyles from '../../general-styles/global.css';
 import api from '../../services/api';
 import * as ReactDOM from "react-dom";
+import { Link } from 'react-router-dom';
+
 
 const propTypes = {};
 
@@ -35,7 +37,7 @@ class FeWo extends React.Component {
     }
 
     componentDidMount() {
-        api.get(`/apartments/${this.props.name}`).then(({data}) => {
+        api.get(`/apartments/${this.props.match.params.id}`).then(({data}) => {
             this.setState({fewo: data});
         });
 
@@ -48,7 +50,7 @@ class FeWo extends React.Component {
                 'dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet ' +
                 'clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
             },
-            name: this.props.location.pathname
+            name: this.props.match.params.id
         });
 
     }
@@ -72,11 +74,11 @@ class FeWo extends React.Component {
                     </div>
                 </div>
                 <br />
-                <h3>{this.props.location.pathname}</h3>
+                <h3>{this.props.match.params.id}</h3>
                 <div className={styles.FeWoDescr}>
                     <a>{this.state.fewo.description}</a>
                 </div>
-                <button onClick={this.handleBooking} className={globalStyles.button + ' ' + styles.button}>buchen</button>
+                <Link className={styles.link} to={"/booking/" + this.props.match.params.id}>Testbuchung</Link>
             </div>
         );
     }
