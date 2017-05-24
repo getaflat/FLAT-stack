@@ -1,33 +1,32 @@
-.container {
+.wrapper {
     background-color: white;
-    height: 10vh;
+    height: 5vh;
     width: 100vw;
+    display: flex;
+    flex-flow: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    align-self: center;
 }
 
 .button {
-    border-top: 1px solid #96d1f8;
-    background: white;
-    padding: 6px 12px;
-    margin-right: 10px;
-    margin-top: 5px;
-    border-radius: 6px;
-    box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
-    text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
+    align-self: center;
+}
+
+.link {
+    margin-left: 15px;
+    text-align: center;
     color: black;
-    font-size: 14px;
-    text-decoration: none;
-    vertical-align: middle;
-    min-width: 100px;
+    text-decoration: underline;
 }
 
-.button:hover {
-    border-top-color: white;
-    background: lightcyan;
-    color: #ccc;
+.link:hover {
+    color: black;
 }
-
-.button:active {
-    border-top-color: #1b435e;
-    background: #1b435e;
-}
-

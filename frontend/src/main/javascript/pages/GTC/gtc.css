@@ -1,4 +1,3 @@
 .wrapper {
-    background-color: cadetblue;
-    height: 83vh;
+    flex-direction: column;
 }

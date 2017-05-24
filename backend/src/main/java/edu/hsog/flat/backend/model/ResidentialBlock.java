@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ResidentialBlock {
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long residentialBlockId;
 
 	@OneToMany(mappedBy = "apartmentId", targetEntity = Apartment.class, fetch=FetchType.EAGER)
@@ -24,11 +24,12 @@ public class ResidentialBlock {
 	private String details;
 
 	@NonNull
+	@Lob
 	private byte[] image1;
 
-
+	@Lob
 	private byte[] image2;
 
-
+	@Lob
 	private byte[] image3;
 }

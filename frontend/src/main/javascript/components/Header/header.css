@@ -1,72 +1,46 @@
-* {
-    box-sizing: border-box;
-}
-
-header{
-
-}
-
-body {
-    font-family: 'Open Sans', sans-serif;
-    color: #333333;
-}
-
-Input {
-    border-color: black;
-}
+/*footer {
+    position: fixed;
+    padding: 10px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}*/
 
 .wrapper {
     /*background-color: #333;*/
     background-color: #cccccc;
     /*margin-bottom: 50px;*/
-    /*border: 2px solid black;*/
+    display: flex;
+    flex-direction: column;
+
 }
 
-.button {
-    border-top: 1px solid #96d1f8;
-    background: white;
-    padding: 2px 4px;
-    margin-right: 5px;
-    margin-top: 2px;
-    border-radius: 2px;
-    box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
-    text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
-    color: black;
-    font-size: 12px;
-    text-decoration: none;
-    vertical-align: middle;
+.topHeader{
+    display: flex;
+    flex-direction: row;
+}
+
+.buttons{
+    flex-direction: row;
+    justify-content: flex-end;
 }
 
 .logo {
     float: left;
     color: white;
-}
-
-/*p {
-    float: left;
-    color: white;
-}*/
-
-.buttons {
-    float: right;
+    justify-content: flex-start;
 }
 
 .userData {
-    float: right;
+    /*float: right;*/
     color: white;
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
 }
 
-.button:hover {
-    border-top-color: white;
-    background: lightcyan;
-    color: #ccc;
-}
-
-.button:active {
-    border-top-color: #1b435e;
-    background: #1b435e;
+.tab {
+    flex-direction: row;
 }
 
 .topnav {
@@ -76,15 +50,16 @@ Input {
 
 @media only screen and (min-width: 600px) {
     /* tablet */
-    .wrapper {
 
-    }
 }
 
 @media only screen and (min-width: 1025px) {
+
     .wrapper {
-        height: 7vh;
+        height: 10vh;
         width: 100vw;
+        display: flex;
+        flex-direction: column;
     }
 
     /* desktop */
@@ -103,7 +78,31 @@ Input {
         padding-top: 10px;
     }
 
-    .button {
-        margin-right: 0;
+    .topHeader{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .buttons{
+        flex-direction: row;
+        /*justify-content: flex-end;*/
+    }
+
+    .logo {
+        float: left;
+        color: white;
+        /*justify-content: flex-start;*/
+    }
+
+    .userData {
+        float: right;
+        color: white;
+        /*display: flex;*/
+        flex-direction: row;
+        /*justify-content: flex-end;*/
+    }
+
+    .tab {
+        flex-direction: row;
     }
 }

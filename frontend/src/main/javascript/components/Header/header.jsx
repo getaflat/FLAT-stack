@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import api from '../../services/api';
 
 import styles from './header.css';
+import globalStyles from '../../general-styles/global.css';
+
 
 class Header extends React.Component {
     constructor(props) {
@@ -31,23 +33,24 @@ class Header extends React.Component {
             <header className={styles.wrapper}>
                 <div className={styles.topHeader}>
                     {/*<a className={styles.logo}>Logo</a>*/}
-                    <div> <p> Logo</p> </div>
+                    <div> <img className={styles.logo} src="./logo.jpg" alt="logo"/> </div>
                     <div className={styles.buttons}>
-                        <Link to="/login">Login</Link>
-                        <Link to="/register">Registrieren</Link>
+                        <Link className={globalStyles.button} to="/login">Login</Link>
+                        <Link className={globalStyles.button} to="/register">Registrieren</Link>
                         {/*<button className={styles.button} >login</button>*/}
                         {/*<input className={styles.button} type="button" name="login" onClick="/login" component={Login} />*/}
                         {/*<button className={styles.button}>registrieren</button>*/}
                     </div><br />
                     <div className={styles.userData}>
-                        <h3>{this.state.customer.username}TestUser</h3>
-                        <input type="text" disabled={true} value={this.state.customer.totalScore + " P."} />
+                        <div><h3>{this.state.customer.username}TestUser</h3></div>
+                        <div><input type="text" disabled={true} value={this.state.customer.totalScore + " P."} /></div>
                     </div>
                 </div>
 
-                <div>
-                    <Link to="/">Homepage</Link>
-                    <Link to="/region">Gebietsauwahl</Link>
+                <div className={styles.tabs}>
+                    <Link className={globalStyles.button} to="/">Homepage</Link>
+                    <Link className={globalStyles.button} to="/region">Gebietsauwahl</Link>
+                    <Link className={globalStyles.button} to="/User">Dashboard</Link>
                 </div>
 
                 {/*<div className={styles.topnav}>

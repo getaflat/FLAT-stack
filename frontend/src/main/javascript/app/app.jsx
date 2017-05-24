@@ -13,8 +13,8 @@ import Region from '../pages/Region/region';
 import Register from '../pages/Register/register';
 import User from '../pages/User/user';
 import FeWo from '../pages/FeWo/fewo';
-import Error from '../pages/error/error';
-import NoMatch from '../pages/nomatch/nomatch';
+import NoMatch from '../pages/NoMatch/nomatch';
+import RegionFewo from '../pages/regionFewos/regionFewos'
 
 import Header from '../components/Header/header';
 import Footer from "../components/Footer/footer";
@@ -33,16 +33,15 @@ class App extends React.Component {
 
                     <Switch>
                         <Route exact path="/" component={Home} />
-                        <Route path="/booking" component={Booking} />
+                        <Route path="/booking/:id" component={Booking} />
                         <Route path="/gtc" component={GTC} />
                         <Route path="/imprint" component={Imprint} />
                         <Route path="/login" component={Login} />
-                        <Route path="/logout" component={Logout} />
+                        <Route path="/region/:id" component={RegionFewo} />
                         <Route path="/region" component={Region} />
                         <Route path="/register" component={Register} />
                         <Route path="/user" component={User} />
-                        <Route path="/fewo" component={FeWo} />
-                        <Route path="/error" component={Error} />
+                        <Route path="/fewo/:id" component={FeWo} />
                         <Route component={NoMatch} />
                     </Switch>
 

@@ -1,51 +1,8 @@
-* {
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Open Sans', sans-serif;
-    color: #333333;
-}
-
-.button {
-    border-top: 1px solid #96d1f8;
-    background: white;
-    padding: 6px 12px;
-    margin-right: 10px;
-    margin-top: 5px;
-    border-radius: 6px;
-    box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
-    text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
-    color: black;
-    font-size: 12px;
-    text-decoration: none;
-    vertical-align: middle;
-}
-
-.button:hover {
-    border-top-color: white;
-    background: lightcyan;
-    color: #ccc;
-}
-
-.button:active {
-    border-top-color: #1b435e;
-    background: #1b435e;
-}
-
-.wrapper {
-    width: 100vw;
-    background-color: cadetblue;
-    padding: 15px;
-}
-
-.wrapper:after {
-    content: "";
-    clear: both;
-    display: table;
-}
-
 /* for mobile   */
+.wrapper {
+    flex-flow: wrap;
+}
+
 .leftDash {
     width: 100%;
 }
@@ -109,8 +66,16 @@ body {
     margin: auto 0;
 }
 
-.check {
-    width: 10%;
+.modal {
+    text-align: center;
+    display: flex;
+    flex-flow: wrap;
+    padding: 5px;
+    background-color: cadetblue;
+}
+
+.modal label {
+    min-width: 130px;
 }
 
 .buchung {
@@ -126,15 +91,11 @@ body {
 
 .input {
     min-width: 250px;
+    border: 1px solid;
 }
 
 @media only screen and (min-width: 600px) {
     /* tablet */
-    .wrapper {
-        width: 100vw;
-        height: 83vh;
-        padding: 30px;
-    }
 
     .tg {
         margin-right: 0 !important;
@@ -145,30 +106,20 @@ body {
 }
 
 @media only screen and (min-width: 1025px) {
-    .wrapper {
-        height: 83vh;
-        padding-top: 10px;
-        padding-right: 60px;
-        padding-left: 60px;
-    }
-
     /* desktop */
+
     .leftDash {
-        width: 20%;
+        width: 30%;
         float: left;
     }
 
     .rightDash {
-        width: 80%;
+        width: 70%;
         float: left;
         padding-top: 40px;
     }
 
     .tg {
-        float: right;
-    }
-
-    .buttonright {
         float: right;
     }
 
@@ -182,10 +133,6 @@ body {
 
     .buttons {
         padding-top: 10px;
-    }
-
-    .button {
-        margin-right: 0;
     }
 
     tr:hover {

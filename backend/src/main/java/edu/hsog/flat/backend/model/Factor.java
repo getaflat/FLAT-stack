@@ -19,10 +19,9 @@ public class Factor {
     @NonNull
 	private Long factorId;
 
-    /*Error: Invocation of init method failed; nested exception is javax.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory
 	@OneToMany(mappedBy = "calenderWeek", targetEntity = Season.class, fetch = FetchType.EAGER)
-	private List<Long> calenderWeeks;*/
+	private List<Long> calenderWeeks;
 
 	@NonNull
-	private Double value;
+	private Double factor;
 }

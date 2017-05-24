@@ -4,9 +4,6 @@ import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-/**
- * Created by hauss on 14.05.2017.
- */
 @Controller
 public class ReactRoutesController /* implements ErrorController */ {
     //private static final String ERROR_PATH = "/error";

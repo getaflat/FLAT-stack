@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from './login.css';
-
+import globalStyles from '../../general-styles/global.css';
 import api from '../../services/api';
-import auth from '../../services/auth';
+
+//modal = Popup
 
 const propTypes = {};
 
@@ -29,27 +30,8 @@ class Login extends React.Component {
         this.setState({password: event.target.value});
     }
 
-    handleSubmit(e) {
-        e.preventDefault();
-
-        let credentials = {
-            username: 'admin',
-            password: 'password'
-        };
-
-        api.post('/login', {
-            username: 'admin',
-            password: 'password'
-        }).then((res) => {
-            if (res.status === 200) {
-                auth.storeToken(res.headers.authorization);
-                this.props.history.push('/');
-            }
-        }).catch((err) => {
-            console.err(err);
-        });
-
-        /* api.get('/customers?username='+this.state.username).then(({data}) => {
+    handleSubmit() {
+        api.get(`/customers${this.state.username}`).then(({data}) => {
             this.setState({loggedIn: data._embedded.user});
         }); */
     }
@@ -57,30 +39,28 @@ class Login extends React.Component {
     clearInputs(event) {
         this.setState({username: ''});
         this.setState({password: ''});
-        ReactDOM.findDOMNode(this.refs.usernameInput).focus();
     }
 
     render() {
         return (
-            <div className={styles.wrapper}>
+            <div className={globalStyles.wrapper}>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-                <div className={styles.buchung}>
-                    <h3>Login</h3>
+                <div className={styles.login}>
+                    <h3>Login</h3><br />
                     <form onSubmit={this.handleSubmit} onReset={this.clearInputs} action="/user">
                         <label>
                             Username:
                         </label>
-                        <input className={styles.input} value={this.state.username} ref="usernameInput"
+                        <input className={globalStyles.input} value={this.state.username} ref="usernameInput"
                                onChange={this.handleUserName} type="text"/><br />
                         <label>
                             Passwort:
                         </label>
-                        <input className={styles.input} value={this.state.password} ref="passwordInput" type="text"
+                        <input className={globalStyles.input} value={this.state.password} ref="passwordInput" type="text"
                                onChange={this.handlePassword}/><br />
 
-                        <input className={styles.button} type="reset" name="abbrechen"/>
-                        {/*<button className={styles.button}>abbrechen</button>*/}
-                        <button className={styles.button}>login</button>
+                        <input className={globalStyles.button} type="reset" name="abbrechen" value="abbrechen"/>
+                        <button className={globalStyles.button}>login</button>
                     </form>
                 </div>
             </div>

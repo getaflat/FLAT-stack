@@ -1,5 +1,8 @@
 import React from 'react';
 import styles from './region.css';
+import globalStyles from '../../general-styles/global.css';
+import { Link } from 'react-router-dom';
+
 
 const propTypes = {};
 
@@ -10,10 +13,16 @@ class Region extends React.Component {
         super(props);
     }
 
+    componentDidMount()
+    {
+
+    }
+
     render() {
         return (
-            <div className={styles.wrapper}>
+            <div className={globalStyles.wrapper}>
                 <h1>Gebiete</h1>
+                <Link className={styles.link} to="/region/Alpen">Alpen</Link>
             </div>
         );
     }
