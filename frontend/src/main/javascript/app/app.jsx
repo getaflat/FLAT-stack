@@ -8,6 +8,7 @@ import GTC from '../pages/GTC/gtc';
 import Home from '../pages/Home/index';
 import Imprint from '../pages/Imprint/imprint';
 import Login from '../pages/Login/login';
+import Logout from '../pages/logout/logout';
 import Region from '../pages/Region/region';
 import Register from '../pages/Register/register';
 import User from '../pages/User/user';
@@ -36,6 +37,7 @@ class App extends React.Component {
                         <Route path="/gtc" component={GTC} />
                         <Route path="/imprint" component={Imprint} />
                         <Route path="/login" component={Login} />
+                        <Route path="/logout" component={Logout} />
                         <Route path="/region" component={Region} />
                         <Route path="/register" component={Register} />
                         <Route path="/user" component={User} />

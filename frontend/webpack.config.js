@@ -9,6 +9,7 @@ module.exports = {
     entry: resolve(SRC, 'index.js'),
     output: {
         path: DIST,
+        publicPath: DIST,
         filename: 'bundle.js'
     },
     module: {
@@ -38,6 +39,13 @@ module.exports = {
                         loader: 'postcss-loader'
                     }
                 ]
+            },
+            {
+                test: /\.(jpg|png|svg)$/,
+                loader: 'file-loader',
+                options: {
+                    name: '[path][name].[hash].[ext]',
+                }
             }
         ]
     },

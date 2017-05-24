@@ -1,7 +1,7 @@
 package edu.hsog.flat.backend.security;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
@@ -32,18 +32,28 @@ public class TokenAuthenticationService {
     static Authentication getAuthentication(HttpServletRequest req) {
         String token = req.getHeader(HEADER_STRING);
 
-        if (token != null) {
+        if (token == null) {
+            return null;
+        }
+
+        try {
             String user = Jwts.parser()
                 .setSigningKey(SECRET)
                 .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
                 .getBody()
                 .getSubject();
 
-            return user != null ?
-                new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList()) :
-                null;
-        }
+            System.out.println("=================================================================");
+            System.out.println(user);
+            System.out.println("=================================================================");
 
-        return null;
+            return user != null ?
+                    new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList()) :
+                    null;
+        } catch (UnsupportedJwtException | MalformedJwtException | IllegalArgumentException | SignatureException exception) {
+            throw new BadCredentialsException("Invalid JWT token: ", exception);
+        } catch (ExpiredJwtException expiredException) {
+            throw new ExpiredJwtException(expiredException.getHeader(), expiredException.getClaims(), expiredException.getMessage());
+        }
     }
 }

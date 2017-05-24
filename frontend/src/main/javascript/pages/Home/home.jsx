@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import api from '../../services/api';
+import auth from '../../services/auth';
 import styles from './home.css';
 
 const propTypes = {};
@@ -55,6 +56,11 @@ class Home extends React.Component {
                         Ihr Smartphone bequem eine Ferienwohung zu buchen.
                     </p>
                     <br />
+
+                    <p>
+                        Logout?
+                        {auth.hasToken() && <Link to="/logout">Logout</Link>}
+                    </p>
                 </div>
 
             </div>

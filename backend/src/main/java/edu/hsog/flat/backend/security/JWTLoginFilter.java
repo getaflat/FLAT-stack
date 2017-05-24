@@ -1,6 +1,7 @@
 package edu.hsog.flat.backend.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,6 +20,9 @@ import java.util.Collections;
  * Created by hauss on 15.05.2017.
  */
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
+
     public JWTLoginFilter(String url, AuthenticationManager authManager) {
         super(new AntPathRequestMatcher(url));
         setAuthenticationManager(authManager);
@@ -26,13 +30,17 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
-        AccountCredentials creds = new ObjectMapper()
+        AccountCredentials credentials = new ObjectMapper()
             .readValue(request.getInputStream(), AccountCredentials.class);
+
+        System.out.println("=================================================================");
+        System.out.println(credentials.getUsername() + " " + credentials.getPassword());
+        System.out.println("=================================================================");
 
         return getAuthenticationManager().authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        creds.getUsername(),
-                        creds.getPassword(),
+                        credentials.getUsername(),
+                        credentials.getPassword(),
                         Collections.emptyList()
                 )
         );

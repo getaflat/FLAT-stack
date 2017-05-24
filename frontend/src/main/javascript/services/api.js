@@ -1,32 +1,35 @@
 import axios from 'axios';
+import update from 'immutability-helper';
 
-const instance = axios.create({
+import auth from './auth';
+
+const getAuthHeader = () => {
+    return {
+        headers: {
+            common: {
+                'Authorization': { $set: auth.getToken() }
+            }
+        }
+    }
+}
+
+const baseAPI = axios.create({
     baseURL: '/api/v1'
 });
 
-/* const buildSearchMethod = (endpoint, method) => {
-  const url = `${endpoint}/search/${method}`;
+const securedAPI = axios.create({
+    baseURL: '/api/v1'
+});
 
-  return (params) => {
-      return instance.get(url, { params })
-  }
-}; */
+securedAPI.interceptors.request.use((config) => {
+    return update(config, getAuthHeader());
+}, (err) => {
+    return Promise.reject(err);
+});
 
-/* export function getEmployees() {
-  return instance.get('/employee')
-} */
+export {
+    baseAPI,
+    securedAPI
+}
 
-/* export function getEmployee(id) {
-    return instance.get(`/employee/${id}`)
-} */
-
-// export const getEmployeeByLastName = (name) => buildSearchMethod('/employee', 'findByLastName')({ name });
-
-/* componentDidMount() {
-    getEmployeeByLastName('Weber')
-        .then((data) => {
-            console.log(data)
-        })
-} */
-
-export default instance;
+export default baseAPI;

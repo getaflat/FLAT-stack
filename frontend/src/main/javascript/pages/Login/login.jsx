@@ -1,6 +1,9 @@
 import React from 'react';
 import styles from './login.css';
 
+import api from '../../services/api';
+import auth from '../../services/auth';
+
 const propTypes = {};
 
 const defaultProps = {};
@@ -26,10 +29,29 @@ class Login extends React.Component {
         this.setState({password: event.target.value});
     }
 
-    handleSubmit() {
-        api.get('/customers?username='+this.state.username).then(({data}) => {
-            this.setState({loggedIn: data._embedded.user});
+    handleSubmit(e) {
+        e.preventDefault();
+
+        let credentials = {
+            username: 'admin',
+            password: 'password'
+        };
+
+        api.post('/login', {
+            username: 'admin',
+            password: 'password'
+        }).then((res) => {
+            if (res.status === 200) {
+                auth.storeToken(res.headers.authorization);
+                this.props.history.push('/');
+            }
+        }).catch((err) => {
+            console.err(err);
         });
+
+        /* api.get('/customers?username='+this.state.username).then(({data}) => {
+            this.setState({loggedIn: data._embedded.user});
+        }); */
     }
 
     clearInputs(event) {
