@@ -30,7 +30,7 @@ class FeWo extends React.Component {
     }
 
     handleBooking() {
-        this.props.history.push(`/Booking/${this.props.match.path}`);
+        this.props.history.push(`/booking/${this.props.match.path}`);
     }
 
     handlepictureSwap() {

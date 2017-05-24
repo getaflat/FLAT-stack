@@ -22,12 +22,12 @@ class Home extends React.Component {
 
     componentDidMount() {
         // alert("test");
-        api.get('/customers/12345678901').then(({ data }) => {
+        /* api.get('/customers/12345678901').then(({ data }) => {
             console.log(data);
             this.setState({ apartments: data._embedded.apartment });
         }).catch((err) => {
             console.log(err.response)
-        });
+        }); */
     }
 
 

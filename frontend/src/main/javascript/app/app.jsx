@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
+import { Switch, BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
 import styles from './app.css';
 
@@ -15,10 +15,23 @@ import User from '../pages/User/user';
 import FeWo from '../pages/FeWo/fewo';
 import NoMatch from '../pages/NoMatch/nomatch';
 import RegionFewo from '../pages/regionFewos/regionFewos'
+import auth from '../services/auth';
 
 import Header from '../components/Header/header';
 import Footer from "../components/Footer/footer";
 
+const PrivateRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={props => (
+        auth.hasToken() ? (
+            <Component {...props} />
+        ) : (
+            <Redirect to={{
+                pathname: '/login',
+                state: { from: props.location }
+            }} />
+        )
+    )}/>
+);
 
 class App extends React.Component {
     constructor(props) {
@@ -40,7 +53,7 @@ class App extends React.Component {
                         <Route path="/region/:id" component={RegionFewo} />
                         <Route path="/region" component={Region} />
                         <Route path="/register" component={Register} />
-                        <Route path="/user" component={User} />
+                        <PrivateRoute path="/user" component={User} />
                         <Route path="/fewo/:id" component={FeWo} />
                         <Route component={NoMatch} />
                     </Switch>

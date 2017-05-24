@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './login.css';
 import globalStyles from '../../general-styles/global.css';
 import api from '../../services/api';
+import auth from '../../services/auth';
 
 //modal = Popup
 
@@ -30,10 +31,25 @@ class Login extends React.Component {
         this.setState({password: event.target.value});
     }
 
-    handleSubmit() {
-        api.get(`/customers${this.state.username}`).then(({data}) => {
-            this.setState({loggedIn: data._embedded.user});
-        }); */
+    handleSubmit(e) {
+        e.preventDefault();
+
+        api.post(`/login`, {
+            username: this.state.username,
+            password: this.state.password
+        }).then((response) => {
+            if (response.status === 200 && response.headers.authorization) {
+                auth.storeToken(response.headers.authorization);
+                this.props.history.push('/');
+            }
+        }).catch((error) => {
+            if (error.response) {
+                console.log(error.response.data);
+            }
+            console.log(error.message);
+        });
+
+
     }
 
     clearInputs(event) {

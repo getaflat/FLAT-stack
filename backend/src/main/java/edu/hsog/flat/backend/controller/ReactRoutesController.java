@@ -16,6 +16,7 @@ public class ReactRoutesController /* implements ErrorController */ {
             "/login",
             "/logout",
             "/region",
+            "/region/{id}",
             "/register",
             "/user",
             "/fewo"//,

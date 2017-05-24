@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './user.css';
 import api from '../../services/api';
-import Modal from '../../components/Modal/modal';
+import Modal from '../../components/modal/modal';
 import moment from 'moment';
 import * as ReactDOM from "react-dom";
 import globalStyles from '../../general-styles/global.css';

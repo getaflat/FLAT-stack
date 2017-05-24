@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './footer.css';
 import globalStyles from '../../general-styles/global.css';
-import Modal from '../../components/Modal/modal';
+import Modal from '../modal/modal';
 
 
 import { Link } from 'react-router-dom';
@@ -39,7 +39,7 @@ class Footer extends React.Component {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <div className={styles.menu}>
                     <Link className={styles.link} to="/imprint">Impressum</Link>
-                    <Link className={styles.link} to="/GTC">Datenschutzbestimmungen</Link>
+                    <Link className={styles.link} to="/gtc">Datenschutzbestimmungen</Link>
                 </div>
                 <div className={styles.button}>
                     <input className={globalStyles.button} onClick={this.handleOpenModal} type="button" value={"bewerten"}/>

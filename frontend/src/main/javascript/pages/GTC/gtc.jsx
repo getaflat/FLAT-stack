@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './gtc.css';
 import globalStyles from '../../general-styles/global.css';
-import Modal from '../../components/Modal/modal';
+import Modal from '../../components/modal/modal';
 
 
 const propTypes = {};

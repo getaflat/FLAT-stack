@@ -2,14 +2,14 @@ const resolve = require('path').resolve;
 const webpack = require('webpack');
 
 const SRC = resolve(__dirname, 'src/main/javascript/')
-const DIST = resolve(__dirname, 'src/main/resources/static/dist')
+const DIST = resolve(__dirname, 'src/main/resources/static/dist/')
 
 module.exports = {
     devtool: 'eval-source-map',
     entry: resolve(SRC, 'index.js'),
     output: {
         path: DIST,
-        publicPath: DIST,
+        // publicPath: DIST,
         filename: 'bundle.js'
     },
     module: {
@@ -18,7 +18,15 @@ module.exports = {
                 test: /\.jsx?$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
-                options: { presets: [ ['es2015', { modules: false }], 'react' ]  }
+                options: {
+                    presets: [
+                        ['es2015', { modules: false }],
+                        'react'
+                    ],
+                    plugins: [
+                        'transform-object-rest-spread'
+                    ]
+                }
             },
             {
                 test: /\.css$/,
@@ -44,15 +52,15 @@ module.exports = {
                 test: /\.(eot|svg|ttf|woff|woff2)$/,
                 loader: 'file-loader',
                 options: {
-                    name: '[path][name].[ext]'
+                    name: '[name].[ext]'
                 }
             },
             {
-                test: /\.(jpe?g|png|gif|svg)$/i,
-                loaders: [
-                    'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
-                    'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
-                ]
+                test: /\.(jpe?g|png|gif|svg)$/,
+                loader: 'url-loader',
+                options: {
+                    name: '[name].[ext]'
+                }
             }
         ]
     },

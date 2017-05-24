@@ -19,9 +19,9 @@ class Header extends React.Component {
     }
 
     componentDidMount() {
-        api.get('/customers').then(({ data }) => {
+        /* api.get('/customers').then(({ data }) => {
             this.setState({ customers: data._embedded.customer });
-        });
+        }); */
     }
 
     /*handleLogin(event){
@@ -33,7 +33,7 @@ class Header extends React.Component {
             <header className={styles.wrapper}>
                 <div className={styles.topHeader}>
                     {/*<a className={styles.logo}>Logo</a>*/}
-                    <div> <img className={styles.logo} src="./logo.jpg" alt="logo"/> </div>
+                    <div> <img className={styles.logo} src={require("./img/logo.jpg")} alt="logo"/> </div>
                     <div className={styles.buttons}>
                         <Link className={globalStyles.button} to="/login">Login</Link>
                         <Link className={globalStyles.button} to="/register">Registrieren</Link>
@@ -50,7 +50,7 @@ class Header extends React.Component {
                 <div className={styles.tabs}>
                     <Link className={globalStyles.button} to="/">Homepage</Link>
                     <Link className={globalStyles.button} to="/region">Gebietsauwahl</Link>
-                    <Link className={globalStyles.button} to="/User">Dashboard</Link>
+                    <Link className={globalStyles.button} to="/user">Dashboard</Link>
                 </div>
 
                 {/*<div className={styles.topnav}>
