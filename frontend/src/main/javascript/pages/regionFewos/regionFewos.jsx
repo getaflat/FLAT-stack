@@ -1,12 +1,26 @@
 import React from 'react';
 import styles from './regionFewos.css';
 import globalStyles from '../../general-styles/global.css';
+import api from '../../services/api';
+
+import { Table, Column, Cell } from 'fixed-data-table';
 
 import { Link } from 'react-router-dom';
 
 
 const propTypes = {};
 const defaultProps = {};
+
+class TextCell extends React.Component {
+    render() {
+        const {rowIndex, field, data, props} = this.props;
+        return (
+            <Cell {...props}>
+                {data[rowIndex][field]}
+            </Cell>
+        );
+    }
+}
 
 class regionFewos extends React.Component {
     constructor(props) {
@@ -16,6 +30,17 @@ class regionFewos extends React.Component {
 
         };
         this.handleClick = this.handleClick.bind(this);
+    }
+
+    componentDidMount() {
+        api.get('/apartments').then(({ data }) => {
+            let apartments = data._embedded.apartments;
+            this.setState((prev, props) => {
+                return { fewos: apartments }
+            });
+        }).catch(() => {
+            console.error(arguments)
+        })
     }
 
     handleClick(event) {
@@ -28,33 +53,36 @@ class regionFewos extends React.Component {
                 <h1>Region: {this.props.match.params.id}</h1>
                 <Link className={styles.link} to={"/fewo/" + this.props.match.params.id}>Testhaus</Link>
                 <div className={styles.tgwrap}>
-                    <table className={styles.tg}>
-                        <tbody>
-                        <tr>
-                            <th className={styles.tgyw4l}>Name (Ferienwohnung)</th>
-                            <th className={styles.tgyw4l}>Zimmer</th>
-                            <th className={styles.tgyw4l}>Personenanzahl</th>
-                            <th className={styles.tgyw4l}>Größe (in cm2)</th>
-                            <th className={styles.tgyw4l}>Kinder geeignet</th>
-                            <th className={styles.tgyw4l}>Derzeit frei</th>
-                            <th className={styles.tgyw4l}>Buchen?</th>
-                        </tr>
-                        {this.state.fewos.map((fewo, index) =>
-                            <tr key={index}>
-                                <td value={fewo.apartmentId}>{fewo.name}</td>
-                                <td>{fewo.numberOfRooms}</td>
-                                <td>{fewo.numberOfPersons}</td>
-                                <td>{fewo.size}</td>
-                                <td><input checked={fewo.infantsAllowed} type="checkbox"/></td>
-                                <td><input checked={fewo.isAvailable} type="checkbox"/></td>
-                                <td><input onClick={this.handleClick} type="button"/></td>
-                            </tr>
-                        )}
-                        </tbody>
-                    </table>
+                    <Table rowsCount={this.state.fewos.length} height={1000}
+                           width={1200}
+                           rowHeight={30} headerHeight={30}>
+                        <Column
+                            header={<Cell>Name (Ferienwohnung)</Cell>}
+                            cell = {<TextCell data={this.state.fewos} field="name" />}
+                            width={200} />
+                        <Column
+                            header={<Cell>Zimmer</Cell>}
+                            cell = {<TextCell data={this.state.fewos} field="numberOfRooms" />}
+                            width={200} />
+                        <Column
+                            header={<Cell>Personenanzahl</Cell>}
+                            cell = {<TextCell data={this.state.fewos} field="numberOfPersons" />}
+                            width={200} />
+                        <Column
+                            header={<Cell>Größe (in cm²)</Cell>}
+                            cell = {<TextCell data={this.state.fewos} field="size" />}
+                            width={200} />
+                        <Column
+                            header={<Cell>Kinder geeignet</Cell>}
+                            cell = {<TextCell data={this.state.fewos} field="infantsAllowed" />}
+                            width={200} />
+                        <Column
+                            header={<Cell>Derzeit frei</Cell>}
+                            cell = {<TextCell data={this.state.fewos} field="isAvailable" />}
+                            width={200} />
+                    </Table>
                 </div>
             </div>
-
         );
     }
 }

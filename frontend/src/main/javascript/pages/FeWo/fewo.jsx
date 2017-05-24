@@ -4,6 +4,7 @@ import globalStyles from '../../general-styles/global.css';
 import api from '../../services/api';
 import * as ReactDOM from "react-dom";
 import { Link } from 'react-router-dom';
+import Slider from 'react-slick';
 
 
 const propTypes = {};
@@ -56,9 +57,17 @@ class FeWo extends React.Component {
     }
 
     render() {
+        const settings = {
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1
+        };
+
         return (
             <div className={globalStyles.wrapper + ' ' + styles.wrapper}>
-                <div className={styles.images}>
+                {/* <!-- <div className={styles.images}>
                     <a><img name="" className={styles.imgBig}
                             src="http://all4phones.de/attachments/45792d1299589593-sony-ericsson-xperia-play-hintergrundbilder-sony-ericsson-xperia-play-hintergrundbilder-6-.jpg"
                             alt="Spaß in der Sonne"/></a>
@@ -68,10 +77,19 @@ class FeWo extends React.Component {
                                 alt="Spaß in der Sonne"/></a>
                         <a><img className={styles.img} src="http://www.chip.de/ii/582228776_c282d2358e.jpg"
                                 alt="Spaß in der Sonne"/></a>
-                        <a><img className={styles.img}
-                                src="https://images.pexels.com/photos/3247/nature-forest-industry-rails.jpg?h=350&auto=compress&cs=tinysrgb"
-                                alt="Spaß in der Sonne"/></a>
                     </div>
+                </div> --> */}
+                <div className={styles.sliderContainer}>
+                    <Slider {...settings}>
+                        <div><img src="http://all4phones.de/attachments/45792d1299589593-sony-ericsson-xperia-play-hintergrundbilder-sony-ericsson-xperia-play-hintergrundbilder-6-.jpg"
+                                        alt="Spaß in der Sonne"/></div>
+                        <div><img src="http://all4phones.de/attachments/45792d1299589593-sony-ericsson-xperia-play-hintergrundbilder-sony-ericsson-xperia-play-hintergrundbilder-6-.jpg"
+                                  alt="Spaß in der Sonne"/></div>
+                        <div><img src="http://all4phones.de/attachments/45792d1299589593-sony-ericsson-xperia-play-hintergrundbilder-sony-ericsson-xperia-play-hintergrundbilder-6-.jpg"
+                                  alt="Spaß in der Sonne"/></div>
+                        <div><img src="http://all4phones.de/attachments/45792d1299589593-sony-ericsson-xperia-play-hintergrundbilder-sony-ericsson-xperia-play-hintergrundbilder-6-.jpg"
+                                  alt="Spaß in der Sonne"/></div>
+                    </Slider>
                 </div>
                 <br />
                 <h3>{this.props.match.params.id}</h3>

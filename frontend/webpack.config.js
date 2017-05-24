@@ -38,6 +38,20 @@ module.exports = {
                         loader: 'postcss-loader'
                     }
                 ]
+            },
+            {
+                test: /\.(eot|svg|ttf|woff|woff2)$/,
+                loader: 'file-loader',
+                options: {
+                    name: '[path][name].[ext]'
+                }
+            },
+            {
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                loaders: [
+                    'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
+                    'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
+                ]
             }
         ]
     },

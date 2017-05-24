@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './region.css';
 import globalStyles from '../../general-styles/global.css';
+import { Link } from 'react-router-dom';
 
 
 const propTypes = {};
@@ -10,18 +11,18 @@ const defaultProps = {};
 class Region extends React.Component {
     constructor(props) {
         super(props);
-        this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick(event) {
-        this.props.history.push(`/regionFewo/${event.target.value}`);
+    componentDidMount()
+    {
+
     }
 
     render() {
         return (
             <div className={globalStyles.wrapper}>
                 <h1>Gebiete</h1>
-                <button value="Alpen" onClick={this.handleClick} className={globalStyles.button + ' ' + styles.button}>buchen</button>
+                <Link className={styles.link} to="/region/Alpen">Alpen</Link>
             </div>
         );
     }

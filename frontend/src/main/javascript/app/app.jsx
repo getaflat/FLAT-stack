@@ -36,11 +36,11 @@ class App extends React.Component {
                         <Route path="/gtc" component={GTC} />
                         <Route path="/imprint" component={Imprint} />
                         <Route path="/login" component={Login} />
+                        <Route path="/region/:id" component={RegionFewo} />
                         <Route path="/region" component={Region} />
                         <Route path="/register" component={Register} />
                         <Route path="/user" component={User} />
                         <Route path="/fewo/:id" component={FeWo} />
-                        <Route path="/regionFewo/:id" component={RegionFewo} />
                         <Route component={NoMatch} />
                     </Switch>
 
