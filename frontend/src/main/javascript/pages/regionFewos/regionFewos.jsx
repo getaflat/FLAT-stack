@@ -51,7 +51,14 @@ class regionFewos extends React.Component {
         return (
             <div className={globalStyles.wrapper}>
                 <h1>Region: {this.props.match.params.id}</h1>
+                <div className={styles.upperRegionFewos}>
+
                 <Link className={styles.link} to={"/fewo/" + this.props.match.params.id}>Testhaus</Link>
+                <div> <img className={styles.image} src="./logo.jpg" alt="logo"/> </div>
+                <div>
+                    <p>Kurzbeschreibung der Region generisch</p>
+                </div>
+                </div>
                 <div className={styles.tgwrap}>
                     <Table rowsCount={this.state.fewos.length} height={1000}
                            width={1200}
