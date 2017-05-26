@@ -13,17 +13,17 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
+            email: '',
             password: ''
         };
         this.handlePassword = this.handlePassword.bind(this);
-        this.handleUserName = this.handleUserName.bind(this);
+        this.handleEmail = this.handleEmail.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.clearInputs = this.clearInputs.bind(this);
     }
 
-    handleUserName(event) {
-        this.setState({username: event.target.value});
+    handleEmail(event) {
+        this.setState({email: event.target.value});
     }
 
     handlePassword(event) {
@@ -31,13 +31,13 @@ class Login extends React.Component {
     }
 
     handleSubmit() {
-        api.get(`/customers${this.state.username}`).then(({data}) => {
+        api.get(`/customers${this.state.email}`).then(({data}) => {
             this.setState({loggedIn: data._embedded.user});
         });
     }
 
     clearInputs(event) {
-        this.setState({username: ''});
+        this.setState({email: ''});
         this.setState({password: ''});
     }
 
@@ -49,10 +49,10 @@ class Login extends React.Component {
                     <h3>Login</h3><br />
                     <form onSubmit={this.handleSubmit} onReset={this.clearInputs} action="/user">
                         <label>
-                            Username:
+                            E-Mail:
                         </label>
-                        <input className={globalStyles.input} value={this.state.username} ref="usernameInput"
-                               onChange={this.handleUserName} type="text"/><br />
+                        <input className={globalStyles.input} value={this.state.email} ref="emailInput"
+                               onChange={this.handleEmail} type="text"/><br />
                         <label>
                             Passwort:
                         </label>

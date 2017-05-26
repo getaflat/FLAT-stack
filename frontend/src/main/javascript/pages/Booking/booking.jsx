@@ -19,10 +19,15 @@ class Booking extends React.Component {
 
     render() {
         return (
-            <div className={globalStyles.wrapper}>
+            <div className={globalStyles.wrapper + ' ' + styles.wrapper}>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <h1>Buchung</h1>
-                <div className={styles.leftBooking}>Text & Bild</div>
+                <div className={styles.leftBooking}>
+                        <div> <img className={styles.image} src="./logo.jpg" alt="logo"/> </div>
+                        <div>
+                            <p>Kurzbeschreibung der FeWo generisch</p>
+                        </div>
+                </div>
                 <div className={styles.rightBooking}>
                     <form onSubmit={this.handleSubmit}>
                         <label>
@@ -32,24 +37,32 @@ class Booking extends React.Component {
                         <label>
                             Tiere:
                         </label>
-                        <input type="text" /><br />
+                        <input type="checkbox" /><br />
                         <label>
                             Kinder:
                         </label>
-                        <input type="text"  /><br />
+                        <input type="checkbox"  /><br />
                         <label>
                             Von:
                         </label>
-                        <input type="text" /><br />
+                        <input type="date" /><br />
                         <label>
                             Bis:
                         </label>
+                        <input type="date" /><br />
+                        <label>
+                            Kosten:
+                        </label>
                         <input type="text" /><br />
-                        <button className={globalStyles.button} type="submit">
+                        <label>
+                            Zusatzkosten:
+                        </label>
+                        <input type="text" /><br />
+                        <button className={globalStyles.button} type="reset">
                             abbrechen
                         </button>
-                        <button className={globalStyles.button} type="reset">
-                            buchen
+                        <button className={globalStyles.button} type="submit">
+                            Buchungswunsch anmelden
                         </button>
                     </form>
                 </div>

@@ -42,7 +42,7 @@ class Header extends React.Component {
                         {/*<button className={styles.button}>registrieren</button>*/}
                     </div><br />
                     <div className={styles.userData}>
-                        <div><h3>{this.state.customer.username}TestUser</h3></div>
+                        <div><h3>{this.state.customer.email}TestUser</h3></div>
                         <div><input type="text" disabled={true} value={this.state.customer.totalScore + " P."} /></div>
                     </div>
                 </div>
@@ -50,7 +50,7 @@ class Header extends React.Component {
                 <div className={styles.tabs}>
                     <Link className={globalStyles.button} to="/">Homepage</Link>
                     <Link className={globalStyles.button} to="/region">Gebietsauwahl</Link>
-                    <Link className={globalStyles.button} to="/User">Dashboard</Link>
+                    <Link className={globalStyles.button} to="/user">Dashboard</Link>
                 </div>
 
                 {/*<div className={styles.topnav}>
