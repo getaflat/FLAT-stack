@@ -65,7 +65,7 @@ class Login extends React.Component {
                     <h3>Login</h3><br />
                     <form onSubmit={this.handleSubmit} onReset={this.clearInputs} action="/user">
                         <label>
-                            Username:
+                            Email:
                         </label>
                         <input className={globalStyles.input} value={this.state.username} ref="usernameInput"
                                onChange={this.handleUserName} type="text"/><br />

@@ -6,7 +6,12 @@
     flex-flow: wrap;
     flex-direction: row;
     justify-content: space-between;
+    border-top: 1px solid black;
 
+}
+
+.modalWrapper {
+    margin: 5px;
 }
 
 .menu {
@@ -29,4 +34,14 @@
 
 .link:hover {
     color: black;
+}
+
+.ratingContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+}
+
+.buttons {
+    margin-top: 10px;
 }

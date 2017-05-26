@@ -10,15 +10,12 @@ import update from 'immutability-helper';
 const propTypes = {};
 const defaultProps = {};
 
-let t;
-
 class Register extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             customer: {
-                username: '',
                 birthdate: '',
                 password: '',
                 reppassword: '',
@@ -58,7 +55,6 @@ class Register extends React.Component {
         this.refs.contractnumberInput.value = '';
         this.setState( {
             customer: {
-                username: '',
                 birthdate: '',
                 password: '',
                 reppassword: '',
@@ -68,14 +64,12 @@ class Register extends React.Component {
                 lastname: ''
             }
         });
-       // ReactDOM.findDOMNode(this.refs.usernameInput).focus();
     }
 
     handleSubmit(event) {
         let m = 0;
         let input = this.refs.contractnumberInput;
         event.preventDefault();
-        this.refs.usernameInput.style.border = "1px solid";
         this.refs.firstnameInput.style.border = "1px solid";
         this.refs.lastnameInput.style.border = "1px solid";
         this.refs.birthdateInput.style.border = "1px solid";
@@ -87,10 +81,6 @@ class Register extends React.Component {
         if (this.state.customer.password !== this.state.customer.reppassword || this.state.customer.password === '') {
             this.refs.passwordInput.style.borderColor = "red";
             ReactDOM.findDOMNode(this.refs.passwordrepInput).style.borderColor = "red";
-            m = 1;
-        }
-        if(this.state.customer.username === '') {
-            ReactDOM.findDOMNode(this.refs.usernameInput).style.borderColor = "red";
             m = 1;
         }
         if (this.state.customer.contractnumber.length !== 12) {
@@ -122,7 +112,6 @@ class Register extends React.Component {
                 lastName: this.state.customer.lastname,
                 password: this.state.customer.password,
                 totalScore: 0,
-                username: this.state.customer.username
             });
             this.props.history.push('/User');
         }).catch(
@@ -147,11 +136,6 @@ class Register extends React.Component {
                     <h3>Registrierung</h3>
                     <form onSubmit={this.handleSubmit} onReset={this.clearInputs} action="/User">
                         <label>
-                            Username:*
-                        </label>
-                        <input className={globalStyles.input} name="username" value={this.state.username} ref="usernameInput"
-                               onChange={this.handleInput} type="text"/><br />
-                        <label>
                             Vorname:
                         </label>
                         <input className={globalStyles.input} name="firstname" value={this.state.firstname}
@@ -164,27 +148,27 @@ class Register extends React.Component {
                         <label>
                             Geburtsdatum:
                         </label>
-                        <input className={globalStyles.input} name="birthdate" value={this.state.birthdate}
+                        <input required={true} className={globalStyles.input} name="birthdate" value={this.state.birthdate}
                                ref="birthdateInput" type="date" onChange={this.handleInput}/><br />
                         <label>
                             Passwort:*
                         </label>
-                        <input className={globalStyles.input} name="password" value={this.state.password} ref="passwordInput"
+                        <input required={true} className={globalStyles.input} name="password" value={this.state.password} ref="passwordInput"
                                type="password" onChange={this.handleInput}/><br />
                         <label>
                             bestätigen:*
                         </label>
-                        <input className={globalStyles.input} name="reppassword" value={this.state.reppassword}
+                        <input required={true} className={globalStyles.input} name="reppassword" value={this.state.reppassword}
                                type="password" ref="passwordrepInput" onChange={this.handleInput}/><br />
                         <label>
-                            Email Adresse:
+                            Email Adresse:*
                         </label>
-                        <input className={globalStyles.input} name="email" value={this.state.email} type="text"
+                        <input required={true} className={globalStyles.input} name="email" value={this.state.email} type="text"
                                ref="emailInput" onChange={this.handleInput}/><br />
                         <label>
                             Vertragsnummer:*
                         </label>
-                        <input className={globalStyles.input} name="contractnumber" value={this.state.contractnumber}
+                        <input required={true} className={globalStyles.input} name="contractnumber" value={this.state.contractnumber}
                                type="text" ref="contractnumberInput" onChange={this.handleInput}/><br />
                         <input className={globalStyles.button} type="reset" name="abbrechen"/>
                         <button className={globalStyles.button}>senden</button>

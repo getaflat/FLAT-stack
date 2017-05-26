@@ -7,17 +7,16 @@
 }*/
 
 .wrapper {
-    /*background-color: #333;*/
     background-color: #cccccc;
-    /*margin-bottom: 50px;*/
     display: flex;
     flex-direction: column;
-
+    justify-content: space-between;
 }
 
 .topHeader{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .buttons{
@@ -25,22 +24,48 @@
     justify-content: flex-end;
 }
 
+.topRight {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.userPoint {
+    max-width: 100px;
+    height: auto;
+}
+
 .logo {
-    float: left;
     color: white;
     justify-content: flex-start;
+    max-width: 80px;
+    height: auto;
+    margin-left: 5px;
+    margin-top: 5px;
 }
 
 .userData {
-    /*float: right;*/
     color: white;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
 }
 
-.tab {
+.tabs {
     flex-direction: row;
+    display: flex;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    background-color: #636c72;
+}
+
+.tabLinks {
+    color: black;
+    margin-left: 20px;
+}
+
+.tabLinks:hover {
+    color: black !important;
 }
 
 .topnav {
@@ -78,20 +103,14 @@
         padding-top: 10px;
     }
 
-    .topHeader{
-        display: flex;
-        flex-direction: row;
-    }
-
     .buttons{
         flex-direction: row;
         /*justify-content: flex-end;*/
     }
 
     .logo {
-        float: left;
-        color: white;
-        /*justify-content: flex-start;*/
+
+
     }
 
     .userData {
@@ -100,9 +119,5 @@
         /*display: flex;*/
         flex-direction: row;
         /*justify-content: flex-end;*/
-    }
-
-    .tab {
-        flex-direction: row;
     }
 }
