@@ -40,7 +40,7 @@ class Login extends React.Component {
         }).then((response) => {
             if (response.status === 200 && response.headers.authorization) {
                 auth.storeToken(response.headers.authorization);
-                this.props.history.push('/');
+                this.props.history.push('/user');
             }
         }).catch((error) => {
             if (error.response) {

@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 import api from '../../services/api';
+import auth from '../../services/auth';
 
 import styles from './header.css';
 import globalStyles from '../../general-styles/global.css';

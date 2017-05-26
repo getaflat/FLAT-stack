@@ -50,6 +50,7 @@ class App extends React.Component {
                         <Route path="/gtc" component={GTC} />
                         <Route path="/imprint" component={Imprint} />
                         <Route path="/login" component={Login} />
+                        <Route path="/logout" component={Logout} />
                         <Route path="/region/:id" component={RegionFewo} />
                         <Route path="/region" component={Region} />
                         <Route path="/register" component={Register} />
