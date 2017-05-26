@@ -16,10 +16,11 @@ public class ReactRoutesController /* implements ErrorController */ {
             "/login",
             "/logout",
             "/region",
-            "/region/{id}",
+            "/region/{name}",
             "/register",
             "/user",
-            "/fewo"//,
+            "/fewo",
+            "/fewo/{name}"//,
             //ERROR_PATH
     })
     public String index() {

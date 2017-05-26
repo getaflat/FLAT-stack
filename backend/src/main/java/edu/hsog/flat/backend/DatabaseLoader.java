@@ -77,8 +77,8 @@ public class DatabaseLoader implements CommandLineRunner {
 
 
 	    Apartment a1 = new Apartment();
-	    // a1.setApartmentId(1L);
-        a1.setResidentialBlockId(rb1.getResidentialBlockId());
+	    a1.setApartmentId(1L);
+        // a1.setResidentialBlockId(rb1.getResidentialBlockId());
 	    a1.setIsAvailable(true);
 	    a1.setName("FeWo-Mittelmeer-1");
 	    a1.setNumberOfRooms(4);

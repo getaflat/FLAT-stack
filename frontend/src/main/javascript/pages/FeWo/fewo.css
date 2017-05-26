@@ -8,6 +8,7 @@
 .FeWoDescr {
     margin-right: 5vw;
     margin-left: 5vw;
+    min-width: 300px;
 }
 
 .littleImages {
