@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './fewo.css';
 import globalStyles from '../../general-styles/global.css';
 import api from '../../services/api';
-import * as ReactDOM from "react-dom";
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 
@@ -11,31 +10,19 @@ const propTypes = {};
 
 const defaultProps = {};
 
+let descr;
+
 class FeWo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             fewo: {
-                description: '',
                 pictures: [],
                 name: ''
             },
-            bigpicture: '',
-            picture1: '',
-            picture2: '',
-            picture3: ''
         };
-        this.handleBooking = this.handleBooking.bind(this);
-        this.handlepictureSwap = this.handlepictureSwap.bind(this);
     }
 
-    handleBooking() {
-        this.props.history.push(`/booking/${this.props.match.path}`);
-    }
-
-    handlepictureSwap() {
-
-    }
 
     componentDidMount() {
         api.get(`/apartments/search/findByName`, {
@@ -44,14 +31,20 @@ class FeWo extends React.Component {
             }
         }).then(({data}) => {
             console.log(data);
+            descr = `${data.description} 
+                Personen: ${data.numberOfPersons}
+                Raumanzahl: ${data.numberOfRooms}
+                Größe: ${data.size}
+                Kinder: ${data.infantsAllowed}
+                Tiere: ${data.animalsAllowed}
+                Balkon: ${data.hasBalcony}`;
             this.setState({
                 fewo: {
-                    description: 'Kinder erlaubt:' + data.infantsAllowed,
-                    name: this.props.match.params.id
+                    name: data.name,
+                    pictures: data.images
                 }
             });
         });
-
     }
 
     render() {
@@ -60,7 +53,10 @@ class FeWo extends React.Component {
             infinite: true,
             speed: 500,
             slidesToShow: 1,
-            slidesToScroll: 1
+            slidesToScroll: 1,
+            pauseOnHover: true,
+            autoplay: true,
+            className: styles.sliders
         };
 
         return (
@@ -80,7 +76,7 @@ class FeWo extends React.Component {
                 <br />
                 <h3>{this.props.match.params.id}</h3>
                 <div className={styles.FeWoDescr}>
-                    <p>{this.state.fewo.description}</p>
+                    <p>{descr}</p>
                 </div>
                 <Link className={styles.link} to={"/booking/" + this.props.match.params.id}>Testbuchung</Link>
             </div>
