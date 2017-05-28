@@ -39,40 +39,40 @@ public class DatabaseLoader implements CommandLineRunner {
 	    rb1.setResidentialBlockId(1L);
 	    rb1.setName("Komplex-Mittelmeer-1");
 	    rb1.setDetails("Lorem Ipsum");
-        //rb.setImage1(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/Costa_Brava.JPG"));
-        //rb.setImage2(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/dorf.jpeg"));
+        rb1.setImage1(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/Costa_Brava.JPG"));
+        rb1.setImage2(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/dorf.jpeg"));
         this.rbRepository.save(rb1);
 
         ResidentialBlock rb2 = new ResidentialBlock();
         rb2.setResidentialBlockId(2L);
         rb2.setName("Komplex-Mittelmeer-2");
         rb2.setDetails("Lorem Ipsum");
-        //rb.setImage1(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/Costa_Brava.JPG"));
-        //rb.setImage2(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/dorf.jpeg"));
+        rb2.setImage1(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block2/les_gorges_du_tarn.jpg"));
+        rb2.setImage2(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block2/Strand_Brandung.jpg"));
         this.rbRepository.save(rb2);
 
         ResidentialBlock rb3 = new ResidentialBlock();
         rb3.setResidentialBlockId(3L);
         rb3.setName("Komplex-Berge-1");
         rb3.setDetails("Lorem Ipsum");
-        //rb.setImage1(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/Costa_Brava.JPG"));
-        //rb.setImage2(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/dorf.jpeg"));
+        rb3.setImage1(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mountain/residential_block/bergsee.jpg"));
+        rb3.setImage2(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mountain/residential_block/FerienwohnungBegeAussenSchnee.jpeg"));
         this.rbRepository.save(rb3);
 
         ResidentialBlock rb4 = new ResidentialBlock();
         rb4.setResidentialBlockId(4L);
         rb4.setName("Komplex-Nord-Ostsee-1");
         rb4.setDetails("Lorem Ipsum");
-        //rb.setImage1(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/Costa_Brava.JPG"));
-        //rb.setImage2(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/dorf.jpeg"));
+        rb4.setImage1(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/north_baltic_sea/residential_block1/FeWoSeeAussen.jpg"));
+        rb4.setImage2(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/north_baltic_sea/residential_block1/FeWoSeeHafen.jpg"));
         this.rbRepository.save(rb4);
 
         ResidentialBlock rb5 = new ResidentialBlock();
         rb5.setResidentialBlockId(5L);
         rb5.setName("Komplex-Nord-Ostsee-2");
         rb5.setDetails("Lorem Ipsum");
-        //rb.setImage1(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/Costa_Brava.JPG"));
-        //rb.setImage2(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/dorf.jpeg"));
+        rb5.setImage1(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/north_baltic_sea/residential_block2/FeWoSeeStrand.jpg"));
+        rb5.setImage2(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/north_baltic_sea/residential_block2/FeWoSeeAussen3.jpeg"));
         this.rbRepository.save(rb5);
 
 
@@ -146,7 +146,7 @@ public class DatabaseLoader implements CommandLineRunner {
         a5.setInfantsAllowed(false);
         this.aRepository.save(a5);
 
-        /*Apartment a6 = new Apartment();
+        Apartment a6 = new Apartment();
         a6.setApartmentId(6L);
         //a6.setResidentialBlockId(2L);
         a6.setIsAvailable(true);
@@ -158,9 +158,9 @@ public class DatabaseLoader implements CommandLineRunner {
         a6.setHasBalcony(true);
         a6.setAnimalsAllowed(false);
         a6.setInfantsAllowed(false);
-        this.aRepository.save(a6);
+        //this.aRepository.save(a6);
 
-        Apartment a7 = new Apartment();
+        /*Apartment a7 = new Apartment();
         a7.setApartmentId(7L);
         //a7.setResidentialBlockId(2L);
         a7.setIsAvailable(false);
@@ -256,7 +256,12 @@ public class DatabaseLoader implements CommandLineRunner {
         f5.setFactor(3.1);
         this.fRepository.save(f5);
 
+       /* Season s1 = new Season();
 
+        for (int i = 1; i <= 53; i++) {
+            s1.setCalenderWeek(i+0L);
+            this.sRepository.save(s1);
+        }*/
 
 		Customer c = new Customer();
 		c.setContractNumber(123456789001L);
@@ -367,6 +372,7 @@ public class DatabaseLoader implements CommandLineRunner {
         c.setPassword("test9");
         c.setTotalScore(1000);
         this.cRepository.save(c);
+        
 
 
 
