@@ -19,6 +19,7 @@ public class ResidentialBlock {
 	@NonNull
 	private String name;
 
+	@Lob
 	@NonNull
 	private String details;
 

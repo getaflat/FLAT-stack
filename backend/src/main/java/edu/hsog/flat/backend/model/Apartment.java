@@ -47,6 +47,7 @@ public class Apartment {
 	@NonNull
 	private Boolean infantsAllowed;
 
+	@Lob
 	@NonNull
 	private String description;
 
