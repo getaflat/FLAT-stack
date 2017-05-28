@@ -38,6 +38,8 @@ public class Booking {
     @ManyToOne(targetEntity = Season.class)
 	private Integer week4;
 
+    private Integer year;
+
 	@NonNull
 	private Integer price;
 
