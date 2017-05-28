@@ -18,7 +18,7 @@ public class Apartment {
 	private List<Long> images;*/
 
 
-	@ManyToOne(targetEntity = ResidentialBlock.class)
+	//@ManyToOne(targetEntity = ResidentialBlock.class)
 	private Long residentialBlockId;
 
 	@NonNull
@@ -49,4 +49,10 @@ public class Apartment {
 
 	@NonNull
 	private String description;
+
+    @Override
+    public String toString() {
+
+        return getResidentialBlockId().toString();
+    }
 }

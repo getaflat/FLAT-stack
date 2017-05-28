@@ -3,7 +3,6 @@ package edu.hsog.flat.backend.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
@@ -32,4 +31,10 @@ public class ResidentialBlock {
 
 	@Lob
 	private byte[] image3;
+
+	@Override
+	public String toString() {
+
+		return getResidentialBlockId().toString();
+	}
 }

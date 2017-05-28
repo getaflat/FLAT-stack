@@ -30,6 +30,15 @@ public class DatabaseLoader implements CommandLineRunner {
 	    this.raRepository = raRepository;
 	    this.rbRepository = rbRepository;
 	    this.sRepository = sRepository;
+
+	    this.aRepository.deleteAll();
+        this.bRepository.deleteAll();
+        this.cRepository.deleteAll();
+        this.fRepository.deleteAll();
+        this.iRepository.deleteAll();
+        this.raRepository.deleteAll();
+        this.rbRepository.deleteAll();
+        this.sRepository.deleteAll();
 	}
 
 	@Override
@@ -78,7 +87,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
 	    Apartment a1 = new Apartment();
 	    a1.setApartmentId(1L);
-        //a1.setResidentialBlockId(1L);
+        a1.setResidentialBlockId(1L);
 	    a1.setIsAvailable(true);
 	    a1.setName("FeWo-Mittelmeer-1");
 	    a1.setNumberOfRooms(4);
@@ -92,7 +101,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
         Apartment a2 = new Apartment();
         a2.setApartmentId(2L);
-        //a2.setResidentialBlockId(1L);
+        a2.setResidentialBlockId(1L);
         a2.setIsAvailable(true);
         a2.setName("FeWo-Mittelmeer-2");
         a2.setNumberOfRooms(5);
@@ -106,7 +115,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
         Apartment a3 = new Apartment();
         a3.setApartmentId(3L);
-        //a3.setResidentialBlockId(1L);
+        a3.setResidentialBlockId(1L);
         a3.setIsAvailable(true);
         a3.setName("FeWo-Mittelmeer-3");
         a3.setNumberOfRooms(3);
@@ -120,7 +129,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
         Apartment a4 = new Apartment();
         a4.setApartmentId(4L);
-        //a4.setResidentialBlockId(1L);
+        a4.setResidentialBlockId(1L);
         a4.setIsAvailable(false);
         a4.setName("FeWo-Mittelmeer-4");
         a4.setNumberOfRooms(2);
@@ -134,7 +143,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
         Apartment a5 = new Apartment();
         a5.setApartmentId(5L);
-        //a5.setResidentialBlockId(1L);
+        a5.setResidentialBlockId(1L);
         a5.setIsAvailable(false);
         a5.setName("FeWo-Mittelmeer-5");
         a5.setNumberOfRooms(1);
@@ -148,7 +157,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
         Apartment a6 = new Apartment();
         a6.setApartmentId(6L);
-        //a6.setResidentialBlockId(2L);
+        a6.setResidentialBlockId(2L);
         a6.setIsAvailable(true);
         a6.setName("FeWo-Mittelmeer-6");
         a6.setNumberOfRooms(1);
@@ -158,11 +167,11 @@ public class DatabaseLoader implements CommandLineRunner {
         a6.setHasBalcony(true);
         a6.setAnimalsAllowed(false);
         a6.setInfantsAllowed(false);
-        //this.aRepository.save(a6);
+        this.aRepository.save(a6);
 
         Apartment a7 = new Apartment();
         a7.setApartmentId(7L);
-        //a7.setResidentialBlockId(2L);
+        a7.setResidentialBlockId(2L);
         a7.setIsAvailable(false);
         a7.setName("FeWo-Mittelmeer-7");
         a7.setNumberOfRooms(2);
@@ -172,11 +181,11 @@ public class DatabaseLoader implements CommandLineRunner {
         a7.setHasBalcony(true);
         a7.setAnimalsAllowed(true);
         a7.setInfantsAllowed(true);
-        this.aRepository.save(a7);/*
+        this.aRepository.save(a7);
 
         Apartment a8 = new Apartment();
         a8.setApartmentId(8L);
-        //a8.setResidentialBlockId(2L);
+        a8.setResidentialBlockId(2L);
         a8.setIsAvailable(true);
         a8.setName("FeWo-Mittelmeer-8");
         a8.setNumberOfRooms(6);
@@ -190,7 +199,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
         Apartment a9 = new Apartment();
         a9.setApartmentId(9L);
-        //a9.setResidentialBlockId(2L);
+        a9.setResidentialBlockId(2L);
         a9.setIsAvailable(true);
         a9.setName("FeWo-Mittelmeer-9");
         a9.setNumberOfRooms(6);
@@ -204,7 +213,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
         Apartment a10 = new Apartment();
         a10.setApartmentId(10L);
-        //a10.setResidentialBlockId(2L);
+        a10.setResidentialBlockId(2L);
         a10.setIsAvailable(true);
         a10.setName("FeWo-Mittelmeer-10");
         a10.setNumberOfRooms(4);
@@ -214,7 +223,7 @@ public class DatabaseLoader implements CommandLineRunner {
         a10.setHasBalcony(true);
         a10.setAnimalsAllowed(false);
         a10.setInfantsAllowed(false);
-        this.aRepository.save(a10);*/
+        this.aRepository.save(a10);
 
         Rating ra1 = new Rating();
         ra1.setScore(3.5);
@@ -237,31 +246,37 @@ public class DatabaseLoader implements CommandLineRunner {
         this.raRepository.save(ra4);
 
         Factor f1 = new Factor();
+        f1.setFactorId(1L);
         f1.setFactor(2.5);
         this.fRepository.save(f1);
 
         Factor f2 = new Factor();
+        f2.setFactorId(2L);
         f2.setFactor(1.2);
         this.fRepository.save(f2);
 
         Factor f3 = new Factor();
+        f3.setFactorId(3L);
         f3.setFactor(1.8);
         this.fRepository.save(f3);
 
         Factor f4 = new Factor();
+        f4.setFactorId(4L);
         f4.setFactor(0.6);
         this.fRepository.save(f4);
 
         Factor f5 = new Factor();
+        f5.setFactorId(5L);
         f5.setFactor(3.1);
         this.fRepository.save(f5);
 
-       /* Season s1 = new Season();
+        Season s1 = new Season();
 
         for (int i = 1; i <= 53; i++) {
             s1.setCalenderWeek(i+0L);
+            s1.setFactorId((int)Math.random()*5L);
             this.sRepository.save(s1);
-        }*/
+        }
 
 		Customer c = new Customer();
 		c.setContractNumber(123456789001L);
