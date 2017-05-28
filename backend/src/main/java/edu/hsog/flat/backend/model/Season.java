@@ -14,6 +14,6 @@ public class Season {
 	private Long calenderWeek;
 
 
-	@ManyToOne(targetEntity = Factor.class)
+	//@ManyToOne(targetEntity = Factor.class)
 	private Long factorId;
 }

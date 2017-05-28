@@ -19,8 +19,8 @@ public class Apartment {
 
 
 	/*@ManyToOne(targetEntity = ResidentialBlock.class)
-	@JoinColumn(name="residential_Block_Id")
-	private Long residentialBlockId;*/
+	@JoinColumn(name="residential_Block_Id")*/
+	private Long residentialBlockId;
 
 	@NonNull
 	private Boolean isAvailable;
