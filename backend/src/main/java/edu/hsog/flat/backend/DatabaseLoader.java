@@ -105,7 +105,7 @@ public class DatabaseLoader implements CommandLineRunner {
         a2.setApartmentId(2L);
         a2.setResidentialBlockId(rb1.getResidentialBlockId());
         a2.setIsAvailable(true);
-        a2.setName("FeWo-Mallorca-2");
+        a2.setName("FeWo-Mallorca-1");
         a2.setDescription("Diese kleine rustikale Häuschen ist für 3 Personen ausgelegt. Es gibt 2 Schlafzimmer, eines mit Doppelbett und ein Einzelbettzimmer. Der Freisitz direkt vor dem Wohnbereich ist ein idealer Aufenthaltsort um zu entspannen und die spanische Sonne zu genießen.\n" +
                 "Die Küche ist voll ausgestattet mit 4 Platten Herd, Spülmaschine, Mikrowelle, Toaster, Kaffeemaschine, Wasserkocher und Waschmaschine.\n");
         a2.setNumberOfRooms(3);
@@ -121,7 +121,7 @@ public class DatabaseLoader implements CommandLineRunner {
         a3.setApartmentId(3L);
         a3.setResidentialBlockId(rb1.getResidentialBlockId());
         a3.setIsAvailable(true);
-        a3.setName("FeWo-Mallorca-3");
+        a3.setName("FeWo-Mallorca-2");
         a3.setDescription("Diese nobel eingerichtete Häuschen bietet neben seiner großen landestypischen Wohnküche 2 Schlafzimmer (einmal Doppelbett, einmal 2 Einzelbetten). Der halboffenen Kamin im Wohnzimmer lässt auch etwas kühlere Abende gemütlich werden. Der Balkon ist mit Sitzmöglichkeiten ausgestattet.\n" +
                 "Die Küche ist voll ausgestattet mit 4 Platten Herd, Spülmaschine, Mikrowelle, Toaster, Kaffeemaschine, Wasserkocher und Waschmaschine.\n");
         a3.setNumberOfRooms(3);
@@ -137,7 +137,7 @@ public class DatabaseLoader implements CommandLineRunner {
         a4.setApartmentId(4L);
         a4.setResidentialBlockId(rb1.getResidentialBlockId());
         a4.setIsAvailable(false);
-        a4.setName("FeWo-Mallorca-4");
+        a4.setName("FeWo-Mallorca-3");
         a4.setDescription("Außergewöhnliches Haus mit 2 Etagen, dass durch einen Bootsrumpf im Wohnbereich sofort maritime Gefühle aufkommen lässt. Ein Doppelbett ist in der offenen 2. Etage und ein Zimmer mit einem Einzelbett im Erdgeschoss. Von der Terrasse aus haben sie einen fabelhaften Blick auf das Mittelmeer.\n" +
                 "Die Küche ist voll ausgestattet mit 4 Platten Herd, Spülmaschine, Mikrowelle, Toaster, Kaffeemaschine, Wasserkocher und Waschmaschine.\n");
         a4.setNumberOfRooms(4);
@@ -153,7 +153,7 @@ public class DatabaseLoader implements CommandLineRunner {
         a5.setApartmentId(5L);
         a5.setResidentialBlockId(rb2.getResidentialBlockId());
         a5.setIsAvailable(false);
-        a5.setName("FeWo-Italien-5");
+        a5.setName("FeWo-Italien-2");
         a5.setDescription("Die große, moderne Küche lässt genug Platz um für eine große Familie oder für Freunde zu kochen.  Im rustikalen Ess- und Wohnbereich sorgen Natursteinelemente in den Wänden für einen mediterranen Flair. Es gibt 3 Schlafzimmer (Einmal Doppelbett, zweimal zwei Einzelbetten).\n" +
                 "Die Küche ist voll ausgestattet mit 4 Platten Herd, Spülmaschine, Mikrowelle, Toaster, Kaffeemaschine, Wasserkocher und Waschmaschine.\n");
         a5.setNumberOfRooms(5);
@@ -169,7 +169,7 @@ public class DatabaseLoader implements CommandLineRunner {
         a6.setApartmentId(6L);
         a6.setResidentialBlockId(rb2.getResidentialBlockId());
         a6.setIsAvailable(true);
-        a6.setName("FeWo-Italien-6");
+        a6.setName("FeWo-Italien-3");
         a6.setDescription("In dieser offen gestalteten Wohnung über 2 Etagen finden 4 Personen in 2 Schlafräumen Platz (Einmal Doppelbett in offenere Galerie, einmal zwei Einzelbetten). Der kleine Balkon bietet einen schönen Blick über die Stadt und hinaus aufs Meer.\n" +
                 "Die Küche ist voll ausgestattet mit 4 Platten Herd, Spülmaschine, Mikrowelle, Toaster, Kaffeemaschine, Wasserkocher und Waschmaschine.\n");
         a6.setNumberOfRooms(3);
@@ -185,7 +185,7 @@ public class DatabaseLoader implements CommandLineRunner {
         a7.setApartmentId(7L);
         a7.setResidentialBlockId(rb1.getResidentialBlockId());
         a7.setIsAvailable(false);
-        a7.setName("FeWo-Mallorca-7");
+        a7.setName("FeWo-Mallorca-4");
         a7.setDescription("Diese große Wohnung  ist im Erdgeschoss eines Hauses mit 2 Wohneinheiten. Sein rustikales Wohnzimmer wird von der modernen Küche mit Essecke optimal ergänzt. 6 Personen finden in den 3 Schlafzimmern problemlos Platz (einmal Doppelbett und zweimal 2 Einzelbetten).\n" +
                 "Die Küche ist voll ausgestattet mit 4 Platten Herd, Spülmaschine, Mikrowelle, Toaster, Kaffeemaschine, Wasserkocher und Waschmaschine.\n");
         a7.setNumberOfRooms(5);
@@ -201,7 +201,7 @@ public class DatabaseLoader implements CommandLineRunner {
         a8.setApartmentId(8L);
         a8.setResidentialBlockId(rb2.getResidentialBlockId());
         a8.setIsAvailable(true);
-        a8.setName("FeWo-Italien-8");
+        a8.setName("FeWo-Italien-4");
         a8.setDescription("Von der sonnen-geschützten Lounge-Ecke auf dem Balkon dieser Wohnung bietet sich ein toller Blick hinaus auf Mittelmeer. Es gibt 2 Schlafzimmer (einmal Doppelbett, einmal drei Einzelbetten).\n" +
                 "Die Küche ist voll ausgestattet mit 4 Platten Herd, Spülmaschine, Mikrowelle, Toaster, Kaffeemaschine, Wasserkocher und Waschmaschine.\n");
         a8.setNumberOfRooms(4);
@@ -217,7 +217,7 @@ public class DatabaseLoader implements CommandLineRunner {
         a9.setApartmentId(9L);
         a9.setResidentialBlockId(rb1.getResidentialBlockId());
         a9.setIsAvailable(true);
-        a9.setName("FeWo-Mallorca-9");
+        a9.setName("FeWo-Mallorca-5");
         a9.setDescription("Spanische Sonne, ein guter heimischer Wein und dazu frisch gegrilltes, das biete ihnen diese Wohnung im Obergeschoss eines Hauses mit nur 2 Wohneinheiten. Der offenen Wohnbereich und die gemütliche Küche bieten auch an kühleren Abenden Platz für 5 Personen (3 Schlafzimmer, einmal Doppelbett, einmal 2 Einzelbetten und einmal ein Einzelbett). Der große Balkon mit gemauertem Grill lässt sie ihren Urlaub rundum genießen.\n" +
                 "Die Küche ist voll ausgestattet mit 4 Platten Herd, Spülmaschine, Mikrowelle, Toaster, Kaffeemaschine, Wasserkocher und Waschmaschine. \n");
         a9.setNumberOfRooms(5);
@@ -233,7 +233,7 @@ public class DatabaseLoader implements CommandLineRunner {
         a10.setApartmentId(10L);
         a10.setResidentialBlockId(rb2.getResidentialBlockId());
         a10.setIsAvailable(true);
-        a10.setName("FeWo-Italien-10");
+        a10.setName("FeWo-Italien-5");
         a10.setDescription("Diese ländlich eingerichtete 3 Zimmer Wohnung ist der ideale Ausgangspunkt für Badeausflüge, Wanderungen im Hinterland oder Shoppingtouren. In den beiden Schlafzimmern (einmal Doppelbett und einmal zwei Einzelbetten) finden 4 Personen Platz. Die offenen Küche verströmt einen besonderen mediterranen Charme.\n" +
                 "Die Küche ist voll ausgestattet mit 4 Platten Herd, Spülmaschine, Mikrowelle, Toaster, Kaffeemaschine, Wasserkocher und Waschmaschine.\n");
         a10.setNumberOfRooms(4);
@@ -325,11 +325,170 @@ public class DatabaseLoader implements CommandLineRunner {
         a15.setInfantsAllowed(false);
         this.aRepository.save(a15);
 
-       /* Apartment a21 = new Apartment();
+        Apartment a21 = new Apartment();
         a21.setApartmentId(21L);
         a21.setResidentialBlockId(rb4.getResidentialBlockId());
         a21.setIsAvailable(true);
-        a21.setName(); */
+        a21.setName("FeWo-Nordsee-1");
+        a21.setDescription("Diese Wohnung besticht durch ihr luxuriöses Bad sowie den großzügig gestalteten Wohnbereich. Sie ist für 8 Personen geeignet. Es gibt 3 Schlafzimmer (2 Doppelbetten mit Sat-TV, 1 x 2 Einzelbetten) und eine gemütliche Schlafcouch im Essbereich, der ebenfalls mit einem Sat-TV sowie einem DVD-Player ausgestattet ist.. Der Balkon bietet einen tollen Blick auf die Nordsee. Kochutensilien und Geschirr sind ausreichend vorhanden, ebenso wie 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeevollautomat, Toaster, Wasserkocher und elektrische Saftpresse.  Auch eine Waschmaschine und ein Wäschetrockner stehen zur Verfügung.");
+        a21.setNumberOfRooms(4);
+        a21.setSize(125.7);
+        a21.setNumberOfPersons(8);
+        a21.setBasePrice(640);
+        a21.setHasBalcony(true);
+        a21.setAnimalsAllowed(true);
+        a21.setInfantsAllowed(true);
+        this.aRepository.save(a21);
+
+        Apartment a22 = new Apartment();
+        a22.setApartmentId(22L);
+        a22.setResidentialBlockId(rb5.getResidentialBlockId());
+        a22.setIsAvailable(true);
+        a22.setName("FeWo-Ostsee-1");
+        a22.setDescription("Helles und freundlich eingerichtetes kleines Häuschen für 5 Personen (2 Erwachsene und 3 Kinder).\n" +
+                "Es verfügt über 2 Schlafzimmer ( ein Doppelbett, einmal ein Etagenbett und ein Einzelbett).\n" +
+                "Der kleine Balkon geht direkt übers Wasser, hinten gibt es ein kleines Stück Rasenfläche zur persönlichen Nutzung, Gartenmöbel vorhanden, Grillen erlaubt.\n" +
+                "Die Küche ist mit ausreichend Koch- und Essgeschirr ausgestattet. Des weiteren stehen ein 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeemaschine, Toaster, Wasserkocher und elektrische Saftpresse, sowie eine Waschmaschine zur Verfügung.");
+        a22.setNumberOfRooms(3);
+        a22.setSize(105.7);
+        a22.setNumberOfPersons(5);
+        a22.setBasePrice(440);
+        a22.setHasBalcony(true);
+        a22.setAnimalsAllowed(false);
+        a22.setInfantsAllowed(false);
+        this.aRepository.save(a22);
+
+        Apartment a23 = new Apartment();
+        a23.setApartmentId(23L);
+        a23.setResidentialBlockId(rb4.getResidentialBlockId());
+        a23.setIsAvailable(true);
+        a23.setName("FeWo-Nordsee-2");
+        a23.setDescription("Die gehobene Ausstattung dieser 5 Zimmer Wohnung lädt zum Verweilen und Entspannen ein.Im  Erdgeschoss gelegen bietet Sie dennoch ausreichend Privatsphäre. Die Küche mit ihrem nordischen Bauerncharme wird sie bestimmt verzaubern und zu spannenden neuen Gerichten inspirieren. Danach lädt das elegante Wohnzimmer zum gemütlichen Beisammensein ein. Geeignet ist die Wohnung für 6 Personen (2 Doppelbetten mit Sat-TV, 1 x 2 Einzelbetten).\n" +
+                "Kochutensilien und Geschirr sind ausreichend vorhanden, ebenso wie 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeevollautomat, Toaster, Wasserkocher und elektrische Saftpresse.  Auch eine Waschmaschine und ein Wäschetrockner stehen zur Verfügung.  \n");
+        a23.setNumberOfRooms(5);
+        a23.setSize(182.3);
+        a23.setNumberOfPersons(6);
+        a23.setBasePrice(840);
+        a23.setHasBalcony(false);
+        a23.setAnimalsAllowed(false);
+        a23.setInfantsAllowed(true);
+        this.aRepository.save(a23);
+
+        Apartment a24 = new Apartment();
+        a24.setApartmentId(24L);
+        a24.setResidentialBlockId(rb5.getResidentialBlockId());
+        a24.setIsAvailable(false);
+        a24.setName("FeWo-Ostsee-2");
+        a24.setDescription("Dieses gemütliche kleine Haus bietet mit seinen 2 Schlafzimmern ( einmal Doppelbett und einmal 2 Einzelbetten) 2-4 Personen Platz. Im offenen Wohnbereich befindet sich neben dem Essplatz, dem Küchenbereich auch ein Sofa mit TV. \n" +
+                "Der kleine Balkon geht direkt übers Wasser, hinten gibt es ein kleines Stück Rasenfläche zur persönlichen Nutzung, Gartenmöbel vorhanden, Grillen erlaubt.\n" +
+                "Die Küche ist mit ausreichend Koch- und Essgeschirr ausgestattet. Des weiteren stehen ein 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeemaschine, Toaster, Wasserkocher und elektrische Saftpresse, sowie eine Waschmaschine zur Verfügung.");
+        a24.setNumberOfRooms(4);
+        a24.setSize(92.6);
+        a24.setNumberOfPersons(4);
+        a24.setBasePrice(510);
+        a24.setHasBalcony(true);
+        a24.setAnimalsAllowed(true);
+        a24.setInfantsAllowed(true);
+        this.aRepository.save(a24);
+
+        Apartment a25 = new Apartment();
+        a25.setApartmentId(25L);
+        a25.setResidentialBlockId(rb4.getResidentialBlockId());
+        a25.setIsAvailable(false);
+        a25.setName("FeWo-Nordsee-3");
+        a25.setDescription("Sehr helle und freundliche 4 Zimmer Wohnung mit direktem Zugang zur Dachterrasse, von der sie einen herrlichen Blick über die Umgebung, den Strand und die Nordsee haben. Auch zum Relaxen ist sie geeignet, dank entsprechender Möblierung. In dieser Wohnung finden bis zu 4 Personen und 2 Kinder bis 12 Jahren Platz. \n" +
+                "Kochutensilien und Geschirr sind ausreichend vorhanden, ebenso wie 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeevollautomat, Toaster, Wasserkocher und elektrische Saftpresse.  Auch eine Waschmaschine und ein Wäschetrockner stehen zur Verfügung.");
+        a25.setNumberOfRooms(4);
+        a25.setSize(135.7);
+        a25.setNumberOfPersons(6);
+        a25.setBasePrice(640);
+        a25.setHasBalcony(true);
+        a25.setAnimalsAllowed(false);
+        a25.setInfantsAllowed(true);
+        this.aRepository.save(a25);
+
+        Apartment a26 = new Apartment();
+        a26.setApartmentId(26L);
+        a26.setResidentialBlockId(rb4.getResidentialBlockId());
+        a26.setIsAvailable(false);
+        a26.setName("FeWo-Nordsee-4");
+        a26.setDescription("In dieser 3 Zimmer Wohnung finden 4 Personen Platz. Die offene Wohnlandschaft vereint Wohn-, Ess- und Kochbereich, was ein gemütliches Beisammensein verspricht. Das extravagante Badezimmer kommt einer kleinen Wellness-Oase gleich. Vom Balkon aus haben sie einen schönen Blick auf den Strand und die Strandpromenade.\n" +
+                "Kochutensilien und Geschirr sind ausreichend vorhanden, ebenso wie 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeevollautomat, Toaster, Wasserkocher und elektrische Saftpresse.  Auch eine Waschmaschine und ein Wäschetrockner stehen zur Verfügung.");
+        a26.setNumberOfRooms(3);
+        a26.setSize(89.7);
+        a26.setNumberOfPersons(4);
+        a26.setBasePrice(530);
+        a26.setHasBalcony(true);
+        a26.setAnimalsAllowed(false);
+        a26.setInfantsAllowed(false);
+        this.aRepository.save(a26);
+
+        Apartment a27 = new Apartment();
+        a27.setApartmentId(27L);
+        a27.setResidentialBlockId(rb5.getResidentialBlockId());
+        a27.setIsAvailable(false);
+        a27.setName("FeWo-Ostsee-3");
+        a27.setDescription("4 Personen können in diesem Häuschen einen gemütlichen Urlaub verbringen. Das moderne Badezimmer und der helle Wohnbereich bietet das richtige Umfeld um zu entspannen und zur Ruhe zu kommen. Die 2 Schlafzimmern (einmal Doppelbett und einmal 2 Einzelbetten) sind zweckmäßig eingerichtet. \n" +
+                "Der kleine Balkon geht direkt übers Wasser, hinten gibt es ein kleines Stück Rasenfläche zur persönlichen Nutzung, Gartenmöbel vorhanden, Grillen erlaubt.\n" +
+                "Die Küche ist mit ausreichend Koch- und Essgeschirr ausgestattet. Des weiteren stehen ein 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeemaschine, Toaster, Wasserkocher und elektrische Saftpresse, sowie eine Waschmaschine zur Verfügung. ");
+        a27.setNumberOfRooms(4);
+        a27.setSize(151.1);
+        a27.setNumberOfPersons(4);
+        a27.setBasePrice(710);
+        a27.setHasBalcony(true);
+        a27.setAnimalsAllowed(false);
+        a27.setInfantsAllowed(true);
+        this.aRepository.save(a21);
+
+        Apartment a28 = new Apartment();
+        a28.setApartmentId(28L);
+        a28.setResidentialBlockId(rb5.getResidentialBlockId());
+        a28.setIsAvailable(true);
+        a28.setName("FeWo-Ostsee-4");
+        a28.setDescription("Mit Platz für bis zu 6 Personen ist dieses Haus eines der geräumigeren in der Anlage. Es befindet sich am Ende der Häuserreihe. Zur Verfügung stehen 3 Schlafzimmer (zweimal Doppelbett und einmal 2 Einzelbetten) sowie ein gemütlicher Wohnbereich mit angrenzendem Essbereich. \n" +
+                "Der kleine Balkon geht direkt übers Wasser, hinten gibt es ein kleines Stück Rasenfläche zur persönlichen Nutzung, Gartenmöbel vorhanden, Grillen erlaubt.\n" +
+                "Die Küche ist mit ausreichend Koch- und Essgeschirr ausgestattet. Des weiteren stehen ein 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeemaschine, Toaster, Wasserkocher und elektrische Saftpresse, sowie eine Waschmaschine zur Verfügung.");
+        a28.setNumberOfRooms(6);
+        a28.setSize(174.3);
+        a28.setNumberOfPersons(6);
+        a28.setBasePrice(720);
+        a28.setHasBalcony(true);
+        a28.setAnimalsAllowed(true);
+        a28.setInfantsAllowed(true);
+        this.aRepository.save(a28);
+
+        Apartment a29 = new Apartment();
+        a29.setApartmentId(29L);
+        a29.setResidentialBlockId(rb5.getResidentialBlockId());
+        a29.setIsAvailable(true);
+        a29.setName("FeWo-Ostsee-5");
+        a29.setDescription("Das größte Haus in der Anlage bietet Platz für bis zu 6 Personen, die sich in 3 Schlafzimmern (zweimal Doppelbett und einmal 2 Einzelbetten) in der oberen der 2 Etagen  wohlfühlen können. Im Erdgeschoss bietet der Wohn- und Essbereich genügend Raum zur Geselligkeit.\n" +
+                "Der kleine Balkon geht direkt übers Wasser, hinten gibt es ein kleines Stück Rasenfläche zur persönlichen Nutzung, Gartenmöbel vorhanden, Grillen erlaubt.\n" +
+                "Die Küche ist mit ausreichend Koch- und Essgeschirr ausgestattet. Des weiteren stehen ein 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeemaschine, Toaster, Wasserkocher und elektrische Saftpresse, sowie eine Waschmaschine zur Verfügung. \n");
+        a29.setNumberOfRooms(5);
+        a29.setSize(192.1);
+        a29.setNumberOfPersons(6);
+        a29.setBasePrice(940);
+        a29.setHasBalcony(true);
+        a29.setAnimalsAllowed(true);
+        a29.setInfantsAllowed(true);
+        this.aRepository.save(a29);
+
+        Apartment a30 = new Apartment();
+        a30.setApartmentId(30L);
+        a30.setResidentialBlockId(rb4.getResidentialBlockId());
+        a30.setIsAvailable(true);
+        a30.setName("FeWo-Nordsee-5");
+        a30.setDescription("Sollte das nordische „Schietwetter“ doch mal zuschlagen, sind sie in dieser Wohnung bestens vorbereitet. Entspannen sie in der eigenen Sauna und genießen sie danach den Tag vor dem offenen Kamin. So hat „Schlecht-Wetter-Laune“ keine Chance! Diese 4 Zimmer Wohnung mit 2 Schlafzimmern (ein Doppelbett und einmal 2 Einzelbetten) bietet 4 Personen Platz. \n" +
+                "Kochutensilien und Geschirr sind ausreichend vorhanden, ebenso wie 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeevollautomat, Toaster, Wasserkocher und elektrische Saftpresse.  Auch eine Waschmaschine und ein Wäschetrockner stehen zur Verfügung. ");
+        a30.setNumberOfRooms(4);
+        a30.setSize(110.7);
+        a30.setNumberOfPersons(4);
+        a30.setBasePrice(680);
+        a30.setHasBalcony(false);
+        a30.setAnimalsAllowed(false);
+        a30.setInfantsAllowed(false);
+        this.aRepository.save(a30);
 
 
 
