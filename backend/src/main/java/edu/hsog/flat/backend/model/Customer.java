@@ -18,8 +18,8 @@ public class Customer {
 	@NonNull
 	private Long contractNumber;
 
-	@OneToMany(mappedBy = "bookingId", targetEntity = Booking.class, fetch=FetchType.EAGER)
-	private List<Long> bookingIds;
+	/*@OneToMany(mappedBy = "bookingId", targetEntity = Booking.class, fetch=FetchType.EAGER)
+	private List<Long> bookingIds;*/
 
 	private String lastName;
 

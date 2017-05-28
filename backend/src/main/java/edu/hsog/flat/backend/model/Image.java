@@ -17,7 +17,7 @@ public class Image {
 	private Long imageId;
 
 	@NonNull
-	//@ManyToOne (targetEntity = Apartment.class)
+	@ManyToOne (targetEntity = Apartment.class)
 	private Long apartmentId;
 
 	@NonNull

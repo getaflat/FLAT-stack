@@ -19,8 +19,8 @@ public class Factor {
     @NonNull
 	private Long factorId;
 
-	@OneToMany(mappedBy = "calenderWeek", targetEntity = Season.class, fetch = FetchType.EAGER)
-	private List<Long> calenderWeeks;
+	/*@OneToMany(mappedBy = "calenderWeek", targetEntity = Season.class, fetch = FetchType.EAGER)
+	private List<Long> calenderWeeks;*/
 
 	@NonNull
 	private Double factor;

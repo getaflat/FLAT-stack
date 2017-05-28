@@ -14,12 +14,11 @@ public class Apartment {
     @Id
 	private Long apartmentId;
 
-	@OneToMany(mappedBy = "imageId", targetEntity = Image.class, fetch=FetchType.EAGER)
-	private List<Long> images;
+	/*@OneToMany(mappedBy = "imageId", targetEntity = Image.class, fetch=FetchType.EAGER)
+	private List<Long> images;*/
 
 
-	/*@ManyToOne(targetEntity = ResidentialBlock.class)
-	@JoinColumn(name="residential_Block_Id")*/
+	@ManyToOne(targetEntity = ResidentialBlock.class)
 	private Long residentialBlockId;
 
 	@NonNull

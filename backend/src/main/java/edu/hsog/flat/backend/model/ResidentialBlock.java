@@ -14,8 +14,8 @@ public class ResidentialBlock {
     //@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long residentialBlockId;
 
-	@OneToMany(mappedBy = "apartmentId", targetEntity = Apartment.class, fetch=FetchType.EAGER)
-	private List<Long> apartmentIds;
+	/*@OneToMany(mappedBy = "apartmentId", targetEntity = Apartment.class, fetch=FetchType.EAGER)
+	private List<Long> apartmentIds;*/
 
 	@NonNull
 	private String name;

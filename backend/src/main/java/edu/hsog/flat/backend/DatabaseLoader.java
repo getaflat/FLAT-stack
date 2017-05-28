@@ -160,7 +160,7 @@ public class DatabaseLoader implements CommandLineRunner {
         a6.setInfantsAllowed(false);
         //this.aRepository.save(a6);
 
-        /*Apartment a7 = new Apartment();
+        Apartment a7 = new Apartment();
         a7.setApartmentId(7L);
         //a7.setResidentialBlockId(2L);
         a7.setIsAvailable(false);
@@ -172,7 +172,7 @@ public class DatabaseLoader implements CommandLineRunner {
         a7.setHasBalcony(true);
         a7.setAnimalsAllowed(true);
         a7.setInfantsAllowed(true);
-        this.aRepository.save(a7);
+        this.aRepository.save(a7);/*
 
         Apartment a8 = new Apartment();
         a8.setApartmentId(8L);
