@@ -18,24 +18,24 @@ public class Booking {
 	private Long bookingId;
 
 	@NonNull
-	@ManyToOne(targetEntity = Customer.class)
+	//@ManyToOne(targetEntity = Customer.class)
 	private Long contractNumber;
 
 	@NonNull
-    @ManyToOne(targetEntity = Apartment.class)
+    //@ManyToOne(targetEntity = Apartment.class)
 	private Long apartmentId;
 
 	@NonNull
-    @ManyToOne(targetEntity = Season.class)
+    //@ManyToOne(targetEntity = Season.class)
 	private Integer week1;
 
-    @ManyToOne(targetEntity = Season.class)
+    //@ManyToOne(targetEntity = Season.class)
     private Integer week2;
 
-    @ManyToOne(targetEntity = Season.class)
+    //@ManyToOne(targetEntity = Season.class)
 	private Integer week3;
 
-    @ManyToOne(targetEntity = Season.class)
+    //@ManyToOne(targetEntity = Season.class)
 	private Integer week4;
 
     private Integer year;

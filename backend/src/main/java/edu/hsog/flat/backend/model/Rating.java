@@ -12,7 +12,7 @@ public class Rating {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NonNull
-	private Long ratingId;
+	private Integer ratingId;
 
 	/*@NonNull
 	@OneToOne(targetEntity = Customer.class, fetch= FetchType.EAGER)

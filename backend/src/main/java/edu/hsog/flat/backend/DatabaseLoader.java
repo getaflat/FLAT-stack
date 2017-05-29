@@ -490,10 +490,6 @@ public class DatabaseLoader implements CommandLineRunner {
         a30.setInfantsAllowed(false);
         this.aRepository.save(a30);
 
-
-
-
-
         Rating ra1 = new Rating();
         ra1.setScore(3.5);
         ra1.setComment("Test String");
@@ -656,8 +652,56 @@ public class DatabaseLoader implements CommandLineRunner {
         c.setPassword("test9");
         c.setTotalScore(1000);
         this.cRepository.save(c);
-        
 
+        Booking b1 = new Booking();
+        b1.setContractNumber(123456789011L);
+        b1.setApartmentId(1L);
+        b1.setWeek1(37);
+        b1.setWeek2(28);
+        b1.setYear(2017);
+        b1.setAdditionalCharge(50.6);
+        b1.setStatus("Wartend");
+        this.bRepository.save(b1);
+
+        Booking b2 = new Booking();
+        b2.setContractNumber(123456789012L);
+        b2.setApartmentId(1L);
+        b2.setWeek1(39);
+        b2.setWeek2(40);
+        b2.setYear(2017);
+        b2.setAdditionalCharge(0.0);
+        b2.setStatus("Wartend");
+        this.bRepository.save(b2);
+
+        Booking b3 = new Booking();
+        b3.setContractNumber(123456789012L);
+        b3.setApartmentId(1L);
+        b3.setWeek1(23);
+        b3.setWeek2(24);
+        b3.setYear(2017);
+        b3.setAdditionalCharge(0.0);
+        b3.setStatus("Bestätigt");
+        this.bRepository.save(b3);
+
+        Booking b4 = new Booking();
+        b4.setContractNumber(123456789013L);
+        b4.setApartmentId(21L);
+        b4.setWeek1(1);
+        b4.setWeek2(2);
+        b4.setYear(2018);
+        b4.setAdditionalCharge(0.0);
+        b4.setStatus("Wartend");
+        this.bRepository.save(b4);
+
+        Booking b5 = new Booking();
+        b5.setContractNumber(123456789014L);
+        b5.setApartmentId(21L);
+        b5.setWeek1(1);
+        b5.setWeek2(2);
+        b5.setYear(2018);
+        b5.setAdditionalCharge(0.0);
+        b5.setStatus("Wartend");
+        this.bRepository.save(b5);
 
 
     }
