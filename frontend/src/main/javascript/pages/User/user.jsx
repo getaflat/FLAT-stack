@@ -115,10 +115,6 @@ class User extends React.Component {
     }
 
     componentDidMount() {
-        /* api.get('/bookings').then(({data}) => {
-            this.setState({bookings: data._embedded.bookings});
-        }); */
-
         if (isLoggedIn()) {
             const token = getToken();
             const user = getUser();
@@ -132,20 +128,12 @@ class User extends React.Component {
                     authorization: token
                 }
             }).then(({data}) => {
+                console.log(data);
                 this.setState({
                     loggedIn: data
                 });
             });
         }
-
-        /* this.setState({
-            customer: {
-                password: '',
-                email: '',
-                firstname: '',
-                lastname: ''
-            }
-        }); */
     }
 
     render() {
@@ -160,7 +148,7 @@ class User extends React.Component {
                         </label><br />
                         <label>Nachname: {this.state.loggedIn.lastName}
                         </label><br />
-                        <label>Vertragsnummer: {this.state.loggedIn.contractNumber}123456789012 {/* wird nicht angezeigt, state beinahltet keine Vertragsnummer*/}
+                        <label>Vertragsnummer: {this.state.loggedIn.contractNumber} {/* wird nicht angezeigt, state beinahltet keine Vertragsnummer*/}
                         </label><br />
                         <label>Email-Adresse: {this.state.loggedIn.email}
                         </label><br />

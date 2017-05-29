@@ -10,7 +10,7 @@ const propTypes = {};
 
 const defaultProps = {};
 
-let descr;
+let descr, rooms, persons, size, children, pets, balcony;
 
 class FeWo extends React.Component {
     constructor(props) {
@@ -31,13 +31,20 @@ class FeWo extends React.Component {
             }
         }).then(({data}) => {
             console.log(data);
-            descr = `${data.description} 
+            /*descr = `${data.description}
                 Personen: ${data.numberOfPersons}
                 Raumanzahl: ${data.numberOfRooms}
                 Größe: ${data.size}
                 Kinder: ${data.infantsAllowed}
                 Tiere: ${data.animalsAllowed}
-                Balkon: ${data.hasBalcony}`;
+                Balkon: ${data.hasBalcony}`;*/
+            descr = data.description;
+            persons = data.numberOfPersons;
+            rooms = data.numberOfRooms;
+            size = data.size;
+            children = (data.infantsAllowed ? "Ja" : "Nein");
+            pets = (data.animalsAllowed ? "Ja" : "Nein");
+            balcony = (data.hasBalcony ? "Ja" : "Nein");
             this.setState({
                 fewo: {
                     name: data.name,
@@ -63,22 +70,27 @@ class FeWo extends React.Component {
             <div className={globalStyles.wrapper + ' ' + styles.wrapper}>
                 <div className={styles.sliderContainer}>
                     <Slider {...settings}>
-                        <div><img src="http://all4phones.de/attachments/45792d1299589593-sony-ericsson-xperia-play-hintergrundbilder-sony-ericsson-xperia-play-hintergrundbilder-6-.jpg"
+                        <div><img className={styles.bilder} src="http://all4phones.de/attachments/45792d1299589593-sony-ericsson-xperia-play-hintergrundbilder-sony-ericsson-xperia-play-hintergrundbilder-6-.jpg"
                                         alt="Spaß in der Sonne"/></div>
-                        <div><img src="http://all4phones.de/attachments/45792d1299589593-sony-ericsson-xperia-play-hintergrundbilder-sony-ericsson-xperia-play-hintergrundbilder-6-.jpg"
+                        <div><img className={styles.bilder} src="http://all4phones.de/attachments/45792d1299589593-sony-ericsson-xperia-play-hintergrundbilder-sony-ericsson-xperia-play-hintergrundbilder-6-.jpg"
                                   alt="Spaß in der Sonne"/></div>
-                        <div><img src="http://all4phones.de/attachments/45792d1299589593-sony-ericsson-xperia-play-hintergrundbilder-sony-ericsson-xperia-play-hintergrundbilder-6-.jpg"
+                        <div><img className={styles.bilder} src="http://all4phones.de/attachments/45792d1299589593-sony-ericsson-xperia-play-hintergrundbilder-sony-ericsson-xperia-play-hintergrundbilder-6-.jpg"
                                   alt="Spaß in der Sonne"/></div>
-                        <div><img src="http://all4phones.de/attachments/45792d1299589593-sony-ericsson-xperia-play-hintergrundbilder-sony-ericsson-xperia-play-hintergrundbilder-6-.jpg"
+                        <div><img className={styles.bilder} src="http://all4phones.de/attachments/45792d1299589593-sony-ericsson-xperia-play-hintergrundbilder-sony-ericsson-xperia-play-hintergrundbilder-6-.jpg"
                                   alt="Spaß in der Sonne"/></div>
-                    </Slider>
+                    </Slider><br />
+                    <h3 className={styles.heading}>{this.props.match.params.id}</h3>
                 </div>
-                <br />
-                <h3>{this.props.match.params.id}</h3>
+
                 <div className={styles.FeWoDescr}>
-                    <p>{descr}</p>
+
+                    <section>{descr}</section>
+                    <section>Details:</section>
+                    <section>Personenanzahl: {persons}, Raumanzahl: {rooms}</section>
+                    <section>Größe: {size}, Balkon vorhanden: {balcony}</section>
+                    <section>Tiere erlaubt: {pets}, Kinder: {children}</section>
                 </div>
-                <Link className={styles.link} to={"/booking/" + this.props.match.params.id}>Testbuchung</Link>
+                <Link className={globalStyles.button + ' ' + styles.button} to={this.props.match.params.id}/>
             </div>
         );
     }
