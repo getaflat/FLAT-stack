@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 import api from '../../services/api';
-import auth from '../../services/auth';
+import { isLoggedIn, getUser, getToken } from '../../services/auth';
 
 import styles from './header.css';
 import globalStyles from '../../general-styles/global.css';
@@ -13,7 +13,7 @@ class Header extends React.Component {
         super(props);
 
         this.state = {
-            customer: []
+            customer: {}
         };
     }
 
@@ -21,6 +21,34 @@ class Header extends React.Component {
         /* api.get('/customers').then(({ data }) => {
          this.setState({ customers: data._embedded.customer });
          }); */
+
+        // const user = getUser();
+        // const token = getToken();
+
+        // console.log(token);
+
+        /* if (user) {
+
+        } */
+
+        if (isLoggedIn()) {
+            const token = getToken();
+            const user = getUser();
+
+            api.get(`/customers/search/findByEmail`, {
+                params: {
+                    email: user
+                }
+            }, {
+                headers: {
+                    authorization: token
+                }
+            }).then(({data}) => {
+                this.setState({
+                    customer: data
+                });
+            });
+        }
     }
 
 
@@ -31,7 +59,7 @@ class Header extends React.Component {
                     {/*<a className={styles.logo}>Logo</a>*/}
                     <div> <img className={styles.logo} src={require("./img/logo.jpg")} alt="logo"/> </div>
                     <div className={styles.buttons}>
-                        {auth.hasToken() ? (
+                        {isLoggedIn() ? (
                             <Link className={globalStyles.button} to="/logout">Logout</Link>
                         ) : (
                             <span>
@@ -44,7 +72,7 @@ class Header extends React.Component {
                         {/*<button className={styles.button}>registrieren</button>*/}
                     </div><br />
                     <div className={styles.userData}>
-                        <div><h3>{this.state.customer.username}TestUser</h3></div>
+                        <div><h3>{this.state.customer.username}</h3></div>
                         <div><input type="text" disabled={true} value={this.state.customer.totalScore + " P."} /></div>
                     </div>
                 </div>

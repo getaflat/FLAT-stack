@@ -15,14 +15,14 @@ import User from '../pages/User/user';
 import FeWo from '../pages/FeWo/fewo';
 import NoMatch from '../pages/NoMatch/nomatch';
 import RegionFewo from '../pages/regionFewos/regionFewos'
-import auth from '../services/auth';
+import { isLoggedIn } from '../services/auth';
 
 import Header from '../components/Header/header';
 import Footer from "../components/Footer/footer";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props => (
-        auth.hasToken() ? (
+        isLoggedIn() ? (
             <Component {...props} />
         ) : (
             <Redirect to={{

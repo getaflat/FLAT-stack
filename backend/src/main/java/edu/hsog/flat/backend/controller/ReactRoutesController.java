@@ -24,7 +24,7 @@ public class ReactRoutesController /* implements ErrorController */ {
             //ERROR_PATH
     })
     public String index() {
-        return "forward:/index.html";
+        return "index.html";
     }
 
     /* @Override

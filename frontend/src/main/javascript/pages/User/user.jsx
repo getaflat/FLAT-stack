@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './user.css';
 import api from '../../services/api';
+import { isLoggedIn, getToken, getUser } from '../../services/auth';
 import Modal from '../../components/modal/modal';
 import moment from 'moment';
 import * as ReactDOM from "react-dom";
@@ -23,7 +24,7 @@ class User extends React.Component {
                 lastname: ''
             },
             bookings: [],
-            loggedIn: [],
+            loggedIn: {},
             isModalOpen: false,
         };
         this.handleStorno = this.handleStorno.bind(this);
@@ -114,21 +115,37 @@ class User extends React.Component {
     }
 
     componentDidMount() {
-        api.get('/bookings').then(({data}) => {
+        /* api.get('/bookings').then(({data}) => {
             this.setState({bookings: data._embedded.bookings});
-        });
+        }); */
 
-        api.get(`/customers/123456789012`).then(({data}) => {
-            this.setState({loggedIn: data});
-        });
-        this.setState({
+        if (isLoggedIn()) {
+            const token = getToken();
+            const user = getUser();
+
+            api.get(`/customers/search/findByEmail`, {
+                params: {
+                    email: user
+                }
+            }, {
+                headers: {
+                    authorization: token
+                }
+            }).then(({data}) => {
+                this.setState({
+                    loggedIn: data
+                });
+            });
+        }
+
+        /* this.setState({
             customer: {
                 password: '',
                 email: '',
                 firstname: '',
                 lastname: ''
             }
-        });
+        }); */
     }
 
     render() {

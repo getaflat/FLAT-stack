@@ -61,13 +61,13 @@ class Footer extends React.Component {
         this.state.ratingText = '';
     }
 
-    componentDidMount() {
+    /* componentDidMount() {
         api.get('/ratings').then(({ data }) => {
             console.log(data);
         }).catch(() => {
             console.error(arguments)
         }) // wenn ratings user id beinhaltet der eingeloggt ist, dann bewerten button weg!
-    }
+    } */
 
     render() {
         return (

@@ -1,9 +1,9 @@
 import axios from 'axios';
-import update from 'immutability-helper';
+// import update from 'immutability-helper';
 
-import auth from './auth';
+// import auth from './auth';
 
-const getAuthHeader = () => {
+/* const getAuthHeader = () => {
     return {
         headers: {
             common: {
@@ -11,13 +11,13 @@ const getAuthHeader = () => {
             }
         }
     }
-}
+} */
 
 const baseAPI = axios.create({
     baseURL: '/api/v1'
 });
 
-const securedAPI = axios.create({
+/* const securedAPI = axios.create({
     baseURL: '/api/v1'
 });
 
@@ -25,11 +25,11 @@ securedAPI.interceptors.request.use((config) => {
     return update(config, getAuthHeader());
 }, (err) => {
     return Promise.reject(err);
-});
+}); */
 
-export {
+/* export {
     baseAPI,
     securedAPI
-}
+} */
 
 export default baseAPI;

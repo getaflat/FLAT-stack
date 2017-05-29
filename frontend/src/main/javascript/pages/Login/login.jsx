@@ -1,90 +1,131 @@
 import React from 'react';
+
+import update from 'immutability-helper';
+
+import InputValidationField from '../../components/InputValidationField';
+
+import { login } from '../../services/auth';
+import { run, rule } from '../../services/validation';
+import { minLength, required } from '../../services/rules';
+
 import styles from './login.css';
 import globalStyles from '../../general-styles/global.css';
-import api from '../../services/api';
-import auth from '../../services/auth';
 
-//modal = Popup
-
-const propTypes = {};
-
-const defaultProps = {};
+const rules = [
+    rule("email", "Email Adresse", required),
+    rule("password", "Passwort", required, minLength(5))
+];
 
 class Login extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            username: '',
-            password: ''
+            credentials: {
+                email: '',
+                password: ''
+            },
+            validation: {
+                show: false,
+                errors: {}
+            },
+            error: ''
         };
-        this.handlePassword = this.handlePassword.bind(this);
-        this.handleUserName = this.handleUserName.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.clearInputs = this.clearInputs.bind(this);
+
+        this.state.validation.errors = run(this.state.credentials, rules);
+        this.baseState = this.state;
+
+        this.handleFieldChanged = this.handleFieldChanged.bind(this);
+        this.submitForm = this.submitForm.bind(this);
+        this.resetForm = this.resetForm.bind(this);
     }
 
-    handleUserName(event) {
-        this.setState({username: event.target.value});
-    }
+    handleFieldChanged(event) {
+        event.preventDefault();
 
-    handlePassword(event) {
-        this.setState({password: event.target.value});
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-
-        api.post(`/login`, {
-            username: this.state.username,
-            password: this.state.password
-        }).then((response) => {
-            if (response.status === 200 && response.headers.authorization) {
-                auth.storeToken(response.headers.authorization);
-                this.props.history.push('/user');
+        let { value, name } = event.target;
+        let state = update(this.state, {
+            credentials: {
+                [name]: { $set: value }
             }
-        }).catch((error) => {
-            if (error.response) {
-                console.log(error.response.data);
-            }
-            console.log(error.message);
         });
 
+        state.validation.errors = run(state.credentials, rules);
+        state.error = '';
 
+        this.setState(state);
     }
 
-    clearInputs(event) {
-        this.setState({username: ''});
-        this.setState({password: ''});
+    submitForm(event) {
+        event.preventDefault();
+
+        this.setState((prev) => update(prev, {
+            validation: {
+                show: { $set: true }
+            }
+        }));
+
+        if (Object.keys(this.state.validation.errors).length !== 0) {
+            return null;
+        }
+
+        login({ ...this.state.credentials }).then(() => {
+            this.props.history.push('/user');
+        }).catch((error) => {
+            let message = 'Fehler, bitte versuchen sie es später erneut';
+
+            if (error.response && error.response.status === 401) {
+                message = 'Bitte überprüfen sie Ihre Angaben';
+            }
+
+            this.setState({ error: message });
+        });
+    }
+
+    resetForm() {
+        this.setState(this.baseState);
     }
 
     render() {
         return (
             <div className={globalStyles.wrapper}>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <div className={styles.login}>
-                    <h3>Login</h3><br />
-                    <form onSubmit={this.handleSubmit} onReset={this.clearInputs} action="/user">
-                        <label>
-                            Email:
-                        </label>
-                        <input className={globalStyles.input} value={this.state.username} ref="usernameInput"
-                               onChange={this.handleUserName} type="text"/><br />
-                        <label>
-                            Passwort:
-                        </label>
-                        <input className={globalStyles.input} value={this.state.password} ref="passwordInput" type="text"
-                               onChange={this.handlePassword}/><br />
+                    <h3>Login</h3>
+                    <form onSubmit={this.submitForm} onReset={this.resetForm}>
+                        <p>
+                            {this.state.error !== '' &&
+                                <span>{this.state.error}</span>
+                            }
+                        </p>
+                        <InputValidationField
+                            label="E-Mail"
+                            type="text"
+                            name="email"
+                            placeholder="john.doe@example.com"
+                            value={this.state.credentials.email}
+                            onChange={this.handleFieldChanged}
+                            showError={this.state.validation.show}
+                            errorText={this.state.validation.errors.email}
+                        />
 
-                        <input className={globalStyles.button} type="reset" name="abbrechen" value="abbrechen"/>
-                        <button className={globalStyles.button}>login</button>
+                        <InputValidationField
+                            label="Passwort"
+                            type="text"
+                            name="password"
+                            placeholder="********"
+                            value={this.state.credentials.password}
+                            onChange={this.handleFieldChanged}
+                            showError={this.state.validation.show}
+                            errorText={this.state.validation.errors.password}
+                        />
+
+                        <button type="reset" className={globalStyles.button}>Abbrechen</button>
+                        <button type="submit" className={globalStyles.button}>Anmelden</button>
                     </form>
                 </div>
             </div>
         );
     }
 }
-
-Login.propTypes = propTypes;
-Login.defaultProps = defaultProps;
 
 export default Login;

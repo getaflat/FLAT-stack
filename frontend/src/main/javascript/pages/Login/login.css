@@ -10,8 +10,9 @@
     text-align: center;
 }
 
-.login label {
+.login label > span {
     width: 160px;
+    display: inline-block;
     max-width: 100%;
 }
 

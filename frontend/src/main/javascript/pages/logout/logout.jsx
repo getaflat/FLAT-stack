@@ -1,9 +1,6 @@
 import React from 'react';
 
-import auth from '../../services/auth';
-
-const propTypes = {};
-const defaultProps = {};
+import { logout } from '../../services/auth';
 
 class Logout extends React.Component {
     constructor(props) {
@@ -11,18 +8,18 @@ class Logout extends React.Component {
     }
 
     componentDidMount() {
-        auth.removeToken();
-        this.props.history.push('/');
+        logout().then(() => {
+            this.props.history.push('/');
+        }).catch(() => {
+            console.log(arguments);
+        });
     }
 
     render() {
         return (
-            <p>Logging out...</p>
+            <p>Logge aus...</p>
         );
     }
 }
-
-Logout.propTypes = propTypes;
-Logout.defaultProps = defaultProps;
 
 export default Logout;

@@ -11,6 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -19,19 +21,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 
-/**
- * Created by hauss on 15.05.2017.
- */
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
-    /* @Autowired
-    BCryptPasswordEncoder passwordEncoder; */
+    private ObjectMapper mapper;
 
-    @Autowired
-    CustomerRepository customerRepository;
-
-    ObjectMapper mapper;
-
-    public JWTLoginFilter(String url, AuthenticationManager authManager) {
+    JWTLoginFilter(String url, AuthenticationManager authManager) {
         super(new AntPathRequestMatcher(url));
         setAuthenticationManager(authManager);
         this.mapper = new ObjectMapper();
@@ -42,27 +35,17 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         AccountCredentials credentials = new ObjectMapper()
             .readValue(request.getInputStream(), AccountCredentials.class);
 
-        System.out.println("=================================================================");
-        System.out.println(credentials.getUsername() + " " + credentials.getPassword());
-        System.out.println("=================================================================");
-
-        return getAuthenticationManager().authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        credentials.getUsername(),
-                        credentials.getPassword(),
-                        Collections.emptyList()
-                )
+        Authentication token = new UsernamePasswordAuthenticationToken(
+                credentials.getEmail(),
+                credentials.getPassword(),
+                Collections.emptyList()
         );
+
+        return getAuthenticationManager().authenticate(token);
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth) throws IOException, ServletException {
         TokenAuthenticationService.addAuthentication(res, auth.getName());
-
-        Customer customer = customerRepository.findOne(123456789013L);
-        String user = mapper.writeValueAsString(customer);
-
-        res.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        res.getWriter().write(user);
     }
 }

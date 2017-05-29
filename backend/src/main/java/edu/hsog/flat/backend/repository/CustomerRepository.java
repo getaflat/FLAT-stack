@@ -12,6 +12,7 @@ import java.util.List;
  */
 @RepositoryRestResource(collectionResourceRel = "customers", path = "customers")
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
-    Customer findByContractNumber(@Param("contract_number") Long contractNumber);
-    // List<Customer> findByLastName(String lastName);
+    Customer findByContractNumber(@Param("contractNumber") Long contractNumber);
+    Customer findByLastName(@Param("lastName") String lastName);
+    Customer findByEmail(@Param("email") String email);
 }

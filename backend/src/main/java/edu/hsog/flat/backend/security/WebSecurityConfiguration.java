@@ -1,5 +1,7 @@
 package edu.hsog.flat.backend.security;
 
+import edu.hsog.flat.backend.repository.CustomerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,6 +18,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private String CUSTOMERS_URL = API_PATH + "/customers";
     private String ALL_URL = API_PATH + "/**";
 
+    @Autowired
+    private JwtUserService jwtUserService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -28,7 +33,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
             .httpBasic()
                 .and()
-            .addFilterBefore(new JWTLoginFilter(LOGIN_URL,  authenticationManager()),
+            .addFilterBefore(new JWTLoginFilter(LOGIN_URL, authenticationManager()),
                 UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(new JWTAuthenticationFilter(),
                         UsernamePasswordAuthenticationFilter.class);
@@ -36,15 +41,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.
-            inMemoryAuthentication()
-                .withUser("user")
-                    .password("password")
-                    .roles("USER")
-                    .and()
-                .withUser("admin")
-                    .password("password")
-                    .roles("ADMIN", "USER");
+        auth.userDetailsService(jwtUserService);
     }
 
     @Override
