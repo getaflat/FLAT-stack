@@ -16,11 +16,11 @@
 }
 
 
-/*
-TODO funktioniert nicht
-.validation-error text{*/
-    /*color: red;
-}*/
+
+/*TODO funktioniert nicht*/
+.validationError {
+    color: red;
+}
 
 
 @media only screen and (min-width: 600px) {
