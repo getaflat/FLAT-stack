@@ -13,28 +13,33 @@ const propTypes = {};
 const defaultProps = {};
 
 
+
 class User extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             customer: {
-                password: '',
                 email: '',
                 firstname: '',
-                lastname: ''
+                lastname: '',
+                birtdate: ''
             },
             bookings: [],
             loggedIn: {},
-            isModalOpen: false,
+          //  isModalOpen: false,
         };
         this.handleStorno = this.handleStorno.bind(this);
-        this.handleOpenModal = this.handleOpenModal.bind(this);
+      /*  this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
-        this.handleCloseModalSave = this.handleCloseModalSave.bind(this);
+        this.handleCloseModalSave = this.handleCloseModalSave.bind(this);*/
         this.handleInput = this.handleInput.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSave = this.handleSave.bind(this);
     }
 
-    handleOpenModal() {
+
+
+  /*  handleOpenModal() {
         this.setState({isModalOpen: true});
     }
 
@@ -48,9 +53,9 @@ class User extends React.Component {
                 lastname: ''
             }
         })
-    }
+    }*/
 
-    handleCloseModalSave(event) {
+   /* handleCloseModalSave(event) {
         event.preventDefault();
         this.setState({showModal: false});
         let m = 0;
@@ -90,7 +95,49 @@ class User extends React.Component {
         });
         // seite neu laden
 
+    }*/
+
+    handleChange() {
+        let s = [this.refs.firstName, this.refs.lastName, this.refs.email, this.refs.birthdate];
+        this.setState ({
+            customer: {
+                firstname: this.state.loggedIn.firstName,
+                lastname: this.state.loggedIn.lastname,
+                email: this.state.loggedIn.email,
+            }
+        });
+
+        s[3].type = "date";
+        for(let i = 0; i < s.length; i++)
+        {
+            s[i].disabled = false;
+            s[i].style.border = "1px solid black";
+            s[i].style.backgroundColor = "white";
+        }
+        this.refs.saveButton.style.display = "flex";
     }
+
+    handleSave() {
+        let s = [this.refs.firstName, this.refs.lastName, this.refs.email, this.refs.birthdate, this.refs.save];
+
+        for(let i = 0; i < 4; i++)
+        {
+            s[i].disabled = true;
+            s[i].style.border = "none";
+            s[i].style.backgroundColor = "inherit";
+        }
+        this.refs.saveButton.style.display = "none";
+
+        // DB zugriff
+        s[3].type = "text";
+        s[4].firstChild.data = "Daten erfolgreich gespeichert";
+        s[4].style.display = "flex";
+
+        setTimeout(function() {
+            this.refs.save.style.display = "none";
+        }.bind(this), 3000);
+    }
+
 
     handleInput(event) {
         let {name, value} = event.target;
@@ -102,16 +149,21 @@ class User extends React.Component {
                 }
             }
         }));
+
     }
 
     handleStorno(event) {
-        api.delete(`bookings/${event.target.value}`).then(() => {
+        //console.log(event.target.alt);
 
-        }).then(() => {
-            api.get('/bookings').then(({data}) => {
-                this.setState({bookings: data._embedded.bookings});
-            })
-        });
+        if (isLoggedIn()) {
+            api.delete(`bookings/${event.target.alt}`).then(() => {
+
+            }).then(() => {
+                api.get('/bookings').then(({data}) => {
+                    this.setState({bookings: data._embedded.bookings});
+                })
+            });
+        }
     }
 
     componentDidMount() {
@@ -133,6 +185,19 @@ class User extends React.Component {
                     loggedIn: data
                 });
             });
+            api.get('/bookings/11').then(({data}) => {
+               // console.log(data._embedded.bookings);
+                this.setState({
+                    bookings: [data]
+                })
+            });
+            this.state.bookings.map((booking) => {
+                api.get(`/apartments/${booking.bookingId}`).then(({data}) => { // bookingId wird noch nicht rausgegeben
+                    console.log(data);
+                    booking.name = data.name;
+                    // booking.id = data.name;
+                });
+            })
         }
     }
 
@@ -145,21 +210,22 @@ class User extends React.Component {
                     <hr />
                     <div className={styles.userStats}>
                         <label>Vorname: </label>
-                        <input ref="firstName" className={styles.test1} disabled={true}
+                        <input ref="firstName" onChange={this.handleInput} className={styles.test1} disabled={true}
                                value={this.state.loggedIn.firstName}/>
                         <br />
                         <label>Nachname: </label>
-                        <input ref="lastName" className={styles.test1} disabled={true}
+                        <input ref="lastName" onChange={this.handleInput} className={styles.test1} disabled={true}
                                value={this.state.loggedIn.lastName}/>
                         <br />
                         <label>Vertragsnummer: </label>
-                        <input ref="contractNumber" className={styles.test1} disabled={true} value={this.state.loggedIn.contractNumber}/>
+                        <input ref="contractNumber" onChange={this.handleInput} className={styles.test1} disabled={true} value={this.state.loggedIn.contractNumber}/>
                         <br />
                         <label>Email-Adresse:</label>
-                        <input ref="email" className={styles.test1} disabled={true} value={this.state.loggedIn.email}/>
+                        <input ref="email" onChange={this.handleInput} className={styles.test1} disabled={true} value={this.state.loggedIn.email}/>
                         <br />
                         <label>Geburtsdatum:</label>
-                        <input ref="birthdate" className={styles.test1} disabled={true} value={moment(this.state.loggedIn.dateOfBirth).format('DD.MM.YYYY')}/>
+                        <input ref="birthdate" onChange={this.handleInput} className={styles.test1} disabled={true} value={moment(this.state.loggedIn.dateOfBirth).format('DD.MM.YYYY')}/>
+                        <br />
                     </div>
 
                     {/*<Modal isOpen={this.state.isModalOpen} onClose={() => this.handleCloseModal}>
@@ -188,8 +254,10 @@ class User extends React.Component {
                      </Modal>*/}
 
                     <div className={styles.buttons}>
-                        <button onClick={this.handleOpenModal} className={globalStyles.button}>bearbeiten</button>
+                        <button ref="buttonssss" onClick={this.handleChange} className={globalStyles.button}>bearbeiten</button>
+                        <button ref="saveButton" onClick={this.handleSave} className={globalStyles.button +' ' + styles.buttonSave}>speichern</button>
                     </div>
+                    <label ref="save" className={styles.save}> </label>
 
                 </div>
 
@@ -199,8 +267,11 @@ class User extends React.Component {
                             <tbody>
                             <tr>
                                 <th className={styles.tgyw4l}>Name (Buchung)</th>
-                                <th className={styles.tgyw4l}>Zeitraum</th>
+                                <th className={styles.tgyw4l}>Start</th>
+                                <th className={styles.tgyw4l}>Ende</th>
                                 <th className={styles.tgyw4l}>Status</th>
+                                <th className={styles.tgyw4l}>Preis (Punkte)</th>
+                                <th className={styles.tgyw4l}>Zuzahlung (in €)</th>
                                 <th className={styles.tgyw4l}>Auswahl</th>
                             </tr>
                             {this.state.bookings.map((booking, index) =>
@@ -209,10 +280,11 @@ class User extends React.Component {
                                     <td>{booking.start}</td>
                                     <td>{booking.end}</td>
                                     <td>{booking.status}</td>
-                                    <td className={styles.check} ref="button"><input className={globalStyles.button}
-                                                                                     value={this.state.bookings.bookingId}
-                                                                                     onClick={this.handleStorno()}
-                                                                                     type="button"/></td>
+                                    <td>{booking.price}</td>
+                                    <td>{booking.additionalCharge}</td>
+                                    <td className={styles.check} ref="button">
+                                        <input className={globalStyles.button} value="stornieren" alt={booking.bookingId} onClick={this.handleStorno} type="button"/>
+                                    </td>
                                 </tr>
                             )}
                             </tbody>
