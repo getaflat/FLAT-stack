@@ -64,7 +64,7 @@ class Register extends React.Component {
     }
 
     clearInputs() {
-
+/*
         this.refs.usernameInput.value = '';
         this.refs.firstnameInput.value = '';
         this.refs.lastnameInput.value = '';
@@ -83,7 +83,9 @@ class Register extends React.Component {
                 firstname: '',
                 lastname: ''
             }
-        });
+        });*/
+        this.setState(this.baseState);
+
     }
 
     handleSubmit(event) {

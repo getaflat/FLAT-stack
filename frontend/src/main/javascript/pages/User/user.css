@@ -13,6 +13,8 @@
 
 .buttons {
     padding-bottom: 20px;
+    display: flex;
+    flex-direction: row;
 }
 
 .test1 {
@@ -26,6 +28,12 @@
     border-spacing: 0;
     border-color: #aabcfe;
     margin: 0 auto;
+}
+
+.save {
+    display: none;
+    color: red;
+    font-size: small;
 }
 
 .tg td {
@@ -93,6 +101,10 @@
 .buchung label {
     width: 160px;
     max-width: 100%;
+}
+
+.buttonSave {
+    display: none;
 }
 
 .input {
