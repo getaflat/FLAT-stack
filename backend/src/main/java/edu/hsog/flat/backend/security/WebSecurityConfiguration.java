@@ -16,7 +16,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private String API_PATH = "/api/v1";
     private String LOGIN_URL = API_PATH + "/login";
     private String CUSTOMERS_URL = API_PATH + "/customers";
-    private String ALL_URL = API_PATH + "/**";
 
     @Autowired
     private JwtUserService jwtUserService;

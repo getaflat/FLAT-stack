@@ -7,11 +7,15 @@ export const isEmail = name => {
 };
 
 export const mustMatch = other => {
-    return (name) => `${name} must match ${other}`;
+    return (name) => `${name} muss ${other} entsprechen`;
 };
 
 export const minLength = length => {
     return (name) => `${name} sollte mindestens ${length} Zeichen enthalten`;
+};
+
+export const exactLength = length => {
+    return (name) => `${name} sollte genau ${length} Zeichen enthalten`;
 };
 
 export const maxLength = length => {

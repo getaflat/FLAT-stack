@@ -11,8 +11,8 @@ export const isEmail = (text) => {
 };
 
 export const mustMatch = (field, name) => {
-    return (text, state) => {
-        return state[field] === text ? null : errors.mustMatch(name);
+    return (value, state) => {
+        return state[field] === value ? null : errors.mustMatch(name);
     }
 };
 
@@ -28,16 +28,22 @@ export const maxLength = (length) => {
     }
 };
 
+export const exactLength = (length) => {
+    return (text) => {
+        return text.length == length ? null : errors.exactLength(length);
+    }
+};
+
 export const minAge = (age) => {
     return (date) => {
         const difference = moment().diff(date, 'years', true);
-        return difference >= age ? null : errors.minAge(name);
+        return difference >= age ? null : errors.minAge(age);
     }
 };
 
 export const maxAge = (age) => {
     return (date) => {
         const difference = moment().diff(date, 'years', true);
-        return difference <= age ? null : errors.maxAge(name);
+        return difference <= age ? null : errors.maxAge(age);
     }
 };

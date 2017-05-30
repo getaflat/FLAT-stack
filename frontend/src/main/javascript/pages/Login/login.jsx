@@ -97,6 +97,7 @@ class Login extends React.Component {
                                 <span className={globalStyles.validationError}>{this.state.error}</span>
                             }
                         </p>
+
                         <InputValidationField
                             label="E-Mail"
                             type="text"
