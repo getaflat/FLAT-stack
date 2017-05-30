@@ -87,7 +87,7 @@ class Header extends React.Component {
 
                 <div className={styles.tabs}>
                     <Link className={styles.tabLinks} to="/">Homepage</Link>
-                    <Link className={styles.tabLinks} to="/region">Gebietsauwahl</Link>
+                    <Link className={styles.tabLinks} to="/region">Gebietsauswahl</Link>
                     <Link className={styles.tabLinks} to="/user">Dashboard</Link>
                 </div>
 
