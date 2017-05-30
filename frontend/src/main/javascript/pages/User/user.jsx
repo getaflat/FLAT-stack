@@ -26,84 +26,23 @@ class User extends React.Component {
             },
             bookings: [],
             loggedIn: {},
-          //  isModalOpen: false,
         };
         this.handleStorno = this.handleStorno.bind(this);
-      /*  this.handleOpenModal = this.handleOpenModal.bind(this);
-        this.handleCloseModal = this.handleCloseModal.bind(this);
-        this.handleCloseModalSave = this.handleCloseModalSave.bind(this);*/
+        this.handleCancel = this.handleCancel.bind(this);
         this.handleInput = this.handleInput.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSave = this.handleSave.bind(this);
     }
 
-
-
-  /*  handleOpenModal() {
-        this.setState({isModalOpen: true});
-    }
-
-    handleCloseModal() {
-        this.setState({
-            isModalOpen: false,
-            customer: {
-                password: '',
-                email: '',
-                firstname: '',
-                lastname: ''
-            }
-        })
-    }*/
-
-   /* handleCloseModalSave(event) {
-        event.preventDefault();
-        this.setState({showModal: false});
-        let m = 0;
-
-        if (this.state.customer.password !== '') {
-            ReactDOM.findDOMNode(this.refs.passwordInput).style.borderColor = "red";
-            m = 1;
-        }
-        if (!this.state.customer.email.includes("@") && this.state.customer.email !== '') {
-            ReactDOM.findDOMNode(this.refs.emailInput).style.borderColor = "red";
-            m = 1;
-        }
-        if (m === 1) {
-            //this.clearInputs();
-            return;
-        }
-        if (this.state.customer.firstname !== '' && this.state.customer.firstname !== this.state.loggedIn.firstName)
-            this.state.loggedIn.firstName = this.state.customer.firstname;
-        if (this.state.customer.lastname !== '' && this.state.customer.lastname !== this.state.loggedIn.lastName)
-            this.state.loggedIn.lastName = this.state.customer.lastname;
-        if (this.state.customer.email !== '' && this.state.customer.email !== this.state.loggedIn.email)
-            this.state.loggedIn.email = this.state.customer.email;
-        if (this.state.customer.password !== '' && this.state.customer.password !== this.state.loggedIn.password)
-            this.state.loggedIn.password = this.state.customer.password;
-        // abfragen was geändert wurde und das dann api.posten
-
-        api.post('/customers', {
-            contractNumber: this.state.loggedIn.contractNumber,
-            email: this.state.loggedIn.email,
-            firstName: this.state.loggedIn.firstName,
-            lastName: this.state.loggedIn.lastName,
-            password: this.state.loggedIn.password,
-        }).then(() => {
-            return api.get('/customers')
-        }).then(({data}) => {
-            this.setState({user: data._embedded.user});
-        });
-        // seite neu laden
-
-    }*/
-
     handleChange() {
         let s = [this.refs.firstName, this.refs.lastName, this.refs.email, this.refs.birthdate];
+
         this.setState ({
             customer: {
                 firstname: this.state.loggedIn.firstName,
-                lastname: this.state.loggedIn.lastname,
+                lastname: this.state.loggedIn.lastName,
                 email: this.state.loggedIn.email,
+                birtdate: this.state.loggedIn.dateOfBirth
             }
         });
 
@@ -114,7 +53,33 @@ class User extends React.Component {
             s[i].style.border = "1px solid black";
             s[i].style.backgroundColor = "white";
         }
+
         this.refs.saveButton.style.display = "flex";
+        this.refs.cancelButton.style.display = "flex";
+        this.refs.editButton.style.display = "none";
+    }
+
+    handleCancel() {
+        let s = [this.refs.firstName, this.refs.lastName, this.refs.email, this.refs.birthdate, this.refs.save];
+
+        for(let i = 0; i < 4; i++)
+        {
+            s[i].disabled = true;
+            s[i].style.border = "none";
+            s[i].style.backgroundColor = "inherit";
+        }
+        this.setState ({
+            loggedIn: {
+                firstName: this.state.customer.firstname,
+                lastName: this.state.customer.lastname,
+                email: this.state.customer.email,
+                dateOfBirth: this.state.customer
+            }
+        });
+
+        this.refs.saveButton.style.display = "none";
+        this.refs.cancelButton.style.display = "none";
+        this.refs.editButton.style.display = "flex";
     }
 
     handleSave() {
@@ -127,6 +92,10 @@ class User extends React.Component {
             s[i].style.backgroundColor = "inherit";
         }
         this.refs.saveButton.style.display = "none";
+        this.refs.cancelButton.style.display = "none";
+        this.refs.editButton.style.display = "flex";
+
+        moment(this.state.loggedIn.dateOfBirth).format('YYYY.MM.DD');
 
         // DB zugriff
         s[3].type = "text";
@@ -141,15 +110,18 @@ class User extends React.Component {
 
     handleInput(event) {
         let {name, value} = event.target;
+        if(name.toLowerCase() === "dateofbirth")
+        {
+            moment(value).format('DD.MM.YYYY');
+        }
 
-        this.setState((prev) => update(prev, {
-            customer: {
-                [name]: {
-                    $set: value
+            this.setState((prev) => update(prev, {
+                loggedIn: {
+                    [name]: {
+                        $set: value
+                    }
                 }
-            }
-        }));
-
+            }));
     }
 
     handleStorno(event) {
@@ -210,52 +182,28 @@ class User extends React.Component {
                     <hr />
                     <div className={styles.userStats}>
                         <label>Vorname: </label>
-                        <input ref="firstName" onChange={this.handleInput} className={styles.test1} disabled={true}
+                        <input ref="firstName" onChange={this.handleInput} name="firstName" className={styles.test1} disabled={true}
                                value={this.state.loggedIn.firstName}/>
                         <br />
                         <label>Nachname: </label>
-                        <input ref="lastName" onChange={this.handleInput} className={styles.test1} disabled={true}
+                        <input ref="lastName" onChange={this.handleInput} name="lastName" className={styles.test1} disabled={true}
                                value={this.state.loggedIn.lastName}/>
                         <br />
                         <label>Vertragsnummer: </label>
                         <input ref="contractNumber" onChange={this.handleInput} className={styles.test1} disabled={true} value={this.state.loggedIn.contractNumber}/>
                         <br />
                         <label>Email-Adresse:</label>
-                        <input ref="email" onChange={this.handleInput} className={styles.test1} disabled={true} value={this.state.loggedIn.email}/>
+                        <input ref="email" onChange={this.handleInput} name="email" className={styles.test1} disabled={true} value={this.state.loggedIn.email}/>
                         <br />
                         <label>Geburtsdatum:</label>
-                        <input ref="birthdate" onChange={this.handleInput} className={styles.test1} disabled={true} value={moment(this.state.loggedIn.dateOfBirth).format('DD.MM.YYYY')}/>
+                        <input ref="birthdate" onChange={this.handleInput} name="dateOfBirth" className={styles.test1} disabled={true} value={moment(this.state.loggedIn.dateOfBirth).format('DD.MM.YYYY')}/>
                         <br />
                     </div>
 
-                    {/*<Modal isOpen={this.state.isModalOpen} onClose={() => this.handleCloseModal}>
-                     <div className={styles.modal}>
-                     <form onSubmit={this.handleCloseModalSave}>
-                     <label>Vorname: </label>
-                     <input value={this.state.customer.firstname} name="firstname" className={globalStyles.input}
-                     onChange={this.handleInput}
-                     type="text"/><br />
-                     <label>Nachname: </label>
-                     <input value={this.state.customer.lastname} name="lastname" className={globalStyles.input}
-                     onChange={this.handleInput}
-                     type="text"/><br />
-                     <label>Email: </label>
-                     <input value={this.state.customer.email} ref="emailInput" name="email" className={globalStyles.input}
-                     onChange={this.handleInput}
-                     type="text"/><br />
-                     <label>Passwort: </label>
-                     <input value={this.state.customer.password} ref="passwordInput" name="password" className={globalStyles.input}
-                     onChange={this.handleInput}
-                     type="text"/><br />
-                     <button onClick={this.handleCloseModal}>abbrechen</button>
-                     <button onClick={this.handleCloseModalSave}>speichern</button>
-                     </form>
-                     </div>
-                     </Modal>*/}
-
                     <div className={styles.buttons}>
-                        <button ref="buttonssss" onClick={this.handleChange} className={globalStyles.button}>bearbeiten</button>
-                        <button ref="saveButton" onClick={this.handleSave} className={globalStyles.button +' ' + styles.buttonSave}>speichern</button>
+                        <button ref="editButton" onClick={this.handleChange} className={globalStyles.button}>bearbeiten</button>
+                        <button ref="cancelButton" onClick={this.handleChange} className={globalStyles.button + ' ' + styles.buttonSave}>abbrechen</button>
+                        <button ref="saveButton" onClick={this.handleSave} className={globalStyles.button + ' ' + styles.buttonSave}>speichern</button>
                     </div>
                     <label ref="save" className={styles.save}> </label>
 
