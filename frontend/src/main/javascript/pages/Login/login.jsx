@@ -88,7 +88,7 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div className={globalStyles.wrapper}>
+            <div className={globalStyles.wrapper + ' ' + styles.wrapper}>
                 <div className={styles.login}>
                     <h3>Login</h3>
                     <form onSubmit={this.submitForm} onReset={this.resetForm}>

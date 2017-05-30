@@ -1,12 +1,11 @@
 .wrapper {
-    flex-direction: row;
-    align-content: center;
+
+    flex-flow: wrap;
     justify-content: center;
 }
 
-.login {
-    display: flex;
-    flex-flow: wrap;
+
+.login{
     text-align: center;
 }
 
@@ -16,11 +15,19 @@
     max-width: 100%;
 }
 
+
+/*
+TODO funktioniert nicht
+.validation-error text{*/
+    /*color: red;
+}*/
+
+
 @media only screen and (min-width: 600px) {
     /* tablet */
 
     .login {
-        padding-top: 80px;
+        padding-top: 70px;
     }
 }
 
