@@ -49,40 +49,40 @@ public class DatabaseLoader implements CommandLineRunner {
 	    rb1.setName("Komplex Mallorca");
 	    rb1.setDetails("Der Kontrast auf schroffer Felsküste und herrlichen Sandstränden ist nur eines der Dinge, die den Reiz dieser Mittelmeer-Insel ausmachen. Die Hauptstadt Palma de Mallorca mit ihrem weit bekannten Nachtleben liegt circa eine Stunde mit dem Auto, das im Ort gemietet werden kann, entfernt. Aber auch die öffentlichen Verkehrsmittel sind gut ausgebaut. \n" +
                 "In unserer Anlage, bestehend aus 5 Wohnungen und Häuschen, finden sie alles, was einen entspannten Urlaub ausmacht. Ein kleiner Supermarkt ist vor Ort, ebenso wie im Dorf diverse weitere Geschäft und ein Arzt zu finden sind. Der große Gemeinschaftspool steht nur unseren Gästen zur Verfügung, aber auch der Strand ist nur wenige Gehminuten entfernt. Neben Baden stehen auch Wandern, Reiten und Tennis spielen (beides im Ort) zur Freizeitgestaltung zur Auswahl.\n");
-        rb1.setImage1(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/Costa_Brava.JPG"));
-        rb1.setImage2(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block1/dorf.jpeg"));
+        rb1.setImage1(this.readImage("./src/img/residential_blocks/mediterranean_sea/residential_block1/Costa_Brava.JPG"));
+        rb1.setImage2(this.readImage("./src/img/residential_blocks/mediterranean_sea/residential_block1/dorf.jpeg"));
         this.rbRepository.save(rb1);
 
         ResidentialBlock rb2 = new ResidentialBlock();
         rb2.setResidentialBlockId(2L);
         rb2.setName("Komplex Italien");
         rb2.setDetails("Diese kinderfreundliche Anlage im Westen von Italien besticht durch ihre kilometerlangen Sandstrände. Natürlich gibt es die landestypische Küche mit Pizza und Pasta an vielen Stellen in der Nähe dieser urbanen Anlage zu kaufen. Das Hinterland ist mit seinen Bergen und Schluchten ein idealer Kontrast zur Küste. Unsere 5 Wohneinheiten bieten für jeden Geschmack etwas. Einkaufsmöglichkeiten sind gut zu Fuß zu Erreichen, am Dienstag und Samstag finden auf dem zentralen Marktplatz schöne Märkte mit einem breiten Angebot von Obst und Gemüse, sowie Fleischwaren direkt vom Erzeuger bis hin zu Kleidung und Spielwaren, statt.\n");
-        rb2.setImage1(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block2/les_gorges_du_tarn.jpg"));
-        rb2.setImage2(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mediterranean_sea/residential_block2/Strand_Brandung.jpg"));
+        rb2.setImage1(this.readImage("./src/img/residential_blocks/mediterranean_sea/residential_block2/les_gorges_du_tarn.jpg"));
+        rb2.setImage2(this.readImage("./src/img/residential_blocks/mediterranean_sea/residential_block2/Strand_Brandung.jpg"));
         this.rbRepository.save(rb2);
 
         ResidentialBlock rb3 = new ResidentialBlock();
         rb3.setResidentialBlockId(3L);
         rb3.setName("Komplex Berge");
         rb3.setDetails("Die beiden liebevoll eingerichteten, traditionellen Häuser beherbergen insgesamt 5 Wohnungen. Im Sommer locken die Berge zum Wandern und auch der nahe gelegene Badesee sorgt für Erfrischung. Im Winter bietet sich das Skigebiet mit 3 Liften und Pisten für Anfänger bis Profis an. auch Ski- und Snowboardkurse werden veranstaltet. Einkaufsmöglichkeiten befinden sich direkt im Dorf, die nächste Stadt ist ca 30 Minuten mit dem Auto entfernt.\n");
-        rb3.setImage1(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mountain/residential_block/bergsee.jpg"));
-        rb3.setImage2(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/mountain/residential_block/FerienwohnungBegeAussenSchnee.jpeg"));
+        rb3.setImage1(this.readImage("./src/img/residential_blocks/mountain/residential_block/bergsee.jpg"));
+        rb3.setImage2(this.readImage("./src/img/residential_blocks/mountain/residential_block/FerienwohnungBegeAussenSchnee.jpeg"));
         this.rbRepository.save(rb3);
 
         ResidentialBlock rb4 = new ResidentialBlock();
         rb4.setResidentialBlockId(4L);
         rb4.setName("Komplex Nordsee");
         rb4.setDetails("Urban gelegen, unweit des Sandstrandes liegt dieser Komplex aus 5 Ferienwohnungen. Die überwiegend gehobene Ausstattung der Wohnungen ist ideal zum Entspannen. Genießen sie hier die schönste Zeit des Jahres mit Blick auf den Hafen und die Nordsee. Die Küstenpromenade lädt zum Bummeln ein, und bestimmt finden sie in der nähren Umgebung auch ein gastronomisches Angebot nach ihrem Geschmack. Tagsüber lädt das Meer zum Baden ein oder sie relaxen in einem der vielen zur Vermietung stehenden Strandkörbe. Auch Abends kommen sie hier auf ihre Kosten, denn das Stadtzentrum mit seinen Bars und Clubs ist nur wenige Gehminuten entfernt.\n");
-        rb4.setImage1(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/north_baltic_sea/residential_block1/FeWoSeeAussen.jpg"));
-        rb4.setImage2(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/north_baltic_sea/residential_block1/FeWoSeeHafen.jpg"));
+        rb4.setImage1(this.readImage("./src/img/residential_blocks/north_baltic_sea/residential_block1/FeWoSeeAussen.jpg"));
+        rb4.setImage2(this.readImage("./src/img/residential_blocks/north_baltic_sea/residential_block1/FeWoSeeHafen.jpg"));
         this.rbRepository.save(rb4);
 
         ResidentialBlock rb5 = new ResidentialBlock();
         rb5.setResidentialBlockId(5L);
         rb5.setName("Komplex Ostsee");
         rb5.setDetails("Unsere kleine Feriensiedlung bestehend aus 5 Häusern, die direkt am Wasser gebaut wurden, bietet Familien alles was sie für einen entspannten Urlaub brauchen. Ein Kinderspielplatz gehört ebenfalls zum Gelände genauso wie ein kleiner Privatstrand nur für unsere Gäste. In der Umgebung laden die typischen Dämme, die hier bis direkt an die Küstenlinie reichen, zum Wandern und Spazieren gehen ein. vielleicht begegnet ihnen unterwegs ja sogar eine Schafherde! Ein kleiner Supermarkt mit Bäckerei befindet sich nur circa 10 Gehminuten entfernt (Parkplätze vorhanden) Bis zur nächst größeren Stadt sind es circa 20 Minuten mit dem Auto.");
-        rb5.setImage1(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/north_baltic_sea/residential_block2/FeWoSeeStrand.jpg"));
-        rb5.setImage2(this.readImage("/Users/tobin/Documents/Z_HS-Offenburg/AI4_SoSe17/Projekt1-Programme/FLAT-stack/backend/src/img/residential_blocks/north_baltic_sea/residential_block2/FeWoSeeAussen3.jpeg"));
+        rb5.setImage1(this.readImage("./src/img/residential_blocks/north_baltic_sea/residential_block2/FeWoSeeStrand.jpg"));
+        rb5.setImage2(this.readImage("./src/img/residential_blocks/north_baltic_sea/residential_block2/FeWoSeeAussen3.jpeg"));
         this.rbRepository.save(rb5);
 
 
