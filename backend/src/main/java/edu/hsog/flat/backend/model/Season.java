@@ -10,11 +10,10 @@ import lombok.*;
 @NoArgsConstructor
 public class Season {
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @NonNull
 	private Long calenderWeek;
 
-	@NonNull
-	@ManyToOne(targetEntity = Factor.class)
+
+	//@ManyToOne(targetEntity = Factor.class)
 	private Long factorId;
 }

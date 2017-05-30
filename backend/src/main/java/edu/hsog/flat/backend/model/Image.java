@@ -12,12 +12,12 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class Image {
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
 	@NonNull
 	private Long imageId;
 
 	@NonNull
-	@ManyToOne (targetEntity = Apartment.class)
+	//@ManyToOne (targetEntity = Apartment.class)
 	private Long apartmentId;
 
 	@NonNull

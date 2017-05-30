@@ -22,7 +22,36 @@ class Region extends React.Component {
         return (
             <div className={globalStyles.wrapper}>
                 <h1>Gebiete</h1>
-                <Link className={styles.link} to="/region/Alpen">Alpen</Link>
+
+                <div className={styles.concreteRegion}>
+                <div> <img className={styles.image} src="./logo.jpg" alt="logo"/> </div>
+                {/*<Link className={globalStyles.button} to="/login">Nordsee</Link>*/}
+                <button value="Alpen" onClick={this.handleClick} className={globalStyles.button}>Nordsee</button>
+                </div>
+
+                <div className={styles.concreteRegion}>
+                    <div> <img className={styles.image} src="./logo.jpg" alt="logo"/> </div>
+                    {/*<Link className={globalStyles.button} to="/login">Ostsee</Link>*/}
+                    <button value="Alpen" onClick={this.handleClick} className={globalStyles.button}>Ostsee</button>
+                </div>
+
+                <div className={styles.concreteRegion}>
+                    <div> <img className={styles.image} src="./logo.jpg" alt="logo"/> </div>
+                    {/*<Link className={globalStyles.button} to="/login">Italien</Link>*/}
+                    <button value="Alpen" onClick={this.handleClick} className={globalStyles.button}>Italien</button>
+                </div>
+
+                <div className={styles.concreteRegion}>
+                    <div> <img className={styles.image} src="./logo.jpg" alt="logo"/> </div>
+                    {/*<Link className={globalStyles.button} to="/login">Mallorca</Link>*/}
+                    <button value="Alpen" onClick={this.handleClick} className={globalStyles.button}>Mallorca</button>
+                </div>
+
+                <div className={styles.concreteRegion}>
+                    <div> <img className={styles.image} src="./logo.jpg" alt="logo"/> </div>
+                    {/*<Link className={globalStyles.button} to="/login">Schwarzwald</Link>*/}
+                    <button value="Alpen" onClick={this.handleClick} className={globalStyles.button}>Schwarzwald</button>
+                </div>
             </div>
         );
     }

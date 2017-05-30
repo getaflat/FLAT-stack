@@ -15,12 +15,12 @@ import java.util.List;
 @NoArgsConstructor
 public class Factor {
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     @NonNull
 	private Long factorId;
 
-	@OneToMany(mappedBy = "calenderWeek", targetEntity = Season.class, fetch = FetchType.EAGER)
-	private List<Long> calenderWeeks;
+	/*@OneToMany(mappedBy = "calenderWeek", targetEntity = Season.class, fetch = FetchType.EAGER)
+	private List<Long> calenderWeeks;*/
 
 	@NonNull
 	private Double factor;

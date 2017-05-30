@@ -14,13 +14,12 @@ public class Apartment {
     @Id
 	private Long apartmentId;
 
-	@OneToMany(mappedBy = "imageId", targetEntity = Image.class, fetch=FetchType.EAGER)
-	private List<Long> images;
+	/*@OneToMany(mappedBy = "imageId", targetEntity = Image.class, fetch=FetchType.EAGER)
+	private List<Long> images;*/
 
 
-	/*@ManyToOne(targetEntity = ResidentialBlock.class)
-	@JoinColumn(name="residential_Block_Id")
-	private Long residentialBlockId;*/
+	//@ManyToOne(targetEntity = ResidentialBlock.class)
+	private Long residentialBlockId;
 
 	@NonNull
 	private Boolean isAvailable;
@@ -47,4 +46,14 @@ public class Apartment {
 
 	@NonNull
 	private Boolean infantsAllowed;
+
+	@Lob
+	@NonNull
+	private String description;
+
+    @Override
+    public String toString() {
+
+        return getResidentialBlockId().toString();
+    }
 }
