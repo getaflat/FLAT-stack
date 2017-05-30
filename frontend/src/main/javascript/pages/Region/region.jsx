@@ -44,17 +44,17 @@ class Region extends React.Component {
 
                     <div className={styles.concreteRegion}>
                         <div> <img className={styles.image} src="./logo.jpg" alt="logo"/> </div>
-                        <Link className={globalStyles.button} to="/region/Komplex-Berge-1">Komplex-Berge-1</Link>
+                        <Link className={globalStyles.button} to="/region/Komplex-Berge-1">Berge-1</Link>
                     </div>
 
                     <div className={styles.concreteRegion}>
                         <div> <img className={styles.image} src="./logo.jpg" alt="logo"/> </div>
-                        <Link className={globalStyles.button} to="/region/Komplex-Nord-Ostsee-1">Komplex-Nord-Ostsee-1</Link>
+                        <Link className={globalStyles.button} to="/region/Komplex-Nord-Ostsee-1">Nord-Ostsee-1</Link>
                     </div>
 
                     <div className={styles.concreteRegion}>
                         <div> <img className={styles.image} src="./logo.jpg" alt="logo"/> </div>
-                        <Link className={globalStyles.button} to="/region/Komplex-Mittelmeer-2">Komplex-Nord-Ostsee-2</Link>
+                        <Link className={globalStyles.button} to="/region/Komplex-Mittelmeer-2">Nord-Ostsee-2</Link>
                     </div>
                 </div>
 

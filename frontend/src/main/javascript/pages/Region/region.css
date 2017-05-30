@@ -27,4 +27,9 @@
     .regions {
         flex-direction: row;
     }
+
+    .concreteRegion{
+        padding: 20px;
+
+    }
 }
