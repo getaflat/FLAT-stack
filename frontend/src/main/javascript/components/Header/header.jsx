@@ -57,7 +57,7 @@ class Header extends React.Component {
             <header className={styles.wrapper}>
                 <div className={styles.topHeader}>
                     {/*<a className={styles.logo}>Logo</a>*/}
-                    <div> <img className={styles.logo} src={require("./img/logo.jpg")} alt="logo"/> </div>
+                    <div> <img className={styles.logo} src={require("./img/logo.png")} alt="logo"/> </div>
 
                     <div className={styles.leftHeader}>
 
