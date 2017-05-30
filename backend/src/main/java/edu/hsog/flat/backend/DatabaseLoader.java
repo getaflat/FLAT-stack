@@ -889,6 +889,96 @@ public class DatabaseLoader implements CommandLineRunner {
         i31.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment10/FeWoMeerKueche.jpeg"));
         this.iRepository.save(i31);
 
+        Image i32 = new Image();
+        i32.setImageId(32L);
+        i32.setApartmentId(a11.getApartmentId());
+        i32.setImage(readImage("./src/img/apartments/mountain/apartment1/FeWoBergeWohnzimmer.jpeg"));
+        this.iRepository.save(i32);
+
+        Image i33 = new Image();
+        i33.setImageId(33L);
+        i33.setApartmentId(a11.getApartmentId());
+        i33.setImage(readImage("./src/img/apartments/mountain/apartment1/FeWoBergeSchlafzimmer6.jpeg"));
+        this.iRepository.save(i33);
+
+        Image i34 = new Image();
+        i34.setImageId(34L);
+        i34.setApartmentId(a11.getApartmentId());
+        i34.setImage(readImage("./src/img/apartments/mountain/apartment1/FeWoBergeKueche3.jpg"));
+        this.iRepository.save(i34);
+
+        Image i35 = new Image();
+        i35.setImageId(35L);
+        i35.setApartmentId(a12.getApartmentId());
+        i35.setImage(readImage("./src/img/apartments/mountain/apartment2/FeWoBergeSchlafzimmer4.jpg"));
+        this.iRepository.save(i35);
+
+        Image i36 = new Image();
+        i36.setImageId(36L);
+        i36.setApartmentId(a12.getApartmentId());
+        i36.setImage(readImage("./src/img/apartments/mountain/apartment2/FeWoBergeKueche2.jpg"));
+        this.iRepository.save(i36);
+
+        Image i37 = new Image();
+        i37.setImageId(37L);
+        i37.setApartmentId(a12.getApartmentId());
+        i37.setImage(readImage("./src/img/apartments/mountain/apartment2/FeWoBergeBad.jpg"));
+        this.iRepository.save(i37);
+
+        Image i38 = new Image();
+        i38.setImageId(38L);
+        i38.setApartmentId(a13.getApartmentId());
+        i38.setImage(readImage("./src/img/apartments/mountain/apartment3/FeWoBergeSchlafzimmer2.jpg"));
+        this.iRepository.save(i38);
+
+        Image i39 = new Image();
+        i39.setImageId(39L);
+        i39.setApartmentId(a13.getApartmentId());
+        i39.setImage(readImage("./src/img/apartments/mountain/apartment3/FeWoBergeKueche.jpeg"));
+        this.iRepository.save(i38);
+
+        Image i40 = new Image();
+        i40.setImageId(40L);
+        i40.setApartmentId(a13.getApartmentId());
+        i40.setImage(readImage("./src/img/apartments/mountain/apartment3/FeWoBergeBad3.jpeg"));
+        this.iRepository.save(i40);
+
+        Image i41 = new Image();
+        i41.setImageId(41L);
+        i41.setApartmentId(a14.getApartmentId());
+        i41.setImage(readImage("./src/img/apartments/mountain/apartment4/FeWoBergeWohnbereich.jpeg"));
+        this.iRepository.save(i41);
+
+        Image i42 = new Image();
+        i42.setImageId(42L);
+        i42.setApartmentId(a14.getApartmentId());
+        i42.setImage(readImage("./src/img/apartments/mountain/apartment4/FeWoBergeSchlafzimmer5.jpeg"));
+        this.iRepository.save(i42);
+
+        Image i43 = new Image();
+        i43.setImageId(43L);
+        i43.setApartmentId(a14.getApartmentId());
+        i43.setImage(readImage("./src/img/apartments/mountain/apartment4/FeWoBergeBad2.jpeg"));
+        this.iRepository.save(i43);
+
+        Image i44 = new Image();
+        i44.setImageId(44L);
+        i44.setApartmentId(a15.getApartmentId());
+        i44.setImage(readImage("./src/img/apartments/mountain/apartment5/FeWoBergeWohn_Schlafbereich.jpg"));
+        this.iRepository.save(i44);
+
+        Image i45 = new Image();
+        i45.setImageId(45L);
+        i45.setApartmentId(a15.getApartmentId());
+        i45.setImage(readImage("./src/img/apartments/mountain/apartment5/FeWoBergeSchlafzimmer3.jpeg"));
+        this.iRepository.save(i45);
+
+        Image i46 = new Image();
+        i46.setImageId(46L);
+        i46.setApartmentId(a15.getApartmentId());
+        i46.setImage(readImage("./src/img/apartments/mountain/apartment5/FeWoBergeBad4.jpeg"));
+        this.iRepository.save(i46);
+
     }
 
     private byte[] readImage(String path) throws IOException {
