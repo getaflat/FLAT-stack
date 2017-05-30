@@ -1,0 +1,30 @@
+.wrapper {
+    flex-flow: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+   padding-bottom: 5px;
+}
+
+.regions {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.concreteRegion {
+    padding-bottom: 5px;
+}
+
+.button {
+    min-width: 1500px;
+}
+
+@media only screen and (min-width: 600px) {
+    /* tablet */
+
+    .regions {
+        flex-direction: row;
+    }
+}

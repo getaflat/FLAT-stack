@@ -20,10 +20,48 @@ class Region extends React.Component {
 
     render() {
         return (
-            <div className={globalStyles.wrapper}>
+            <div className={globalStyles.wrapper + ' ' + styles.wrapper}>
                 <h1>Gebiete</h1>
-                <Link className={styles.link} to="/region/Alpen">Alpen</Link>
+
+              {/* <div>
+                   <Link className={globalStyles.button} to="/region/Alpen">Alpen</Link>
+
+               </div>*/}
+
+
+
+
+                <div className={styles.regions}>
+                <div className={styles.concreteRegion}>
+                    <div> <img className={styles.image} src="./logo.jpg" alt="logo"/> </div>
+                    <Link className={globalStyles.button+ ' ' + styles.button} to="/region/Komplex-Mittelmeer-1">Mittelmeer 1</Link>
+                </div>
+
+                    <div className={styles.concreteRegion}>
+                        <div> <img className={styles.image} src="./logo.jpg" alt="logo"/> </div>
+                        <Link className={globalStyles.button} to="/region/Komplex-Mittelmeer-2">Mittelmeer 2</Link>
+                    </div>
+
+                    <div className={styles.concreteRegion}>
+                        <div> <img className={styles.image} src="./logo.jpg" alt="logo"/> </div>
+                        <Link className={globalStyles.button} to="/region/Komplex-Berge-1">Komplex-Berge-1</Link>
+                    </div>
+
+                    <div className={styles.concreteRegion}>
+                        <div> <img className={styles.image} src="./logo.jpg" alt="logo"/> </div>
+                        <Link className={globalStyles.button} to="/region/Komplex-Nord-Ostsee-1">Komplex-Nord-Ostsee-1</Link>
+                    </div>
+
+                    <div className={styles.concreteRegion}>
+                        <div> <img className={styles.image} src="./logo.jpg" alt="logo"/> </div>
+                        <Link className={globalStyles.button} to="/region/Komplex-Mittelmeer-2">Komplex-Nord-Ostsee-2</Link>
+                    </div>
+                </div>
+
+
             </div>
+
+
         );
     }
 }
