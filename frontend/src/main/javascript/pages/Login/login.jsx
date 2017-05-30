@@ -6,14 +6,14 @@ import InputValidationField from '../../components/InputValidationField';
 
 import { login } from '../../services/auth';
 import { run, rule } from '../../services/validation';
-import { minLength, required } from '../../services/rules';
+import { minLength, isRequired, isEmail } from '../../services/rules';
 
 import styles from './login.css';
 import globalStyles from '../../general-styles/global.css';
 
 const rules = [
-    rule("email", "Email Adresse", required),
-    rule("password", "Passwort", required, minLength(5))
+    rule("email", "Email Adresse", isRequired, isEmail),
+    rule("password", "Passwort", isRequired, minLength(5))
 ];
 
 class Login extends React.Component {

@@ -7,8 +7,20 @@ import globalStyles from '../../general-styles/global.css';
 
 import update from 'immutability-helper';
 
-const propTypes = {};
-const defaultProps = {};
+import { run, rule } from '../../services/validation';
+import { minAge, maxLength, minLength, isRequired } from '../../services/rules';
+
+const rules = [
+    rule("firstName", "Vorname"),
+    rule("lastName", "Nachname"),
+    rule("dateOfBirth", "Geburtsdatum", isRequired),
+    rule("password", "Passwort", isRequired),
+    rule("passwordMatch", "Passwort...", isRequired),
+    rule("email", "Email Adresse", isRequired),
+    rule("contractNumber", "Vertragsnummer", isRequired, minLength(12), maxLength(12))
+];
+
+
 
 class Register extends React.Component {
     constructor(props) {
@@ -16,16 +28,24 @@ class Register extends React.Component {
 
         this.state = {
             customer: {
-                birthdate: '',
+                firstName: '',
+                lastName: '',
+                dateOfBirth: '',
                 password: '',
-                reppassword: '',
+                passwordMatch: '',
                 email: '',
-                contractnumber: '',
-                firstname: '',
-                lastname: ''
+                contractNumber: ''
             },
-            contractnumberT: ''
+            validation: {
+                show: false,
+                errors: {}
+            },
+            error: ''
         };
+
+         this.state.validation.errors = run(this.state.customer, rules);
+         this.baseState = this.state;
+
         this.handleSubmit = this.handleSubmit.bind(this);
         this.clearInputs = this.clearInputs.bind(this);
         this.handleInput = this.handleInput.bind(this);
@@ -128,6 +148,16 @@ class Register extends React.Component {
         });
     }
 
+    componentDidMount() {
+        let date = moment();
+
+        /* console.log();
+
+        console.log(moment(date).format());
+        console.log(moment(date).subtract(18, 'years').format());
+        console.log(moment(date).subtract(100, 'years').format()); */
+    }
+
     render() {
         return (
             <div className={globalStyles.wrapper + ' ' + styles.wrapper}>
@@ -178,8 +208,5 @@ class Register extends React.Component {
         );
     }
 }
-
-Register.propTypes = propTypes;
-Register.defaultProps = defaultProps;
 
 export default Register;
