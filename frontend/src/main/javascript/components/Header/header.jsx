@@ -57,7 +57,16 @@ class Header extends React.Component {
             <header className={styles.wrapper}>
                 <div className={styles.topHeader}>
                     {/*<a className={styles.logo}>Logo</a>*/}
-                    <div> <img className={styles.logo} src={require("./img/logo.jpg")} alt="logo"/> </div>
+                    <div> <img className={styles.logo} src={require("./img/logo.png")} alt="logo"/> </div>
+
+                    <div className={styles.leftHeader}>
+
+                    <div className={styles.userData}>
+                        <div><h3>{this.state.customer.username}</h3></div>
+                        <div><input type="text" disabled={true} value={this.state.customer.totalScore + " P."} /></div>
+                    </div>
+                    <br />
+
                     <div className={styles.buttons}>
                         {isLoggedIn() ? (
                             <Link className={globalStyles.button} to="/logout">Logout</Link>
@@ -70,16 +79,15 @@ class Header extends React.Component {
                         {/*<button className={styles.button} >login</button>*/}
                         {/*<input className={styles.button} type="button" name="login" onClick="/login" component={Login} />*/}
                         {/*<button className={styles.button}>registrieren</button>*/}
-                    </div><br />
-                    <div className={styles.userData}>
-                        <div><h3>{this.state.customer.username}</h3></div>
-                        <div><input type="text" disabled={true} value={this.state.customer.totalScore + " P."} /></div>
                     </div>
+
+                    </div>
+
                 </div>
 
                 <div className={styles.tabs}>
                     <Link className={styles.tabLinks} to="/">Homepage</Link>
-                    <Link className={styles.tabLinks} to="/region">Gebietsauwahl</Link>
+                    <Link className={styles.tabLinks} to="/region">Gebietsauswahl</Link>
                     <Link className={styles.tabLinks} to="/user">Dashboard</Link>
                 </div>
 
