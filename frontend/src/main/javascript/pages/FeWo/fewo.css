@@ -11,6 +11,10 @@
     margin-left: 5vw;
 }
 
+.detail {
+    text-decoration: underline;
+}
+
 .bilder {
     margin: 0 auto;
     display: flex;
@@ -20,6 +24,9 @@
 
 .button {
     align-self: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .sliderContainer {
