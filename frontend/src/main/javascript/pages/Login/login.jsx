@@ -94,7 +94,7 @@ class Login extends React.Component {
                     <form onSubmit={this.submitForm} onReset={this.resetForm}>
                         <p>
                             {this.state.error !== '' &&
-                                <span className={styles.validationError}>{this.state.error}</span>
+                                <span className={globalStyles.validationError}>{this.state.error}</span>
                             }
                         </p>
                         <InputValidationField

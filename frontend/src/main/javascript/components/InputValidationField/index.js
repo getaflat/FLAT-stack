@@ -16,7 +16,7 @@ class InputValidationField extends React.Component {
         return (
             <div>
                 {this.hasError() &&
-                    <div className="validation-error">
+                    <div className={globalStyles.validationError}>
                         <span className="text">{this.props.errorText}</span>
                     </div>
                 }
