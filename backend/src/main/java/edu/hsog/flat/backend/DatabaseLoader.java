@@ -703,6 +703,191 @@ public class DatabaseLoader implements CommandLineRunner {
         b5.setStatus("Wartend");
         this.bRepository.save(b5);
 
+        Image i1 = new Image();
+        i1.setImageId(1L);
+        i1.setApartmentId(a1.getApartmentId());
+        i1.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment1/FeWoMeerEingang.jpeg"));
+        this.iRepository.save(i1);
+
+        Image i2 = new Image();
+        i2.setImageId(2L);
+        i2.setApartmentId(a1.getApartmentId());
+        i2.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment1/FeWoMeerSchlaf3.jpeg"));
+        this.iRepository.save(i2);
+
+        Image i3 = new Image();
+        i3.setImageId(3L);
+        i3.setApartmentId(a1.getApartmentId());
+        i3.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment1/FeWoMeerEingang.jpeg"));
+        this.iRepository.save(i3);
+
+        Image i4 = new Image();
+        i4.setImageId(4L);
+        i4.setApartmentId(a2.getApartmentId());
+        i4.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment2/FeWoMeerAussen2.jpeg"));
+        this.iRepository.save(i4);
+
+        Image i5 = new Image();
+        i5.setImageId(5L);
+        i5.setApartmentId(a2.getApartmentId());
+        i5.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment2/FeWoMeerSchlaf5.jpeg"));
+        this.iRepository.save(i5);
+
+        Image i6 = new Image();
+        i6.setImageId(6L);
+        i6.setApartmentId(a2.getApartmentId());
+        i6.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment2/FeWoMeerBalkon6.jpeg"));
+        this.iRepository.save(i6);
+
+        Image i7 = new Image();
+        i7.setImageId(7L);
+        i7.setApartmentId(a3.getApartmentId());
+        i7.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment3/FeWoMeerWohn2.jpg"));
+        this.iRepository.save(i7);
+
+        Image i8 = new Image();
+        i8.setImageId(8L);
+        i8.setApartmentId(a3.getApartmentId());
+        i8.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment3/FeWoMeerSchlaf4.jpeg"));
+        this.iRepository.save(i8);
+
+        Image i9 = new Image();
+        i9.setImageId(9L);
+        i9.setApartmentId(a3.getApartmentId());
+        i9.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment3/FeWoMeerKueche3.jpeg"));
+        this.iRepository.save(i9);
+
+        Image i10 = new Image();
+        i10.setImageId(10L);
+        i10.setApartmentId(a4.getApartmentId());
+        i10.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment4/FeWoMeerWohn5.jpeg"));
+        this.iRepository.save(i10);
+
+        Image i11 = new Image();
+        i11.setImageId(11L);
+        i11.setApartmentId(a4.getApartmentId());
+        i11.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment4/FeWoMeerSchlaf2.jpg"));
+        this.iRepository.save(i11);
+
+        Image i12 = new Image();
+        i12.setImageId(12L);
+        i12.setApartmentId(a4.getApartmentId());
+        i12.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment4/FeWoMeerPool2.jpg"));
+        this.iRepository.save(i12);
+
+        Image i13 = new Image();
+        i13.setImageId(13L);
+        i13.setApartmentId(a5.getApartmentId());
+        i13.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment5/FeWoMeerEss.jpg"));
+        this.iRepository.save(i13);
+
+        Image i14 = new Image();
+        i14.setImageId(14L);
+        i14.setApartmentId(a5.getApartmentId());
+        i14.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment5/FeWoMeerKueche7.jpg"));
+        this.iRepository.save(i14);
+
+        Image i15 = new Image();
+        i15.setImageId(15L);
+        i15.setApartmentId(a5.getApartmentId());
+        i15.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment5/FeWoMeerKueche7.jpg"));
+        this.iRepository.save(i15);
+
+        Image i16 = new Image();
+        i16.setImageId(16L);
+        i16.setApartmentId(a5.getApartmentId());
+        i16.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment5/FeWoMeerBad.jpeg"));
+        this.iRepository.save(i16);
+
+        Image i17 = new Image();
+        i17.setImageId(17L);
+        i17.setApartmentId(a6.getApartmentId());
+        i17.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment6/FeWoMeerWohn.jpg"));
+        this.iRepository.save(i17);
+
+        Image i18 = new Image();
+        i18.setImageId(18L);
+        i18.setApartmentId(a6.getApartmentId());
+        i18.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment6/FeWoMeerSchlaf.jpeg"));
+        this.iRepository.save(i18);
+
+        Image i19 = new Image();
+        i19.setImageId(19L);
+        i19.setApartmentId(a6.getApartmentId());
+        i19.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment6/FeWoMeerSchlaf.jpeg"));
+        this.iRepository.save(i19);
+
+        Image i20 = new Image();
+        i20.setImageId(20L);
+        i20.setApartmentId(a7.getApartmentId());
+        i20.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment7/FeWoMeerAussen.JPG"));
+        this.iRepository.save(i20);
+
+        Image i21 = new Image();
+        i21.setImageId(21L);
+        i21.setApartmentId(a7.getApartmentId());
+        i21.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment7/FeWoMeerWohn4.jpg"));
+        this.iRepository.save(i21);
+
+        Image i22 = new Image();
+        i22.setImageId(22L);
+        i22.setApartmentId(a7.getApartmentId());
+        i22.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment7/FeWoMeerKueche2.jpeg"));
+        this.iRepository.save(i22);
+
+        Image i23 = new Image();
+        i23.setImageId(23L);
+        i23.setApartmentId(a8.getApartmentId());
+        i23.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment8/FeWoMeerEss3.jpg"));
+        this.iRepository.save(i23);
+
+        Image i24 = new Image();
+        i24.setImageId(24L);
+        i24.setApartmentId(a8.getApartmentId());
+        i24.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment8/FeWoMeerBalkon1.jpeg"));
+        this.iRepository.save(i24);
+
+        Image i25 = new Image();
+        i25.setImageId(25L);
+        i25.setApartmentId(a8.getApartmentId());
+        i25.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment8/FeWoMeerStrand2.jpeg"));
+        this.iRepository.save(i25);
+
+        Image i26 = new Image();
+        i26.setImageId(26L);
+        i26.setApartmentId(a9.getApartmentId());
+        i26.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment9/FeWoMeerWohn3.jpeg"));
+        this.iRepository.save(i26);
+
+        Image i27 = new Image();
+        i27.setImageId(27L);
+        i27.setApartmentId(a9.getApartmentId());
+        i27.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment9/FeWoMeerEss4.jpeg"));
+        this.iRepository.save(i27);
+
+        Image i28 = new Image();
+        i28.setImageId(28L);
+        i28.setApartmentId(a9.getApartmentId());
+        i28.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment9/FeWoMeerGrill.jpeg"));
+        this.iRepository.save(i28);
+
+        Image i29 = new Image();
+        i29.setImageId(29L);
+        i29.setApartmentId(a10.getApartmentId());
+        i29.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment10/FeWoMeerSchlaf_Wohn.jpeg"));
+        this.iRepository.save(i29);
+
+        Image i30 = new Image();
+        i30.setImageId(30L);
+        i30.setApartmentId(a10.getApartmentId());
+        i30.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment10/FeWoMeerEss2.jpeg"));
+        this.iRepository.save(i30);
+
+        Image i31 = new Image();
+        i31.setImageId(31L);
+        i31.setApartmentId(a10.getApartmentId());
+        i31.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment10/FeWoMeerKueche.jpeg"));
+        this.iRepository.save(i31);
 
     }
 
