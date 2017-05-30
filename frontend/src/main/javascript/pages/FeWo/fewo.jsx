@@ -10,7 +10,7 @@ const propTypes = {};
 
 const defaultProps = {};
 
-let descr, rooms, persons, size, children, pets, balcony;
+let descr, rooms, persons, size, children, pets, balcony, additionalCosts;
 
 class FeWo extends React.Component {
     constructor(props) {
@@ -31,13 +31,6 @@ class FeWo extends React.Component {
             }
         }).then(({data}) => {
             console.log(data);
-            /*descr = `${data.description}
-                Personen: ${data.numberOfPersons}
-                Raumanzahl: ${data.numberOfRooms}
-                Größe: ${data.size}
-                Kinder: ${data.infantsAllowed}
-                Tiere: ${data.animalsAllowed}
-                Balkon: ${data.hasBalcony}`;*/
             descr = data.description;
             persons = data.numberOfPersons;
             rooms = data.numberOfRooms;
@@ -45,6 +38,7 @@ class FeWo extends React.Component {
             children = (data.infantsAllowed ? "Ja" : "Nein");
             pets = (data.animalsAllowed ? "Ja" : "Nein");
             balcony = (data.hasBalcony ? "Ja" : "Nein");
+            // additionalCosts Rechnung einfügen!!!
             this.setState({
                 fewo: {
                     name: data.name,
@@ -84,13 +78,20 @@ class FeWo extends React.Component {
 
                 <div className={styles.FeWoDescr}>
 
-                    <section>{descr}</section>
-                    <section>Details:</section>
-                    <section>Personenanzahl: {persons}, Raumanzahl: {rooms}</section>
-                    <section>Größe: {size}, Balkon vorhanden: {balcony}</section>
-                    <section>Tiere erlaubt: {pets}, Kinder: {children}</section>
+                    <section>{descr}</section><br />
+                    <section className={styles.detail}>Details:</section>
+                    <section>Personenanzahl: {persons}</section>
+                    <section>Raumanzahl: {rooms}</section>
+                    <section>Größe: {size}</section>
+                    <section>Balkon vorhanden: {balcony}</section>
+                    <section>Tiere erlaubt: {pets}</section>
+                    <section>Kinder: {children}</section>
                 </div>
-                <Link className={globalStyles.button + ' ' + styles.button} to={this.props.match.params.id}/>
+                <div className={styles.button}>
+                    <label>Zusatzkosten: {additionalCosts}</label>
+                    <Link className={globalStyles.button + ' ' + styles.button} to={`/booking/${this.props.match.params.id}`}>buchen</Link>
+                </div>
+
             </div>
         );
     }
