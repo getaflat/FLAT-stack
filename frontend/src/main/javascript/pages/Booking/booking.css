@@ -1,7 +1,17 @@
 /* for mobile   */
+
+.wrapper {
+    flex-flow: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 5px;
+}
+
 .rightBooking {
     width: 100%;
     /*border: 1px solid red;*/
+
 }
 
 .rightBooking label {
@@ -19,6 +29,12 @@
 
 @media only screen and (min-width: 600px) {
     /* tablet */
+
+    .booking {
+        display: flex;
+        flex-direction: row;
+
+    }
 
     .rightBooking {
         padding-top: 80px;
