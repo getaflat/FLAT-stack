@@ -19,8 +19,9 @@ public class ResidentialBlock {
 	@NonNull
 	private String name;
 
-	@Lob
 	@NonNull
+	@Lob
+	@Column(length = 2048)
 	private String details;
 
 	@NonNull
@@ -35,7 +36,6 @@ public class ResidentialBlock {
 
 	@Override
 	public String toString() {
-
 		return getResidentialBlockId().toString();
 	}
 }

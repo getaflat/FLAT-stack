@@ -21,6 +21,23 @@ export function login(credentials) {
     });
 }
 
+export function register(customer) {
+    return new Promise((resolve, reject) => {
+        api.post('/register', {
+            ...customer
+        }).then((response) => {
+            if (response.status === 200 && response.headers.authorization) {
+                setToken(response.headers.authorization);
+                resolve(response);
+            } else {
+                reject(response);
+            }
+        }).catch((error) => {
+            reject(error);
+        });
+    });
+}
+
 export function logout() {
     clearToken();
     return Promise.resolve("Cleared token.");

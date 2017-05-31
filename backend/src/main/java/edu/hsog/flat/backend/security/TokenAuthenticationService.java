@@ -41,10 +41,6 @@ public class TokenAuthenticationService {
                 .getBody()
                 .getSubject();
 
-            System.out.println("=================================================================");
-            System.out.println(user);
-            System.out.println("=================================================================");
-
             return user != null ?
                     new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList()) :
                     null;

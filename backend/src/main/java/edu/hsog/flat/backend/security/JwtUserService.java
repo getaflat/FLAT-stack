@@ -21,22 +21,14 @@ public class JwtUserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Customer customer = customerRepository.findByEmail(username);
+        List<GrantedAuthority> authorities;
 
         if (customer == null) {
             throw new UsernameNotFoundException("The user does not exist");
         }
 
-        List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER");
+        authorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER");
 
-        System.out.println("===================================================================");
-        System.out.println(customer);
-        System.out.println(customer.getEmail());
-        System.out.println(customer.getPassword());
-        System.out.println(authorities);
-        System.out.println("===================================================================");
-
-        User user = new User(customer.getEmail(), customer.getPassword(), authorities);
-
-        return user;
+        return new User(customer.getEmail(), customer.getPassword(), authorities);
     }
 }

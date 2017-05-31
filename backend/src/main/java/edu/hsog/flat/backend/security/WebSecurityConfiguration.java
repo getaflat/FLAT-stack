@@ -15,6 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private String API_PATH = "/api/v1";
     private String LOGIN_URL = API_PATH + "/login";
+    private String REGISER_URL = API_PATH + "/regiser";
     private String CUSTOMERS_URL = API_PATH + "/customers";
 
     @Autowired
@@ -27,6 +28,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers(LOGIN_URL).permitAll()
+                .antMatchers(REGISER_URL).permitAll()
                 .antMatchers(CUSTOMERS_URL).authenticated()
                 // .anyRequest().authenticated()
                 .and()

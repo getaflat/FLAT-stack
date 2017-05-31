@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './register.css';
 import api from '../../services/api';
+import { register } from '../../services/auth';
 import * as ReactDOM from "react-dom";
 import moment from 'moment';
 import globalStyles from '../../general-styles/global.css';
@@ -53,16 +54,6 @@ class Register extends React.Component {
         this.resetForm = this.resetForm.bind(this);
     }
 
-    componentDidMount() {
-        // let date = moment();
-
-        /* console.log();
-
-         console.log(moment(date).format());
-         console.log(moment(date).subtract(18, 'years').format());
-         console.log(moment(date).subtract(100, 'years').format()); */
-    }
-
     handleFieldChanged(event) {
         event.preventDefault();
 
@@ -92,9 +83,7 @@ class Register extends React.Component {
             return null;
         }
 
-        console.log(this.state);
-
-        /* login({ ...this.state.credentials }).then(() => {
+        register({ ...this.state.customer }).then(() => {
             this.props.history.push('/user');
         }).catch((error) => {
             let message = 'Fehler, bitte versuchen sie es später erneut';
@@ -104,14 +93,14 @@ class Register extends React.Component {
             }
 
             this.setState({ error: message });
-        }); */
+        });
     }
 
     resetForm() {
         this.setState(this.baseState);
     }
 
-    handleInput(event) {
+    /* handleInput(event) {
         let {name, value} = event.target;
 
         this.setState((prev) => update(prev, {
@@ -183,7 +172,7 @@ class Register extends React.Component {
                 }
             }
         });
-    }
+    } */
 
     render() {
         return (
@@ -277,48 +266,6 @@ class Register extends React.Component {
 
                         <button type="reset" className={globalStyles.button}>Abbrechen</button>
                         <button type="submit" className={globalStyles.button}>Registrieren</button>
-
-                        {/* <!-- <label>
-                            Vorname:
-                        </label>
-                        <input className={globalStyles.input} name="firstname" value={this.state.firstname}
-                               ref="firstnameInput" type="text" onChange={this.handleInput}/><br />
-
-
-
-
-                        <label>
-                            Nachname:
-                        </label>
-                        <input className={globalStyles.input} name="lastname" value={this.state.lastname} ref="lastnameInput"
-                               type="text" onChange={this.handleInput}/><br />
-                        <label>
-                            Geburtsdatum:
-                        </label>
-                        <input required={true} className={globalStyles.input} name="birthdate" value={this.state.birthdate}
-                               ref="birthdateInput" type="date" onChange={this.handleInput}/><br />
-                        <label>
-                            Passwort:*
-                        </label>
-                        <input required={true} className={globalStyles.input} name="password" value={this.state.password} ref="passwordInput"
-                               type="password" onChange={this.handleInput}/><br />
-                        <label>
-                            bestätigen:*
-                        </label>
-                        <input required={true} className={globalStyles.input} name="reppassword" value={this.state.reppassword}
-                               type="password" ref="passwordrepInput" onChange={this.handleInput}/><br />
-                        <label>
-                            Email Adresse:*
-                        </label>
-                        <input required={true} className={globalStyles.input} name="email" value={this.state.email} type="text"
-                               ref="emailInput" onChange={this.handleInput}/><br />
-                        <label>
-                            Vertragsnummer:*
-                        </label>
-                        <input required={true} className={globalStyles.input} name="contractnumber" value={this.state.contractnumber}
-                               type="text" ref="contractnumberInput" onChange={this.handleInput}/><br />
-                        <input className={globalStyles.button} type="reset" name="abbrechen"/>
-                        <button className={globalStyles.button}>senden</button> --> */}
                     </form>
                 </div>
             </div>

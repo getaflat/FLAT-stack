@@ -1,5 +1,6 @@
 package edu.hsog.flat.backend.security;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.hsog.flat.backend.model.Customer;
 import edu.hsog.flat.backend.repository.CustomerRepository;
@@ -18,8 +19,10 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Map;
 
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     private ObjectMapper mapper;
@@ -28,12 +31,17 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         super(new AntPathRequestMatcher(url));
         setAuthenticationManager(authManager);
         this.mapper = new ObjectMapper();
+        this.mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
-        AccountCredentials credentials = new ObjectMapper()
-            .readValue(request.getInputStream(), AccountCredentials.class);
+        AccountCredentials credentials = mapper.readValue(request.getInputStream(), AccountCredentials.class);
+
+        System.out.println("======================================");
+        System.out.println(credentials.getEmail());
+        System.out.println(credentials.getPassword());
+        System.out.println("======================================");
 
         Authentication token = new UsernamePasswordAuthenticationToken(
                 credentials.getEmail(),
