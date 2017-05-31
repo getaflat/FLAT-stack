@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.hsog.flat.backend.model.Customer;
 import edu.hsog.flat.backend.repository.CustomerRepository;
+import edu.hsog.flat.backend.security.BCryptPasswordEncoder;
 import edu.hsog.flat.backend.security.MultipleReadHttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,8 +22,12 @@ public class RegistrationController {
     @Autowired
     CustomerRepository customerRepository;
 
-    RegistrationController(CustomerRepository customerRepository) {
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
+
+    RegistrationController(CustomerRepository customerRepository, BCryptPasswordEncoder passwordEncoder) {
         this.customerRepository = customerRepository;
+        this.passwordEncoder = passwordEncoder;
         this.mapper = new ObjectMapper();
         this.mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
@@ -34,6 +39,7 @@ public class RegistrationController {
         Customer customer = mapper.readValue(multiReadRequest.getInputStream(), Customer.class);
 
         if (customer != null) {
+            customer.setPassword(passwordEncoder.encode(customer.getPassword()));
             customerRepository.save(customer);
             multiReadRequest.getRequestDispatcher("/api/v1/login").forward(multiReadRequest, response);
         }

@@ -1,6 +1,5 @@
 package edu.hsog.flat.backend.security;
 
-import edu.hsog.flat.backend.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,11 +14,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private String API_PATH = "/api/v1";
     private String LOGIN_URL = API_PATH + "/login";
-    private String REGISER_URL = API_PATH + "/regiser";
+    private String REGISTER_URL = API_PATH + "/register";
     private String CUSTOMERS_URL = API_PATH + "/customers";
 
     @Autowired
     private JwtUserService jwtUserService;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -28,9 +30,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers(LOGIN_URL).permitAll()
-                .antMatchers(REGISER_URL).permitAll()
+                .antMatchers(REGISTER_URL).permitAll()
                 .antMatchers(CUSTOMERS_URL).authenticated()
-                // .anyRequest().authenticated()
                 .and()
             .httpBasic()
                 .and()
@@ -42,7 +43,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(jwtUserService);
+        auth
+            .userDetailsService(jwtUserService)
+            .passwordEncoder(passwordEncoder);
     }
 
     @Override

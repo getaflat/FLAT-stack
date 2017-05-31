@@ -2,6 +2,7 @@ package edu.hsog.flat.backend;
 
 import edu.hsog.flat.backend.model.*;
 import edu.hsog.flat.backend.repository.*;
+import edu.hsog.flat.backend.security.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -19,9 +20,10 @@ public class DatabaseLoader implements CommandLineRunner {
 	private final RatingRepository raRepository;
 	private final ResidentialBlockRepository rbRepository;
 	private final SeasonRepository sRepository;
+	private final BCryptPasswordEncoder passwordEncoder;
 
 	@Autowired
-	public DatabaseLoader(ApartmentRepository aRepository, BookingRepository bRepository, CustomerRepository cRepository, FactorRepository fRepository, ImageRepository iRepository, RatingRepository raRepository, ResidentialBlockRepository rbRepository, SeasonRepository sRepository) {
+	public DatabaseLoader(ApartmentRepository aRepository, BookingRepository bRepository, CustomerRepository cRepository, FactorRepository fRepository, ImageRepository iRepository, RatingRepository raRepository, ResidentialBlockRepository rbRepository, SeasonRepository sRepository, BCryptPasswordEncoder passwordEncoder) {
         this.aRepository = aRepository;
         this.bRepository = bRepository;
 	    this.cRepository = cRepository;
@@ -30,6 +32,7 @@ public class DatabaseLoader implements CommandLineRunner {
 	    this.raRepository = raRepository;
 	    this.rbRepository = rbRepository;
 	    this.sRepository = sRepository;
+	    this.passwordEncoder = passwordEncoder;
 
 	    this.aRepository.deleteAll();
         this.bRepository.deleteAll();
@@ -569,7 +572,7 @@ public class DatabaseLoader implements CommandLineRunner {
 		c.setEmail("Test1.Testico1@go.de");
 		c.setUsername("testi1");
 		c.setDateOfBirth(new Date(91, 0, 1));
-		c.setPassword("test1");
+		c.setPassword(passwordEncoder.encode("test1"));
 		c.setTotalScore(400);
 		this.cRepository.save(c);
 
@@ -579,7 +582,7 @@ public class DatabaseLoader implements CommandLineRunner {
         c.setEmail("Test2.Testico2@go.de");
         c.setUsername("testi2");
         c.setDateOfBirth(new Date(92, 1, 2));
-        c.setPassword("test2");
+        c.setPassword(passwordEncoder.encode("test2"));
         c.setTotalScore(500);
         this.cRepository.save(c);
 
@@ -589,7 +592,7 @@ public class DatabaseLoader implements CommandLineRunner {
         c.setEmail("Test3.Testico3@go.de");
         c.setUsername("testi3");
         c.setDateOfBirth(new Date(93, 2, 3));
-        c.setPassword("test3");
+        c.setPassword(passwordEncoder.encode("test3"));
         c.setTotalScore(600);
         this.cRepository.save(c);
 
@@ -599,7 +602,7 @@ public class DatabaseLoader implements CommandLineRunner {
         c.setEmail("Test4.Testico4@go.de");
         c.setUsername("testi4");
         c.setDateOfBirth(new Date(94, 3, 4));
-        c.setPassword("test4");
+        c.setPassword(passwordEncoder.encode("test4"));
         c.setTotalScore(700);
         this.cRepository.save(c);
 
@@ -609,7 +612,7 @@ public class DatabaseLoader implements CommandLineRunner {
         c.setEmail("Test5.Testico5@go.de");
         c.setUsername("testi5");
         c.setDateOfBirth(new Date(95, 4, 5));
-        c.setPassword("test5");
+        c.setPassword(passwordEncoder.encode("test5"));
         c.setTotalScore(800);
         this.cRepository.save(c);
 
@@ -619,7 +622,7 @@ public class DatabaseLoader implements CommandLineRunner {
         c.setEmail("Test6.Testico6@go.de");
         c.setUsername("testi6");
         c.setDateOfBirth(new Date(96, 5, 6));
-        c.setPassword("test6");
+        c.setPassword(passwordEncoder.encode("test6"));
         c.setTotalScore(300);
         this.cRepository.save(c);
 
@@ -629,7 +632,7 @@ public class DatabaseLoader implements CommandLineRunner {
         c.setEmail("Test7.Testico7@go.de");
         c.setUsername("testi7");
         c.setDateOfBirth(new Date(97, 6, 7));
-        c.setPassword("test7");
+        c.setPassword(passwordEncoder.encode("test7"));
         c.setTotalScore(200);
         this.cRepository.save(c);
 
@@ -639,7 +642,7 @@ public class DatabaseLoader implements CommandLineRunner {
         c.setEmail("Test8.Testico8@go.de");
         c.setUsername("testi8");
         c.setDateOfBirth(new Date(98, 7, 8));
-        c.setPassword("test8");
+        c.setPassword(passwordEncoder.encode("test8"));
         c.setTotalScore(800);
         this.cRepository.save(c);
 
@@ -649,7 +652,7 @@ public class DatabaseLoader implements CommandLineRunner {
         c.setEmail("Test9.Testico9@go.de");
         c.setUsername("testi9");
         c.setDateOfBirth(new Date(99, 8, 9));
-        c.setPassword("test9");
+        c.setPassword(passwordEncoder.encode("test9"));
         c.setTotalScore(1000);
         this.cRepository.save(c);
 

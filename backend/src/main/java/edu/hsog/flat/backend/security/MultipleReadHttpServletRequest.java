@@ -1,7 +1,5 @@
 package edu.hsog.flat.backend.security;
 
-import sun.misc.IOUtils;
-
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
