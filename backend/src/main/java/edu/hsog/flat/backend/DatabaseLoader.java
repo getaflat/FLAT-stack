@@ -892,6 +892,277 @@ public class DatabaseLoader implements CommandLineRunner {
         i31.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment10/FeWoMeerKueche.jpeg"));
         this.iRepository.save(i31);
 
+        Image i32 = new Image();
+        i32.setImageId(32L);
+        i32.setApartmentId(a11.getApartmentId());
+        i32.setImage(readImage("./src/img/apartments/mountain/apartment1/FeWoBergeWohnzimmer.jpeg"));
+        this.iRepository.save(i32);
+
+        Image i33 = new Image();
+        i33.setImageId(33L);
+        i33.setApartmentId(a11.getApartmentId());
+        i33.setImage(readImage("./src/img/apartments/mountain/apartment1/FeWoBergeSchlafzimmer6.jpeg"));
+        this.iRepository.save(i33);
+
+        Image i34 = new Image();
+        i34.setImageId(34L);
+        i34.setApartmentId(a11.getApartmentId());
+        i34.setImage(readImage("./src/img/apartments/mountain/apartment1/FeWoBergeKueche3.jpg"));
+        this.iRepository.save(i34);
+
+        Image i35 = new Image();
+        i35.setImageId(35L);
+        i35.setApartmentId(a12.getApartmentId());
+        i35.setImage(readImage("./src/img/apartments/mountain/apartment2/FeWoBergeSchlafzimmer4.jpg"));
+        this.iRepository.save(i35);
+
+        Image i36 = new Image();
+        i36.setImageId(36L);
+        i36.setApartmentId(a12.getApartmentId());
+        i36.setImage(readImage("./src/img/apartments/mountain/apartment2/FeWoBergeKueche2.jpg"));
+        this.iRepository.save(i36);
+
+        Image i37 = new Image();
+        i37.setImageId(37L);
+        i37.setApartmentId(a12.getApartmentId());
+        i37.setImage(readImage("./src/img/apartments/mountain/apartment2/FeWoBergeBad.jpg"));
+        this.iRepository.save(i37);
+
+        Image i38 = new Image();
+        i38.setImageId(38L);
+        i38.setApartmentId(a13.getApartmentId());
+        i38.setImage(readImage("./src/img/apartments/mountain/apartment3/FeWoBergeSchlafzimmer2.jpg"));
+        this.iRepository.save(i38);
+
+        Image i39 = new Image();
+        i39.setImageId(39L);
+        i39.setApartmentId(a13.getApartmentId());
+        i39.setImage(readImage("./src/img/apartments/mountain/apartment3/FeWoBergeKueche.jpeg"));
+        this.iRepository.save(i38);
+
+        Image i40 = new Image();
+        i40.setImageId(40L);
+        i40.setApartmentId(a13.getApartmentId());
+        i40.setImage(readImage("./src/img/apartments/mountain/apartment3/FeWoBergeBad3.jpeg"));
+        this.iRepository.save(i40);
+
+        Image i41 = new Image();
+        i41.setImageId(41L);
+        i41.setApartmentId(a14.getApartmentId());
+        i41.setImage(readImage("./src/img/apartments/mountain/apartment4/FeWoBergeWohnbereich.jpeg"));
+        this.iRepository.save(i41);
+
+        Image i42 = new Image();
+        i42.setImageId(42L);
+        i42.setApartmentId(a14.getApartmentId());
+        i42.setImage(readImage("./src/img/apartments/mountain/apartment4/FeWoBergeSchlafzimmer5.jpeg"));
+        this.iRepository.save(i42);
+
+        Image i43 = new Image();
+        i43.setImageId(43L);
+        i43.setApartmentId(a14.getApartmentId());
+        i43.setImage(readImage("./src/img/apartments/mountain/apartment4/FeWoBergeBad2.jpeg"));
+        this.iRepository.save(i43);
+
+        Image i44 = new Image();
+        i44.setImageId(44L);
+        i44.setApartmentId(a15.getApartmentId());
+        i44.setImage(readImage("./src/img/apartments/mountain/apartment5/FeWoBergeWohn_Schlafbereich.jpg"));
+        this.iRepository.save(i44);
+
+        Image i45 = new Image();
+        i45.setImageId(45L);
+        i45.setApartmentId(a15.getApartmentId());
+        i45.setImage(readImage("./src/img/apartments/mountain/apartment5/FeWoBergeSchlafzimmer3.jpeg"));
+        this.iRepository.save(i45);
+
+        Image i46 = new Image();
+        i46.setImageId(46L);
+        i46.setApartmentId(a15.getApartmentId());
+        i46.setImage(readImage("./src/img/apartments/mountain/apartment5/FeWoBergeBad4.jpeg"));
+        this.iRepository.save(i46);
+
+        Image i47 = new Image();
+        i47.setImageId(47L);
+        i47.setApartmentId(a21.getApartmentId());
+        i47.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment1/FeWoSeeEss2.jpg"));
+        this.iRepository.save(i47);
+
+        Image i48 = new Image();
+        i48.setImageId(48L);
+        i48.setApartmentId(a21.getApartmentId());
+        i48.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment1/FeWoSeeSchlaf.jpg"));
+        this.iRepository.save(i48);
+
+        Image i49 = new Image();
+        i49.setImageId(49L);
+        i49.setApartmentId(a21.getApartmentId());
+        i49.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment1/FeWoSeeBad2.jpg"));
+        this.iRepository.save(i49);
+
+        Image i50 = new Image();
+        i50.setImageId(50L);
+        i50.setApartmentId(a22.getApartmentId());
+        i50.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment2/FeWoSeeWohn6.jpeg"));
+        this.iRepository.save(i50);
+
+        Image i51 = new Image();
+        i51.setImageId(51L);
+        i51.setApartmentId(a22.getApartmentId());
+        i51.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment2/FeWoSeeKueche4.jpeg"));
+        this.iRepository.save(i51);
+
+        Image i52 = new Image();
+        i52.setImageId(52L);
+        i52.setApartmentId(a22.getApartmentId());
+        i52.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment2/FeWoSeeBad7.jpg"));
+        this.iRepository.save(i52);
+
+        Image i53 = new Image();
+        i53.setImageId(53L);
+        i53.setApartmentId(a23.getApartmentId());
+        i53.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment3/FeWoSeeWohn4.jpg"));
+        this.iRepository.save(i53);
+
+        Image i54 = new Image();
+        i54.setImageId(54L);
+        i54.setApartmentId(a23.getApartmentId());
+        i54.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment3/FeWoSeeKueche7.jpg"));
+        this.iRepository.save(i54);
+
+        Image i55 = new Image();
+        i55.setImageId(55L);
+        i55.setApartmentId(a23.getApartmentId());
+        i55.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment3/FeWoSeeBad.jpeg"));
+        this.iRepository.save(i55);
+
+        Image i56 = new Image();
+        i56.setImageId(56L);
+        i56.setApartmentId(a24.getApartmentId());
+        i56.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment4/FeWoSeeWohn2.jpeg"));
+        this.iRepository.save(i56);
+
+        Image i57 = new Image();
+        i57.setImageId(57L);
+        i57.setApartmentId(a24.getApartmentId());
+        i57.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment4/FeWoSeeSchlaf4.jpeg"));
+        this.iRepository.save(i57);
+
+        Image i58 = new Image();
+        i58.setImageId(58L);
+        i58.setApartmentId(a24.getApartmentId());
+        i58.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment4/FeWoSeeBad3.jpeg"));
+        this.iRepository.save(i58);
+
+        Image i59 = new Image();
+        i59.setImageId(59L);
+        i59.setApartmentId(a25.getApartmentId());
+        i59.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment5/FeWoSeeEsszimmer.jpeg"));
+        this.iRepository.save(i59);
+
+        Image i60 = new Image();
+        i60.setImageId(60L);
+        i60.setApartmentId(a25.getApartmentId());
+        i60.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment5/FeWoSeeSchlaf6.jpeg"));
+        this.iRepository.save(i60);
+
+        Image i61 = new Image();
+        i61.setImageId(61L);
+        i61.setApartmentId(a25.getApartmentId());
+        i61.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment5/FeWoSeeDachterasse.jpeg"));
+        this.iRepository.save(i61);
+
+        Image i62 = new Image();
+        i62.setImageId(62L);
+        i62.setApartmentId(a26.getApartmentId());
+        i62.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment6/FeWoSeeSchlaf7.jpg"));
+        this.iRepository.save(i62);
+
+        Image i63 = new Image();
+        i63.setImageId(63L);
+        i63.setApartmentId(a26.getApartmentId());
+        i63.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment6/FeWoSeeKueche.jpeg"));
+        this.iRepository.save(i63);
+
+        Image i64 = new Image();
+        i64.setImageId(64L);
+        i64.setApartmentId(a26.getApartmentId());
+        i64.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment6/FeWoSeeBad6.jpeg"));
+        this.iRepository.save(i64);
+
+        Image i65 = new Image();
+        i65.setImageId(65L);
+        i65.setApartmentId(a27.getApartmentId());
+        i65.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment7/FeWoSeeWohn8.jpeg"));
+        this.iRepository.save(i65);
+
+        Image i66 = new Image();
+        i66.setImageId(66L);
+        i66.setApartmentId(a27.getApartmentId());
+        i66.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment7/FeWoSeeEss3.jpeg"));
+        this.iRepository.save(i66);
+
+        Image i67 = new Image();
+        i67.setImageId(67L);
+        i67.setApartmentId(a27.getApartmentId());
+        i67.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment7/FeWoSeeBad8.jpeg"));
+        this.iRepository.save(i67);
+
+        Image i68 = new Image();
+        i68.setImageId(68L);
+        i68.setApartmentId(a28.getApartmentId());
+        i68.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment8/FeWoSeeWohn7.jpeg"));
+        this.iRepository.save(i68);
+
+        Image i69 = new Image();
+        i69.setImageId(69L);
+        i69.setApartmentId(a28.getApartmentId());
+        i69.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment8/FeWoSeeKueche_Wohn.jpeg"));
+        this.iRepository.save(i69);
+
+        Image i70 = new Image();
+        i70.setImageId(70L);
+        i70.setApartmentId(a28.getApartmentId());
+        i70.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment8/FeWoSeeSchlaf2.jpeg"));
+        this.iRepository.save(i70);
+
+        Image i71 = new Image();
+        i71.setImageId(71L);
+        i71.setApartmentId(a29.getApartmentId());
+        i71.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment9/FeWoSeeSchlaf5.jpeg"));
+        this.iRepository.save(i71);
+
+        Image i72 = new Image();
+        i72.setImageId(72L);
+        i72.setApartmentId(a29.getApartmentId());
+        i72.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment9/FeWoSeeKueche2.jpg"));
+        this.iRepository.save(i72);
+
+        Image i73 = new Image();
+        i73.setImageId(73L);
+        i73.setApartmentId(a29.getApartmentId());
+        i73.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment9/FeWoSeeBad5.jpeg"));
+        this.iRepository.save(i73);
+
+        Image i74 = new Image();
+        i74.setImageId(74L);
+        i74.setApartmentId(a30.getApartmentId());
+        i74.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment10/FeWoSeeWohn.jpeg"));
+        this.iRepository.save(i74);
+
+        Image i75 = new Image();
+        i75.setImageId(75L);
+        i75.setApartmentId(a30.getApartmentId());
+        i75.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment10/FeWoSeeBad4.jpeg"));
+        this.iRepository.save(i75);
+
+        Image i76 = new Image();
+        i76.setImageId(76L);
+        i76.setApartmentId(a30.getApartmentId());
+        i76.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment10/FeWoSeeSauna.jpg"));
+        this.iRepository.save(i76);
+
+
     }
 
     private byte[] readImage(String path) throws IOException {
