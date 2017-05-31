@@ -157,7 +157,7 @@ class User extends React.Component {
                     loggedIn: data
                 });
             });
-            api.get('/bookings/11').then(({data}) => {
+            api.get('/bookings/1').then(({data}) => {
                // console.log(data._embedded.bookings);
                 this.setState({
                     bookings: [data]

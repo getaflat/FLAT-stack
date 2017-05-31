@@ -10,7 +10,7 @@ const propTypes = {};
 
 const defaultProps = {};
 
-let descr, rooms, persons, size, children, pets, balcony, additionalCosts;
+let descri, rooms, persons, size, children, pets, balcony, additionalCosts;
 
 class FeWo extends React.Component {
     constructor(props) {
@@ -31,7 +31,7 @@ class FeWo extends React.Component {
             }
         }).then(({data}) => {
             console.log(data);
-            descr = data.description;
+            descri = data.description;
             persons = data.numberOfPersons;
             rooms = data.numberOfRooms;
             size = data.size;
@@ -78,7 +78,7 @@ class FeWo extends React.Component {
 
                 <div className={styles.FeWoDescr}>
 
-                    <section>{descr}</section><br />
+                    <section>{descri}</section><br />
                     <section className={styles.detail}>Details:</section>
                     <section>Personenanzahl: {persons}</section>
                     <section>Raumanzahl: {rooms}</section>
