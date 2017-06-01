@@ -78,7 +78,7 @@ class Footer extends React.Component {
                     <Link className={styles.link} to="/gtc">Datenschutzbestimmungen</Link>
                 </div>
                 <div className={styles.button}>
-                    <input className={globalStyles.button} onClick={this.handleOpenModal} type="button"
+                    <input className={globalStyles.button + ' ' + styles.button} onClick={this.handleOpenModal} type="button"
                            value={"bewerten"}/>
                 </div>
 

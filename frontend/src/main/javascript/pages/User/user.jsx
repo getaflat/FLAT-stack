@@ -18,12 +18,7 @@ class User extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            customer: {
-                email: '',
-                firstname: '',
-                lastname: '',
-                birtdate: ''
-            },
+            customer: {},
             bookings: [],
             loggedIn: {},
         };
@@ -35,18 +30,12 @@ class User extends React.Component {
     }
 
     handleChange() {
-        let s = [this.refs.firstName, this.refs.lastName, this.refs.email, this.refs.birthdate];
+        let s = [this.refs.firstName, this.refs.lastName, this.refs.email];
 
         this.setState ({
-            customer: {
-                firstname: this.state.loggedIn.firstName,
-                lastname: this.state.loggedIn.lastName,
-                email: this.state.loggedIn.email,
-                birtdate: this.state.loggedIn.dateOfBirth
-            }
+            customer: this.state.loggedIn
         });
 
-        s[3].type = "date";
         for(let i = 0; i < s.length; i++)
         {
             s[i].disabled = false;
@@ -60,21 +49,16 @@ class User extends React.Component {
     }
 
     handleCancel() {
-        let s = [this.refs.firstName, this.refs.lastName, this.refs.email, this.refs.birthdate, this.refs.save];
+        let s = [this.refs.firstName, this.refs.lastName, this.refs.email];
 
-        for(let i = 0; i < 4; i++)
+        for(let i = 0; i < 3; i++)
         {
             s[i].disabled = true;
             s[i].style.border = "none";
             s[i].style.backgroundColor = "inherit";
         }
         this.setState ({
-            loggedIn: {
-                firstName: this.state.customer.firstname,
-                lastName: this.state.customer.lastname,
-                email: this.state.customer.email,
-                dateOfBirth: this.state.customer
-            }
+            loggedIn: this.state.customer
         });
 
         this.refs.saveButton.style.display = "none";
@@ -83,9 +67,9 @@ class User extends React.Component {
     }
 
     handleSave() {
-        let s = [this.refs.firstName, this.refs.lastName, this.refs.email, this.refs.birthdate, this.refs.save];
+        let s = [this.refs.firstName, this.refs.lastName, this.refs.email, this.refs.save];
 
-        for(let i = 0; i < 4; i++)
+        for(let i = 0; i < 3; i++)
         {
             s[i].disabled = true;
             s[i].style.border = "none";
@@ -95,12 +79,14 @@ class User extends React.Component {
         this.refs.cancelButton.style.display = "none";
         this.refs.editButton.style.display = "flex";
 
-        moment(this.state.loggedIn.dateOfBirth).format('YYYY.MM.DD');
+        api.patch('/customers/1', {
+            email: this.state.loggedIn.email,
+            firstName: this.state.loggedIn.firstName,
+            lastName: this.state.loggedIn.lastName,
+        });
 
-        // DB zugriff
-        s[3].type = "text";
-        s[4].firstChild.data = "Daten erfolgreich gespeichert";
-        s[4].style.display = "flex";
+        s[3].firstChild.data = "Daten erfolgreich gespeichert";
+        s[3].style.display = "flex";
 
         setTimeout(function() {
             this.refs.save.style.display = "none";
@@ -110,32 +96,40 @@ class User extends React.Component {
 
     handleInput(event) {
         let {name, value} = event.target;
-        if(name.toLowerCase() === "dateofbirth")
-        {
-            moment(value).format('DD.MM.YYYY');
-        }
 
-            this.setState((prev) => update(prev, {
-                loggedIn: {
-                    [name]: {
+        this.setState((prev) => update(prev, {
+            loggedIn: {
+                [name]: {
                         $set: value
-                    }
                 }
-            }));
+            }
+        }));
     }
 
     handleStorno(event) {
-        //console.log(event.target.alt);
-
-        if (isLoggedIn()) {
-            api.delete(`bookings/${event.target.alt}`).then(() => {
-
+        console.log(event.target);
+       /* if (isLoggedIn()) {
+            api.delete(`bookings/search/findByBookingId`, {
+                params: {
+                    bookingId: event.target.name
+                }
             }).then(() => {
-                api.get('/bookings').then(({data}) => {
-                    this.setState({bookings: data._embedded.bookings});
-                })
+                api.get(`/bookings/search/findByContractNumber`, {
+                    params: {
+                        contractNumber: this.state.loggedIn.contractNumber
+                    }
+                }, {
+                    headers: {
+                        authorization: token
+                    }
+                }).then(({data}) => {
+                    this.setState({
+                        bookings: [data]
+                    })
+                });
             });
-        }
+            window.location.reload();
+        }*/
     }
 
     componentDidMount() {
@@ -152,24 +146,40 @@ class User extends React.Component {
                     authorization: token
                 }
             }).then(({data}) => {
-                console.log(data);
+
                 this.setState({
                     loggedIn: data
                 });
-            });
-            api.get('/bookings/1').then(({data}) => {
-               // console.log(data._embedded.bookings);
-                this.setState({
-                    bookings: [data]
-                })
-            });
-            this.state.bookings.map((booking) => {
-                api.get(`/apartments/${booking.bookingId}`).then(({data}) => { // bookingId wird noch nicht rausgegeben
-                    console.log(data);
-                    booking.name = data.name;
-                    // booking.id = data.name;
+
+               // console.log(this.state.loggedIn);
+
+                api.get(`/bookings/search/findByContractNumber`, {
+                    params: {
+                        contractNumber: this.state.loggedIn.contractNumber
+                    }
+                }, {
+                    headers: {
+                        authorization: token
+                    }
+                }).then(({data}) => {
+                   // console.log(data);
+                    this.setState({
+                        bookings: [data]
+                    })
                 });
-            })
+
+                this.state.bookings.map((booking) => {
+                    api.get(`/apartments/${booking.bookingId}`).then(({data}) => { // bookingId wird noch nicht rausgegeben
+                        console.log(data);
+                        //booking.name = data.name;
+                         booking.bookingId = data.name;
+                    });
+                })
+
+            });
+
+
+
         }
     }
 
@@ -202,7 +212,7 @@ class User extends React.Component {
 
                     <div className={styles.buttons}>
                         <button ref="editButton" onClick={this.handleChange} className={globalStyles.button}>bearbeiten</button>
-                        <button ref="cancelButton" onClick={this.handleChange} className={globalStyles.button + ' ' + styles.buttonSave}>abbrechen</button>
+                        <button ref="cancelButton" onClick={this.handleCancel} className={globalStyles.button + ' ' + styles.buttonSave}>abbrechen</button>
                         <button ref="saveButton" onClick={this.handleSave} className={globalStyles.button + ' ' + styles.buttonSave}>speichern</button>
                     </div>
                     <label ref="save" className={styles.save}> </label>
@@ -224,14 +234,14 @@ class User extends React.Component {
                             </tr>
                             {this.state.bookings.map((booking, index) =>
                                 <tr key={index}>
-                                    <td>{booking.name}</td>
+                                    <td>{booking.bookingId}</td>
                                     <td>{booking.start}</td>
                                     <td>{booking.end}</td>
                                     <td>{booking.status}</td>
                                     <td>{booking.price}</td>
                                     <td>{booking.additionalCharge}</td>
                                     <td className={styles.check} ref="button">
-                                        <input className={globalStyles.button} value="stornieren" alt={booking.bookingId} onClick={this.handleStorno} type="button"/>
+                                        <input className={globalStyles.button} value="stornieren" name={booking.bookingId} onClick={this.handleStorno} type="button"/>
                                     </td>
                                 </tr>
                             )}

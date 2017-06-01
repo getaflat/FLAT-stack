@@ -17,11 +17,14 @@
     flex-direction: row;
 }
 
+.userStats label {
+    min-width: 140px;
+}
+
 .test1 {
     border: none;
     background: inherit;
     color: black;
-    float: right;
 }
 
 .tg {
