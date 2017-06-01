@@ -10,8 +10,11 @@ import java.util.List;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class Apartment {
-    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+	private Long id;
+
+	@NonNull
 	private Long apartmentId;
 
 	/*@OneToMany(mappedBy = "imageId", targetEntity = Image.class, fetch=FetchType.EAGER)

@@ -12,7 +12,10 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class Image {
 	@Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	@NonNull
+	private Long id;
+
 	@NonNull
 	private Long imageId;
 

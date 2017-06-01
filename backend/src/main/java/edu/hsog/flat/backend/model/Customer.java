@@ -20,6 +20,10 @@ import java.util.List;
 @NoArgsConstructor
 public class Customer {
 	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	@NonNull
+	private Long id;
+
 	@NonNull
 	private Long contractNumber;
 
@@ -39,7 +43,6 @@ public class Customer {
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@NonNull
-	@NotNull
 	private String password;
 
 	private Integer totalScore;

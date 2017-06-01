@@ -938,7 +938,7 @@ public class DatabaseLoader implements CommandLineRunner {
         i39.setImageId(39L);
         i39.setApartmentId(a13.getApartmentId());
         i39.setImage(readImage("./src/img/apartments/mountain/apartment3/FeWoBergeKueche.jpeg"));
-        this.iRepository.save(i38);
+        this.iRepository.save(i39);
 
         Image i40 = new Image();
         i40.setImageId(40L);

@@ -12,6 +12,9 @@ public class Rating {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NonNull
+	private Long id;
+
+	@NonNull
 	private Integer ratingId;
 
 	/*@NonNull
