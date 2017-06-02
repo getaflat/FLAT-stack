@@ -39,8 +39,6 @@ public class Customer {
 	@Column(unique=true)
 	private String email;
 
-	private String username;
-
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@NonNull
 	private String password;
