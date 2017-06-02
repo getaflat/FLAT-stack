@@ -753,6 +753,7 @@ public class DatabaseLoader implements CommandLineRunner {
         b1.setPrice(price);
         b1.setAdditionalCharge(50.6);
         b1.setStatus("Wartend");
+        b1.setLastModified(new Date(117, 4, 14));
         this.bRepository.save(b1);
 
         Booking b2 = new Booking();
@@ -768,6 +769,7 @@ public class DatabaseLoader implements CommandLineRunner {
         price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
         b2.setPrice(price);
         b2.setStatus("Wartend");
+        b2.setLastModified(new Date(117, 4, 13));
         this.bRepository.save(b2);
 
         Booking b3 = new Booking();
@@ -783,6 +785,7 @@ public class DatabaseLoader implements CommandLineRunner {
         price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
         b3.setPrice(price);
         b3.setStatus("Bestätigt");
+        b3.setLastModified(new Date(117, 4, 12));
         this.bRepository.save(b3);
 
         Booking b4 = new Booking();
@@ -798,6 +801,7 @@ public class DatabaseLoader implements CommandLineRunner {
         price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
         b4.setPrice(price);
         b4.setStatus("Wartend");
+        b4.setLastModified(new Date(117, 4, 11));
         this.bRepository.save(b4);
 
         Booking b5 = new Booking();
@@ -813,6 +817,7 @@ public class DatabaseLoader implements CommandLineRunner {
         price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
         b5.setPrice(price);
         b5.setStatus("Wartend");
+        b5.setLastModified(new Date(117, 4, 10));
         this.bRepository.save(b5);
 
         Image i1 = new Image();

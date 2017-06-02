@@ -6,6 +6,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -19,6 +20,8 @@ public class Booking {
 
 	@NonNull
 	private Long bookingId;
+
+	private Date lastModified;
 
 	@NonNull
 	//@ManyToOne(targetEntity = Customer.class)
