@@ -13,7 +13,7 @@ import Region from '../pages/Region/region';
 import Register from '../pages/Register/register';
 import User from '../pages/User/user';
 import FeWo from '../pages/FeWo/fewo';
-import NoMatch from '../pages/NoMatch/nomatch';
+//import NoMatch from '../pages/NoMatch/nomatch';
 import RegionFewo from '../pages/regionFewos/regionFewos'
 import { isLoggedIn } from '../services/auth';
 
@@ -56,7 +56,7 @@ class App extends React.Component {
                         <Route path="/register" component={Register} />
                         <PrivateRoute path="/user" component={User} />
                         <Route path="/fewo/:id" component={FeWo} />
-                        <Route component={NoMatch} />
+                        
                     </Switch>
 
                     <Footer />
