@@ -20,9 +20,8 @@ class Booking extends React.Component {
             },
 
             description: '',
-            picture1: '',
-            picture2: '',
-            picture3: '',
+            picture: '',
+
 
         };
 
@@ -59,20 +58,23 @@ class Booking extends React.Component {
 
             this.setState({
 
+                fewo: {
+                    name: data.name,
+                    id: data.apartmentId
+                }
 
             });
-        });
 
-        api.get(`/images/search/findByApartmentId`, {
-            params: {
-                apartmentId: this.state.fewo.id
-            }
+            return api.get('/images/search/findByApartmentId', {
+                params: {
+                    apartmentId: data.apartmentId
+                }
+            })
         }).then(({ data }) => {
             console.log(data);
             this.setState({
-                picture1:'data:image/png;base64,' + data._embedded.images[0].image,
-                picture2:'data:image/png;base64,' + data._embedded.images[1].image,
-                picture3:'data:image/png;base64,' + data._embedded.images[2].image,
+                picture:'data:image/png;base64,' + data._embedded.images[0].image,
+
 
 
             });
@@ -154,7 +156,8 @@ class Booking extends React.Component {
                 <h1>Buchung</h1>
                 <div className={styles.booking}>
                     <div className={styles.leftBooking}>
-                        <div> <img className={styles.image} src={this.state.picture1}/> </div>
+                        <div> <img className={styles.image} src={this.state.picture}/> </div>
+                        <h3 className={styles.heading}>{this.props.match.params.id}</h3>
                         <div>{descr}</div>
                     </div>
                     <div className={styles.rightBooking}>
