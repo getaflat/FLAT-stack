@@ -117,7 +117,7 @@ class regionFewos extends React.Component {
     render() {
         return (
             <div className={globalStyles.wrapper}>
-                <h1>Region: {this.props.match.params.id}</h1>
+                <h1>Region: {this.props.match.params.id}</h1> {/*id herkunft*/}
                 <div className={styles.tgwrap}>
                     <Table rowsCount={this.state.filteredDataList.length} height={1000}
                            width={1200}
