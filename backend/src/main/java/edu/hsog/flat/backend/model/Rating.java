@@ -15,7 +15,7 @@ public class Rating {
 	private Long id;
 
 	@NonNull
-	private Integer ratingId;
+	private Long ratingId;
 
 	/*@NonNull
 	@OneToOne(targetEntity = Customer.class, fetch= FetchType.EAGER)
