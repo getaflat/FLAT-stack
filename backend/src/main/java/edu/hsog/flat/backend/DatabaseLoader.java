@@ -878,10 +878,10 @@ public class DatabaseLoader implements CommandLineRunner {
         this.bRepository.save(b2);
 
         Booking b3 = new Booking();
-        b3.setContractNumber(123456789012L);
+        b3.setContractNumber(123456789013L);
         b3.setApartmentId(3L);
-        b3.setWeek1(23);
-        b3.setWeek2(24);
+        b3.setWeek1(10);
+        b3.setWeek2(10);
         b3.setYear(2017);
         b3.setAdditionalCharge(0.0);
         factorID1 = this.sRepository.findOne(b3.getWeek1()+0L).getFactorId();
