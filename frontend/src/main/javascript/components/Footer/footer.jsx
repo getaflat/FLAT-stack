@@ -38,11 +38,13 @@ class Footer extends React.Component {
     handleRating()
     {
         console.log(this.state.stars + ' ' + this.state.ratingText);
-        /*api.post('/ratings', {
+
+
+        api.post('/ratings', {
             contractNumber: this.state.customer.contractnumber,
             score: this.state.stars,
             comment: this.state.ratingText
-        });*/
+        });
         this.setState({
             isModalOpen: false
         });
@@ -61,13 +63,13 @@ class Footer extends React.Component {
         this.state.ratingText = '';
     }
 
-    /* componentDidMount() {
+    componentDidMount() {
         api.get('/ratings').then(({ data }) => {
             console.log(data);
         }).catch(() => {
             console.error(arguments)
         }) // wenn ratings user id beinhaltet der eingeloggt ist, dann bewerten button weg!
-    } */
+    }
 
     render() {
         return (
@@ -78,7 +80,7 @@ class Footer extends React.Component {
                     <Link className={styles.link} to="/gtc">Datenschutzbestimmungen</Link>
                 </div>
                 <div className={styles.button}>
-                    <input className={globalStyles.button} onClick={this.handleOpenModal} type="button"
+                    <input className={globalStyles.button + ' ' + styles.button} onClick={this.handleOpenModal} type="button"
                            value={"bewerten"}/>
                 </div>
 

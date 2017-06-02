@@ -1,6 +1,5 @@
 package edu.hsog.flat.backend.repository;
 
-import edu.hsog.flat.backend.model.Customer;
 import edu.hsog.flat.backend.model.Image;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -13,4 +12,6 @@ import java.util.List;
  */
 @RepositoryRestResource(collectionResourceRel = "images", path = "images")
 public interface ImageRepository extends CrudRepository<Image, Long> {
+    List<Image> findByApartmentId(@Param("apartmentId") Long apartmentId);
+
 }

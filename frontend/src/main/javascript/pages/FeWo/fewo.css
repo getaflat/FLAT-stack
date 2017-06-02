@@ -27,6 +27,8 @@
     text-align: center;
     display: flex;
     flex-direction: column;
+    margin-right: 20px;
+    margin-bottom: 10px;
 }
 
 .sliderContainer {

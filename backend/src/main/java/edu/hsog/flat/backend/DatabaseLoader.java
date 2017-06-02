@@ -33,8 +33,11 @@ public class DatabaseLoader implements CommandLineRunner {
 	    this.rbRepository = rbRepository;
 	    this.sRepository = sRepository;
 	    this.passwordEncoder = passwordEncoder;
+	}
 
-	    this.aRepository.deleteAll();
+	@Override
+	public void run(String... strings) throws Exception {
+        this.aRepository.deleteAll();
         this.bRepository.deleteAll();
         this.cRepository.deleteAll();
         this.fRepository.deleteAll();
@@ -42,10 +45,6 @@ public class DatabaseLoader implements CommandLineRunner {
         this.raRepository.deleteAll();
         this.rbRepository.deleteAll();
         this.sRepository.deleteAll();
-	}
-
-	@Override
-	public void run(String... strings) throws Exception {
 
 	    ResidentialBlock rb1 = new ResidentialBlock();
 	    rb1.setResidentialBlockId(1L);
@@ -515,39 +514,64 @@ public class DatabaseLoader implements CommandLineRunner {
 
         Factor f1 = new Factor();
         f1.setFactorId(1L);
-        f1.setFactor(2.5);
+        f1.setFactor(1.0);
         this.fRepository.save(f1);
 
         Factor f2 = new Factor();
         f2.setFactorId(2L);
-        f2.setFactor(1.2);
+        f2.setFactor(2.0);
         this.fRepository.save(f2);
 
         Factor f3 = new Factor();
         f3.setFactorId(3L);
-        f3.setFactor(1.8);
+        f3.setFactor(3.0);
         this.fRepository.save(f3);
 
         Factor f4 = new Factor();
         f4.setFactorId(4L);
-        f4.setFactor(0.6);
+        f4.setFactor(4.0);
         this.fRepository.save(f4);
 
         Factor f5 = new Factor();
         f5.setFactorId(5L);
-        f5.setFactor(3.1);
+        f5.setFactor(5.0);
         this.fRepository.save(f5);
+
+        Factor f6 = new Factor();
+        f6.setFactorId(6L);
+        f6.setFactor(6.0);
+        this.fRepository.save(f6);
+
+        Factor f7 = new Factor();
+        f7.setFactorId(7L);
+        f7.setFactor(7.0);
+        this.fRepository.save(f7);
+
+        Factor f8 = new Factor();
+        f8.setFactorId(8L);
+        f8.setFactor(8.0);
+        this.fRepository.save(f8);
+
+        Factor f9 = new Factor();
+        f9.setFactorId(9L);
+        f9.setFactor(9.0);
+        this.fRepository.save(f9);
+
+        Factor f10 = new Factor();
+        f10.setFactorId(10L);
+        f10.setFactor(10.0);
+        this.fRepository.save(f10);
 
         Season s1 = new Season();
 
         for (int i = 1; i <= 53; i++) {
             s1.setCalenderWeek(i+0L);
-            s1.setFactorId((int)(Math.random()*5L)+1L);
+            s1.setFactorId((int)(Math.random()*10L)+1L);
             this.sRepository.save(s1);
         }
 
-		Customer c = new Customer();
-		/* c.setContractNumber(123456789001L);
+		/*Customer c = new Customer();
+		 c.setContractNumber(123456789001L);
 		 this.cRepository.save(c);
 		c.setContractNumber(123456789002L);
 		 this.cRepository.save(c);
@@ -564,125 +588,200 @@ public class DatabaseLoader implements CommandLineRunner {
 		c.setContractNumber(123456789009L);
 		this.cRepository.save(c);
 		c.setContractNumber(123456789010L);
-		this.cRepository.save(c); */
+		this.cRepository.save(c);*/
 
-		c.setContractNumber(123456789011L);
-		c.setLastName("Testico1");
-		c.setFirstName("Test1");
-		c.setEmail("Test1.Testico1@go.de");
-		c.setUsername("testi1");
-		c.setDateOfBirth(new Date(91, 0, 1));
-		c.setPassword(passwordEncoder.encode("test1"));
-		c.setTotalScore(400);
-		this.cRepository.save(c);
+		Customer c1 = new Customer();
+		c1.setContractNumber(123456789011L);
+		c1.setLastName("Testico1");
+		c1.setFirstName("Test1");
+		c1.setEmail("Test1.Testico1@go.de");
+		c1.setUsername("testi1");
+		c1.setDateOfBirth(new Date(91, 0, 1));
+		c1.setPassword(passwordEncoder.encode("test1"));
+		c1.setTotalScore(400);
+		this.cRepository.save(c1);
 
-        c.setContractNumber(123456789012L);
-        c.setLastName("Testico2");
-        c.setFirstName("Test2");
-        c.setEmail("Test2.Testico2@go.de");
-        c.setUsername("testi2");
-        c.setDateOfBirth(new Date(92, 1, 2));
-        c.setPassword(passwordEncoder.encode("test2"));
-        c.setTotalScore(500);
-        this.cRepository.save(c);
+        Customer c2 = new Customer();
+        c2.setContractNumber(123456789012L);
+        c2.setLastName("Testico2");
+        c2.setFirstName("Test2");
+        c2.setEmail("Test2.Testico2@go.de");
+        c2.setUsername("testi2");
+        c2.setDateOfBirth(new Date(92, 1, 2));
+        c2.setPassword(passwordEncoder.encode("test2"));
+        c2.setTotalScore(500);
+        this.cRepository.save(c2);
 
-        c.setContractNumber(123456789013L);
-        c.setLastName("Testico3");
-        c.setFirstName("Test3");
-        c.setEmail("Test3.Testico3@go.de");
-        c.setUsername("testi3");
-        c.setDateOfBirth(new Date(93, 2, 3));
-        c.setPassword(passwordEncoder.encode("test3"));
-        c.setTotalScore(600);
-        this.cRepository.save(c);
+        Customer c3 = new Customer();
+        c3.setContractNumber(123456789013L);
+        c3.setLastName("Testico3");
+        c3.setFirstName("Test3");
+        c3.setEmail("Test3.Testico3@go.de");
+        c3.setUsername("testi3");
+        c3.setDateOfBirth(new Date(93, 2, 3));
+        c3.setPassword(passwordEncoder.encode("test3"));
+        c3.setTotalScore(600);
+        this.cRepository.save(c3);
 
-        c.setContractNumber(123456789014L);
-        c.setLastName("Testico4");
-        c.setFirstName("Test4");
-        c.setEmail("Test4.Testico4@go.de");
-        c.setUsername("testi4");
-        c.setDateOfBirth(new Date(94, 3, 4));
-        c.setPassword(passwordEncoder.encode("test4"));
-        c.setTotalScore(700);
-        this.cRepository.save(c);
 
-        c.setContractNumber(123456789015L);
-        c.setLastName("Testico5");
-        c.setFirstName("Test5");
-        c.setEmail("Test5.Testico5@go.de");
-        c.setUsername("testi5");
-        c.setDateOfBirth(new Date(95, 4, 5));
-        c.setPassword(passwordEncoder.encode("test5"));
-        c.setTotalScore(800);
-        this.cRepository.save(c);
+        Customer c4 = new Customer();
+        c4.setContractNumber(123456789014L);
+        c4.setLastName("Testico4");
+        c4.setFirstName("Test4");
+        c4.setEmail("Test4.Testico4@go.de");
+        c4.setUsername("testi4");
+        c4.setDateOfBirth(new Date(94, 3, 4));
+        c4.setPassword(passwordEncoder.encode("test4"));
+        c4.setTotalScore(700);
+        this.cRepository.save(c4);
 
-        c.setContractNumber(123456789016L);
-        c.setLastName("Testico6");
-        c.setFirstName("Test6");
-        c.setEmail("Test6.Testico6@go.de");
-        c.setUsername("testi6");
-        c.setDateOfBirth(new Date(96, 5, 6));
-        c.setPassword(passwordEncoder.encode("test6"));
-        c.setTotalScore(300);
-        this.cRepository.save(c);
+        Customer c5 = new Customer();
+        c5.setContractNumber(123456789015L);
+        c5.setLastName("Testico5");
+        c5.setFirstName("Test5");
+        c5.setEmail("Test5.Testico5@go.de");
+        c5.setUsername("testi5");
+        c5.setDateOfBirth(new Date(95, 4, 5));
+        c5.setPassword(passwordEncoder.encode("test5"));
+        c5.setTotalScore(800);
+        this.cRepository.save(c5);
 
-        c.setContractNumber(123456789017L);
-        c.setLastName("Testico7");
-        c.setFirstName("Test7");
-        c.setEmail("Test7.Testico7@go.de");
-        c.setUsername("testi7");
-        c.setDateOfBirth(new Date(97, 6, 7));
-        c.setPassword(passwordEncoder.encode("test7"));
-        c.setTotalScore(200);
-        this.cRepository.save(c);
+        Customer c6 = new Customer();
+        c6.setContractNumber(123456789016L);
+        c6.setLastName("Testico6");
+        c6.setFirstName("Test6");
+        c6.setEmail("Test6.Testico6@go.de");
+        c6.setUsername("testi6");
+        c6.setDateOfBirth(new Date(96, 5, 6));
+        c6.setPassword(passwordEncoder.encode("test6"));
+        c6.setTotalScore(300);
+        this.cRepository.save(c6);
 
-        c.setContractNumber(123456789018L);
-        c.setLastName("Testico8");
-        c.setFirstName("Test8");
-        c.setEmail("Test8.Testico8@go.de");
-        c.setUsername("testi8");
-        c.setDateOfBirth(new Date(98, 7, 8));
-        c.setPassword(passwordEncoder.encode("test8"));
-        c.setTotalScore(800);
-        this.cRepository.save(c);
+        Customer c7 = new Customer();
+        c7.setContractNumber(123456789017L);
+        c7.setLastName("Testico7");
+        c7.setFirstName("Test7");
+        c7.setEmail("Test7.Testico7@go.de");
+        c7.setUsername("testi7");
+        c7.setDateOfBirth(new Date(97, 6, 7));
+        c7.setPassword(passwordEncoder.encode("test7"));
+        c7.setTotalScore(200);
+        this.cRepository.save(c7);
 
-        c.setContractNumber(123456789019L);
-        c.setLastName("Testico9");
-        c.setFirstName("Test9");
-        c.setEmail("Test9.Testico9@go.de");
-        c.setUsername("testi9");
-        c.setDateOfBirth(new Date(99, 8, 9));
-        c.setPassword(passwordEncoder.encode("test9"));
-        c.setTotalScore(1000);
-        this.cRepository.save(c);
+        Customer c8 = new Customer();
+        c8.setContractNumber(123456789018L);
+        c8.setLastName("Testico8");
+        c8.setFirstName("Test8");
+        c8.setEmail("Test8.Testico8@go.de");
+        c8.setUsername("testi8");
+        c8.setDateOfBirth(new Date(98, 7, 8));
+        c8.setPassword(passwordEncoder.encode("test8"));
+        c8.setTotalScore(800);
+        this.cRepository.save(c8);
 
+        Customer c9 = new Customer();
+        c9.setContractNumber(123456789019L);
+        c9.setLastName("Testico9");
+        c9.setFirstName("Test9");
+        c9.setEmail("Test9.Testico9@go.de");
+        c9.setUsername("testi9");
+        c9.setDateOfBirth(new Date(99, 8, 9));
+        c9.setPassword(passwordEncoder.encode("test9"));
+        c9.setTotalScore(1000);
+        this.cRepository.save(c9);
+
+        Rating r1 = new Rating();
+        r1.setRatingId(1L);
+        r1.setContractNumber(c1.getContractNumber());
+        this.raRepository.save(r1);
+
+        Rating r2 = new Rating();
+        r2.setRatingId(2L);
+        r2.setContractNumber(c2.getContractNumber());
+        this.raRepository.save(r2);
+
+        Rating r3 = new Rating();
+        r3.setRatingId(3L);
+        r3.setContractNumber(c3.getContractNumber());
+        this.raRepository.save(r3);
+
+        Rating r4 = new Rating();
+        r4.setRatingId(4L);
+        r4.setContractNumber(c4.getContractNumber());
+        this.raRepository.save(r4);
+
+        Rating r5 = new Rating();
+        r5.setRatingId(5L);
+        r5.setContractNumber(c5.getContractNumber());
+        this.raRepository.save(r5);
+
+        Rating r6 = new Rating();
+        r6.setRatingId(6L);
+        r6.setContractNumber(c6.getContractNumber());
+        this.raRepository.save(r6);
+
+        Rating r7 = new Rating();
+        r7.setRatingId(7L);
+        r7.setContractNumber(c7.getContractNumber());
+        this.raRepository.save(r7);
+
+
+        Rating r8 = new Rating();
+        r8.setRatingId(8L);
+        r8.setContractNumber(c7.getContractNumber());
+        this.raRepository.save(r8);
+
+
+        Rating r9 = new Rating();
+        r9.setRatingId(9L);
+        r9.setContractNumber(c9.getContractNumber());
+        this.raRepository.save(r9);
+
+        Long factorID1;
+        Long factorID2;
+        Integer price;
         Booking b1 = new Booking();
         b1.setContractNumber(123456789011L);
         b1.setApartmentId(1L);
         b1.setWeek1(37);
-        b1.setWeek2(28);
+        b1.setWeek2(38);
         b1.setYear(2017);
+        factorID1 = this.sRepository.findOne(b1.getWeek1()+0L).getFactorId();
+        factorID2 = this.sRepository.findOne(b1.getWeek2()+0L).getFactorId();
+        price = a1.getBasePrice();
+        price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
+        b1.setPrice(price);
         b1.setAdditionalCharge(50.6);
         b1.setStatus("Wartend");
         this.bRepository.save(b1);
 
         Booking b2 = new Booking();
         b2.setContractNumber(123456789012L);
-        b2.setApartmentId(1L);
+        b2.setApartmentId(5L);
         b2.setWeek1(39);
         b2.setWeek2(40);
         b2.setYear(2017);
         b2.setAdditionalCharge(0.0);
+        factorID1 = this.sRepository.findOne(b2.getWeek1()+0L).getFactorId();
+        factorID2 = this.sRepository.findOne(b2.getWeek2()+0L).getFactorId();
+        price = a5.getBasePrice();
+        price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
+        b2.setPrice(price);
         b2.setStatus("Wartend");
         this.bRepository.save(b2);
 
         Booking b3 = new Booking();
         b3.setContractNumber(123456789012L);
-        b3.setApartmentId(1L);
+        b3.setApartmentId(3L);
         b3.setWeek1(23);
         b3.setWeek2(24);
         b3.setYear(2017);
         b3.setAdditionalCharge(0.0);
+        factorID1 = this.sRepository.findOne(b3.getWeek1()+0L).getFactorId();
+        factorID2 = this.sRepository.findOne(b3.getWeek2()+0L).getFactorId();
+        price = a3.getBasePrice();
+        price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
+        b3.setPrice(price);
         b3.setStatus("Bestätigt");
         this.bRepository.save(b3);
 
@@ -693,6 +792,11 @@ public class DatabaseLoader implements CommandLineRunner {
         b4.setWeek2(2);
         b4.setYear(2018);
         b4.setAdditionalCharge(0.0);
+        factorID1 = this.sRepository.findOne(b4.getWeek1()+0L).getFactorId();
+        factorID2 = this.sRepository.findOne(b4.getWeek2()+0L).getFactorId();
+        price = a21.getBasePrice();
+        price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
+        b4.setPrice(price);
         b4.setStatus("Wartend");
         this.bRepository.save(b4);
 
@@ -703,6 +807,11 @@ public class DatabaseLoader implements CommandLineRunner {
         b5.setWeek2(2);
         b5.setYear(2018);
         b5.setAdditionalCharge(0.0);
+        factorID1 = this.sRepository.findOne(b5.getWeek1()+0L).getFactorId();
+        factorID2 = this.sRepository.findOne(b5.getWeek2()+0L).getFactorId();
+        price = a21.getBasePrice();
+        price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
+        b5.setPrice(price);
         b5.setStatus("Wartend");
         this.bRepository.save(b5);
 
@@ -721,7 +830,7 @@ public class DatabaseLoader implements CommandLineRunner {
         Image i3 = new Image();
         i3.setImageId(3L);
         i3.setApartmentId(a1.getApartmentId());
-        i3.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment1/FeWoMeerEingang.jpeg"));
+        i3.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment1/FeWoMeerBalkon5.jpg"));
         this.iRepository.save(i3);
 
         Image i4 = new Image();
@@ -793,7 +902,7 @@ public class DatabaseLoader implements CommandLineRunner {
         Image i15 = new Image();
         i15.setImageId(15L);
         i15.setApartmentId(a5.getApartmentId());
-        i15.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment5/FeWoMeerKueche7.jpg"));
+        i15.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment5/FeWoMeerBad.jpeg"));
         this.iRepository.save(i15);
 
         Image i16 = new Image();
@@ -817,7 +926,7 @@ public class DatabaseLoader implements CommandLineRunner {
         Image i19 = new Image();
         i19.setImageId(19L);
         i19.setApartmentId(a6.getApartmentId());
-        i19.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment6/FeWoMeerSchlaf.jpeg"));
+        i19.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment6/FeWoMeerKueche5.jpeg"));
         this.iRepository.save(i19);
 
         Image i20 = new Image();
@@ -938,7 +1047,7 @@ public class DatabaseLoader implements CommandLineRunner {
         i39.setImageId(39L);
         i39.setApartmentId(a13.getApartmentId());
         i39.setImage(readImage("./src/img/apartments/mountain/apartment3/FeWoBergeKueche.jpeg"));
-        this.iRepository.save(i38);
+        this.iRepository.save(i39);
 
         Image i40 = new Image();
         i40.setImageId(40L);

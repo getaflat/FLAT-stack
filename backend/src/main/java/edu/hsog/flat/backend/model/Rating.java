@@ -12,11 +12,16 @@ public class Rating {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NonNull
-	private Integer ratingId;
+	private Long id;
+
+	@NonNull
+	private Long ratingId;
 
 	/*@NonNull
 	@OneToOne(targetEntity = Customer.class, fetch= FetchType.EAGER)
 	private Long contractNumber;*/
+	@NonNull
+	private Long contractNumber;
 
 	@NonNull
 	private Double score;

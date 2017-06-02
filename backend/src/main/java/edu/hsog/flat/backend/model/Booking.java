@@ -15,6 +15,9 @@ public class Booking {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	@NonNull
+	private Long id;
+
+	@NonNull
 	private Long bookingId;
 
 	@NonNull
