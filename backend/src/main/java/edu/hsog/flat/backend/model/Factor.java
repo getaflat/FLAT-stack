@@ -15,11 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Factor {
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @NonNull
-	private Long id;
-
-	@NonNull
 	private Long factorId;
 
 	/*@OneToMany(mappedBy = "calenderWeek", targetEntity = Season.class, fetch = FetchType.EAGER)

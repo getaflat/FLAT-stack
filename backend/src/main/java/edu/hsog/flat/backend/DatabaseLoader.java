@@ -33,8 +33,11 @@ public class DatabaseLoader implements CommandLineRunner {
 	    this.rbRepository = rbRepository;
 	    this.sRepository = sRepository;
 	    this.passwordEncoder = passwordEncoder;
+	}
 
-	    this.aRepository.deleteAll();
+	@Override
+	public void run(String... strings) throws Exception {
+        this.aRepository.deleteAll();
         this.bRepository.deleteAll();
         this.cRepository.deleteAll();
         this.fRepository.deleteAll();
@@ -42,10 +45,6 @@ public class DatabaseLoader implements CommandLineRunner {
         this.raRepository.deleteAll();
         this.rbRepository.deleteAll();
         this.sRepository.deleteAll();
-	}
-
-	@Override
-	public void run(String... strings) throws Exception {
 
 	    ResidentialBlock rb1 = new ResidentialBlock();
 	    rb1.setResidentialBlockId(1L);
@@ -515,34 +514,59 @@ public class DatabaseLoader implements CommandLineRunner {
 
         Factor f1 = new Factor();
         f1.setFactorId(1L);
-        f1.setFactor(2.5);
+        f1.setFactor(1.0);
         this.fRepository.save(f1);
 
         Factor f2 = new Factor();
         f2.setFactorId(2L);
-        f2.setFactor(1.2);
+        f2.setFactor(2.0);
         this.fRepository.save(f2);
 
         Factor f3 = new Factor();
         f3.setFactorId(3L);
-        f3.setFactor(1.8);
+        f3.setFactor(3.0);
         this.fRepository.save(f3);
 
         Factor f4 = new Factor();
         f4.setFactorId(4L);
-        f4.setFactor(0.6);
+        f4.setFactor(4.0);
         this.fRepository.save(f4);
 
         Factor f5 = new Factor();
         f5.setFactorId(5L);
-        f5.setFactor(3.1);
+        f5.setFactor(5.0);
         this.fRepository.save(f5);
+
+        Factor f6 = new Factor();
+        f6.setFactorId(6L);
+        f6.setFactor(6.0);
+        this.fRepository.save(f6);
+
+        Factor f7 = new Factor();
+        f7.setFactorId(7L);
+        f7.setFactor(7.0);
+        this.fRepository.save(f7);
+
+        Factor f8 = new Factor();
+        f8.setFactorId(8L);
+        f8.setFactor(8.0);
+        this.fRepository.save(f8);
+
+        Factor f9 = new Factor();
+        f9.setFactorId(9L);
+        f9.setFactor(9.0);
+        this.fRepository.save(f9);
+
+        Factor f10 = new Factor();
+        f10.setFactorId(10L);
+        f10.setFactor(10.0);
+        this.fRepository.save(f10);
 
         Season s1 = new Season();
 
         for (int i = 1; i <= 53; i++) {
             s1.setCalenderWeek(i+0L);
-            s1.setFactorId((int)(Math.random()*5L)+1L);
+            s1.setFactorId((int)(Math.random()*10L)+1L);
             this.sRepository.save(s1);
         }
 
@@ -666,33 +690,52 @@ public class DatabaseLoader implements CommandLineRunner {
         c9.setTotalScore(1000);
         this.cRepository.save(c9);
 
+
+        Long factorID1;
+        Long factorID2;
+        Integer price;
         Booking b1 = new Booking();
         b1.setContractNumber(123456789011L);
         b1.setApartmentId(1L);
         b1.setWeek1(37);
-        b1.setWeek2(28);
+        b1.setWeek2(38);
         b1.setYear(2017);
+        factorID1 = this.sRepository.findOne(b1.getWeek1()+0L).getFactorId();
+        factorID2 = this.sRepository.findOne(b1.getWeek2()+0L).getFactorId();
+        price = a1.getBasePrice();
+        price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
+        b1.setPrice(price);
         b1.setAdditionalCharge(50.6);
         b1.setStatus("Wartend");
         this.bRepository.save(b1);
 
         Booking b2 = new Booking();
         b2.setContractNumber(123456789012L);
-        b2.setApartmentId(1L);
+        b2.setApartmentId(5L);
         b2.setWeek1(39);
         b2.setWeek2(40);
         b2.setYear(2017);
         b2.setAdditionalCharge(0.0);
+        factorID1 = this.sRepository.findOne(b2.getWeek1()+0L).getFactorId();
+        factorID2 = this.sRepository.findOne(b2.getWeek2()+0L).getFactorId();
+        price = a5.getBasePrice();
+        price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
+        b2.setPrice(price);
         b2.setStatus("Wartend");
         this.bRepository.save(b2);
 
         Booking b3 = new Booking();
         b3.setContractNumber(123456789012L);
-        b3.setApartmentId(1L);
+        b3.setApartmentId(3L);
         b3.setWeek1(23);
         b3.setWeek2(24);
         b3.setYear(2017);
         b3.setAdditionalCharge(0.0);
+        factorID1 = this.sRepository.findOne(b3.getWeek1()+0L).getFactorId();
+        factorID2 = this.sRepository.findOne(b3.getWeek2()+0L).getFactorId();
+        price = a3.getBasePrice();
+        price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
+        b3.setPrice(price);
         b3.setStatus("Bestätigt");
         this.bRepository.save(b3);
 
@@ -703,6 +746,11 @@ public class DatabaseLoader implements CommandLineRunner {
         b4.setWeek2(2);
         b4.setYear(2018);
         b4.setAdditionalCharge(0.0);
+        factorID1 = this.sRepository.findOne(b4.getWeek1()+0L).getFactorId();
+        factorID2 = this.sRepository.findOne(b4.getWeek2()+0L).getFactorId();
+        price = a21.getBasePrice();
+        price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
+        b4.setPrice(price);
         b4.setStatus("Wartend");
         this.bRepository.save(b4);
 
@@ -713,6 +761,11 @@ public class DatabaseLoader implements CommandLineRunner {
         b5.setWeek2(2);
         b5.setYear(2018);
         b5.setAdditionalCharge(0.0);
+        factorID1 = this.sRepository.findOne(b5.getWeek1()+0L).getFactorId();
+        factorID2 = this.sRepository.findOne(b5.getWeek2()+0L).getFactorId();
+        price = a21.getBasePrice();
+        price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
+        b5.setPrice(price);
         b5.setStatus("Wartend");
         this.bRepository.save(b5);
 
@@ -731,7 +784,7 @@ public class DatabaseLoader implements CommandLineRunner {
         Image i3 = new Image();
         i3.setImageId(3L);
         i3.setApartmentId(a1.getApartmentId());
-        i3.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment1/FeWoMeerEingang.jpeg"));
+        i3.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment1/FeWoMeerBalkon5.jpg"));
         this.iRepository.save(i3);
 
         Image i4 = new Image();
@@ -803,7 +856,7 @@ public class DatabaseLoader implements CommandLineRunner {
         Image i15 = new Image();
         i15.setImageId(15L);
         i15.setApartmentId(a5.getApartmentId());
-        i15.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment5/FeWoMeerKueche7.jpg"));
+        i15.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment5/FeWoMeerBad.jpeg"));
         this.iRepository.save(i15);
 
         Image i16 = new Image();
@@ -827,7 +880,7 @@ public class DatabaseLoader implements CommandLineRunner {
         Image i19 = new Image();
         i19.setImageId(19L);
         i19.setApartmentId(a6.getApartmentId());
-        i19.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment6/FeWoMeerSchlaf.jpeg"));
+        i19.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment6/FeWoMeerKueche5.jpeg"));
         this.iRepository.save(i19);
 
         Image i20 = new Image();
