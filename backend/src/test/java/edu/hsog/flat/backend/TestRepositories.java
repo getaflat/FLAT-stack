@@ -27,6 +27,7 @@ public class TestRepositories {
         this.customerRepository = customerRepository;
     }
 
+
     //eMail is unique
     @Test
     public void testFindByName() {
