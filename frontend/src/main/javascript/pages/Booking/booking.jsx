@@ -12,24 +12,17 @@ class Booking extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state ={//TODO ggf. ändern
-            booking: {
-                numberOfPeople: '',
-                animals: '',
-                children: '',
-                start: '',
-                end: '',
-                costs: '',
-                additionalCosts:''
+        this.state ={
 
+            fewo: {
+                name: '',
+                id: ''
             },
 
-            fewo:{
-                name: '',
-                picture:''
-            }
-
-
+            description: '',
+            picture1: '',
+            picture2: '',
+            picture3: '',
 
         };
 
@@ -39,7 +32,7 @@ class Booking extends React.Component {
     }
 
     componentDidMount(){
-        api.get('/apartments/search/findByName',{
+        /*api.get('/apartments/search/findByName',{
             params: {
                 name: this.props.match.params.id
             }
@@ -51,6 +44,37 @@ class Booking extends React.Component {
                     name: data.name,
                     picture: data.images
                 }
+            });
+        });*/
+
+        api.get('/apartments/search/findByName', {
+            params: {
+                name: this.props.match.params.id
+            }
+        }).then(({ data }) => {
+            console.log(data);
+
+            descr = data.description;
+
+
+            this.setState({
+
+
+            });
+        });
+
+        api.get(`/images/search/findByApartmentId`, {
+            params: {
+                apartmentId: this.state.fewo.id
+            }
+        }).then(({ data }) => {
+            console.log(data);
+            this.setState({
+                picture1:'data:image/png;base64,' + data._embedded.images[0].image,
+                picture2:'data:image/png;base64,' + data._embedded.images[1].image,
+                picture3:'data:image/png;base64,' + data._embedded.images[2].image,
+
+
             });
         });
     }
@@ -130,10 +154,8 @@ class Booking extends React.Component {
                 <h1>Buchung</h1>
                 <div className={styles.booking}>
                     <div className={styles.leftBooking}>
-                        <div> <img className={styles.image} src="./logo.jpg" alt="logo"/> </div>
-                        <div>
-                            <section>{descr}</section>
-                        </div>
+                        <div> <img className={styles.image} src={this.state.picture1}/> </div>
+                        <div>{descr}</div>
                     </div>
                     <div className={styles.rightBooking}>
                         <form onSubmit={this.handleSubmit} onReset={this.clearInputs}>
