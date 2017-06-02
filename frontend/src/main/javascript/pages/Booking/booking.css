@@ -27,6 +27,12 @@
     min-width: 250px;
 }
 
+.image {
+    margin: 0 auto;
+    display: flex;
+    max-width: 80%;
+}
+
 @media only screen and (min-width: 600px) {
     /* tablet */
 
