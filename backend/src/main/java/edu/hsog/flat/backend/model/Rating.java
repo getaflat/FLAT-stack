@@ -20,6 +20,7 @@ public class Rating {
 	/*@NonNull
 	@OneToOne(targetEntity = Customer.class, fetch= FetchType.EAGER)
 	private Long contractNumber;*/
+	private Long contractNumber;
 
 	@NonNull
 	private Double score;

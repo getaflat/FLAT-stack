@@ -23,7 +23,6 @@ class FeWo extends React.Component {
             picture1: '',
             picture2: '',
             picture3: '',
-            picture4: ''
         };
     }
 
@@ -54,13 +53,12 @@ class FeWo extends React.Component {
                     apartmentId: this.state.fewo.id
                 }
             }).then(({data}) => {
+                console.log(data);
                 this.setState({
                     picture1:'data:image/png;base64,' + data._embedded.images[0].image,
                     picture2:'data:image/png;base64,' + data._embedded.images[1].image,
                     picture3:'data:image/png;base64,' + data._embedded.images[2].image,
                 });
-                console.log(this.state.images);
-
             });
         });
 
