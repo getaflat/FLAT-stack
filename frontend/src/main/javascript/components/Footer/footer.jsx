@@ -4,6 +4,8 @@ import globalStyles from '../../general-styles/global.css';
 import Modal from '../modal/modal';
 import ReactStars from 'react-stars';
 import api from '../../services/api';
+import {getToken, getUser} from '../../services/auth';
+
 
 
 import { Link } from 'react-router-dom';
@@ -14,7 +16,8 @@ class Footer extends React.Component {
         this.state = {
             isModalOpen: false,
             stars: '',
-            ratingText: ''
+            ratingText: '',
+            contractNumber: ''
         };
 
         this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -40,11 +43,12 @@ class Footer extends React.Component {
         console.log(this.state.stars + ' ' + this.state.ratingText);
 
 
-        api.post('/ratings', {
-            contractNumber: this.state.customer.contractnumber,
+        api.post('/ratings/', {
+            contractNumber: this.state.contractnumber,
             score: this.state.stars,
             comment: this.state.ratingText
         });
+
         this.setState({
             isModalOpen: false
         });
@@ -64,11 +68,33 @@ class Footer extends React.Component {
     }
 
     componentDidMount() {
-        api.get('/ratings').then(({ data }) => {
-            console.log(data);
-        }).catch(() => {
-            console.error(arguments)
-        }) // wenn ratings user id beinhaltet der eingeloggt ist, dann bewerten button weg!
+        const token = getToken();
+        const user = getUser();
+        let ref = this.refs.rate;
+
+        api.get(`/customers/search/findByEmail`, {
+            params: {
+                email: user
+            }
+        }, {
+            headers: {
+                authorization: token
+            }
+        }).then(({data}) => {
+            this.setState({
+                contractNumber: data.contractNumber
+            });
+            api.get('/ratings/search/findByContractNumber', {
+                params: {
+                    contractNumber: data.contractNumber
+                }
+            }).catch(function (error) {
+               if(error.response.status === 404) {
+                   ref.style.display = "block";
+               }
+            });
+
+        });
     }
 
     render() {
@@ -79,10 +105,8 @@ class Footer extends React.Component {
                     <Link className={styles.link} to="/imprint">Impressum</Link>
                     <Link className={styles.link} to="/gtc">Datenschutzbestimmungen</Link>
                 </div>
-                <div className={styles.button}>
-                    <input className={globalStyles.button + ' ' + styles.button} onClick={this.handleOpenModal} type="button"
+                    <input ref="rate" className={globalStyles.button + ' ' + styles.button} onClick={this.handleOpenModal} type="button"
                            value={"bewerten"}/>
-                </div>
 
 
                 <Modal isOpen={this.state.isModalOpen} onClose={() => this.handleCloseModal}>

@@ -24,6 +24,10 @@ public class Customer {
 	@NonNull
 	private Long id;
 
+	@GeneratedValue
+	@NonNull
+	private Long id2;
+
 	@NonNull
 	private Long contractNumber;
 

@@ -23,6 +23,9 @@
 
 .button {
     align-self: center;
+    margin-right: 40px;
+    display: none;
+
 }
 
 .link {
@@ -44,10 +47,6 @@
 
 .buttons {
     margin-top: 10px;
-}
-
-.button {
-    margin-right: 30px;
 }
 
 

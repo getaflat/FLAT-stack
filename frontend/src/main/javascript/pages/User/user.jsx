@@ -3,7 +3,6 @@ import styles from './user.css';
 import api from '../../services/api';
 import {isLoggedIn, getToken, getUser} from '../../services/auth';
 import moment from 'moment';
-import * as ReactDOM from "react-dom";
 import globalStyles from '../../general-styles/global.css';
 
 import update from 'immutability-helper';
@@ -29,7 +28,7 @@ class User extends React.Component {
     }
 
     handleChange() {
-        let s = [this.refs.firstName, this.refs.lastName, this.refs.email];
+        let s = [this.refs.firstName, this.refs.lastName];
 
         this.setState ({
             customer: this.state.loggedIn
@@ -48,9 +47,9 @@ class User extends React.Component {
     }
 
     handleCancel() {
-        let s = [this.refs.firstName, this.refs.lastName, this.refs.email];
+        let s = [this.refs.firstName, this.refs.lastName];
 
-        for(let i = 0; i < 3; i++)
+        for(let i = 0; i < s.length; i++)
         {
             s[i].disabled = true;
             s[i].style.border = "none";
@@ -66,9 +65,13 @@ class User extends React.Component {
     }
 
     handleSave() {
-        let s = [this.refs.firstName, this.refs.lastName, this.refs.email, this.refs.save];
+        const token = getToken();
+        const user = this.state.loggedIn.contractNumber;
+        console.log(user);
 
-        for(let i = 0; i < 3; i++)
+        let s = [this.refs.firstName, this.refs.lastName, this.refs.save];
+
+        for(let i = 0; i < 2; i++)
         {
             s[i].disabled = true;
             s[i].style.border = "none";
@@ -78,14 +81,13 @@ class User extends React.Component {
         this.refs.cancelButton.style.display = "none";
         this.refs.editButton.style.display = "flex";
 
-        api.patch('/customers/1', {
-            email: this.state.loggedIn.email,
-            firstName: this.state.loggedIn.firstName,
-            lastName: this.state.loggedIn.lastName,
-        });
+        api.patch('/customers/search/setUpdatedCustomer',
+            {params: {contractNumber: user}},
+            {email: this.state.loggedIn.email, firstName: this.state.loggedIn.firstName, lastName: this.state.loggedIn.lastName,}
+            );
 
-        s[3].firstChild.data = "Daten erfolgreich gespeichert";
-        s[3].style.display = "flex";
+        s[2].firstChild.data = "Daten erfolgreich gespeichert";
+        s[2].style.display = "flex";
 
         setTimeout(function() {
             this.refs.save.style.display = "none";
@@ -107,12 +109,8 @@ class User extends React.Component {
 
     handleStorno(event) {
         console.log(event.target);
-       /* if (isLoggedIn()) {
-            api.delete(`bookings/search/findByBookingId`, {
-                params: {
-                    bookingId: event.target.name
-                }
-            }).then(() => {
+        if (isLoggedIn()) {
+            api.delete(`bookings?contractNumber=${event.target.name}`);/*.then(() => {
                 api.get(`/bookings/search/findByContractNumber`, {
                     params: {
                         contractNumber: this.state.loggedIn.contractNumber
@@ -126,9 +124,9 @@ class User extends React.Component {
                         bookings: [data]
                     })
                 });
-            });
+            });*/
             window.location.reload();
-        }*/
+        }
     }
 
     componentDidMount() {
@@ -165,6 +163,8 @@ class User extends React.Component {
                     this.setState({
                         bookings: [data]
                     })
+                }).catch(function (error) {
+
                 });
 
                 this.state.bookings.map((booking) => {
