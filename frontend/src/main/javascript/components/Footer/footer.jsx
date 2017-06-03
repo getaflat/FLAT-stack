@@ -5,10 +5,8 @@ import Modal from '../modal/modal';
 import ReactStars from 'react-stars';
 import api from '../../services/api';
 import {getToken, getUser} from '../../services/auth';
-
-
-
 import { Link } from 'react-router-dom';
+
 
 class Footer extends React.Component {
     constructor(props) {
@@ -40,22 +38,33 @@ class Footer extends React.Component {
 
     handleRating()
     {
-        console.log(this.state.stars + ' ' + this.state.ratingText);
+        console.log(this.state.stars + 'Text: ' + this.state.ratingText);
 
 
-        api.post('/ratings/', {
-            contractNumber: this.state.contractnumber,
+        api.post('/ratings', {  // TODO: fix for bad Request error
+            contractNumber: this.state.contractNumber,
             score: this.state.stars,
             comment: this.state.ratingText
         });
 
-        this.setState({
-            isModalOpen: false
-        });
+        this.refs.Heading.firstChild.data = "Vielen Dank für Ihre Bewertung!";
+        this.refs.rate.style.display = "none";
+        this.refs.Text.style.display = "none";
+        this.refs.Buttons.style.display = "none";
+        this.refs.Stars.style.display = "none";
+
+        setTimeout(function() {
+            this.setState({
+                isModalOpen: false
+            });
+        }.bind(this), 1800);
+
+
     }
 
     handleOpenModal()
     {
+        this.refs.rate.style.display = "none";
         this.setState({isModalOpen: true});
     }
 
@@ -65,6 +74,7 @@ class Footer extends React.Component {
             isModalOpen: false
         });
         this.state.ratingText = '';
+        this.refs.rate.style.display = "block";
     }
 
     componentDidMount() {
@@ -88,7 +98,7 @@ class Footer extends React.Component {
                 params: {
                     contractNumber: data.contractNumber
                 }
-            }).catch(function (error) {
+            }).catch(function (error) { // TODO: abfangen dass error in Konsole ausgegeben wird von Browser?
                if(error.response.status === 404) {
                    ref.style.display = "block";
                }
@@ -111,10 +121,12 @@ class Footer extends React.Component {
 
                 <Modal isOpen={this.state.isModalOpen} onClose={() => this.handleCloseModal}>
                     <div className={styles.ratingContainer}>
-                        <h2>Bewerten Sie unseren Service!</h2>
-                        <ReactStars count={5} onChange={this.ratingChanged} size={24} color2={'#ffd700'}/>
-                        <input type="text" onChange={this.handleText} />
-                        <div className={styles.buttons}>
+                        <h2 ref="Heading">Bewerten Sie unseren Service!</h2>
+                        <div ref="Stars">
+                            <ReactStars count={5} onChange={this.ratingChanged} size={24} color2={'#ffd700'}/>
+                        </div>
+                        <input ref="Text" type="text" onChange={this.handleText} />
+                        <div ref="Buttons" className={styles.buttons}>
                             <button className={globalStyles.button} onClick={this.handleCloseModal}>abbrechen</button>
                             <button className={globalStyles.button} onClick={this.handleRating}>bewerten</button>
                         </div>

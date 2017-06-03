@@ -81,7 +81,7 @@ class User extends React.Component {
         this.refs.cancelButton.style.display = "none";
         this.refs.editButton.style.display = "flex";
 
-        api.patch('/customers/search/setUpdatedCustomer',
+        api.patch('/customers/search/setUpdatedCustomer',   // TODO: Funktion einfügen, die den user abändert
             {params: {contractNumber: user}},
             {email: this.state.loggedIn.email, firstName: this.state.loggedIn.firstName, lastName: this.state.loggedIn.lastName,}
             );
@@ -110,7 +110,7 @@ class User extends React.Component {
     handleStorno(event) {
         console.log(event.target);
         if (isLoggedIn()) {
-            api.delete(`bookings?contractNumber=${event.target.name}`);/*.then(() => {
+            api.delete(`bookings?contractNumber=${event.target.name}`);/*.then(() => { // TODO: Funktion, die die richtige Buchung storniert
                 api.get(`/bookings/search/findByContractNumber`, {
                     params: {
                         contractNumber: this.state.loggedIn.contractNumber
@@ -159,21 +159,18 @@ class User extends React.Component {
                         authorization: token
                     }
                 }).then(({data}) => {
-                   // console.log(data);
+                    console.log(data);
                     this.setState({
                         bookings: [data]
                     })
-                }).catch(function (error) {
-
                 });
 
-                this.state.bookings.map((booking) => {
+                /*this.state.bookings.map((booking) => { // TODO: Name soll gesetzt werden irgendwo rein
                     api.get(`/apartments/${booking.bookingId}`).then(({data}) => { // bookingId wird noch nicht rausgegeben
                         console.log(data);
-                        //booking.name = data.name;
-                         booking.bookingId = data.name;
+
                     });
-                })
+                })*/
 
             });
 
@@ -187,7 +184,7 @@ class User extends React.Component {
             <div className={globalStyles.wrapper + ' ' + styles.wrapper}>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <div className={styles.leftDash}>
-                    <h3>{this.state.loggedIn.username}</h3>
+                    {/*<h3>{this.state.loggedIn.username}</h3>*/}
                     <hr />
                     <div className={styles.userStats}>
                         <label>Vorname: </label>
@@ -231,7 +228,8 @@ class User extends React.Component {
                                 <th className={styles.tgyw4l}>Zuzahlung (in €)</th>
                                 <th className={styles.tgyw4l}>Auswahl</th>
                             </tr>
-                            {this.state.bookings.map((booking, index) =>
+                            {this.state.bookings.map((booking, index) => // TODO: wird erkannt, aber Daten werden nicht ausgegeben, hier könnte auch Name aus DB geholt werden?
+
                                 <tr key={index}>
                                     <td>{booking.bookingId}</td>
                                     <td>{booking.start}</td>
