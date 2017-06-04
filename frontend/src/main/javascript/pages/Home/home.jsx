@@ -19,7 +19,10 @@ class Home extends React.Component {
         };*/
 
         this.state = {
-            pictureStart: ''
+            picture1: '',
+            picture2: '',
+            picture3: '',
+            apartmentId: ''
         }
 
     }
@@ -33,10 +36,16 @@ class Home extends React.Component {
             console.log(err.response)
         }); */
 
-        api.get('/residential-blocks').then(({ data }) => {
+
+
+        api.get('/images/search/findByApartmentId', {
+            params: {
+                apartmentId: Math.floor(Math.random() * 30) + 1
+            }
+        }).then(({ data }) => {
             console.log(data);
             this.setState({
-                pictureStart:'data:image/png;base64,' + data._embedded['residential-blocks'][0].image1,
+                pictureStart:'data:image/png;base64,' + data._embedded.images["0"].image,
 
 
             });
