@@ -1,17 +1,9 @@
 package edu.hsog.flat.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-
-import org.hibernate.validator.constraints.Email;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Data
@@ -23,10 +15,6 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	@NonNull
 	private Long id;
-
-	@GeneratedValue
-	@NonNull
-	private Long id2;
 
 	@NonNull
 	private Long contractNumber;

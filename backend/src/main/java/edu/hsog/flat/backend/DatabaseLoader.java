@@ -848,6 +848,7 @@ public class DatabaseLoader implements CommandLineRunner {
         Long factorID2;
         Integer price;
         Booking b1 = new Booking();
+        b1.setBookingId(1L);
         b1.setContractNumber(123456789011L);
         b1.setApartmentId(1L);
         b1.setWeek1(37);
@@ -864,6 +865,7 @@ public class DatabaseLoader implements CommandLineRunner {
         this.bRepository.save(b1);
 
         Booking b2 = new Booking();
+        b2.setBookingId(2L);
         b2.setContractNumber(123456789012L);
         b2.setApartmentId(5L);
         b2.setWeek1(39);
@@ -880,6 +882,7 @@ public class DatabaseLoader implements CommandLineRunner {
         this.bRepository.save(b2);
 
         Booking b3 = new Booking();
+        b3.setBookingId(3L);
         b3.setContractNumber(123456789013L);
         b3.setApartmentId(3L);
         b3.setWeek1(10);
@@ -896,6 +899,7 @@ public class DatabaseLoader implements CommandLineRunner {
         this.bRepository.save(b3);
 
         Booking b4 = new Booking();
+        b4.setBookingId(4L);
         b4.setContractNumber(123456789013L);
         b4.setApartmentId(21L);
         b4.setWeek1(1);
@@ -912,6 +916,7 @@ public class DatabaseLoader implements CommandLineRunner {
         this.bRepository.save(b4);
 
         Booking b5 = new Booking();
+        b5.setBookingId(5L);
         b5.setContractNumber(123456789014L);
         b5.setApartmentId(21L);
         b5.setWeek1(1);

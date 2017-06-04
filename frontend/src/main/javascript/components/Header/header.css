@@ -46,7 +46,6 @@
 }
 
 .logo {
-    color: white;
     justify-content: flex-start;
     /*max-height: 80px;*/
     /*width: auto;*/
@@ -136,7 +135,7 @@
     }
 
     .logo {
-        max-width: 100px;
+        max-width: 150px;
     }
 
     .userData {
