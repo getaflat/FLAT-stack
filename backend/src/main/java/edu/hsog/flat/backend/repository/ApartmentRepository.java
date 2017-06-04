@@ -14,5 +14,5 @@ import java.util.List;
 @RepositoryRestResource(collectionResourceRel = "apartments", path = "apartments")
 public interface ApartmentRepository extends PagingAndSortingRepository<Apartment, Long> {
     Apartment findByName(@Param("name") String name);
-    List <Apartment> findByResidentialBlockId(@Param("residentialBlockId") String residentialBlockId);
+    List <Apartment> findByResidentialBlockId(@Param("residentialBlockId") Long residentialBlockId);
 }
