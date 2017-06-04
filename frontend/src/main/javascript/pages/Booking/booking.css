@@ -28,9 +28,18 @@
 }
 
 .image {
-    margin: 0 auto;
+    /*margin: 0 auto;
     display: flex;
-    max-width: 80%;
+    max-width: 80%;*/
+
+
+    position: relative;
+    float: left;
+    width:  100px;
+    height: 100px;
+    background-position: 50% 50%;
+    background-repeat:   no-repeat;
+    background-size:     cover;
 }
 
 @media only screen and (min-width: 600px) {
