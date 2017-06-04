@@ -14,9 +14,13 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
+        /*this.state = {
             apartment: []
-        };
+        };*/
+
+        this.state = {
+            pictureStart: ''
+        }
 
     }
 
@@ -28,6 +32,15 @@ class Home extends React.Component {
         }).catch((err) => {
             console.log(err.response)
         }); */
+
+        api.get('/residential-blocks').then(({ data }) => {
+            console.log(data);
+            this.setState({
+                pictureStart:'data:image/png;base64,' + data._embedded['residential-blocks'][0].image1,
+
+
+            });
+        });
     }
 
 
@@ -35,8 +48,7 @@ class Home extends React.Component {
         return (
             <div className={globalStyles.wrapper}>
                 <div className={styles.leftStart}>
-                    <img className={styles.picture} src={this.state.apartment.images} />
-                    <h3>{this.state.apartment.name}Foto aus DB</h3>
+                    <img className={styles.image} src={this.state.pictureStart} />
                 </div>
                 <div className={styles.rightStart}>
                     <br />

@@ -6,6 +6,12 @@
 
 }
 
+.image {
+    margin: 0 auto;
+    display: flex;
+    max-width: 80%;
+}
+
 h2 {
     text-underline: single;
 }
