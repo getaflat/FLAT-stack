@@ -15,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 public class Factor {
 	@Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
     @NonNull
 	private Long factorId;
 

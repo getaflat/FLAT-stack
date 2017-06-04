@@ -10,7 +10,10 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class ResidentialBlock {
 	@Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
+	@NonNull
 	private Long residentialBlockId;
 
 	/*@OneToMany(mappedBy = "apartmentId", targetEntity = Apartment.class, fetch=FetchType.EAGER)

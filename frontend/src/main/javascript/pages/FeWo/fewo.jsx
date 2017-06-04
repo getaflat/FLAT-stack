@@ -10,16 +10,19 @@ const propTypes = {};
 
 const defaultProps = {};
 
-let descr, rooms, persons, size, children, pets, balcony, additionalCosts;
+let descri, rooms, persons, size, children, pets, balcony, additionalCosts;
 
 class FeWo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             fewo: {
-                pictures: [],
-                name: ''
+                name: '',
+                id: ''
             },
+            picture1: '',
+            picture2: '',
+            picture3: '',
         };
     }
 
@@ -30,22 +33,37 @@ class FeWo extends React.Component {
                 name: this.props.match.params.id
             }
         }).then(({data}) => {
-            console.log(data);
-            descr = data.description;
+          //  console.log(data);
+            descri = data.description;
             persons = data.numberOfPersons;
             rooms = data.numberOfRooms;
             size = data.size;
             children = (data.infantsAllowed ? "Ja" : "Nein");
             pets = (data.animalsAllowed ? "Ja" : "Nein");
             balcony = (data.hasBalcony ? "Ja" : "Nein");
-            // additionalCosts Rechnung einfügen!!!
             this.setState({
                 fewo: {
                     name: data.name,
-                    pictures: data.images
+                    id: data.apartmentId
                 }
             });
+
+            api.get(`/images/search/findByApartmentId`, {
+                params: {
+                    apartmentId: this.state.fewo.id
+                }
+            }).then(({data}) => {
+                console.log(data);
+                this.setState({
+                    picture1:'data:image/png;base64,' + data._embedded.images[0].image,
+                    picture2:'data:image/png;base64,' + data._embedded.images[1].image,
+                    picture3:'data:image/png;base64,' + data._embedded.images[2].image,
+                });
+            });
         });
+
+
+
     }
 
     render() {
@@ -64,21 +82,15 @@ class FeWo extends React.Component {
             <div className={globalStyles.wrapper + ' ' + styles.wrapper}>
                 <div className={styles.sliderContainer}>
                     <Slider {...settings}>
-                        <div><img className={styles.bilder} src="http://all4phones.de/attachments/45792d1299589593-sony-ericsson-xperia-play-hintergrundbilder-sony-ericsson-xperia-play-hintergrundbilder-6-.jpg"
-                                        alt="Spaß in der Sonne"/></div>
-                        <div><img className={styles.bilder} src="http://all4phones.de/attachments/45792d1299589593-sony-ericsson-xperia-play-hintergrundbilder-sony-ericsson-xperia-play-hintergrundbilder-6-.jpg"
-                                  alt="Spaß in der Sonne"/></div>
-                        <div><img className={styles.bilder} src="http://all4phones.de/attachments/45792d1299589593-sony-ericsson-xperia-play-hintergrundbilder-sony-ericsson-xperia-play-hintergrundbilder-6-.jpg"
-                                  alt="Spaß in der Sonne"/></div>
-                        <div><img className={styles.bilder} src="http://all4phones.de/attachments/45792d1299589593-sony-ericsson-xperia-play-hintergrundbilder-sony-ericsson-xperia-play-hintergrundbilder-6-.jpg"
-                                  alt="Spaß in der Sonne"/></div>
+                        <div><img className={styles.bilder} src={this.state.picture1} /></div>
+                        <div><img className={styles.bilder} src={this.state.picture2} /></div>
+                        <div><img className={styles.bilder} src={this.state.picture3} /></div>
                     </Slider><br />
                     <h3 className={styles.heading}>{this.props.match.params.id}</h3>
                 </div>
 
                 <div className={styles.FeWoDescr}>
-
-                    <section>{descr}</section><br />
+                    <section>{descri}</section><br />
                     <section className={styles.detail}>Details:</section>
                     <section>Personenanzahl: {persons}</section>
                     <section>Raumanzahl: {rooms}</section>
@@ -88,7 +100,6 @@ class FeWo extends React.Component {
                     <section>Kinder: {children}</section>
                 </div>
                 <div className={styles.button}>
-                    <label>Zusatzkosten: {additionalCosts}</label>
                     <Link className={globalStyles.button + ' ' + styles.button} to={`/booking/${this.props.match.params.id}`}>buchen</Link>
                 </div>
 

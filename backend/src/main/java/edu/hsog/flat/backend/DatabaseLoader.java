@@ -33,8 +33,11 @@ public class DatabaseLoader implements CommandLineRunner {
 	    this.rbRepository = rbRepository;
 	    this.sRepository = sRepository;
 	    this.passwordEncoder = passwordEncoder;
+	}
 
-	    this.aRepository.deleteAll();
+	@Override
+	public void run(String... strings) throws Exception {
+        this.aRepository.deleteAll();
         this.bRepository.deleteAll();
         this.cRepository.deleteAll();
         this.fRepository.deleteAll();
@@ -42,10 +45,6 @@ public class DatabaseLoader implements CommandLineRunner {
         this.raRepository.deleteAll();
         this.rbRepository.deleteAll();
         this.sRepository.deleteAll();
-	}
-
-	@Override
-	public void run(String... strings) throws Exception {
 
 	    ResidentialBlock rb1 = new ResidentialBlock();
 	    rb1.setResidentialBlockId(1L);
@@ -515,39 +514,64 @@ public class DatabaseLoader implements CommandLineRunner {
 
         Factor f1 = new Factor();
         f1.setFactorId(1L);
-        f1.setFactor(2.5);
+        f1.setFactor(1.0);
         this.fRepository.save(f1);
 
         Factor f2 = new Factor();
         f2.setFactorId(2L);
-        f2.setFactor(1.2);
+        f2.setFactor(2.0);
         this.fRepository.save(f2);
 
         Factor f3 = new Factor();
         f3.setFactorId(3L);
-        f3.setFactor(1.8);
+        f3.setFactor(3.0);
         this.fRepository.save(f3);
 
         Factor f4 = new Factor();
         f4.setFactorId(4L);
-        f4.setFactor(0.6);
+        f4.setFactor(4.0);
         this.fRepository.save(f4);
 
         Factor f5 = new Factor();
         f5.setFactorId(5L);
-        f5.setFactor(3.1);
+        f5.setFactor(5.0);
         this.fRepository.save(f5);
+
+        Factor f6 = new Factor();
+        f6.setFactorId(6L);
+        f6.setFactor(6.0);
+        this.fRepository.save(f6);
+
+        Factor f7 = new Factor();
+        f7.setFactorId(7L);
+        f7.setFactor(7.0);
+        this.fRepository.save(f7);
+
+        Factor f8 = new Factor();
+        f8.setFactorId(8L);
+        f8.setFactor(8.0);
+        this.fRepository.save(f8);
+
+        Factor f9 = new Factor();
+        f9.setFactorId(9L);
+        f9.setFactor(9.0);
+        this.fRepository.save(f9);
+
+        Factor f10 = new Factor();
+        f10.setFactorId(10L);
+        f10.setFactor(10.0);
+        this.fRepository.save(f10);
 
         Season s1 = new Season();
 
         for (int i = 1; i <= 53; i++) {
             s1.setCalenderWeek(i+0L);
-            s1.setFactorId((int)(Math.random()*5L)+1L);
+            s1.setFactorId((int)(Math.random()*10L)+1L);
             this.sRepository.save(s1);
         }
 
-		Customer c = new Customer();
-		/* c.setContractNumber(123456789001L);
+		/*Customer c = new Customer();
+		 c.setContractNumber(123456789001L);
 		 this.cRepository.save(c);
 		c.setContractNumber(123456789002L);
 		 this.cRepository.save(c);
@@ -564,125 +588,200 @@ public class DatabaseLoader implements CommandLineRunner {
 		c.setContractNumber(123456789009L);
 		this.cRepository.save(c);
 		c.setContractNumber(123456789010L);
-		this.cRepository.save(c); */
+		this.cRepository.save(c);*/
 
-		c.setContractNumber(123456789011L);
-		c.setLastName("Testico1");
-		c.setFirstName("Test1");
-		c.setEmail("Test1.Testico1@go.de");
-		c.setUsername("testi1");
-		c.setDateOfBirth(new Date(91, 0, 1));
-		c.setPassword(passwordEncoder.encode("test1"));
-		c.setTotalScore(400);
-		this.cRepository.save(c);
+		Customer c1 = new Customer();
+		c1.setContractNumber(123456789011L);
+		c1.setLastName("Testico1");
+		c1.setFirstName("Test1");
+		c1.setEmail("Test1.Testico1@go.de");
+		c1.setUsername("testi1");
+		c1.setDateOfBirth(new Date(91, 0, 1));
+		c1.setPassword(passwordEncoder.encode("test1"));
+		c1.setTotalScore(400);
+		this.cRepository.save(c1);
 
-        c.setContractNumber(123456789012L);
-        c.setLastName("Testico2");
-        c.setFirstName("Test2");
-        c.setEmail("Test2.Testico2@go.de");
-        c.setUsername("testi2");
-        c.setDateOfBirth(new Date(92, 1, 2));
-        c.setPassword(passwordEncoder.encode("test2"));
-        c.setTotalScore(500);
-        this.cRepository.save(c);
+        Customer c2 = new Customer();
+        c2.setContractNumber(123456789012L);
+        c2.setLastName("Testico2");
+        c2.setFirstName("Test2");
+        c2.setEmail("Test2.Testico2@go.de");
+        c2.setUsername("testi2");
+        c2.setDateOfBirth(new Date(92, 1, 2));
+        c2.setPassword(passwordEncoder.encode("test2"));
+        c2.setTotalScore(500);
+        this.cRepository.save(c2);
 
-        c.setContractNumber(123456789013L);
-        c.setLastName("Testico3");
-        c.setFirstName("Test3");
-        c.setEmail("Test3.Testico3@go.de");
-        c.setUsername("testi3");
-        c.setDateOfBirth(new Date(93, 2, 3));
-        c.setPassword(passwordEncoder.encode("test3"));
-        c.setTotalScore(600);
-        this.cRepository.save(c);
+        Customer c3 = new Customer();
+        c3.setContractNumber(123456789013L);
+        c3.setLastName("Testico3");
+        c3.setFirstName("Test3");
+        c3.setEmail("Test3.Testico3@go.de");
+        c3.setUsername("testi3");
+        c3.setDateOfBirth(new Date(93, 2, 3));
+        c3.setPassword(passwordEncoder.encode("test3"));
+        c3.setTotalScore(600);
+        this.cRepository.save(c3);
 
-        c.setContractNumber(123456789014L);
-        c.setLastName("Testico4");
-        c.setFirstName("Test4");
-        c.setEmail("Test4.Testico4@go.de");
-        c.setUsername("testi4");
-        c.setDateOfBirth(new Date(94, 3, 4));
-        c.setPassword(passwordEncoder.encode("test4"));
-        c.setTotalScore(700);
-        this.cRepository.save(c);
 
-        c.setContractNumber(123456789015L);
-        c.setLastName("Testico5");
-        c.setFirstName("Test5");
-        c.setEmail("Test5.Testico5@go.de");
-        c.setUsername("testi5");
-        c.setDateOfBirth(new Date(95, 4, 5));
-        c.setPassword(passwordEncoder.encode("test5"));
-        c.setTotalScore(800);
-        this.cRepository.save(c);
+        Customer c4 = new Customer();
+        c4.setContractNumber(123456789014L);
+        c4.setLastName("Testico4");
+        c4.setFirstName("Test4");
+        c4.setEmail("Test4.Testico4@go.de");
+        c4.setUsername("testi4");
+        c4.setDateOfBirth(new Date(94, 3, 4));
+        c4.setPassword(passwordEncoder.encode("test4"));
+        c4.setTotalScore(700);
+        this.cRepository.save(c4);
 
-        c.setContractNumber(123456789016L);
-        c.setLastName("Testico6");
-        c.setFirstName("Test6");
-        c.setEmail("Test6.Testico6@go.de");
-        c.setUsername("testi6");
-        c.setDateOfBirth(new Date(96, 5, 6));
-        c.setPassword(passwordEncoder.encode("test6"));
-        c.setTotalScore(300);
-        this.cRepository.save(c);
+        Customer c5 = new Customer();
+        c5.setContractNumber(123456789015L);
+        c5.setLastName("Testico5");
+        c5.setFirstName("Test5");
+        c5.setEmail("Test5.Testico5@go.de");
+        c5.setUsername("testi5");
+        c5.setDateOfBirth(new Date(95, 4, 5));
+        c5.setPassword(passwordEncoder.encode("test5"));
+        c5.setTotalScore(800);
+        this.cRepository.save(c5);
 
-        c.setContractNumber(123456789017L);
-        c.setLastName("Testico7");
-        c.setFirstName("Test7");
-        c.setEmail("Test7.Testico7@go.de");
-        c.setUsername("testi7");
-        c.setDateOfBirth(new Date(97, 6, 7));
-        c.setPassword(passwordEncoder.encode("test7"));
-        c.setTotalScore(200);
-        this.cRepository.save(c);
+        Customer c6 = new Customer();
+        c6.setContractNumber(123456789016L);
+        c6.setLastName("Testico6");
+        c6.setFirstName("Test6");
+        c6.setEmail("Test6.Testico6@go.de");
+        c6.setUsername("testi6");
+        c6.setDateOfBirth(new Date(96, 5, 6));
+        c6.setPassword(passwordEncoder.encode("test6"));
+        c6.setTotalScore(300);
+        this.cRepository.save(c6);
 
-        c.setContractNumber(123456789018L);
-        c.setLastName("Testico8");
-        c.setFirstName("Test8");
-        c.setEmail("Test8.Testico8@go.de");
-        c.setUsername("testi8");
-        c.setDateOfBirth(new Date(98, 7, 8));
-        c.setPassword(passwordEncoder.encode("test8"));
-        c.setTotalScore(800);
-        this.cRepository.save(c);
+        Customer c7 = new Customer();
+        c7.setContractNumber(123456789017L);
+        c7.setLastName("Testico7");
+        c7.setFirstName("Test7");
+        c7.setEmail("Test7.Testico7@go.de");
+        c7.setUsername("testi7");
+        c7.setDateOfBirth(new Date(97, 6, 7));
+        c7.setPassword(passwordEncoder.encode("test7"));
+        c7.setTotalScore(200);
+        this.cRepository.save(c7);
 
-        c.setContractNumber(123456789019L);
-        c.setLastName("Testico9");
-        c.setFirstName("Test9");
-        c.setEmail("Test9.Testico9@go.de");
-        c.setUsername("testi9");
-        c.setDateOfBirth(new Date(99, 8, 9));
-        c.setPassword(passwordEncoder.encode("test9"));
-        c.setTotalScore(1000);
-        this.cRepository.save(c);
+        Customer c8 = new Customer();
+        c8.setContractNumber(123456789018L);
+        c8.setLastName("Testico8");
+        c8.setFirstName("Test8");
+        c8.setEmail("Test8.Testico8@go.de");
+        c8.setUsername("testi8");
+        c8.setDateOfBirth(new Date(98, 7, 8));
+        c8.setPassword(passwordEncoder.encode("test8"));
+        c8.setTotalScore(800);
+        this.cRepository.save(c8);
 
+        Customer c9 = new Customer();
+        c9.setContractNumber(123456789019L);
+        c9.setLastName("Testico9");
+        c9.setFirstName("Test9");
+        c9.setEmail("Test9.Testico9@go.de");
+        c9.setUsername("testi9");
+        c9.setDateOfBirth(new Date(99, 8, 9));
+        c9.setPassword(passwordEncoder.encode("test9"));
+        c9.setTotalScore(1000);
+        this.cRepository.save(c9);
+
+        Rating r1 = new Rating();
+        r1.setRatingId(1L);
+        r1.setContractNumber(c1.getContractNumber());
+        this.raRepository.save(r1);
+
+        Rating r2 = new Rating();
+        r2.setRatingId(2L);
+        r2.setContractNumber(c2.getContractNumber());
+        this.raRepository.save(r2);
+
+        Rating r3 = new Rating();
+        r3.setRatingId(3L);
+        r3.setContractNumber(c3.getContractNumber());
+        this.raRepository.save(r3);
+
+        Rating r4 = new Rating();
+        r4.setRatingId(4L);
+        r4.setContractNumber(c4.getContractNumber());
+        this.raRepository.save(r4);
+
+        Rating r5 = new Rating();
+        r5.setRatingId(5L);
+        r5.setContractNumber(c5.getContractNumber());
+        this.raRepository.save(r5);
+
+        Rating r6 = new Rating();
+        r6.setRatingId(6L);
+        r6.setContractNumber(c6.getContractNumber());
+        this.raRepository.save(r6);
+
+        Rating r7 = new Rating();
+        r7.setRatingId(7L);
+        r7.setContractNumber(c7.getContractNumber());
+        this.raRepository.save(r7);
+
+
+        Rating r8 = new Rating();
+        r8.setRatingId(8L);
+        r8.setContractNumber(c7.getContractNumber());
+        this.raRepository.save(r8);
+
+
+        Rating r9 = new Rating();
+        r9.setRatingId(9L);
+        r9.setContractNumber(c9.getContractNumber());
+        this.raRepository.save(r9);
+
+        Long factorID1;
+        Long factorID2;
+        Integer price;
         Booking b1 = new Booking();
         b1.setContractNumber(123456789011L);
         b1.setApartmentId(1L);
         b1.setWeek1(37);
-        b1.setWeek2(28);
+        b1.setWeek2(38);
         b1.setYear(2017);
+        factorID1 = this.sRepository.findOne(b1.getWeek1()+0L).getFactorId();
+        factorID2 = this.sRepository.findOne(b1.getWeek2()+0L).getFactorId();
+        price = a1.getBasePrice();
+        price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
+        b1.setPrice(price);
         b1.setAdditionalCharge(50.6);
         b1.setStatus("Wartend");
         this.bRepository.save(b1);
 
         Booking b2 = new Booking();
         b2.setContractNumber(123456789012L);
-        b2.setApartmentId(1L);
+        b2.setApartmentId(5L);
         b2.setWeek1(39);
         b2.setWeek2(40);
         b2.setYear(2017);
         b2.setAdditionalCharge(0.0);
+        factorID1 = this.sRepository.findOne(b2.getWeek1()+0L).getFactorId();
+        factorID2 = this.sRepository.findOne(b2.getWeek2()+0L).getFactorId();
+        price = a5.getBasePrice();
+        price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
+        b2.setPrice(price);
         b2.setStatus("Wartend");
         this.bRepository.save(b2);
 
         Booking b3 = new Booking();
         b3.setContractNumber(123456789012L);
-        b3.setApartmentId(1L);
+        b3.setApartmentId(3L);
         b3.setWeek1(23);
         b3.setWeek2(24);
         b3.setYear(2017);
         b3.setAdditionalCharge(0.0);
+        factorID1 = this.sRepository.findOne(b3.getWeek1()+0L).getFactorId();
+        factorID2 = this.sRepository.findOne(b3.getWeek2()+0L).getFactorId();
+        price = a3.getBasePrice();
+        price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
+        b3.setPrice(price);
         b3.setStatus("Bestätigt");
         this.bRepository.save(b3);
 
@@ -693,6 +792,11 @@ public class DatabaseLoader implements CommandLineRunner {
         b4.setWeek2(2);
         b4.setYear(2018);
         b4.setAdditionalCharge(0.0);
+        factorID1 = this.sRepository.findOne(b4.getWeek1()+0L).getFactorId();
+        factorID2 = this.sRepository.findOne(b4.getWeek2()+0L).getFactorId();
+        price = a21.getBasePrice();
+        price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
+        b4.setPrice(price);
         b4.setStatus("Wartend");
         this.bRepository.save(b4);
 
@@ -703,6 +807,11 @@ public class DatabaseLoader implements CommandLineRunner {
         b5.setWeek2(2);
         b5.setYear(2018);
         b5.setAdditionalCharge(0.0);
+        factorID1 = this.sRepository.findOne(b5.getWeek1()+0L).getFactorId();
+        factorID2 = this.sRepository.findOne(b5.getWeek2()+0L).getFactorId();
+        price = a21.getBasePrice();
+        price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
+        b5.setPrice(price);
         b5.setStatus("Wartend");
         this.bRepository.save(b5);
 
@@ -721,7 +830,7 @@ public class DatabaseLoader implements CommandLineRunner {
         Image i3 = new Image();
         i3.setImageId(3L);
         i3.setApartmentId(a1.getApartmentId());
-        i3.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment1/FeWoMeerEingang.jpeg"));
+        i3.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment1/FeWoMeerBalkon5.jpg"));
         this.iRepository.save(i3);
 
         Image i4 = new Image();
@@ -793,7 +902,7 @@ public class DatabaseLoader implements CommandLineRunner {
         Image i15 = new Image();
         i15.setImageId(15L);
         i15.setApartmentId(a5.getApartmentId());
-        i15.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment5/FeWoMeerKueche7.jpg"));
+        i15.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment5/FeWoMeerBad.jpeg"));
         this.iRepository.save(i15);
 
         Image i16 = new Image();
@@ -817,7 +926,7 @@ public class DatabaseLoader implements CommandLineRunner {
         Image i19 = new Image();
         i19.setImageId(19L);
         i19.setApartmentId(a6.getApartmentId());
-        i19.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment6/FeWoMeerSchlaf.jpeg"));
+        i19.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment6/FeWoMeerKueche5.jpeg"));
         this.iRepository.save(i19);
 
         Image i20 = new Image();
@@ -891,6 +1000,277 @@ public class DatabaseLoader implements CommandLineRunner {
         i31.setApartmentId(a10.getApartmentId());
         i31.setImage(readImage("./src/img/apartments/mediterranean_sea/apartment10/FeWoMeerKueche.jpeg"));
         this.iRepository.save(i31);
+
+        Image i32 = new Image();
+        i32.setImageId(32L);
+        i32.setApartmentId(a11.getApartmentId());
+        i32.setImage(readImage("./src/img/apartments/mountain/apartment1/FeWoBergeWohnzimmer.jpeg"));
+        this.iRepository.save(i32);
+
+        Image i33 = new Image();
+        i33.setImageId(33L);
+        i33.setApartmentId(a11.getApartmentId());
+        i33.setImage(readImage("./src/img/apartments/mountain/apartment1/FeWoBergeSchlafzimmer6.jpeg"));
+        this.iRepository.save(i33);
+
+        Image i34 = new Image();
+        i34.setImageId(34L);
+        i34.setApartmentId(a11.getApartmentId());
+        i34.setImage(readImage("./src/img/apartments/mountain/apartment1/FeWoBergeKueche3.jpg"));
+        this.iRepository.save(i34);
+
+        Image i35 = new Image();
+        i35.setImageId(35L);
+        i35.setApartmentId(a12.getApartmentId());
+        i35.setImage(readImage("./src/img/apartments/mountain/apartment2/FeWoBergeSchlafzimmer4.jpg"));
+        this.iRepository.save(i35);
+
+        Image i36 = new Image();
+        i36.setImageId(36L);
+        i36.setApartmentId(a12.getApartmentId());
+        i36.setImage(readImage("./src/img/apartments/mountain/apartment2/FeWoBergeKueche2.jpg"));
+        this.iRepository.save(i36);
+
+        Image i37 = new Image();
+        i37.setImageId(37L);
+        i37.setApartmentId(a12.getApartmentId());
+        i37.setImage(readImage("./src/img/apartments/mountain/apartment2/FeWoBergeBad.jpg"));
+        this.iRepository.save(i37);
+
+        Image i38 = new Image();
+        i38.setImageId(38L);
+        i38.setApartmentId(a13.getApartmentId());
+        i38.setImage(readImage("./src/img/apartments/mountain/apartment3/FeWoBergeSchlafzimmer2.jpg"));
+        this.iRepository.save(i38);
+
+        Image i39 = new Image();
+        i39.setImageId(39L);
+        i39.setApartmentId(a13.getApartmentId());
+        i39.setImage(readImage("./src/img/apartments/mountain/apartment3/FeWoBergeKueche.jpeg"));
+        this.iRepository.save(i39);
+
+        Image i40 = new Image();
+        i40.setImageId(40L);
+        i40.setApartmentId(a13.getApartmentId());
+        i40.setImage(readImage("./src/img/apartments/mountain/apartment3/FeWoBergeBad3.jpeg"));
+        this.iRepository.save(i40);
+
+        Image i41 = new Image();
+        i41.setImageId(41L);
+        i41.setApartmentId(a14.getApartmentId());
+        i41.setImage(readImage("./src/img/apartments/mountain/apartment4/FeWoBergeWohnbereich.jpeg"));
+        this.iRepository.save(i41);
+
+        Image i42 = new Image();
+        i42.setImageId(42L);
+        i42.setApartmentId(a14.getApartmentId());
+        i42.setImage(readImage("./src/img/apartments/mountain/apartment4/FeWoBergeSchlafzimmer5.jpeg"));
+        this.iRepository.save(i42);
+
+        Image i43 = new Image();
+        i43.setImageId(43L);
+        i43.setApartmentId(a14.getApartmentId());
+        i43.setImage(readImage("./src/img/apartments/mountain/apartment4/FeWoBergeBad2.jpeg"));
+        this.iRepository.save(i43);
+
+        Image i44 = new Image();
+        i44.setImageId(44L);
+        i44.setApartmentId(a15.getApartmentId());
+        i44.setImage(readImage("./src/img/apartments/mountain/apartment5/FeWoBergeWohn_Schlafbereich.jpg"));
+        this.iRepository.save(i44);
+
+        Image i45 = new Image();
+        i45.setImageId(45L);
+        i45.setApartmentId(a15.getApartmentId());
+        i45.setImage(readImage("./src/img/apartments/mountain/apartment5/FeWoBergeSchlafzimmer3.jpeg"));
+        this.iRepository.save(i45);
+
+        Image i46 = new Image();
+        i46.setImageId(46L);
+        i46.setApartmentId(a15.getApartmentId());
+        i46.setImage(readImage("./src/img/apartments/mountain/apartment5/FeWoBergeBad4.jpeg"));
+        this.iRepository.save(i46);
+
+        Image i47 = new Image();
+        i47.setImageId(47L);
+        i47.setApartmentId(a21.getApartmentId());
+        i47.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment1/FeWoSeeEss2.jpg"));
+        this.iRepository.save(i47);
+
+        Image i48 = new Image();
+        i48.setImageId(48L);
+        i48.setApartmentId(a21.getApartmentId());
+        i48.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment1/FeWoSeeSchlaf.jpg"));
+        this.iRepository.save(i48);
+
+        Image i49 = new Image();
+        i49.setImageId(49L);
+        i49.setApartmentId(a21.getApartmentId());
+        i49.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment1/FeWoSeeBad2.jpg"));
+        this.iRepository.save(i49);
+
+        Image i50 = new Image();
+        i50.setImageId(50L);
+        i50.setApartmentId(a22.getApartmentId());
+        i50.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment2/FeWoSeeWohn6.jpeg"));
+        this.iRepository.save(i50);
+
+        Image i51 = new Image();
+        i51.setImageId(51L);
+        i51.setApartmentId(a22.getApartmentId());
+        i51.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment2/FeWoSeeKueche4.jpeg"));
+        this.iRepository.save(i51);
+
+        Image i52 = new Image();
+        i52.setImageId(52L);
+        i52.setApartmentId(a22.getApartmentId());
+        i52.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment2/FeWoSeeBad7.jpg"));
+        this.iRepository.save(i52);
+
+        Image i53 = new Image();
+        i53.setImageId(53L);
+        i53.setApartmentId(a23.getApartmentId());
+        i53.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment3/FeWoSeeWohn4.jpg"));
+        this.iRepository.save(i53);
+
+        Image i54 = new Image();
+        i54.setImageId(54L);
+        i54.setApartmentId(a23.getApartmentId());
+        i54.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment3/FeWoSeeKueche7.jpg"));
+        this.iRepository.save(i54);
+
+        Image i55 = new Image();
+        i55.setImageId(55L);
+        i55.setApartmentId(a23.getApartmentId());
+        i55.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment3/FeWoSeeBad.jpeg"));
+        this.iRepository.save(i55);
+
+        Image i56 = new Image();
+        i56.setImageId(56L);
+        i56.setApartmentId(a24.getApartmentId());
+        i56.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment4/FeWoSeeWohn2.jpeg"));
+        this.iRepository.save(i56);
+
+        Image i57 = new Image();
+        i57.setImageId(57L);
+        i57.setApartmentId(a24.getApartmentId());
+        i57.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment4/FeWoSeeSchlaf4.jpeg"));
+        this.iRepository.save(i57);
+
+        Image i58 = new Image();
+        i58.setImageId(58L);
+        i58.setApartmentId(a24.getApartmentId());
+        i58.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment4/FeWoSeeBad3.jpeg"));
+        this.iRepository.save(i58);
+
+        Image i59 = new Image();
+        i59.setImageId(59L);
+        i59.setApartmentId(a25.getApartmentId());
+        i59.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment5/FeWoSeeEsszimmer.jpeg"));
+        this.iRepository.save(i59);
+
+        Image i60 = new Image();
+        i60.setImageId(60L);
+        i60.setApartmentId(a25.getApartmentId());
+        i60.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment5/FeWoSeeSchlaf6.jpeg"));
+        this.iRepository.save(i60);
+
+        Image i61 = new Image();
+        i61.setImageId(61L);
+        i61.setApartmentId(a25.getApartmentId());
+        i61.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment5/FeWoSeeDachterasse.jpeg"));
+        this.iRepository.save(i61);
+
+        Image i62 = new Image();
+        i62.setImageId(62L);
+        i62.setApartmentId(a26.getApartmentId());
+        i62.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment6/FeWoSeeSchlaf7.jpg"));
+        this.iRepository.save(i62);
+
+        Image i63 = new Image();
+        i63.setImageId(63L);
+        i63.setApartmentId(a26.getApartmentId());
+        i63.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment6/FeWoSeeKueche.jpeg"));
+        this.iRepository.save(i63);
+
+        Image i64 = new Image();
+        i64.setImageId(64L);
+        i64.setApartmentId(a26.getApartmentId());
+        i64.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment6/FeWoSeeBad6.jpeg"));
+        this.iRepository.save(i64);
+
+        Image i65 = new Image();
+        i65.setImageId(65L);
+        i65.setApartmentId(a27.getApartmentId());
+        i65.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment7/FeWoSeeWohn8.jpeg"));
+        this.iRepository.save(i65);
+
+        Image i66 = new Image();
+        i66.setImageId(66L);
+        i66.setApartmentId(a27.getApartmentId());
+        i66.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment7/FeWoSeeEss3.jpeg"));
+        this.iRepository.save(i66);
+
+        Image i67 = new Image();
+        i67.setImageId(67L);
+        i67.setApartmentId(a27.getApartmentId());
+        i67.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment7/FeWoSeeBad8.jpeg"));
+        this.iRepository.save(i67);
+
+        Image i68 = new Image();
+        i68.setImageId(68L);
+        i68.setApartmentId(a28.getApartmentId());
+        i68.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment8/FeWoSeeWohn7.jpeg"));
+        this.iRepository.save(i68);
+
+        Image i69 = new Image();
+        i69.setImageId(69L);
+        i69.setApartmentId(a28.getApartmentId());
+        i69.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment8/FeWoSeeKueche_Wohn.jpeg"));
+        this.iRepository.save(i69);
+
+        Image i70 = new Image();
+        i70.setImageId(70L);
+        i70.setApartmentId(a28.getApartmentId());
+        i70.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment8/FeWoSeeSchlaf2.jpeg"));
+        this.iRepository.save(i70);
+
+        Image i71 = new Image();
+        i71.setImageId(71L);
+        i71.setApartmentId(a29.getApartmentId());
+        i71.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment9/FeWoSeeSchlaf5.jpeg"));
+        this.iRepository.save(i71);
+
+        Image i72 = new Image();
+        i72.setImageId(72L);
+        i72.setApartmentId(a29.getApartmentId());
+        i72.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment9/FeWoSeeKueche2.jpg"));
+        this.iRepository.save(i72);
+
+        Image i73 = new Image();
+        i73.setImageId(73L);
+        i73.setApartmentId(a29.getApartmentId());
+        i73.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment9/FeWoSeeBad5.jpeg"));
+        this.iRepository.save(i73);
+
+        Image i74 = new Image();
+        i74.setImageId(74L);
+        i74.setApartmentId(a30.getApartmentId());
+        i74.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment10/FeWoSeeWohn.jpeg"));
+        this.iRepository.save(i74);
+
+        Image i75 = new Image();
+        i75.setImageId(75L);
+        i75.setApartmentId(a30.getApartmentId());
+        i75.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment10/FeWoSeeBad4.jpeg"));
+        this.iRepository.save(i75);
+
+        Image i76 = new Image();
+        i76.setImageId(76L);
+        i76.setApartmentId(a30.getApartmentId());
+        i76.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment10/FeWoSeeSauna.jpg"));
+        this.iRepository.save(i76);
+
 
     }
 

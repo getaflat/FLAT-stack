@@ -10,6 +10,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  */
 @RepositoryRestResource(collectionResourceRel = "bookings", path = "bookings")
 public interface BookingRepository extends CrudRepository<Booking, Long> {
-    Booking[] findBycontractNumber(@Param("contractNumber") Long contractNumber);
+    Booking findByContractNumber(@Param("contractNumber") Long contractNumber);
+    Booking findByBookingId(@Param("bookingId") Long bookingId);
 
 }

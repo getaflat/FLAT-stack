@@ -7,7 +7,7 @@ import styles from './booking.css'
 import globalStyles from '../../general-styles/global.css';
 import api from '../../services/api'
 
-
+let descr;
 class Booking extends React.Component {
     constructor(props) {
         super(props);

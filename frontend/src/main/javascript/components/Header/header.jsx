@@ -58,8 +58,17 @@ class Header extends React.Component {
                     <div className={styles.leftHeader}>
 
                     <div className={styles.userData}>
-                        <div><h3>{this.props.user.username}</h3></div>
-                        <div><input type="text" disabled={true} value={this.props.user.totalScore + " P."} /></div>
+                        {isLoggedIn() ? (
+                            <span>
+                        <div><h3>{this.state.customer.username}</h3></div>
+                        <div><input type="text" disabled={true} value={this.state.customer.totalScore + " P."} /></div>
+                                </span>
+
+                        ):(
+                           <div></div>
+                        )}
+                        {/*<div><h3>{this.state.customer.username}</h3></div>
+                        <div><input type="text" disabled={true} value={this.state.customer.totalScore + " P."} /></div>*/}
                     </div>
                     <br />
 
@@ -72,9 +81,7 @@ class Header extends React.Component {
                                 <Link className={globalStyles.button} to="/register">Registrieren</Link>
                             </span>
                         )}
-                        {/*<button className={styles.button} >login</button>*/}
-                        {/*<input className={styles.button} type="button" name="login" onClick="/login" component={Login} />*/}
-                        {/*<button className={styles.button}>registrieren</button>*/}
+
                     </div>
 
                     </div>
