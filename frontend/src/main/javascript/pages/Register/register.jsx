@@ -84,6 +84,7 @@ class Register extends React.Component {
         }
 
         register({ ...this.state.customer }).then(() => {
+            this.props.onUserChange();
             this.props.history.push('/user');
         }).catch((error) => {
             let message = 'Fehler, bitte versuchen sie es später erneut';

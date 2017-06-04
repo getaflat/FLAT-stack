@@ -140,7 +140,7 @@ class User extends React.Component {
 
     componentDidMount() {
         if (isLoggedIn()) {
-            const token = getToken();
+            /* const token = getToken();
             const user = getUser();
 
             api.get(`/customers/search/findByEmail`, {
@@ -156,7 +156,8 @@ class User extends React.Component {
                 this.setState({
                     loggedIn: data
                 });
-            });
+            }); */
+
             api.get('/bookings/11').then(({data}) => {
                // console.log(data._embedded.bookings);
                 this.setState({

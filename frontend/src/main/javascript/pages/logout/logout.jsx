@@ -9,6 +9,7 @@ class Logout extends React.Component {
 
     componentDidMount() {
         logout().then(() => {
+            this.props.onUserChange();
             this.props.history.push('/');
         }).catch(() => {
             console.log(arguments);

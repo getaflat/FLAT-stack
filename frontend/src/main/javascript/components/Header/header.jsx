@@ -11,10 +11,6 @@ import globalStyles from '../../general-styles/global.css';
 class Header extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            customer: {}
-        };
     }
 
     componentDidMount() {
@@ -31,7 +27,7 @@ class Header extends React.Component {
 
         } */
 
-        if (isLoggedIn()) {
+        /* if (isLoggedIn()) {
             const token = getToken();
             const user = getUser();
 
@@ -48,7 +44,7 @@ class Header extends React.Component {
                     customer: data
                 });
             });
-        }
+        } */
     }
 
 
@@ -62,8 +58,8 @@ class Header extends React.Component {
                     <div className={styles.leftHeader}>
 
                     <div className={styles.userData}>
-                        <div><h3>{this.state.customer.username}</h3></div>
-                        <div><input type="text" disabled={true} value={this.state.customer.totalScore + " P."} /></div>
+                        <div><h3>{this.props.user.username}</h3></div>
+                        <div><input type="text" disabled={true} value={this.props.user.totalScore + " P."} /></div>
                     </div>
                     <br />
 

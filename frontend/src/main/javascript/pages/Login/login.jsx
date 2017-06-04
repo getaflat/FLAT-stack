@@ -70,8 +70,11 @@ class Login extends React.Component {
         }
 
         login({ ...this.state.credentials }).then(() => {
+            this.props.onUserChange();
             this.props.history.push('/user');
         }).catch((error) => {
+            console.log(error);
+
             let message = 'Fehler, bitte versuchen sie es später erneut';
 
             if (error.response && error.response.status === 401) {
