@@ -40,7 +40,7 @@ class Home extends React.Component {
 
         api.get('/images/search/findByApartmentId', {
             params: {
-                apartmentId: Math.floor(Math.random() * 30) + 1
+                apartmentId: (Math.floor(Math.random() * 30) + 1)
             }
         }).then(({ data }) => {
             console.log(data);
