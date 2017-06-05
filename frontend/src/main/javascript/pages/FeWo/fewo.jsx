@@ -4,6 +4,8 @@ import globalStyles from '../../general-styles/global.css';
 import api from '../../services/api';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
+import {isLoggedIn, getToken, getUser} from '../../services/auth';
+
 
 
 const propTypes = {};
@@ -62,6 +64,14 @@ class FeWo extends React.Component {
             });
         });
 
+        if(isLoggedIn())
+        {
+            this.refs.bookingB.style.display = "flex";
+        }
+        else
+        {
+            this.refs.bookingB.style.display = "none";
+        }
 
 
     }
@@ -99,7 +109,7 @@ class FeWo extends React.Component {
                     <section>Tiere erlaubt: {pets}</section>
                     <section>Kinder: {children}</section>
                 </div>
-                <div className={styles.button}>
+                <div ref="bookingB" className={styles.button}>
                     <Link className={globalStyles.button + ' ' + styles.button} to={`/booking/${this.props.match.params.id}`}>buchen</Link>
                 </div>
 

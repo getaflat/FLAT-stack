@@ -250,7 +250,7 @@ class User extends React.Component {
                                     <td>{booking.price}</td>
                                     <td>{booking.additionalCharge}</td>
                                     <td className={styles.check} ref="button">
-                                        <input className={globalStyles.button} value="stornieren" name={booking.bookingId} onClick={this.handleStorno} type="button"/>
+                                        <input className={globalStyles.button} alt={booking.bookingId} value="stornieren" name={booking.bookingId} onClick={this.handleStorno} type="button"/>
                                     </td>
                                 </tr>
                             )}
