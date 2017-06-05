@@ -63,14 +63,18 @@ class regionFewos extends React.Component {
         super(props);
         this.state = {
             fewos: [],
-            filteredDataList: []
+            filteredDataList: [],
+
+            // testfewo: ''
 
         };
         this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
-        api.get('/apartments').then(({ data }) => {
+
+        //Testanfrage
+        /*api.get('/apartments').then(({ data }) => {
             let apartments = data._embedded.apartments.map((apartment) => {
                 let infantsAllowed = apartment.infantsAllowed ? "Ja" : "Nein";
                 let isAvailable = apartment.isAvailable ? "Ja" : "Nein";
@@ -86,7 +90,44 @@ class regionFewos extends React.Component {
             });
         }).catch(() => {
             console.error(arguments)
-        })
+        });*/
+
+
+
+
+        api.get('/residential-blocks/search/findByName', {
+         params: {
+         name: this.props.match.params.id
+         }
+         }).then(({ data }) => {
+         console.log(data);
+
+
+         return api.get('/apartments/search/findByResidentialBlockId', {
+         params: {
+         residentialBlockId: data.residentialBlockId
+         }
+         });
+         }).then(({ data }) => {
+
+         console.log(data);
+
+         let apartments = data._embedded.apartments.map((apartment) => {
+         let infantsAllowed = apartment.infantsAllowed ? "Ja" : "Nein";
+         let isAvailable = apartment.isAvailable ? "Ja" : "Nein";
+
+         return {
+         ...apartment,
+         infantsAllowed,
+         isAvailable
+         }
+         });
+         this.setState((prev, props) => {
+         return { fewos: apartments, filteredDataList: apartments }
+         });
+         }).catch(() => {
+         console.error(arguments)
+         });
     }
 
     handleClick(event) {
