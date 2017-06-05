@@ -1,5 +1,10 @@
+.wrapper {
+    flex-direction: column;
+}
+
 .leftStart {
     padding: 15px;
+
 }
 
 .rightStart {
@@ -7,18 +12,9 @@
 }
 
 .image {
-    /*margin: 0 auto;
-    display: flex;
-    max-width: 80%;*/
 
+    height: 200px;
 
-    position: relative;
-    float: left;
-    width:  100px;
-    height: 100px;
-    background-position: 50% 50%;
-    background-repeat:   no-repeat;
-    background-size:     cover;
 }
 
 h2 {
@@ -29,8 +25,14 @@ h2 {
 @media only screen and (min-width: 600px) {
     /* tablet */
     .wrapper {
+        flex-direction: row;
         width: 100vw;
         height: 83vh;
+    }
+
+    .image {
+        height: auto;
+        width: 150px;
     }
 
     p, h2 {
@@ -43,6 +45,11 @@ h2 {
 
 @media only screen and (min-width: 1025px) {
     /* Desktop */
+
+    .image {
+        height: auto;
+        width: 300px;
+    }
 
     .leftStart {
         width: 30%;

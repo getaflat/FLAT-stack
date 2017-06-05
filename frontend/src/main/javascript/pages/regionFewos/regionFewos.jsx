@@ -161,7 +161,7 @@ class regionFewos extends React.Component {
                 <h1>Region: {this.props.match.params.id}</h1> {/*id herkunft*/}
                 <div className={styles.tgwrap}>
                     <Table rowsCount={this.state.filteredDataList.length} height={1000}
-                           width={1200}
+                           width={750}
                            rowHeight={30} headerHeight={60}>
                         <Column
                             header={<SortableHeaderCell onFilterChange={this.onFilterChange.bind(this)} field="name" label="Name (Ferienwohnung)" />}
@@ -170,23 +170,23 @@ class regionFewos extends React.Component {
                         <Column
                             header={<SortableHeaderCell onFilterChange={this.onFilterChange.bind(this)} field="numberOfRooms" label="Zimmer" />}
                             cell = {<TextCell data={this.state.filteredDataList} field="numberOfRooms" />}
-                            width={200} />
+                            width={75} />
                         <Column
                             header={<SortableHeaderCell onFilterChange={this.onFilterChange.bind(this)} field="numberOfPersons" label="Personenanzahl" />}
                             cell = {<TextCell data={this.state.filteredDataList} field="numberOfPersons" />}
-                            width={200} />
+                            width={125} />
                         <Column
                             header={<SortableHeaderCell onFilterChange={this.onFilterChange.bind(this)} field="size" label="Größe (in cm²)" />}
                             cell = {<TextCell data={this.state.filteredDataList} field="size" />}
-                            width={200} />
+                            width={125} />
                         <Column
                             header={<SortableHeaderCell onFilterChange={this.onFilterChange.bind(this)} field="infantsAllowed" label="Kinder geeignet" />}
                             cell = {<TextCell data={this.state.filteredDataList} field="infantsAllowed" />}
-                            width={200} />
+                            width={125} />
                         <Column
                             header={<SortableHeaderCell onFilterChange={this.onFilterChange.bind(this)} field="isAvailable" label="Derzeit frei" />}
                             cell = {<TextCell data={this.state.filteredDataList} field="isAvailable" />}
-                            width={200} />
+                            width={100} />
                     </Table>
                 </div>
             </div>

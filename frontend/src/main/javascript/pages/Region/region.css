@@ -14,23 +14,36 @@
 }
 
 .concreteRegion {
-    padding-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 30px;
 }
 
 .image {
-    /*margin: 0 auto;
-    display: flex;
-    max-width: 80%;*/
 
-
-    position: relative;
-    float: left;
-    width:  100px;
+    width:  150px;
     height: 100px;
-    background-position: 50% 50%;
-    background-repeat:   no-repeat;
-    background-size:     cover;
+
 }
+
+.button {
+    border-top: 1px solid #96d1f8;
+    background: white;
+    padding: 5px 10px;
+    margin-right: 8px;
+    margin-top: 4px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+    text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
+    color: black;
+    font-size: 15px;
+    text-decoration: none;
+    vertical-align: middle;;
+    min-width: 100px;
+}
+
+
 
 
 @media only screen and (min-width: 600px) {
@@ -38,10 +51,22 @@
 
     .regions {
         flex-direction: row;
+        flex-wrap: wrap;
     }
 
     .concreteRegion{
         padding: 20px;
 
     }
+
+}
+
+@media only screen and (min-width: 1025px) {
+    /* Desktop */
+
+    .image {
+        width:  200px;
+        height: 150px;
+    }
+
 }

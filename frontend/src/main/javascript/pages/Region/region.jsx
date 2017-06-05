@@ -46,27 +46,32 @@ class Region extends React.Component {
                 <div className={styles.regions}>
                 <div className={styles.concreteRegion}>
                     <div> <img className={styles.image} src={this.state.picture1}/> </div>
-                    <Link className={globalStyles.button} to="/region/Komplex Mallorca">Mallorca</Link>
+                    <br />
+                    <Link className={globalStyles.button + ' ' + styles.button} to="/region/Komplex Mallorca">Mallorca</Link>
                 </div>
 
                     <div className={styles.concreteRegion}>
                         <div> <img className={styles.image} src={this.state.picture2}/> </div>
-                        <Link className={globalStyles.button} to="/region/Komplex Italien">Italien</Link>
+                        <br />
+                        <Link className={globalStyles.button + ' ' + styles.button} to="/region/Komplex Italien">Italien</Link>
                     </div>
 
                     <div className={styles.concreteRegion}>
                         <div> <img className={styles.image} src={this.state.picture3}/> </div>
-                        <Link className={globalStyles.button} to="/region/Komplex Berge">Berge</Link>
+                        <br />
+                        <Link className={globalStyles.button + ' ' + styles.button} to="/region/Komplex Berge">Berge</Link>
                     </div>
 
                     <div className={styles.concreteRegion}>
                         <div> <img className={styles.image} src={this.state.picture4}/> </div>
-                        <Link className={globalStyles.button} to="/region/Komplex Nordsee">Nordsee</Link>
+                        <br />
+                        <Link className={globalStyles.button + ' ' + styles.button} to="/region/Komplex Nordsee">Nordsee</Link>
                     </div>
 
                     <div className={styles.concreteRegion}>
                         <div> <img className={styles.image} src={this.state.picture5}/> </div>
-                        <Link className={globalStyles.button} to="/region/Komplex Ostsee">Ostsee</Link>
+                        <br />
+                        <Link className={globalStyles.button + ' ' + styles.button} to="/region/Komplex Ostsee">Ostsee</Link>
                     </div>
                 </div>
 
