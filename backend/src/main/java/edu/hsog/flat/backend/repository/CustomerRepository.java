@@ -6,6 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -18,9 +23,9 @@ public interface CustomerRepository extends CrudRepository<Customer, Long> {
     Customer findByLastName(@Param("lastName") String lastName);
     Customer findByEmail(@Param("email") String email);
 
+    @Transactional
     @Modifying(clearAutomatically = true)
-    @Query("update Customer b set b.firstName = ?1, b.lastName = ?2 where b.contractNumber = ?3")
-    int setUpdatedCustomer(@Param("firstName") String firstName, @Param("lastName") String lastName, @Param("contractNumber") Long contractNumber);
-
+    @Query(value = "update customer b set b.first_name= :firstName, b.last_name= :lastName where contract_number= :contractNumber", nativeQuery = true)
+    Integer updateCustomer(@Param("firstName") String firstName, @Param("lastName") String lastName, @Param("contractNumber") Long contractNumber);
 
 }

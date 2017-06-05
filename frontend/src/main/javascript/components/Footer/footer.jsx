@@ -97,9 +97,13 @@ class Footer extends React.Component {
             api.get('/ratings/search/findByContractNumber', {
                 params: {
                     contractNumber: data.contractNumber
+                },
+                validateStatus: function(status) {
+                    return status >= 200 && status < 300 || status === 404;
                 }
             }).catch(function (error) { // TODO: abfangen dass error in Konsole ausgegeben wird von Browser?
-               if(error.response.status === 404) {
+               console.log(error);
+                if(error.response.status === 404) {
                    ref.style.display = "block";
                }
             });
