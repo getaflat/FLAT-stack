@@ -10,15 +10,13 @@ import update from 'immutability-helper';
 const propTypes = {};
 const defaultProps = {};
 
-
-
 class User extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             customer: {},
             bookings: [],
-            loggedIn: {},
+            loggedIn: {}
         };
         this.handleStorno = this.handleStorno.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -27,15 +25,16 @@ class User extends React.Component {
         this.handleSave = this.handleSave.bind(this);
     }
 
+
+
     handleChange() {
         let s = [this.refs.firstName, this.refs.lastName];
 
-        this.setState ({
+        this.setState({
             customer: this.state.loggedIn
         });
 
-        for(let i = 0; i < s.length; i++)
-        {
+        for (let i = 0; i < s.length; i++) {
             s[i].disabled = false;
             s[i].style.border = "1px solid black";
             s[i].style.backgroundColor = "white";
@@ -49,13 +48,12 @@ class User extends React.Component {
     handleCancel() {
         let s = [this.refs.firstName, this.refs.lastName];
 
-        for(let i = 0; i < s.length; i++)
-        {
+        for (let i = 0; i < s.length; i++) {
             s[i].disabled = true;
             s[i].style.border = "none";
             s[i].style.backgroundColor = "inherit";
         }
-        this.setState ({
+        this.setState({
             loggedIn: this.state.customer
         });
 
@@ -71,8 +69,7 @@ class User extends React.Component {
 
         let s = [this.refs.firstName, this.refs.lastName, this.refs.save];
 
-        for(let i = 0; i < 2; i++)
-        {
+        for (let i = 0; i < 2; i++) {
             s[i].disabled = true;
             s[i].style.border = "none";
             s[i].style.backgroundColor = "inherit";
@@ -81,14 +78,14 @@ class User extends React.Component {
         this.refs.cancelButton.style.display = "none";
         this.refs.editButton.style.display = "flex";
 
-      /*  api.patch(`/customers/?contractNumber=${user}`, {
-            first_name: this.state.loggedIn.firstName,
-            last_name: this.state.loggedIn.lastName
-        }).then(() => {
-           console.log(arguments)
-        });*/
+        /*  api.patch(`/customers/?contractNumber=${user}`, {
+         first_name: this.state.loggedIn.firstName,
+         last_name: this.state.loggedIn.lastName
+         }).then(() => {
+         console.log(arguments)
+         });*/
 
-         api.get('/customers/search/updateCustomer',
+        api.get('/customers/search/updateCustomer',
             {
                 params: {
                     firstName: this.state.loggedIn.firstName,
@@ -100,7 +97,7 @@ class User extends React.Component {
         s[2].firstChild.data = "Daten erfolgreich gespeichert";
         s[2].style.display = "flex";
 
-        setTimeout(function() {
+        setTimeout(function () {
             this.refs.save.style.display = "none";
         }.bind(this), 3000);
     }
@@ -112,7 +109,7 @@ class User extends React.Component {
         this.setState((prev) => update(prev, {
             loggedIn: {
                 [name]: {
-                        $set: value
+                    $set: value
                 }
             }
         }));
@@ -121,26 +118,17 @@ class User extends React.Component {
     handleStorno(event) {
         console.log(event.target);
         if (isLoggedIn()) {
-            api.delete(`bookings/?contractNumber=${event.target.name}`);/*.then(() => { // TODO: Funktion, die die richtige Buchung storniert
-                api.get(`/bookings/search/findByContractNumber`, {
+            api.get(`bookings/search/deleteBooking`,
+                {
                     params: {
-                        contractNumber: this.state.loggedIn.contractNumber
+                        bookingId: event.target.alt
                     }
-                }, {
-                    headers: {
-                        authorization: token
-                    }
-                }).then(({data}) => {
-                    this.setState({
-                        bookings: [data]
-                    })
                 });
-            });*/
             window.location.reload();
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
         if (isLoggedIn()) {
             const token = getToken();
             const user = getUser();
@@ -159,8 +147,6 @@ class User extends React.Component {
                     loggedIn: data
                 });
 
-               // console.log(this.state.loggedIn);
-
                 api.get(`/bookings/search/findByContractNumber`, {
                     params: {
                         contractNumber: this.state.loggedIn.contractNumber
@@ -170,25 +156,29 @@ class User extends React.Component {
                         authorization: token
                     }
                 }).then(({data}) => {
-                    console.log(data);
-                    //let withNames = data.map
-
                     this.setState({
                         bookings: data._embedded.bookings
-                    })
-                });
-
-                /*this.state.bookings.map((booking) => { // TODO: Name soll gesetzt werden irgendwo rein
-                    api.get(`/apartments/${booking.bookingId}`).then(({data}) => { // bookingId wird noch nicht rausgegeben
-                        console.log(data);
-
                     });
-                })*/
+                    let apartments = [];
 
+                    api.get(`/apartments`).then(({data}) => {
+                        apartments = data._embedded.apartments;
+                        console.log(apartments);
+                        this.state.bookings.map((booking) => {
+                            //console.log("bookingId: " + booking.apartmentId);
+                            booking["name"] = apartments.find((apartment) => {
+
+                                if (apartment.apartmentId === booking.apartmentId) {
+                                  //  console.log(apartment.name);
+                                    return apartment.name;
+                                }
+                            });
+                        });
+                    console.log(this.state.bookings[0].name.name);
+                    });
+
+                });
             });
-
-
-
         }
     }
 
@@ -201,28 +191,39 @@ class User extends React.Component {
                     <hr />
                     <div className={styles.userStats}>
                         <label>Vorname: </label>
-                        <input ref="firstName" onChange={this.handleInput} name="firstName" className={styles.test1} disabled={true}
+                        <input ref="firstName" onChange={this.handleInput} name="firstName" className={styles.test1}
+                               disabled={true}
                                value={this.state.loggedIn.firstName}/>
                         <br />
                         <label>Nachname: </label>
-                        <input ref="lastName" onChange={this.handleInput} name="lastName" className={styles.test1} disabled={true}
+                        <input ref="lastName" onChange={this.handleInput} name="lastName" className={styles.test1}
+                               disabled={true}
                                value={this.state.loggedIn.lastName}/>
                         <br />
                         <label>Vertragsnummer: </label>
-                        <input ref="contractNumber" onChange={this.handleInput} className={styles.test1} disabled={true} value={this.state.loggedIn.contractNumber}/>
+                        <input ref="contractNumber" onChange={this.handleInput} className={styles.test1} disabled={true}
+                               value={this.state.loggedIn.contractNumber}/>
                         <br />
                         <label>Email-Adresse:</label>
-                        <input ref="email" onChange={this.handleInput} name="email" className={styles.test1} disabled={true} value={this.state.loggedIn.email}/>
+                        <input ref="email" onChange={this.handleInput} name="email" className={styles.test1}
+                               disabled={true} value={this.state.loggedIn.email}/>
                         <br />
                         <label>Geburtsdatum:</label>
-                        <input ref="birthdate" onChange={this.handleInput} name="dateOfBirth" className={styles.test1} disabled={true} value={moment(this.state.loggedIn.dateOfBirth).format('DD.MM.YYYY')}/>
+                        <input ref="birthdate" onChange={this.handleInput} name="dateOfBirth" className={styles.test1}
+                               disabled={true} value={moment(this.state.loggedIn.dateOfBirth).format('DD.MM.YYYY')}/>
                         <br />
                     </div>
 
                     <div className={styles.buttons}>
-                        <button ref="editButton" onClick={this.handleChange} className={globalStyles.button}>bearbeiten</button>
-                        <button ref="cancelButton" onClick={this.handleCancel} className={globalStyles.button + ' ' + styles.buttonSave}>abbrechen</button>
-                        <button ref="saveButton" onClick={this.handleSave} className={globalStyles.button + ' ' + styles.buttonSave}>speichern</button>
+                        <button ref="editButton" onClick={this.handleChange} className={globalStyles.button}>
+                            bearbeiten
+                        </button>
+                        <button ref="cancelButton" onClick={this.handleCancel}
+                                className={globalStyles.button + ' ' + styles.buttonSave}>abbrechen
+                        </button>
+                        <button ref="saveButton" onClick={this.handleSave}
+                                className={globalStyles.button + ' ' + styles.buttonSave}>speichern
+                        </button>
                     </div>
                     <label ref="save" className={styles.save}> </label>
 
@@ -234,8 +235,8 @@ class User extends React.Component {
                             <tbody>
                             <tr>
                                 <th className={styles.tgyw4l}>Name (Buchung)</th>
-                                <th className={styles.tgyw4l}>Start</th>
-                                <th className={styles.tgyw4l}>Ende</th>
+                                <th className={styles.tgyw4l}>Start (KW)</th>
+                                <th className={styles.tgyw4l}>Ende (KW)</th>
                                 <th className={styles.tgyw4l}>Status</th>
                                 <th className={styles.tgyw4l}>Preis (Punkte)</th>
                                 <th className={styles.tgyw4l}>Zuzahlung (in €)</th>
@@ -243,14 +244,16 @@ class User extends React.Component {
                             </tr>
                             {this.state.bookings.map((booking, index) =>
                                 <tr key={index}>
-                                    <td>{booking.bookingId}</td>
-                                    <td>{booking.start}</td>
-                                    <td>{booking.end}</td>
+                                    <td>{booking.name}</td>
+                                    <td>{booking.week1}.{booking.year}</td>
+                                    <td>{booking.week2}.{booking.year}</td>
                                     <td>{booking.status}</td>
                                     <td>{booking.price}</td>
                                     <td>{booking.additionalCharge}</td>
                                     <td className={styles.check} ref="button">
-                                        <input className={globalStyles.button} alt={booking.bookingId} value="stornieren" name={booking.bookingId} onClick={this.handleStorno} type="button"/>
+                                        <input className={globalStyles.button} alt={booking.bookingId}
+                                               value="stornieren" onClick={this.handleStorno}
+                                               type="button"/>
                                     </td>
                                 </tr>
                             )}

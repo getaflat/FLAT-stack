@@ -21,6 +21,6 @@ public interface BookingRepository extends CrudRepository<Booking, Long> {
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query(value = "DELETE from booking where contract_number= :contractNumber", nativeQuery = true)
-    Integer deleteBooking(@Param("contractNumber") Long contractNumber);
+    @Query(value = "DELETE from booking where booking_id= :bookingId", nativeQuery = true)
+    Integer deleteBooking(@Param("bookingId") Long bookingId);
 }
