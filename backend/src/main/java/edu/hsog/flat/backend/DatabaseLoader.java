@@ -38,7 +38,7 @@ public class DatabaseLoader implements CommandLineRunner {
 	@Override
 	public void run(String... strings) throws Exception {
         this.aRepository.deleteAll();
-        this.bRepository.deleteAll();
+//        this.bRepository.deleteAll();
         this.cRepository.deleteAll();
         this.fRepository.deleteAll();
         this.iRepository.deleteAll();
