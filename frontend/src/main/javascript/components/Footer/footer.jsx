@@ -27,7 +27,7 @@ class Footer extends React.Component {
 
     ratingChanged (newRating)
     {
-        console.log(newRating);
+        //console.log(newRating);
         this.state.stars = newRating;
     }
 
@@ -38,13 +38,15 @@ class Footer extends React.Component {
 
     handleRating()
     {
-        console.log(this.state.stars + 'Text: ' + this.state.ratingText);
+       // console.log(this.state.stars + 'Text: ' + this.state.ratingText);
 
 
-        api.post('/ratings', {  // TODO: fix for bad Request error
-            contractNumber: this.state.contractNumber,
-            score: this.state.stars,
-            comment: this.state.ratingText
+        api.get('/ratings/search/postRating', {  // TODO: fix for bad Request error
+            params: {
+                comment: this.state.ratingText,
+                score: this.state.stars,
+                contractNumber: this.state.contractNumber
+            }
         });
 
         this.refs.Heading.firstChild.data = "Vielen Dank für Ihre Bewertung!";
@@ -97,12 +99,12 @@ class Footer extends React.Component {
             api.get('/ratings/search/findByContractNumber', {
                 params: {
                     contractNumber: data.contractNumber
-                },
+                }/*,
                 validateStatus: function(status) {
                     return status >= 200 && status < 300 || status === 404;
-                }
-            }).catch(function (error) { // TODO: abfangen dass error in Konsole ausgegeben wird von Browser?
-               console.log(error);
+                }*/
+            }).catch(function (error) {
+               //console.log(error);
                 if(error.response.status === 404) {
                    ref.style.display = "block";
                }

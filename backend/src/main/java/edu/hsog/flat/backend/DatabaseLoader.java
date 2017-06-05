@@ -798,49 +798,49 @@ public class DatabaseLoader implements CommandLineRunner {
 
 
         Rating r1 = new Rating();
-        r1.setRatingId(1L);
+      //  r1.setRatingId(1L);
         r1.setContractNumber(c1.getContractNumber());
         this.raRepository.save(r1);
 
         Rating r2 = new Rating();
-        r2.setRatingId(2L);
+      //  r2.setRatingId(2L);
         r2.setContractNumber(c2.getContractNumber());
         this.raRepository.save(r2);
 
         Rating r3 = new Rating();
-        r3.setRatingId(3L);
+      //  r3.setRatingId(3L);
         r3.setContractNumber(c3.getContractNumber());
         this.raRepository.save(r3);
 
         Rating r4 = new Rating();
-        r4.setRatingId(4L);
+     //   r4.setRatingId(4L);
         r4.setContractNumber(c4.getContractNumber());
         this.raRepository.save(r4);
 
         Rating r5 = new Rating();
-        r5.setRatingId(5L);
+      //  r5.setRatingId(5L);
         r5.setContractNumber(c5.getContractNumber());
         this.raRepository.save(r5);
 
         Rating r6 = new Rating();
-        r6.setRatingId(6L);
+      //  r6.setRatingId(6L);
         r6.setContractNumber(c6.getContractNumber());
         this.raRepository.save(r6);
 
         Rating r7 = new Rating();
-        r7.setRatingId(7L);
+       // r7.setRatingId(7L);
         r7.setContractNumber(c7.getContractNumber());
         this.raRepository.save(r7);
 
 
         Rating r8 = new Rating();
-        r8.setRatingId(8L);
+       // r8.setRatingId(8L);
         r8.setContractNumber(c7.getContractNumber());
         this.raRepository.save(r8);
 
 
         Rating r9 = new Rating();
-        r9.setRatingId(9L);
+        //r9.setRatingId(9L);
         r9.setContractNumber(c9.getContractNumber());
         this.raRepository.save(r9);
 

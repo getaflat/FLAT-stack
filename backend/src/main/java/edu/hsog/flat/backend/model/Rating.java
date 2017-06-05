@@ -10,12 +10,9 @@ import lombok.*;
 @NoArgsConstructor
 public class Rating {
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NonNull
-	private Long id;
-
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@NonNull
-	private Long ratingId;
+	private Long id;
 
 	/*@NonNull
 	@OneToOne(targetEntity = Customer.class, fetch= FetchType.EAGER)
