@@ -67,6 +67,7 @@ class Booking extends React.Component {
 
     componentDidMount(){
 
+        //User
         if (isLoggedIn()) {
             const token = getToken();
             const user = getUser();
@@ -93,6 +94,7 @@ class Booking extends React.Component {
                 });
             });
         }
+
         /*api.get('/apartments/search/findByName',{
             params: {
                 name: this.props.match.params.id
@@ -108,7 +110,7 @@ class Booking extends React.Component {
             });
         });*/
 
-        //Bild und Beschreibung
+        //Bild und Beschreibung und max Personenanzahl
         api.get('/apartments/search/findByName', {
             params: {
                 name: this.props.match.params.id
@@ -117,7 +119,7 @@ class Booking extends React.Component {
             console.log(data);
 
             descr = data.description;
-            // maxPeople = data.numberOfPeopleAllowed;
+             maxPeople = data.numberOfPeopleAllowed;
 
 
             this.setState({
@@ -164,7 +166,7 @@ class Booking extends React.Component {
 
         diff = endKW-startKW;
 
-        switch (diff){//TODO ? funktion auslagern, cases wg. faktor id
+        /*switch (diff){//TODO ? funktion auslagern, cases wg. faktor id
             case 0:
                 break;
             case (1 || (-1)):
@@ -179,13 +181,13 @@ class Booking extends React.Component {
             default:
                 //TODO error ausgeben?
                 break;
-        }
+        }*/
 
         //TODO wie Zugriff? ID ist Fewo name, brauch ich nur für beschreibung, factor für Preiskalkulation
 
 
-
-        api.get('seasons/search/findFactorIdBySeason', {
+        //factorID raussuchen
+        api.get('seasons/search/findByCalenderWeek', {
             params: {
                 start: endKW
             }
@@ -303,7 +305,7 @@ class Booking extends React.Component {
                         <form onSubmit={this.handleSubmit} onReset={this.clearInputs}>
                             <label>
                                 Anzahl Personen:
-                            </label> {/*TODO max funktioniert nicht, wie begrenzen oder später fehler melden max={this.state.numberOfPeople}*/}
+                            </label> {/*TODO max funktioniert nicht, wie begrenzen max={maxPeople}*/}
                             <input required={false} className={globalStyles.input} name="numberOfPeople" value={this.state.numberOfPeople}
                                    ref="numberOfPeopleInput" type="number" min={1}  onChange={this.handleInput}/><br />
                             <label>
