@@ -6,6 +6,7 @@ import edu.hsog.flat.backend.repository.BookingRepository;
 import org.apache.tomcat.jni.Local;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
+import org.joda.time.Weeks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -58,6 +59,35 @@ public class BookingController {
     @ResponseBody
     public List<Booking> findAllBookingsByContractNumber(@PathVariable(value = "id") String id) {
         List<Booking> bookings = bookingRepository.findByContractNumber(Long.parseLong(id));
+        for (Booking booking1: bookings) {
+            List<Booking> bookingList = findAllBookingsByApartmentIdAndWeek1(booking1.getApartmentId().toString(), booking1.getWeek1().toString());
+            LocalDate today = getToday();
+            LocalDate deadline;
+            LocalDate saveDate = getToday();
+            for (Booking booking2: bookingList) {
+                deadline = getDeadline(booking2);
+                LocalDate lastModified = new LocalDate(booking2.getLastModified());
+                int months = calcMonthsDifference(today, deadline);
+                if(months <= 6){
+                    saveDate = saveDate.compareTo(lastModified) < 0 ? new LocalDate(lastModified) : saveDate;
+                }
+                if(today.compareTo(saveDate)< 0){
+                    int weeks = calcWeeksDifference(lastModified, today);
+                    if(weeks <= 2){
+
+                    }
+                }
+            }
+
+
+        }
+        return bookings;
+    }
+
+    @RequestMapping(path = "${spring.data.rest.base-path}/bookingsnew/search/findByApartmentIdAndWeek/{id}/{week}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Booking> findAllBookingsByApartmentIdAndWeek1(@PathVariable(value = "id") String id, @PathVariable(value = "week") String calenderWeek) {
+        List<Booking> bookings = bookingRepository.findByApartmentIdAndWeek1(Long.parseLong(id), Integer.parseInt(calenderWeek));
 
         return bookings;
     }
@@ -91,6 +121,10 @@ public class BookingController {
     private int calcMonthsDifference(LocalDate start, LocalDate end) {
         return Months.monthsBetween(start.withDayOfMonth(1), end.withDayOfMonth(1)).getMonths();
     }
+    private int calcWeeksDifference(LocalDate start, LocalDate end) {
+        return Weeks.weeksBetween(start, end).getWeeks();
+    }
+
 
     private LocalDate getDeadline(Booking booking) {
         Calendar calendar = Calendar.getInstance();

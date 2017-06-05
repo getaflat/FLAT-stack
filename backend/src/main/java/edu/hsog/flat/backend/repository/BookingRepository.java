@@ -14,5 +14,6 @@ public interface BookingRepository extends CrudRepository<Booking, Long> {
     List<Booking> findByContractNumber(@Param("contractNumber") Long contractNumber);
     Booking findByBookingId(@Param("bookingId") Long bookingId);
     List<Booking> findByApartmentId(@Param("apartmentId") Long apartmentId);
+    List<Booking> findByApartmentIdAndWeek1(@Param("apartmentId") Long apartmentId, @Param("week1") Integer week1);
     List<Booking> findAll();
 }
