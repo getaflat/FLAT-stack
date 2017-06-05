@@ -55,7 +55,7 @@ class Home extends React.Component {
 
     render() {
         return (
-            <div className={globalStyles.wrapper}>
+            <div className={globalStyles.wrapper + ' ' + styles.wrapper}>
                 <div className={styles.leftStart}>
                     <img className={styles.image} src={this.state.pictureStart} />
                 </div>
