@@ -25,6 +25,7 @@
     border: none;
     background: inherit;
     color: black;
+    min-width: 200px;
 }
 
 .tg {
