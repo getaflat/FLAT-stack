@@ -2,6 +2,7 @@ package edu.hsog.flat.backend.repository;
 
 import edu.hsog.flat.backend.model.Season;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
@@ -9,5 +10,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  */
 @RepositoryRestResource(collectionResourceRel = "seasons", path = "seasons")
 public interface SeasonRepository extends CrudRepository<Season, Long> {
+    Season findByCalenderWeek(@Param("calenderWeek") Long calenderWeek);
 
 }

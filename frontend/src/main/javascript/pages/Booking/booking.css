@@ -11,20 +11,69 @@
 .rightBooking {
     width: 100%;
     /*border: 1px solid red;*/
+    text-align: center;
 
 }
 
 .rightBooking label {
     width: 160px;
     max-width: 100%;
+    align-items: center;
+}
+
+.facts{
+    margin-right: 5vw;
+    margin-left: 5vw;
+
+}
+
+.detail {
+    text-decoration: underline;
 }
 
 .leftBooking {
+    display: flex;
     width: 100%;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
 }
 
 .input {
     min-width: 250px;
+}
+
+.button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.submitButton {
+    display: none;
+}
+
+.submitResponse{
+    display: flex;
+    justify-content: center;
+}
+
+.bookingLabel {
+    display: none;
+    text-align: center;
+
+}
+
+.cost {
+    background-color: inherit;
+    border: none !important;
+}
+
+.image {
+
+    width:  200px;
+    height: 150px;
+
 }
 
 @media only screen and (min-width: 600px) {
@@ -36,8 +85,14 @@
 
     }
 
+    .leftBooking {
+        justify-content: flex-start;
+    }
+
     .rightBooking {
         padding-top: 80px;
+        text-align: left;
+        padding-top: 200px;
     }
 }
 

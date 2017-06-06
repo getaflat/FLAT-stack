@@ -14,9 +14,16 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
+        /*this.state = {
             apartment: []
-        };
+        };*/
+
+        this.state = {
+            picture1: '',
+            picture2: '',
+            picture3: '',
+            apartmentId: ''
+        }
 
     }
 
@@ -28,15 +35,29 @@ class Home extends React.Component {
         }).catch((err) => {
             console.log(err.response)
         }); */
+
+
+
+        api.get('/images/search/findByApartmentId', {
+            params: {
+                apartmentId: (Math.floor(Math.random() * 14) + 1)
+            }
+        }).then(({ data }) => {
+            console.log(data);
+            this.setState({
+                pictureStart:'data:image/png;base64,' + data._embedded.images["0"].image,
+
+
+            });
+        });
     }
 
 
     render() {
         return (
-            <div className={globalStyles.wrapper}>
+            <div className={globalStyles.wrapper + ' ' + styles.wrapper}>
                 <div className={styles.leftStart}>
-                    <img className={styles.picture} src={this.state.apartment.images} />
-                    <h3>{this.state.apartment.name}Foto aus DB</h3>
+                    <img className={styles.image} src={this.state.pictureStart} />
                 </div>
                 <div className={styles.rightStart}>
                     <br />

@@ -39,7 +39,7 @@ class SortableHeaderCell extends React.Component {
         return (
             <div>
                 <span>{this.props.label}</span>
-                <input onChange={(event) => this.props.onFilterChange(this.props.field, event)} />
+                <input className={styles.input} onChange={(event) => this.props.onFilterChange(this.props.field, event)} />
             </div>
         );
     }
@@ -59,34 +59,60 @@ class TrueFalseCell extends React.Component {
 }
 
 class regionFewos extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
             fewos: [],
-            filteredDataList: []
+            filteredDataList: [],
+            picture: '',
+            description: ''
+
+            // testfewo: ''
 
         };
         this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
-        api.get('/apartments').then(({ data }) => {
-            let apartments = data._embedded.apartments.map((apartment) => {
-                let infantsAllowed = apartment.infantsAllowed ? "Ja" : "Nein";
-                let isAvailable = apartment.isAvailable ? "Ja" : "Nein";
 
-                return {
-                    ...apartment,
-                    infantsAllowed,
-                    isAvailable
-                }
+        api.get('/residential-blocks/search/findByName', {
+         params: {
+         name: this.props.match.params.id
+         }
+         }).then(({ data }) => {
+         console.log(data);
+
+            this.setState({
+                picture: 'data:image/png;base64,' + data.image1,
+                description: data.details
             });
-            this.setState((prev, props) => {
-                return { fewos: apartments, filteredDataList: apartments }
-            });
-        }).catch(() => {
-            console.error(arguments)
-        })
+
+         return api.get('/apartments/search/findByResidentialBlockId', {
+         params: {
+         residentialBlockId: data.residentialBlockId
+         }
+         });
+         }).then(({ data }) => {
+
+         console.log(data);
+
+         let apartments = data._embedded.apartments.map((apartment) => {
+         let infantsAllowed = apartment.infantsAllowed ? "Ja" : "Nein";
+         let isAvailable = apartment.isAvailable ? "Ja" : "Nein";
+
+         return {
+         ...apartment,
+         infantsAllowed,
+         isAvailable
+         }
+         });
+         this.setState((prev, props) => {
+         return { fewos: apartments, filteredDataList: apartments }
+         });
+         }).catch(() => {
+         console.error(arguments)
+         });
     }
 
     handleClick(event) {
@@ -116,11 +142,21 @@ class regionFewos extends React.Component {
 
     render() {
         return (
-            <div className={globalStyles.wrapper}>
-                <h1>Region: {this.props.match.params.id}</h1>
-                <div className={styles.tgwrap}>
+            <div className={globalStyles.wrapper + ' ' + styles.wrapper}>
+                <div className={styles.leftSide}>
+                    <div> <img className={styles.image} src={this.state.picture}/> </div>
+                    <br/>
+                <h1>Region: <br/>{this.props.match.params.id}</h1> {/*id herkunft*/}
+                </div>
+
+                <div className={styles.rightSide}>
+                <div>
+                    {this.state.description}
+                </div>
+                    <br/>
+                <div>
                     <Table rowsCount={this.state.filteredDataList.length} height={1000}
-                           width={1200}
+                           width={750}
                            rowHeight={30} headerHeight={60}>
                         <Column
                             header={<SortableHeaderCell onFilterChange={this.onFilterChange.bind(this)} field="name" label="Name (Ferienwohnung)" />}
@@ -129,24 +165,25 @@ class regionFewos extends React.Component {
                         <Column
                             header={<SortableHeaderCell onFilterChange={this.onFilterChange.bind(this)} field="numberOfRooms" label="Zimmer" />}
                             cell = {<TextCell data={this.state.filteredDataList} field="numberOfRooms" />}
-                            width={200} />
+                            width={75} />
                         <Column
                             header={<SortableHeaderCell onFilterChange={this.onFilterChange.bind(this)} field="numberOfPersons" label="Personenanzahl" />}
                             cell = {<TextCell data={this.state.filteredDataList} field="numberOfPersons" />}
-                            width={200} />
+                            width={125} />
                         <Column
                             header={<SortableHeaderCell onFilterChange={this.onFilterChange.bind(this)} field="size" label="Größe (in cm²)" />}
                             cell = {<TextCell data={this.state.filteredDataList} field="size" />}
-                            width={200} />
+                            width={125} />
                         <Column
                             header={<SortableHeaderCell onFilterChange={this.onFilterChange.bind(this)} field="infantsAllowed" label="Kinder geeignet" />}
                             cell = {<TextCell data={this.state.filteredDataList} field="infantsAllowed" />}
-                            width={200} />
+                            width={125} />
                         <Column
                             header={<SortableHeaderCell onFilterChange={this.onFilterChange.bind(this)} field="isAvailable" label="Derzeit frei" />}
                             cell = {<TextCell data={this.state.filteredDataList} field="isAvailable" />}
-                            width={200} />
+                            width={100} />
                     </Table>
+                </div>
                 </div>
             </div>
         );

@@ -1,50 +1,39 @@
-.tg {
-    border-collapse: collapse;
-    border-spacing: 0;
-    border-color: #aabcfe;
-    margin: 0 auto;
+.wrapper {
+    flex-flow: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-bottom: 5px;
 }
 
-.tg td {
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    padding: 10px 5px;
-    overflow: hidden;
-    word-break: normal;
-    color: black;
-    background: white;
-    border: 1px solid #aabcfe;
-    border-right-width: 0;
-    border-left-width: 0;
+.image {
+
+    width:  150px;
+    height: 100px;
+
 }
 
-.tg th {
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    font-weight: normal;
-    padding: 10px 5px;
-    overflow: hidden;
-    word-break: normal;
-    color: #039;
-    background-color: lightgray;
-    border: 1px solid #aabcfe;
-    border-right-width: 0;
-    border-left-width: 0;
+.input {
+    width: 90%;
+    margin-left: 5%;
 }
 
-.tg .tgyw4l {
-    vertical-align: top;
-}
+@media only screen and (min-width: 600px) {
+    /* tablet */
 
-.tg {
-    width: 100%;
-}
+    .wrapper{
+        flex-direction: row;
+    }
 
-.tg col {
-    width: auto !important;
-}
+    .leftSide{
+        width: 25%;
+        float: left;
 
-.tgwrap {
-    overflow-x: auto;
-    margin: auto 0;
+    }
+
+    .rightSide{
+        width: 75%;
+        float: left;
+
+    }
+
 }

@@ -1,7 +1,9 @@
 package edu.hsog.flat.backend.repository;
 
+import edu.hsog.flat.backend.model.Apartment;
 import edu.hsog.flat.backend.model.ResidentialBlock;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
@@ -9,5 +11,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  */
 @RepositoryRestResource(collectionResourceRel = "residential-blocks", path = "residential-blocks")
 public interface ResidentialBlockRepository extends CrudRepository<ResidentialBlock, Long> {
-
+    ResidentialBlock findByName(@Param("name") String name);
 }

@@ -72,11 +72,11 @@ class Header extends React.Component {
 
                     <div className={styles.buttons}>
                         {isLoggedIn() ? (
-                            <Link className={globalStyles.button} to="/logout">Logout</Link>
+                            <Link className={globalStyles.button + ' ' + styles.button} to="/logout">Logout</Link>
                         ) : (
                             <span>
-                                <Link className={globalStyles.button} to="/login">Login</Link>
-                                <Link className={globalStyles.button} to="/register">Registrieren</Link>
+                                <Link className={globalStyles.button + ' ' + styles.button} to="/login">Login</Link>
+                                <Link className={globalStyles.button + ' ' + styles.button} to="/register">Registrieren</Link>
                             </span>
                         )}
 
