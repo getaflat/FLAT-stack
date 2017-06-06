@@ -93,6 +93,8 @@ class Footer extends React.Component {
                 authorization: token
             }
         }).then(({data}) => {
+            console.log(data);
+
             this.setState({
                 contractNumber: data.contractNumber
             });

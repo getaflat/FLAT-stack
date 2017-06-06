@@ -7,10 +7,6 @@ import { isLoggedIn, getUser, getToken } from '../../services/auth';
 
 import update from 'immutability-helper';
 
-const propTypes = {};
-
-const defaultProps = {};
-
 //TODO ich hab hier noch ein paar Variabeln angelegt, diese können gelöscht, geändert oder ignoriert werden
 let descr;
 let maxPeople;
@@ -77,7 +73,6 @@ class Booking extends React.Component {
         this.clearInputs = this.clearInputs.bind(this);
         this.handleInput = this.handleInput.bind(this);
         this.calcCost = this.calcCost.bind(this);
-
     }
 
     calcCost(event) {
@@ -237,8 +232,14 @@ class Booking extends React.Component {
             }).then(({data})=> {
                 console.log(data);
 
-                //TODO Ausgabe in Punkten
-                this.state.booking.points =this.state.booking.points + (data.basePrice * factor4);
+                // TODO Ausgabe in Punkten
+                // this.state.booking.points =this.state.booking.points + (data.basePrice * factor4);
+
+                this.setState((prev, props) => update(prev, {
+                    booking: {
+                        points: { $apply: (points) => (prev.booking.points + (data.basePrice) * factor4) }
+                    }
+                }));
             });
 
         }
@@ -247,10 +248,16 @@ class Booking extends React.Component {
         //Zusatzkosten
 
         //Kosten höher als Guthaben (totalScore)
-        if(this.state.booking.points>this.state.customer.totalScore){
+        if (this.state.booking.points > this.state.customer.totalScore) {
             // 1 Punkt = 10 Euro, fehlende Punkte werden mit Faktor 2 = 20 Euro berechnet
-            //Ausgabe in Euro
-            this.state.booking.additionalCosts= (this.state.booking.points-this.state.customer.totalScore)*20
+            // Ausgabe in Euro
+            // this.state.booking.additionalCosts= (this.state.booking.points-this.state.customer.totalScore)*20
+
+            this.setState((prev, props) => update(prev, {
+                booking: {
+                    additionalCosts: { $set: (prev.bookings.points - prev.customer.totalScore) * 20 }
+                }
+            }));
         }
 
     }
@@ -410,7 +417,6 @@ class Booking extends React.Component {
                 }
             }
         }));
-
     }
 
     clearInputs() {
@@ -503,8 +509,5 @@ class Booking extends React.Component {
         );
     }
 }
-
-Booking.propTypes = propTypes;
-Booking.defaultProps = defaultProps;
 
 export default Booking;
