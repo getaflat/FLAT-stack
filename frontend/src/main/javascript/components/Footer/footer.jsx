@@ -84,6 +84,8 @@ class Footer extends React.Component {
         const user = getUser();
         let ref = this.refs.rate;
 
+        console.log(this.props);
+
         api.get(`/customers/search/findByEmail`, {
             params: {
                 email: user
@@ -118,12 +120,12 @@ class Footer extends React.Component {
     render() {
         return (
             <footer className={styles.wrapper}>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <div className={styles.menu}>
                     <Link className={styles.link} to="/imprint">Impressum</Link>
                     <Link className={styles.link} to="/gtc">Datenschutzbestimmungen</Link>
                 </div>
-                    <input ref="rate" className={globalStyles.button + ' ' + styles.button} onClick={this.handleOpenModal} type="button"
+
+                <input ref="rate" className={globalStyles.button + ' ' + styles.button} onClick={this.handleOpenModal} type="button"
                            value={"bewerten"}/>
 
 

@@ -9,9 +9,6 @@ import { isEmptyObject } from '../../util';
 
 import update from 'immutability-helper';
 
-const propTypes = {};
-const defaultProps = {};
-
 class User extends React.Component {
     constructor(props) {
         super(props);
@@ -124,7 +121,7 @@ class User extends React.Component {
 
     componentWillMount() {
         if (isLoggedIn()) {
-            /* const token = getToken();
+            const token = getToken();
             const user = getUser();
 
             api.get(`/customers/search/findByEmail`, {
@@ -271,10 +268,6 @@ class User extends React.Component {
         }
     }
 }
-
-
-User.propTypes = propTypes;
-User.defaultProps = defaultProps;
 
 export default User;
 

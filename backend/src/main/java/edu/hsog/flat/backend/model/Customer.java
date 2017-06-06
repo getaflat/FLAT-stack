@@ -40,6 +40,7 @@ public class Customer {
 
 	private Integer totalScore;
 
+	@JsonIgnore
 	public Customer getCopy(){
 	    Customer c = new Customer();
 	    c.setContractNumber(this.getContractNumber());
