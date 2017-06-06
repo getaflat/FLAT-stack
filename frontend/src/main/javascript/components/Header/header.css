@@ -57,16 +57,20 @@
 
 }
 
-.button{
-    font: bold 11px Arial;
+.button {
+    border-top: 1px solid #96d1f8;
+    background: white;
+    padding: 5px 10px;
+    margin-right: 8px;
+    margin-top: 4px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+    text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
+    color: black;
+    font-size: 15px;
     text-decoration: none;
-    background-color: #EEEEEE;
-    color: #333333;
-    padding: 2px 6px 2px 6px;
-    border-top: 1px solid #CCCCCC;
-    border-right: 1px solid #333333;
-    border-bottom: 1px solid #333333;
-    border-left: 1px solid #CCCCCC;
+    vertical-align: middle;;
+    min-width: 100px;
 }
 
 .userData {
