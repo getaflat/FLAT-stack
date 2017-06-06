@@ -11,7 +11,7 @@ const propTypes = {};
 
 const defaultProps = {};
 
-
+//TODO ich hab hier noch ein paar Variabeln angelegt, diese können gelöscht, geändert oder ignoriert werden
 let descr;
 let maxPeople;
 let points;
@@ -47,7 +47,7 @@ const customStyles = {
 class Booking extends React.Component {
     constructor(props) {
         super(props);
-///TODO customer überflüssig
+
         this.state = {
             customer: {},
             booking: {
@@ -75,18 +75,26 @@ class Booking extends React.Component {
     }
 
     calcCost(event) {
+        //nach Drücken des Buttons "Kosten berechnen"
         event.preventDefault();
 
-        // TODO: DB abfragen mit start = kw1 &  ende =kw2
+        // TODO: Dies ist ein Hinweis und kein Todo: booking.end entspricht kw2 in DB und booking.start entspricht kw1 in DB, in DB wird nicht mehr jede KW eingetragen sondern nur noch Start- und Endwoche
+        //Dauer des Aufenthalts in Fewo berechnen
         diff=this.state.booking.end-this.state.booking.start;
-        if(this.state.booking.end > 52||(diff)>4||(diff)<(-4))
+
+        //in Input-Feld max KW 52 möglich und max 4 Wochen Aufenthalt, -4 falls Aufenthalt über Jahreswechsel geht
+        //TODO Buchung über Jahreswechsel überhaupt möglich? In DB ist ein Feld für Jahr. Inputfeld Jahr noch ergänzen?
+        if(this.state.booking.end > 52 ||this.state.booking.start > 52||(diff)>4||(diff)<(-4))
             return;
 
+        //Buttons werden angepasst
         this.refs.submitB.style.display = "flex";
         this.refs.calcB.style.display = "none";
 
+        //Bei einer Woche Aufenthalt
         if(diff>=0||diff<=(0)) {
 
+            //Factor ID suchen
             api.get('/seasons/search/findByCalenderWeek', {
                 params: {
                     calenderWeek: this.state.booking.start
@@ -94,6 +102,7 @@ class Booking extends React.Component {
             }).then(({data}) => {
                 console.log(data);
 
+                //Factor suchen
                 return api.get('factors/search/findByFactorId', {
                     params: {
                         factorId: data.factorId
@@ -102,6 +111,8 @@ class Booking extends React.Component {
             }).then(({data})=> {
                 console.log(data);
                 factor1 = data.factor;
+
+                //Grundpreis Fewo suchen
                 return api.get('/apartments/search/findByName', {
                     params: {
                         name: this.props.match.params.id
@@ -110,15 +121,18 @@ class Booking extends React.Component {
 
             }).then(({data})=> {
                 console.log(data);
+                //TODO: ggf. Berechnung falsch, weil Variabeln nicht korrekt gesetzt
+                //Berechnung der ersten Woche
                  price= data.basePrice * factor1;
             });
 
         }
 
-        //TODO appartment muss nicht erneut gefunden werden ggf. löschen
 
+        //Bei zwei Wochen Aufenthalt diese if-Bedingung zusätzlich ausgeführt
         if(diff>=1||diff<=(-1)) {
 
+            //KW um 1 erhöhen
             kw2=(this.state.booking.start+1)%52;
 
             api.get('/seasons/search/findByCalenderWeek', {
@@ -136,6 +150,8 @@ class Booking extends React.Component {
             }).then(({data})=> {
                 console.log(data);
                 factor2 = data.factor;
+
+                //TODO appartment muss evtl. nicht erneut gefunden werden, da bereits bei Berechnung der erster Woche gesetzt, wg. Copy'n'Paste noch drin
                 return api.get('/apartments/search/findByName', {
                     params: {
                         name: this.props.match.params.id
@@ -149,6 +165,7 @@ class Booking extends React.Component {
 
         }
 
+        //Berechnung dritter Woche
         if(diff>=2||diff<=(-2)) {
 
             kw3=(this.state.booking.start+1)%52;
@@ -168,6 +185,8 @@ class Booking extends React.Component {
             }).then(({data})=> {
                 console.log(data);
                 factor3 = data.factor;
+
+                //TODO appartment muss evtl. nicht erneut gefunden werden, da bereits bei Berechnung der erster Woche gesetzt, wg. Copy'n'Paste noch drin
                 return api.get('/apartments/search/findByName', {
                     params: {
                         name: this.props.match.params.id
@@ -181,6 +200,7 @@ class Booking extends React.Component {
 
         }
 
+        //Berechnung vierter Woche
         if(diff>=3||diff<=(-3)) {
 
             kw4=(this.state.booking.start+1)%52;
@@ -200,6 +220,8 @@ class Booking extends React.Component {
             }).then(({data})=> {
                 console.log(data);
                 factor4 = data.factor;
+
+                //TODO appartment muss evtl. nicht erneut gefunden werden, da bereits bei Berechnung der erster Woche gesetzt, wg. Copy'n'Paste noch drin
                 return api.get('/apartments/search/findByName', {
                     params: {
                         name: this.props.match.params.id
@@ -208,18 +230,24 @@ class Booking extends React.Component {
 
             }).then(({data})=> {
                 console.log(data);
+
+                //TODO Ausgabe in Punkten
                 this.state.booking.points =this.state.booking.points + (data.basePrice * factor4);
             });
 
         }
 
+        //TODO funktionieren ggf. auch nicht, weil Berechnung der Kosten nicht funktioniert
         //Zusatzkosten
+
+        //Kosten höher als Guthaben (totalScore)
         if(this.state.booking.points>this.state.customer.totalScore){
-            // 1 Punkt = 10 Euro, zusätzlich Faktor 2 = 20 Euro
+            // 1 Punkt = 10 Euro, fehlende Punkte werden mit Faktor 2 = 20 Euro berechnet
+            //Ausgabe in Euro
             this.state.booking.additionalCosts= (this.state.booking.points-this.state.customer.totalScore)*20
         }
 
-        //Bild und Beschreibung und max Personenanzahl
+        //Bild und Beschreibung und max Personenanzahl (sieht überflüssig aus, leider wird nach dem Klicken auf einen Button die Beschreibung der Fewo nicht mehr angezeigt)
         api.get('/apartments/search/findByName', {
             params: {
                 name: this.props.match.params.id
@@ -228,8 +256,6 @@ class Booking extends React.Component {
             console.log(data);
 
             descr = data.description;
-            //  this.state.numberOfPeopleAllowed = data.numberOfPeopleAllowed;
-
 
             this.setState({
 
@@ -256,6 +282,8 @@ class Booking extends React.Component {
     }
 
     componentDidMount() {
+
+        //Sicherung der leeren Inputfelder, damit nach Klick auf den Button "abbrechen" wieder die Inputfelder geleert werden
         this.setState({
             basebooking: this.state.booking
         });
@@ -265,7 +293,8 @@ class Booking extends React.Component {
             const token = getToken();
             const user = getUser();
 
-
+    // TODO in Konsole werden alle User bzw. Kopie eines users geladen und dadurch kann in input-Feld KW nicht sofort etwas eingetragen werde
+     //TODO bei calcCost() werden auch alle User oder Kopie eines Users geladen
             api.get(`/customers/search/findByEmail`, {
                 params: {
                     email: user
@@ -284,22 +313,7 @@ class Booking extends React.Component {
             });
         }
 
-        /*api.get('/apartments/search/findByName',{
-            params: {
-                name: this.props.match.params.id
-            }
-        }).then(({data}) =>{
-            console.log(data);
-            descr = data.description;
-            this.setState({
-                fewo:{
-                    name: data.name,
-                    picture: data.images
-                }
-            });
-        });*/
-
-        //Bild und Beschreibung und max Personenanzahl
+        //Bild und Beschreibung und max Personenanzahl (sieht überflüssig aus, leider wird nach dem Klicken auf einen Button die Beschreibung der Fewo nicht mehr angezeigt)
         api.get('/apartments/search/findByName', {
             params: {
                 name: this.props.match.params.id
@@ -308,8 +322,6 @@ class Booking extends React.Component {
             console.log(data);
 
             descr = data.description;
-
-           //  this.state.numberOfPeopleAllowed = data.numberOfPeopleAllowed;
 
             this.setState({
 
@@ -333,18 +345,11 @@ class Booking extends React.Component {
         });
     }
 
-
-
-
-
     handleSubmit(event) {
+
         event.preventDefault();
 
-
-
-
-
-        //Bild und Beschreibungun
+        //Bild und Beschreibungung (sieht überflüssig aus, leider wird nach dem Klicken auf einen Button die Beschreibung der Fewo nicht mehr angezeigt)
         api.get('/apartments/search/findByName', {
             params: {
                 name: this.props.match.params.id
@@ -353,7 +358,6 @@ class Booking extends React.Component {
             console.log(data);
 
             descr = data.description;
-            //  this.state.numberOfPeopleAllowed = data.numberOfPeopleAllowed;
 
             this.setState({
 
@@ -376,14 +380,17 @@ class Booking extends React.Component {
             });
         });
 
-        //TODO An DB übermitteln
+        //TODO hier geht gar nix mit der DB :-(
+        //TODO Buchungsanfrage übermitteln, ich hab mir hier ein Beispiel überlegt, das jedoch komplett falsch sein kann
         //Beispiel
 
 
-        //höchste id bekommen
+        //TODO in BookingRepository.java habe ich ein maxBooking angelegt, jedoch auskommentiert, weil ich nicht weiß, ob es funktioniert
+        //höchste vergebene BookingID bekommen um sie dann um 1 zu inkrementieren
         /*api.get('booking/search/maxBooking')*/
 
-        /*api.post('/customers/search/updateBooking',
+        //Buchung übermitteln Version 1, jedoch nicht vollständig
+        /*api.post('/bookings/search/updateBooking',
          {
          params: {
          contractNumber: this.state.customer.contractNumber,
@@ -395,10 +402,12 @@ class Booking extends React.Component {
          }
          });*/
 
+        //Buchung übermitteln Teilcode Variante2
         /*register({ ...this.state.customer }).then(() => {
             this.props.history.push('/user');
         })*/
 
+        //alte Variante von Josua
         /*api.get(`/booking/${this.state.booking.contractnumber}`).then(({data}) => {
             this.setState({contractnumberCurrent: data.contract_number});
         }).then(() => {
@@ -410,11 +419,12 @@ class Booking extends React.Component {
                 start: this.state.booking.start,
                 end: this.state.booking.end,
 
-                // TODO get costs and additonalCosts
+                //get costs and additonalCosts
 
 
             });
-            //TODO Bestätigung
+
+
         }).catch(
             function (error) {
                 if (error.response) {
@@ -428,16 +438,18 @@ class Booking extends React.Component {
                 }
             });*/
 
+        //Label Bestätigung anzeigen
         this.refs.submitLabel.style.display = "flex";
         setTimeout(function() {
             this.refs.submitLabel.style.display = "none";
-            // TODO: dashboard weiterleiten
+
+            //dashboard weiterleiten
             this.props.history.push('/user');
         }.bind(this), 2000);
 
     }
 
-    handleInput(event) {//TODO nach Testen required auf true
+    handleInput(event) {
         let {name, value} = event.target;
 
         this.setState((prev) => update(prev, {
@@ -451,11 +463,13 @@ class Booking extends React.Component {
     }
 
     clearInputs() {
+
+        //Zwischengespeicherter State nach dem die Website geladen wurde wiederherstellen
         this.setState({
            booking: this.state.basebooking
         });
 
-        //Bild und Beschreibungun
+        //Bild und Beschreibungung (sieht überflüssig aus, leider wird nach dem Klicken auf einen Button die Beschreibung der Fewo nicht mehr angezeigt)
         api.get('/apartments/search/findByName', {
             params: {
                 name: this.props.match.params.id
@@ -464,7 +478,6 @@ class Booking extends React.Component {
             console.log(data);
 
             descr = data.description;
-            //  this.state.numberOfPeopleAllowed = data.numberOfPeopleAllowed;
 
             this.setState({
 
@@ -487,11 +500,13 @@ class Booking extends React.Component {
             });
         });
 
+        //Button anpassen
         this.refs.submitB.style.display = "none";
         this.refs.calcB.style.display = "flex";
     }
 
 
+    //TODO Anordnung der Buttons nach calcCost() stimmt ggf. nicht mehr
     render() {
         return (
             <div className={globalStyles.wrapper + ' ' + styles.wrapper}>
