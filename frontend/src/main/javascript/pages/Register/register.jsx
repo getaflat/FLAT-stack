@@ -89,8 +89,10 @@ class Register extends React.Component {
         }).catch((error) => {
             let message = 'Fehler, bitte versuchen sie es später erneut';
 
-            if (error.response && error.response.status === 401) {
+            if (error.response && error.response.status === 422) {
                 message = 'Bitte überprüfen sie Ihre Angaben';
+            } else if (error.response && error.response.status === 409) {
+                message = 'Diese E-Mail Adresse wird bereits verwendet';
             }
 
             this.setState({ error: message });

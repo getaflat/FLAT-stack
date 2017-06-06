@@ -92,20 +92,20 @@ class App extends React.Component {
                     <Header user={user} />
 
                     <Switch>
+                        <Route exact path="/" component={Home} />
+
+                        <PrivateRouteWithProps path="/user" component={User} props={{ user }} />
+                        <RouteWithProps path="/register" component={Register} props={{ onUserChange: this.handleUserChange }} />
                         <RouteWithProps path="/login" component={Login} props={{ user, onUserChange: this.handleUserChange }} />
                         <RouteWithProps path="/logout" component={Logout} props={{ onUserChange: this.handleUserChange }} />
 
-                        <PrivateRouteWithProps path="/user" component={User} props={{ user }} />
-
-                        <Route exact path="/" component={Home} />
+                        <Route path="/region" component={Region} />
+                        <Route path="/region/:id" component={RegionFewo} />
+                        <Route path="/fewo/:id" component={FeWo} />
                         <Route path="/booking/:id" component={Booking} />
+
                         <Route path="/gtc" component={GTC} />
                         <Route path="/imprint" component={Imprint} />
-
-                        <Route path="/region/:id" component={RegionFewo} />
-                        <Route path="/region" component={Region} />
-                        <Route path="/register" component={Register} />
-                        <Route path="/fewo/:id" component={FeWo} />
                     </Switch>
 
                     <Footer user={user} />
