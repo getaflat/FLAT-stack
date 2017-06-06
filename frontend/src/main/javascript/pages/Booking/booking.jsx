@@ -384,7 +384,7 @@ class Booking extends React.Component {
          contractNumber: this.state.customer.contractNumber,
          apartmentId: this.state.fewo.name,
          week1: this.state.booking.start,
-         week2: this.state.booking.end
+         week2: this.state.booking.end,
          price: this.state.booking.points,
          addtionalCharge: this.state.booking.additionalCosts
          }
