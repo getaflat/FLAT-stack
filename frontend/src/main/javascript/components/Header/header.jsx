@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 
 import api from '../../services/api';
 import { isLoggedIn, getUser, getToken } from '../../services/auth';
+import { isEmptyObject } from '../../util';
 
 import styles from './header.css';
 import globalStyles from '../../general-styles/global.css';
@@ -58,17 +59,14 @@ class Header extends React.Component {
                     <div className={styles.leftHeader}>
 
                     <div className={styles.userData}>
-                        {isLoggedIn() ? (
+                        {isLoggedIn() && !isEmptyObject(this.props.user) ? (
                             <span>
-                        <div><h3>{this.state.customer.username}</h3></div>
-                        <div><input type="text" disabled={true} value={this.state.customer.totalScore + " P."} /></div>
-                                </span>
-
-                        ):(
+                                <div><h3>{this.props.user.username}</h3></div>
+                                <div><input type="text" disabled={true} value={this.props.user.totalScore + " P."} /></div>
+                            </span>
+                        ) : (
                            <div></div>
                         )}
-                        {/*<div><h3>{this.state.customer.username}</h3></div>
-                        <div><input type="text" disabled={true} value={this.state.customer.totalScore + " P."} /></div>*/}
                     </div>
                     <br />
 
@@ -93,16 +91,6 @@ class Header extends React.Component {
                     <Link className={styles.tabLinks} to="/region">Gebietsauswahl</Link>
                     <Link className={styles.tabLinks} to="/user">Dashboard</Link>
                 </div>
-
-                {/*<div className={styles.topnav}>
-                 <Link to="/">Startseite</Link>
-                 <Link to="/booking">Buchung</Link>
-                 <Link to="/region">Gebiete</Link>
-                 <Link to="/fewo">Ferienwohnung</Link>
-                 <Link to="/login">Login</Link>
-                 <Link to="/register">Registrieren</Link>
-                 <Link to="/User">Dashboard</Link>
-                 </div>*/}
             </header>
         );
     }

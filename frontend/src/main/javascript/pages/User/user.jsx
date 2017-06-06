@@ -6,6 +6,8 @@ import moment from 'moment';
 import * as ReactDOM from "react-dom";
 import globalStyles from '../../general-styles/global.css';
 
+import { isEmptyObject } from '../../util';
+
 import update from 'immutability-helper';
 
 const propTypes = {};
@@ -175,7 +177,7 @@ class User extends React.Component {
                     });
                 })
 
-            });
+            }); */
 
 
 

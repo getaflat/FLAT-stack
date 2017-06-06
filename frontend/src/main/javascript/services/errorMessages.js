@@ -1,5 +1,5 @@
 export const isRequired = name => {
-    return `${name} darf nicht leer sein`;
+    return `${name} wird benötigt`;
 };
 
 export const isEmail = name => {

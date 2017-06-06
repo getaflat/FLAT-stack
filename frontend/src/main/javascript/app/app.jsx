@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { Switch, BrowserRouter as Router, Route, Redirect, withRouter } from 'react-router-dom';
 
 import styles from './app.css';
 
@@ -21,18 +21,28 @@ import api from '../services/api';
 import Header from '../components/Header/header';
 import Footer from "../components/Footer/footer";
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-    <Route {...rest} render={props => (
+const RouteWithProps = ({ props, component: Component, ...rest }) => {
+    const BlockAvoiding = withRouter(Component);
+
+    return (<Route {...rest} render={(matchedProps) => (
+        <BlockAvoiding {...matchedProps} {...props} />
+    )} />);
+};
+
+const PrivateRouteWithProps = ({ props, component: Component, ...rest }) => {
+    const BlockAvoiding = withRouter(Component);
+
+    return (<Route {...rest} render={(matchedProps) => (
         isLoggedIn() ? (
-            <Component {...props} />
+            <BlockAvoiding {...matchedProps} {...props} />
         ) : (
             <Redirect to={{
                 pathname: '/login',
                 state: { from: props.location }
             }} />
         )
-    )}/>
-);
+    )} />);
+};
 
 class App extends React.Component {
     constructor(props) {
@@ -43,7 +53,15 @@ class App extends React.Component {
         this.state = { user: {} };
     }
 
+    componentDidMount() {
+        this.fetchUserData();
+    }
+
     handleUserChange() {
+        this.fetchUserData();
+    }
+
+    fetchUserData() {
         if (isLoggedIn()) {
             const token = getToken();
             const user = getUser();
@@ -74,20 +92,23 @@ class App extends React.Component {
                     <Header user={user} />
 
                     <Switch>
+                        <RouteWithProps path="/login" component={Login} props={{ user, onUserChange: this.handleUserChange }} />
+                        <RouteWithProps path="/logout" component={Logout} props={{ onUserChange: this.handleUserChange }} />
+
+                        <PrivateRouteWithProps path="/user" component={User} props={{ user }} />
+
                         <Route exact path="/" component={Home} />
                         <Route path="/booking/:id" component={Booking} />
                         <Route path="/gtc" component={GTC} />
                         <Route path="/imprint" component={Imprint} />
-                        <Route path="/login"  render={(props) => <Login user={user} onUserChange={this.handleUserChange} {...props} />}/>
-                        <Route path="/logut"  render={(props) => <Logout onUserChange={this.handleUserChange} {...props} />}/>
+
                         <Route path="/region/:id" component={RegionFewo} />
                         <Route path="/region" component={Region} />
                         <Route path="/register" component={Register} />
                         <Route path="/fewo/:id" component={FeWo} />
-                        <PrivateRoute path="/user" render={(props) => <User user={user} {...props} />}/>
                     </Switch>
 
-                    <Footer />
+                    <Footer user={user} />
                 </div>
             </Router>
         );

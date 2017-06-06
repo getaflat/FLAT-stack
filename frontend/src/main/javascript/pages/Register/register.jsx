@@ -18,7 +18,7 @@ const rules = [
     rule("lastName", "Nachname"),
     rule("dateOfBirth", "Geburtsdatum", isRequired, minAge(18), maxAge(100)),
     rule("password", "Passwort", isRequired, mustMatch("passwordMatch", "wiederholtem Passwort")),
-    rule("passwordMatch", "Passwort...", isRequired),
+    rule("passwordMatch", "Wiederholtes Passwort", isRequired),
     rule("email", "Email Adresse", isRequired, isEmail),
     rule("contractNumber", "Vertragsnummer", isRequired, exactLength(12))
 ];
