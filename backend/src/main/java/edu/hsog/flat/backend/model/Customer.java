@@ -36,4 +36,16 @@ public class Customer {
 	private String password;
 
 	private Integer totalScore;
+
+	public Customer getCopy(){
+	    Customer c = new Customer();
+	    c.setContractNumber(this.getContractNumber());
+	    c.setLastName(this.getLastName());
+	    c.setFirstName(this.getFirstName());
+	    c.setDateOfBirth(this.getDateOfBirth());
+	    c.setEmail(this.getEmail());
+	    c.setPassword(this.getPassword());
+	    c.setTotalScore(this.getTotalScore());
+	    return c;
+    }
 }

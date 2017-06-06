@@ -1,8 +1,10 @@
 package edu.hsog.flat.backend.controller;
 
 import edu.hsog.flat.backend.model.Booking;
+import edu.hsog.flat.backend.model.Customer;
 import edu.hsog.flat.backend.repository.ApartmentRepository;
 import edu.hsog.flat.backend.repository.BookingRepository;
+import edu.hsog.flat.backend.repository.CustomerRepository;
 import org.apache.tomcat.jni.Local;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
@@ -26,9 +28,13 @@ public class BookingController {
     @Autowired
     ApartmentRepository apartmentRepository;
 
-    BookingController(BookingRepository bookingRepository, ApartmentRepository apartmentRepository) {
+    @Autowired
+    CustomerRepository customerRepository;
+
+    BookingController(BookingRepository bookingRepository, ApartmentRepository apartmentRepository, CustomerRepository customerRepository) {
         this.bookingRepository = bookingRepository;
         this.apartmentRepository = apartmentRepository;
+        this.customerRepository = customerRepository;
     }
 
     @RequestMapping(path = "${spring.data.rest.base-path}/bookingsnew", method = RequestMethod.GET)
@@ -59,22 +65,34 @@ public class BookingController {
     @ResponseBody
     public List<Booking> findAllBookingsByContractNumber(@PathVariable(value = "id") String id) {
         List<Booking> bookings = bookingRepository.findByContractNumber(Long.parseLong(id));
+
+        //search in all Bookings from one Customer
         for (Booking booking1: bookings) {
             List<Booking> bookingList = findAllBookingsByApartmentIdAndWeek1(booking1.getApartmentId().toString(), booking1.getWeek1().toString());
             LocalDate today = getToday();
             LocalDate deadline;
             LocalDate saveDate = getToday();
+            //search in all Booking from one apartment and the same start week
             for (Booking booking2: bookingList) {
                 deadline = getDeadline(booking2);
                 LocalDate lastModified = new LocalDate(booking2.getLastModified());
                 int months = calcMonthsDifference(today, deadline);
+                //only bookings with months <=6 are relevant
                 if(months <= 6){
+                    //get the oldest modified date, to check, is the booking waiting for 2 weeks
                     saveDate = saveDate.compareTo(lastModified) < 0 ? new LocalDate(lastModified) : saveDate;
                 }
-                if(today.compareTo(saveDate)< 0){
-                    int weeks = calcWeeksDifference(lastModified, today);
-                    if(weeks <= 2){
 
+            }
+            //check if the saveDate has changed
+            if (today.compareTo(saveDate) < 0) {
+                int weeks = calcWeeksDifference(saveDate, today);
+                if (weeks <= 2) {
+                    Customer customer = getOldestCustomerByBooking(booking1.getApartmentId().toString(), booking1.getWeek1().toString());
+                    if(booking1.getContractNumber().equals(customer.getContractNumber())){
+                        booking1.setStatus("Bestätigt");
+                    }else{
+                        booking1.setStatus("Abgelehnt");
                     }
                 }
             }
@@ -101,11 +119,10 @@ public class BookingController {
 
         if (months <= 2) {
             booking.setStatus("Bestätigt");
-            // Ok + evtl. Daten zurücksenden
-        } else if (months <= 6) {
-
+            // Ok + evtl. Daten zurücksenden und pruefen, ob ein Booking schon auf Bestaetigt ist
         } else if (months <= 12) {
-            // Warten bis 6 Monate davor =>
+            booking.setStatus("Wartend");
+            booking.setLastModified(getToday().toDate());
         } else {
             // Throw some fancy errors
         }
@@ -117,6 +134,43 @@ public class BookingController {
         System.out.println(months);
         System.out.println("======================================");
     }
+
+    @RequestMapping(path = "${spring.data.rest.base-path}/bookingsnew/search/findByApartmentIdAndWeek/{id}/{week1}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Customer> findAllCustomersByApartmentIdAndWeek1(@PathVariable(value = "id") String id, @PathVariable(value = "week1") String calenderWeek) {
+        List<Customer> customers = new ArrayList<Customer>();
+        List<Booking> bookings = findAllBookingsByApartmentIdAndWeek1(id, calenderWeek);
+        Long contractNumber;
+        for (Booking booking:bookings) {
+            contractNumber = booking.getContractNumber();
+            Customer customer = this.customerRepository.findByContractNumber(contractNumber);
+            customers.add(customer);
+        }
+        return customers;
+    }
+
+    /**
+     * Get the Customer, with the oldest Booking Date
+     * @param id    apartmentID
+     * @param calenderWeek  startWeek
+     * @return customer
+     */
+    private Customer getOldestCustomerByBooking(String id, String calenderWeek){
+        List<Customer> customers = findAllCustomersByApartmentIdAndWeek1(id, calenderWeek);
+        Customer customer = null;
+        LocalDate oldestBooking = getToday();
+        for (Customer customer1: customers) {
+            List<Booking> bookings = findAllBookingsByContractNumber(customer1.getContractNumber().toString());
+            for (Booking booking: bookings) {
+                if(oldestBooking.compareTo(getDeadline(booking)) < 0){
+                    customer = customer1.getCopy();
+                }
+            }
+        }
+        return customer;
+    }
+
+
 
     private int calcMonthsDifference(LocalDate start, LocalDate end) {
         return Months.monthsBetween(start.withDayOfMonth(1), end.withDayOfMonth(1)).getMonths();
@@ -135,6 +189,7 @@ public class BookingController {
 
         return LocalDate.fromCalendarFields(calendar);
     }
+
 
     private LocalDate getToday() {
         return LocalDate.now();

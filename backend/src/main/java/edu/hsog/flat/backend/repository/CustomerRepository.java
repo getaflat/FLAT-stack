@@ -22,6 +22,7 @@ public interface CustomerRepository extends CrudRepository<Customer, Long> {
     Customer findByContractNumber(@Param("contractNumber") Long contractNumber);
     Customer findByLastName(@Param("lastName") String lastName);
     Customer findByEmail(@Param("email") String email);
+    List<Customer> findAll();
 
     @Transactional
     @Modifying(clearAutomatically = true)
