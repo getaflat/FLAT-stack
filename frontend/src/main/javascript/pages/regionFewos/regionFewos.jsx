@@ -39,7 +39,7 @@ class SortableHeaderCell extends React.Component {
         return (
             <div>
                 <span>{this.props.label}</span>
-                <input onChange={(event) => this.props.onFilterChange(this.props.field, event)} />
+                <input className={styles.input} onChange={(event) => this.props.onFilterChange(this.props.field, event)} />
             </div>
         );
     }
@@ -59,11 +59,14 @@ class TrueFalseCell extends React.Component {
 }
 
 class regionFewos extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
             fewos: [],
             filteredDataList: [],
+            picture: '',
+            description: ''
 
             // testfewo: ''
 
@@ -73,28 +76,6 @@ class regionFewos extends React.Component {
 
     componentDidMount() {
 
-        //Testanfrage
-        /*api.get('/apartments').then(({ data }) => {
-            let apartments = data._embedded.apartments.map((apartment) => {
-                let infantsAllowed = apartment.infantsAllowed ? "Ja" : "Nein";
-                let isAvailable = apartment.isAvailable ? "Ja" : "Nein";
-
-                return {
-                    ...apartment,
-                    infantsAllowed,
-                    isAvailable
-                }
-            });
-            this.setState((prev, props) => {
-                return { fewos: apartments, filteredDataList: apartments }
-            });
-        }).catch(() => {
-            console.error(arguments)
-        });*/
-
-
-
-
         api.get('/residential-blocks/search/findByName', {
          params: {
          name: this.props.match.params.id
@@ -102,6 +83,10 @@ class regionFewos extends React.Component {
          }).then(({ data }) => {
          console.log(data);
 
+            this.setState({
+                picture: 'data:image/png;base64,' + data.image1,
+                description: data.details
+            });
 
          return api.get('/apartments/search/findByResidentialBlockId', {
          params: {
@@ -157,9 +142,19 @@ class regionFewos extends React.Component {
 
     render() {
         return (
-            <div className={globalStyles.wrapper}>
-                <h1>Region: {this.props.match.params.id}</h1> {/*id herkunft*/}
-                <div className={styles.tgwrap}>
+            <div className={globalStyles.wrapper + ' ' + styles.wrapper}>
+                <div className={styles.leftSide}>
+                    <div> <img className={styles.image} src={this.state.picture}/> </div>
+                    <br/>
+                <h1>Region: <br/>{this.props.match.params.id}</h1> {/*id herkunft*/}
+                </div>
+
+                <div className={styles.rightSide}>
+                <div>
+                    {this.state.description}
+                </div>
+                    <br/>
+                <div>
                     <Table rowsCount={this.state.filteredDataList.length} height={1000}
                            width={750}
                            rowHeight={30} headerHeight={60}>
@@ -188,6 +183,7 @@ class regionFewos extends React.Component {
                             cell = {<TextCell data={this.state.filteredDataList} field="isAvailable" />}
                             width={100} />
                     </Table>
+                </div>
                 </div>
             </div>
         );
