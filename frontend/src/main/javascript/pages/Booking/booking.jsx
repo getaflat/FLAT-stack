@@ -378,7 +378,12 @@ class Booking extends React.Component {
 
         //TODO An DB übermitteln
         //Beispiel
-        api.post('/customers/search/updateBooking',
+
+
+        //höchste id bekommen
+        /*api.get('booking/search/maxBooking')*/
+
+        /*api.post('/customers/search/updateBooking',
          {
          params: {
          contractNumber: this.state.customer.contractNumber,
@@ -388,7 +393,11 @@ class Booking extends React.Component {
          price: this.state.booking.points,
          addtionalCharge: this.state.booking.additionalCosts
          }
-         });
+         });*/
+
+        /*register({ ...this.state.customer }).then(() => {
+            this.props.history.push('/user');
+        })*/
 
         /*api.get(`/booking/${this.state.booking.contractnumber}`).then(({data}) => {
             this.setState({contractnumberCurrent: data.contract_number});

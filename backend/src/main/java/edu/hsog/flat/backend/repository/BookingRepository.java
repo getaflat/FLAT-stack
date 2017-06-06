@@ -23,4 +23,7 @@ public interface BookingRepository extends CrudRepository<Booking, Long> {
     @Modifying(clearAutomatically = true)
     @Query(value = "DELETE from booking where booking_id= :bookingId", nativeQuery = true)
     Integer deleteBooking(@Param("bookingId") Long bookingId);
+//    @Query(value = "Select MAX(booking_id) from booking")
+// Integer maxBooking(@Param("bookingID") Long bookingID);
+
 }
