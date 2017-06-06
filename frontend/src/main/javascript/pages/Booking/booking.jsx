@@ -32,6 +32,12 @@ let factor2;
 let factor3;
 let factor4;
 let missingPoints;
+let persons;
+let rooms;
+let size;
+let children;
+let pets;
+let balcony;
 
 const customStyles = {
     content : {
@@ -247,38 +253,6 @@ class Booking extends React.Component {
             this.state.booking.additionalCosts= (this.state.booking.points-this.state.customer.totalScore)*20
         }
 
-        //Bild und Beschreibung und max Personenanzahl (sieht überflüssig aus, leider wird nach dem Klicken auf einen Button die Beschreibung der Fewo nicht mehr angezeigt)
-        api.get('/apartments/search/findByName', {
-            params: {
-                name: this.props.match.params.id
-            }
-        }).then(({ data }) => {
-            console.log(data);
-
-            descr = data.description;
-
-            this.setState({
-
-                fewo: {
-                    name: data.name,
-                    id: data.apartmentId,
-
-                }
-
-            });
-
-            return api.get('/images/search/findByApartmentId', {
-                params: {
-                    apartmentId: data.apartmentId
-                }
-            })
-        }).then(({ data }) => {
-            console.log(data);
-            this.setState({
-                picture:'data:image/png;base64,' + data._embedded.images[0].image
-            });
-        });
-
     }
 
     componentDidMount() {
@@ -322,6 +296,14 @@ class Booking extends React.Component {
             console.log(data);
 
             descr = data.description;
+            //TODO neu
+            persons = data.numberOfPersons;
+            rooms = data.numberOfRooms;
+            size = data.size;
+            children = (data.infantsAllowed ? "Ja" : "Nein");
+            pets = (data.animalsAllowed ? "Ja" : "Nein");
+            balcony = (data.hasBalcony ? "Ja" : "Nein");
+            //TODO neu ende
 
             this.setState({
 
@@ -349,44 +331,13 @@ class Booking extends React.Component {
 
         event.preventDefault();
 
-        //Bild und Beschreibungung (sieht überflüssig aus, leider wird nach dem Klicken auf einen Button die Beschreibung der Fewo nicht mehr angezeigt)
-        api.get('/apartments/search/findByName', {
-            params: {
-                name: this.props.match.params.id
-            }
-        }).then(({ data }) => {
-            console.log(data);
-
-            descr = data.description;
-
-            this.setState({
-
-                fewo: {
-                    name: data.name,
-                    id: data.apartmentId
-                }
-
-            });
-
-            return api.get('/images/search/findByApartmentId', {
-                params: {
-                    apartmentId: data.apartmentId
-                }
-            })
-        }).then(({ data }) => {
-            console.log(data);
-            this.setState({
-                picture:'data:image/png;base64,' + data._embedded.images[0].image
-            });
-        });
-
         //TODO hier geht gar nix mit der DB :-(
         //TODO Buchungsanfrage übermitteln, ich hab mir hier ein Beispiel überlegt, das jedoch komplett falsch sein kann
         //Beispiel
 
 
         //TODO in BookingRepository.java habe ich ein maxBooking angelegt, jedoch auskommentiert, weil ich nicht weiß, ob es funktioniert
-        //höchste vergebene BookingID bekommen um sie dann um 1 zu inkrementieren
+        //höchste vergebene BookingID bekommen um sie dann um 1 zu inkrementieren, damit ich eine id für die aktuelle Buchungsanfrage habe
         /*api.get('booking/search/maxBooking')*/
 
         //Buchung übermitteln Version 1, jedoch nicht vollständig
@@ -469,37 +420,6 @@ class Booking extends React.Component {
            booking: this.state.basebooking
         });
 
-        //Bild und Beschreibungung (sieht überflüssig aus, leider wird nach dem Klicken auf einen Button die Beschreibung der Fewo nicht mehr angezeigt)
-        api.get('/apartments/search/findByName', {
-            params: {
-                name: this.props.match.params.id
-            }
-        }).then(({ data }) => {
-            console.log(data);
-
-            descr = data.description;
-
-            this.setState({
-
-                fewo: {
-                    name: data.name,
-                    id: data.apartmentId
-                }
-
-            });
-
-            return api.get('/images/search/findByApartmentId', {
-                params: {
-                    apartmentId: data.apartmentId
-                }
-            })
-        }).then(({ data }) => {
-            console.log(data);
-            this.setState({
-                picture:'data:image/png;base64,' + data._embedded.images[0].image
-            });
-        });
-
         //Button anpassen
         this.refs.submitB.style.display = "none";
         this.refs.calcB.style.display = "flex";
@@ -515,9 +435,22 @@ class Booking extends React.Component {
                 <div className={styles.booking}>
                     <div className={styles.leftBooking}>
                         <div> <img className={styles.image} src={this.state.picture}/> </div>
+                        <br/>
+                        <div>
                         <h3 className={styles.heading}>{this.props.match.params.id}</h3>
-                        <div>{descr}</div>
+                        </div>
+                        <div className={styles.facts}>
+                        <section>{descr}</section><br />
+                        <section className={styles.detail}>Details:</section>
+                        <section>Personenanzahl: {persons}</section>
+                        <section>Raumanzahl: {rooms}</section>
+                        <section>Größe: {size}</section>
+                        <section>Balkon vorhanden: {balcony}</section>
+                        <section>Tiere erlaubt: {pets}</section>
+                        <section>Kinder: {children}</section>
+                        </div>
                     </div>
+                    <br/>
                     <div className={styles.rightBooking}>
                         <form onReset={this.clearInputs}>
 
@@ -525,25 +458,26 @@ class Booking extends React.Component {
                                 Von (KW):
                             </label>
                             <input required={true} className={globalStyles.input} name="start" value={this.state.booking.start}
-                                   ref="startInput" type="number" min={1} max={52} onChange={this.handleInput}/><br />
+                                   ref="startInput" type="number" min={1} max={52} onChange={this.handleInput}/><br /><br/>
                             <label>
                                 Bis (KW):
                             </label>
                             <input required={true} className={globalStyles.input} name="end" value={this.state.booking.end}
-                                   ref="endInput" type="number" min={1} max={52} onChange={this.handleInput}/><br />
+                                   ref="endInput" type="number" min={1} max={52} onChange={this.handleInput}/><br /><br/>
 
                             <label>
                                 Kosten:
                             </label>
                             <input className={globalStyles.input + ' ' + styles.cost} name="points" value={this.state.booking.points}
-                                   ref="costsInput" type="text"  readOnly="readOnly" onChange={this.handleInput}/><br />
+                                   ref="costsInput" type="text"  readOnly="readOnly" onChange={this.handleInput}/><br /><br/>
 
                             <label>
                                 Zusatzkosten:
                             </label>
                             <input className={globalStyles.input + ' ' + styles.cost} name="additionalCosts" value={this.state.booking.addtionalCosts}
-                                   ref="additionalCostsInput" type="text"  readOnly="readOnly" onChange={this.handleInput}/><br />
+                                   ref="additionalCostsInput" type="text"  readOnly="readOnly" onChange={this.handleInput}/><br /><br/>
 
+                            <div className={styles.button}>
                             <button className={globalStyles.button} type="reset">
                                 abbrechen
                             </button>
@@ -553,7 +487,11 @@ class Booking extends React.Component {
                             <button ref="submitB" className={globalStyles.button + ' ' + styles.submitButton} onClick={this.handleSubmit}>
                                 Buchungswunsch anmelden
                             </button>
+                            </div>
+                            <br/>
+                            <div className={styles.submitResponse}>
                             <label ref="submitLabel" className={styles.bookingLabel}>Ihre Buchungsanfrage wird bearbeitet</label>
+                            </div>
                         </form>
                     </div>
                 </div>
