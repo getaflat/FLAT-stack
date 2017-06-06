@@ -27,6 +27,19 @@
     min-width: 250px;
 }
 
+.submitButton {
+    display: none;
+}
+
+.bookingLabel {
+    display: none;
+}
+
+.cost {
+    background-color: inherit;
+    border: none !important;
+}
+
 .image {
     /*margin: 0 auto;
     display: flex;

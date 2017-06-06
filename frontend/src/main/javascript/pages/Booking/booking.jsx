@@ -1,14 +1,16 @@
 import React from 'react';
-
-
-const propTypes = {};
-
-const defaultProps = {};
 import styles from './booking.css'
 import globalStyles from '../../general-styles/global.css';
 import api from '../../services/api'
 import { isLoggedIn, getUser, getToken } from '../../services/auth';
-import Modal from '../../components/modal/modal';
+
+
+import update from 'immutability-helper';
+
+const propTypes = {};
+
+const defaultProps = {};
+
 
 let descr;
 let maxPeople;
@@ -16,6 +18,20 @@ let points;
 let startKW;
 let endKW;
 let diff;
+let price;
+let price1;
+let price2;
+let price3;
+let price4;
+let kw1;
+let kw2;
+let kw3;
+let kw4;
+let factor1;
+let factor2;
+let factor3;
+let factor4;
+let missingPoints;
 
 const customStyles = {
     content : {
@@ -32,11 +48,14 @@ class Booking extends React.Component {
     constructor(props) {
         super(props);
 ///TODO customer überflüssig
-        this.state ={
-
+        this.state = {
             customer: {},
-
-            points: '',
+            booking: {
+                start: '',
+                end: '',
+                additionalCosts: '',
+                points: ''
+            },
 
             fewo: {
                 name: '',
@@ -44,28 +63,202 @@ class Booking extends React.Component {
             },
 
             description: '',
-            numberOfPeopleAllowed: '',
             picture: '',
-            start:'',
-            end:'',
-
-            modalIsOpen: false
-
-
+            basebooking: {}
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.clearInputs = this.clearInputs.bind(this);
         this.handleInput = this.handleInput.bind(this);
-        this.handleStart = this.handleStart.bind(this);
-        this.handleEnd = this.handleEnd.bind(this);
-        this.openModal = this.openModal.bind(this);
-        this.afterOpenModal = this.afterOpenModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
+        this.calcCost = this.calcCost.bind(this);
 
     }
 
-    componentDidMount(){
+    calcCost(event) {
+        event.preventDefault();
+
+        // TODO: DB abfragen mit start = kw1 &  ende =kw2
+        diff=this.state.booking.end-this.state.booking.start;
+        if(this.state.booking.end > 52||(diff)>4||(diff)<(-4))
+            return;
+
+        this.refs.submitB.style.display = "flex";
+        this.refs.calcB.style.display = "none";
+
+        if(diff>=0||diff<=(0)) {
+
+            api.get('/seasons/search/findByCalenderWeek', {
+                params: {
+                    calenderWeek: this.state.booking.start
+                }
+            }).then(({data}) => {
+                console.log(data);
+
+                return api.get('factors/search/findByFactorId', {
+                    params: {
+                        factorId: data.factorId
+                    }
+                });
+            }).then(({data})=> {
+                console.log(data);
+                factor1 = data.factor;
+                return api.get('/apartments/search/findByName', {
+                    params: {
+                        name: this.props.match.params.id
+                    }
+                });
+
+            }).then(({data})=> {
+                console.log(data);
+                 price= data.basePrice * factor1;
+            });
+
+        }
+
+        //TODO appartment muss nicht erneut gefunden werden ggf. löschen
+
+        if(diff>=1||diff<=(-1)) {
+
+            kw2=(this.state.booking.start+1)%52;
+
+            api.get('/seasons/search/findByCalenderWeek', {
+                params: {
+                    calenderWeek: kw2
+                }
+            }).then(({data}) => {
+                console.log(data);
+
+                return api.get('factors/search/findByFactorId', {
+                    params: {
+                        factorId: data.factorId
+                    }
+                });
+            }).then(({data})=> {
+                console.log(data);
+                factor2 = data.factor;
+                return api.get('/apartments/search/findByName', {
+                    params: {
+                        name: this.props.match.params.id
+                    }
+                });
+
+            }).then(({data})=> {
+                console.log(data);
+                this.state.booking.points =this.state.booking.points+ (data.basePrice * factor2);
+            });
+
+        }
+
+        if(diff>=2||diff<=(-2)) {
+
+            kw3=(this.state.booking.start+1)%52;
+
+            api.get('/seasons/search/findByCalenderWeek', {
+                params: {
+                    calenderWeek: kw3
+                }
+            }).then(({data}) => {
+                console.log(data);
+
+                return api.get('factors/search/findByFactorId', {
+                    params: {
+                        factorId: data.factorId
+                    }
+                });
+            }).then(({data})=> {
+                console.log(data);
+                factor3 = data.factor;
+                return api.get('/apartments/search/findByName', {
+                    params: {
+                        name: this.props.match.params.id
+                    }
+                });
+
+            }).then(({data})=> {
+                console.log(data);
+                this.state.booking.points =this.state.booking.points+ (data.basePrice * factor3);
+            });
+
+        }
+
+        if(diff>=3||diff<=(-3)) {
+
+            kw4=(this.state.booking.start+1)%52;
+
+            api.get('/seasons/search/findByCalenderWeek', {
+                params: {
+                    calenderWeek: kw4
+                }
+            }).then(({data}) => {
+                console.log(data);
+
+                return api.get('factors/search/findByFactorId', {
+                    params: {
+                        factorId: data.factorId
+                    }
+                });
+            }).then(({data})=> {
+                console.log(data);
+                factor4 = data.factor;
+                return api.get('/apartments/search/findByName', {
+                    params: {
+                        name: this.props.match.params.id
+                    }
+                });
+
+            }).then(({data})=> {
+                console.log(data);
+                this.state.booking.points =this.state.booking.points + (data.basePrice * factor4);
+            });
+
+        }
+
+        //Zusatzkosten
+        if(this.state.booking.points>this.state.customer.totalScore){
+            // 1 Punkt = 10 Euro, zusätzlich Faktor 2 = 20 Euro
+            this.state.booking.additionalCosts= (this.state.booking.points-this.state.customer.totalScore)*20
+        }
+
+        //Bild und Beschreibung und max Personenanzahl
+        api.get('/apartments/search/findByName', {
+            params: {
+                name: this.props.match.params.id
+            }
+        }).then(({ data }) => {
+            console.log(data);
+
+            descr = data.description;
+            //  this.state.numberOfPeopleAllowed = data.numberOfPeopleAllowed;
+
+
+            this.setState({
+
+                fewo: {
+                    name: data.name,
+                    id: data.apartmentId,
+
+                }
+
+            });
+
+            return api.get('/images/search/findByApartmentId', {
+                params: {
+                    apartmentId: data.apartmentId
+                }
+            })
+        }).then(({ data }) => {
+            console.log(data);
+            this.setState({
+                picture:'data:image/png;base64,' + data._embedded.images[0].image
+            });
+        });
+
+    }
+
+    componentDidMount() {
+        this.setState({
+            basebooking: this.state.booking
+        });
 
         //User
         if (isLoggedIn()) {
@@ -86,11 +279,7 @@ class Booking extends React.Component {
 
 
                 this.setState({
-
                     customer: data,
-                    points: data.totalScore
-
-
                 });
             });
         }
@@ -119,8 +308,8 @@ class Booking extends React.Component {
             console.log(data);
 
             descr = data.description;
-             maxPeople = data.numberOfPeopleAllowed;
 
+           //  this.state.numberOfPeopleAllowed = data.numberOfPeopleAllowed;
 
             this.setState({
 
@@ -139,78 +328,67 @@ class Booking extends React.Component {
         }).then(({ data }) => {
             console.log(data);
             this.setState({
-                picture:'data:image/png;base64,' + data._embedded.images[0].image,
-
-
-
+                picture:'data:image/png;base64,' + data._embedded.images[0].image
             });
         });
     }
 
-    handleStart(event){
-
-        this.setState({start: event.target.value});
-        startKW = event.target;
-
-        //if(endKW != null)
-
-    }
-
-///TODO wenn komplett gelöscht wird auch ais SeasonRepository.java findFactorIdBySeason löschen
-    handleEnd(event){
-
-        this.setState({end: event.target.value});
-        endKW = event.target;
-
-        startKW=1;//TODO Testwert
-
-        diff = endKW-startKW;
-
-        /*switch (diff){//TODO ? funktion auslagern, cases wg. faktor id
-            case 0:
-                break;
-            case (1 || (-1)):
-                diff = 1;
-                break;
-            case (2 || (-2)):
-                diff = 2;
-                break;
-            case (3 || (-3)):
-                diff = 3;
-                break;
-            default:
-                //TODO error ausgeben?
-                break;
-        }*/
-
-        //TODO wie Zugriff? ID ist Fewo name, brauch ich nur für beschreibung, factor für Preiskalkulation
 
 
-        //factorID raussuchen
-        api.get('seasons/search/findByCalenderWeek', {
-            params: {
-                start: endKW
-            }
-        }).then(({data})=>{
-            console.log(data);
 
-            // return api.get('factors/search/findFactorByFactoryId', {//TODO repository einstellen
-            //     params: {
-            //         //TODO suchwert
-            //     }
-            // }).then(({data})=>{
-            //     console.log(data);
-            // });
-
-        });
-
-
-    }
 
     handleSubmit(event) {
         event.preventDefault();
 
 
+
+
+
+        //Bild und Beschreibungun
+        api.get('/apartments/search/findByName', {
+            params: {
+                name: this.props.match.params.id
+            }
+        }).then(({ data }) => {
+            console.log(data);
+
+            descr = data.description;
+            //  this.state.numberOfPeopleAllowed = data.numberOfPeopleAllowed;
+
+            this.setState({
+
+                fewo: {
+                    name: data.name,
+                    id: data.apartmentId
+                }
+
+            });
+
+            return api.get('/images/search/findByApartmentId', {
+                params: {
+                    apartmentId: data.apartmentId
+                }
+            })
+        }).then(({ data }) => {
+            console.log(data);
+            this.setState({
+                picture:'data:image/png;base64,' + data._embedded.images[0].image
+            });
+        });
+
+        //TODO An DB übermitteln
+        //Beispiel
+        api.post('/customers/search/updateBooking',
+         {
+         params: {
+         contractNumber: this.state.customer.contractNumber,
+         apartmentId: this.state.fewo.name,
+         week1: this.state.booking.start,
+         week2: this.state.booking.end
+         price: this.state.booking.points,
+         addtionalCharge: this.state.booking.additionalCosts
+         }
+         });
 
         /*api.get(`/booking/${this.state.booking.contractnumber}`).then(({data}) => {
             this.setState({contractnumberCurrent: data.contract_number});
@@ -241,54 +419,69 @@ class Booking extends React.Component {
                 }
             });*/
 
+        this.refs.submitLabel.style.display = "flex";
+        setTimeout(function() {
+            this.refs.submitLabel.style.display = "none";
+            // TODO: dashboard weiterleiten
+            this.props.history.push('/user');
+        }.bind(this), 2000);
+
     }
 
     handleInput(event) {//TODO nach Testen required auf true
         let {name, value} = event.target;
 
         this.setState((prev) => update(prev, {
-            customer: {
+            booking: {
                 [name]: {
                     $set: value
                 }
             }
         }));
+
     }
 
     clearInputs() {
-
-        this.refs.numberOfPeopleInput.value = '';
-        this.refs.animalsInput.value = '';
-        this.refs.childrenInput.value = '';
-        this.refs.startInput.value = '';
-        this.refs.endInput.value = '';
-        this.refs.costsInput.value = '';
-        this.refs.additionalCostsInput.style.value = '';
-        this.setState( {
-            customer: {
-                numberOfPeople: '',
-                animals: '',
-                children: '',
-                start: '',
-                end: '',
-                costs: '',
-                additionalCosts:''
-            }
+        this.setState({
+           booking: this.state.basebooking
         });
+
+        //Bild und Beschreibungun
+        api.get('/apartments/search/findByName', {
+            params: {
+                name: this.props.match.params.id
+            }
+        }).then(({ data }) => {
+            console.log(data);
+
+            descr = data.description;
+            //  this.state.numberOfPeopleAllowed = data.numberOfPeopleAllowed;
+
+            this.setState({
+
+                fewo: {
+                    name: data.name,
+                    id: data.apartmentId
+                }
+
+            });
+
+            return api.get('/images/search/findByApartmentId', {
+                params: {
+                    apartmentId: data.apartmentId
+                }
+            })
+        }).then(({ data }) => {
+            console.log(data);
+            this.setState({
+                picture:'data:image/png;base64,' + data._embedded.images[0].image
+            });
+        });
+
+        this.refs.submitB.style.display = "none";
+        this.refs.calcB.style.display = "flex";
     }
 
-    openModal() {
-        this.setState({modalIsOpen: true});
-    }
-
-    afterOpenModal() {
-        // references are now sync'd and can be accessed.
-        this.subtitle.style.color = '#f00';
-    }
-
-    closeModal() {
-        this.setState({modalIsOpen: false});
-    }
 
     render() {
         return (
@@ -302,68 +495,43 @@ class Booking extends React.Component {
                         <div>{descr}</div>
                     </div>
                     <div className={styles.rightBooking}>
-                        <form onSubmit={this.handleSubmit} onReset={this.clearInputs}>
-                            <label>
-                                Anzahl Personen:
-                            </label> {/*TODO max funktioniert nicht, wie begrenzen max={maxPeople}*/}
-                            <input required={false} className={globalStyles.input} name="numberOfPeople" value={this.state.numberOfPeople}
-                                   ref="numberOfPeopleInput" type="number" min={1}  onChange={this.handleInput}/><br />
-                            <label>
-                                Tiere:
-                            </label>
-                            <input className={globalStyles.input} name="animals" value={this.state.animals}
-                                   ref="animalsInput" type="checkbox" onChange={this.handleInput}/><br />
-                            <label>
-                                Kinder:
-                            </label>
-                            <input className={globalStyles.input} name="children" value={this.state.children}
-                                   ref="childrenInput" type="checkbox" onChange={this.handleInput}/><br />
+                        <form onReset={this.clearInputs}>
+
                             <label>
                                 Von (KW):
                             </label>
-                            <input required={false} className={globalStyles.input} name="start" value={this.state.start}
-                                   ref="startInput" type="number" min={1} max={52} onChange={this.handleStart}/><br />
+                            <input required={true} className={globalStyles.input} name="start" value={this.state.booking.start}
+                                   ref="startInput" type="number" min={1} max={52} onChange={this.handleInput}/><br />
                             <label>
                                 Bis (KW):
                             </label>
-                            <input required={false} className={globalStyles.input} name="end" value={this.state.end}
-                                   ref="endInput" type="number" min={1} max={52} onChange={this.handleEnd}/><br />
+                            <input required={true} className={globalStyles.input} name="end" value={this.state.booking.end}
+                                   ref="endInput" type="number" min={1} max={52} onChange={this.handleInput}/><br />
 
                             <label>
                                 Kosten:
                             </label>
-                            <input className={globalStyles.input} name="costs" value={this.state.points}
+                            <input className={globalStyles.input + ' ' + styles.cost} name="points" value={this.state.booking.points}
                                    ref="costsInput" type="text"  readOnly="readOnly" onChange={this.handleInput}/><br />
-                            {/*TODO ggf. ref ändern wg. Output s. a. additionalCost, on Change auch anpassen*/}
 
                             <label>
                                 Zusatzkosten:
                             </label>
-                            <input className={globalStyles.input} name="additionalCosts" value={this.state.addtionalCosts}
+                            <input className={globalStyles.input + ' ' + styles.cost} name="additionalCosts" value={this.state.booking.addtionalCosts}
                                    ref="additionalCostsInput" type="text"  readOnly="readOnly" onChange={this.handleInput}/><br />
 
                             <button className={globalStyles.button} type="reset">
                                 abbrechen
                             </button>
-                            <button className={globalStyles.button} onClick={this.openModal} type="submit">
+                            <button ref="calcB" className={globalStyles.button + ' ' + styles.calcButton} onClick={this.calcCost}>
+                                Kosten berechnen
+                            </button>
+                            <button ref="submitB" className={globalStyles.button + ' ' + styles.submitButton} onClick={this.handleSubmit}>
                                 Buchungswunsch anmelden
                             </button>
+                            <label ref="submitLabel" className={styles.bookingLabel}>Ihre Buchungsanfrage wird bearbeitet</label>
                         </form>
                     </div>
-
-                    <Modal
-                        isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal}
-                        onRequestClose={this.closeModal} style={customStyles} contentLabel="Example Modal">
-
-                        <h2 ref={subtitle => this.subtitle = subtitle}>Buchungsanfrage <br /></h2>
-
-                        <div>Ihre Buchungsanfrage wurde übermittelt.<br />
-                        </div>
-                        <form>
-                            <button onClick={this.closeModal}>Fenster schließen</button>
-                        </form>
-                    </Modal>
-
                 </div>
 
 
