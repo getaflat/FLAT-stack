@@ -1,7 +1,8 @@
 import React from 'react';
 import { Switch, BrowserRouter as Router, Route, Redirect, withRouter } from 'react-router-dom';
 
-import styles from './app.css';
+import Header from '../components/Header/header';
+import Footer from "../components/Footer/footer";
 
 import Booking from '../pages/Booking/booking';
 import GTC from '../pages/GTC/gtc';
@@ -18,8 +19,7 @@ import RegionFewo from '../pages/regionFewos/regionFewos'
 import { isLoggedIn, getUser, getToken } from '../services/auth';
 import api from '../services/api';
 
-import Header from '../components/Header/header';
-import Footer from "../components/Footer/footer";
+import styles from './app.css';
 
 const RouteWithProps = ({ props, component: Component, ...rest }) => {
     const BlockAvoiding = withRouter(Component);
@@ -44,7 +44,7 @@ const PrivateRouteWithProps = ({ props, component: Component, ...rest }) => {
     )} />);
 };
 
-class App extends React.Component {
+export default class App extends React.Component {
     constructor(props) {
         super(props);
 
@@ -114,5 +114,3 @@ class App extends React.Component {
         );
     }
 }
-
-export default App;

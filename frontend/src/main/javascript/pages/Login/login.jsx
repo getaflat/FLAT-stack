@@ -1,9 +1,7 @@
 import React from 'react';
-
 import update from 'immutability-helper';
 
 import InputValidationField from '../../components/InputValidationField';
-
 import { login } from '../../services/auth';
 import { run, rule } from '../../services/validation';
 import { minLength, isRequired, isEmail } from '../../services/rules';
@@ -16,7 +14,7 @@ const rules = [
     rule("password", "Passwort", isRequired, minLength(5))
 ];
 
-class Login extends React.Component {
+export default class Login extends React.Component {
     constructor(props) {
         super(props);
 
@@ -131,5 +129,3 @@ class Login extends React.Component {
         );
     }
 }
-
-export default Login;

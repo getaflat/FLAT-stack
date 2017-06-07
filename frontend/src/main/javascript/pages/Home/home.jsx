@@ -1,57 +1,30 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
-
 import api from '../../services/api';
-import auth from '../../services/auth';
+
 import styles from './home.css';
 import globalStyles from '../../general-styles/global.css';
 
-const propTypes = {};
-const defaultProps = {};
-
-class Home extends React.Component {
+export default class Home extends React.Component {
     constructor(props) {
         super(props);
-
-        /*this.state = {
-            apartment: []
-        };*/
-
         this.state = {
-            picture1: '',
-            picture2: '',
-            picture3: '',
-            apartmentId: ''
+            pictureStart: ''
         }
 
     }
 
     componentDidMount() {
-        // alert("test");
-        /* api.get('/customers/12345678901').then(({ data }) => {
-            console.log(data);
-            this.setState({ apartments: data._embedded.apartment });
-        }).catch((err) => {
-            console.log(err.response)
-        }); */
-
-
-
         api.get('/images/search/findByApartmentId', {
             params: {
                 apartmentId: (Math.floor(Math.random() * 14) + 1)
             }
         }).then(({ data }) => {
-            console.log(data);
             this.setState({
-                pictureStart:'data:image/png;base64,' + data._embedded.images["0"].image,
-
-
+                pictureStart: 'data:image/png;base64,' + data._embedded.images["0"].image,
             });
         });
     }
-
 
     render() {
         return (
@@ -90,13 +63,7 @@ class Home extends React.Component {
                     </p>
                     <br />
                 </div>
-
             </div>
         );
     }
 }
-
-Home.propTypes = propTypes;
-Home.defaultProps = defaultProps;
-
-export default Home;

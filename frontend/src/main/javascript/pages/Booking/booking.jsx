@@ -35,7 +35,7 @@ let children;
 let pets;
 let balcony;
 
-const customStyles = {
+/* const customStyles = {
     content : {
         top                   : '50%',
         left                  : '50%',
@@ -44,9 +44,9 @@ const customStyles = {
         marginRight           : '-50%',
         transform             : 'translate(-50%, -50%)'
     }
-};
+}; */
 
-class Booking extends React.Component {
+export default class Booking extends React.Component {
     constructor(props) {
         super(props);
 
@@ -509,5 +509,3 @@ class Booking extends React.Component {
         );
     }
 }
-
-export default Booking;

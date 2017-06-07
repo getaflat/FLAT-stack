@@ -1,21 +1,24 @@
 import React from 'react';
-import styles from './footer.css';
-import globalStyles from '../../general-styles/global.css';
+import { Link } from 'react-router-dom';
+
 import Modal from '../modal/modal';
 import ReactStars from 'react-stars';
 import api from '../../services/api';
-import {getToken, getUser} from '../../services/auth';
-import { Link } from 'react-router-dom';
+import { isLoggedIn } from '../../services/auth';
+import { isEmptyObject } from '../../util';
 
+import styles from './footer.css';
+import globalStyles from '../../general-styles/global.css';
 
-class Footer extends React.Component {
+export default class Footer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             isModalOpen: false,
             stars: '',
             ratingText: '',
-            contractNumber: ''
+            contractNumber: '',
+            user: this.props.user
         };
 
         this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -25,23 +28,20 @@ class Footer extends React.Component {
         this.handleText = this.handleText.bind(this);
     }
 
-    ratingChanged (newRating)
-    {
-        //console.log(newRating);
-        this.state.stars = newRating;
+    ratingChanged(newRating) {
+        this.setState({
+            stars: newRating
+        });
     }
 
-    handleText(event)
-    {
-        this.state.ratingText = event.target.value;
+    handleText(event) {
+        this.setState({
+            ratingText: event.target.value
+        });
     }
 
-    handleRating()
-    {
-       // console.log(this.state.stars + 'Text: ' + this.state.ratingText);
-
-
-        api.get('/ratings/search/postRating', {  // TODO: fix for bad Request error
+    handleRating() {
+        api.get('/ratings/search/postRating', {
             params: {
                 comment: this.state.ratingText,
                 score: this.state.stars,
@@ -55,66 +55,46 @@ class Footer extends React.Component {
         this.refs.Buttons.style.display = "none";
         this.refs.Stars.style.display = "none";
 
-        setTimeout(function() {
+        setTimeout(() => {
             this.setState({
                 isModalOpen: false
             });
-        }.bind(this), 1800);
-
-
+        }, 1800);
     }
 
-    handleOpenModal()
-    {
+    handleOpenModal() {
         this.refs.rate.style.display = "none";
-        this.setState({isModalOpen: true});
-    }
-
-    handleCloseModal()
-    {
         this.setState({
-            isModalOpen: false
+            isModalOpen: true
         });
-        this.state.ratingText = '';
-        this.refs.rate.style.display = "block";
     }
 
-    componentDidMount() {
-        const token = getToken();
-        const user = getUser();
-        let ref = this.refs.rate;
+    handleCloseModal() {
+        this.refs.rate.style.display = "block";
+        this.setState({
+            isModalOpen: false,
+            ratingText: ''
+        });
+    }
 
-        console.log(this.props);
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            user: nextProps.user
+        });
+    }
 
-        api.get(`/customers/search/findByEmail`, {
-            params: {
-                email: user
-            }
-        }, {
-            headers: {
-                authorization: token
-            }
-        }).then(({data}) => {
-            console.log(data);
-
-            this.setState({
-                contractNumber: data.contractNumber
-            });
+    componentDidUpdate() {
+        if (isLoggedIn() && !isEmptyObject(this.state.user)) {
             api.get('/ratings/search/findByContractNumber', {
                 params: {
-                    contractNumber: data.contractNumber
-                }/*,
-                validateStatus: function(status) {
-                    return status >= 200 && status < 300 || status === 404;
-                }*/
-            }).catch(function (error) {
-               //console.log(error);
-                if(error.response.status === 404) {
-                   ref.style.display = "block";
-               }
+                    contractNumber: this.state.user.contractNumber
+                }
+            }).catch((error) => {
+                if (error.response.status === 404) {
+                    this.refs.rate.style.display = "block";
+                }
             });
-
-        });
+        }
     }
 
     render() {
@@ -148,5 +128,3 @@ class Footer extends React.Component {
         );
     }
 }
-
-export default Footer;

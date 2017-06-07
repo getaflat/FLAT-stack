@@ -23,9 +23,7 @@ const rules = [
     rule("contractNumber", "Vertragsnummer", isRequired, exactLength(12))
 ];
 
-
-
-class Register extends React.Component {
+export default class Register extends React.Component {
     constructor(props) {
         super(props);
 
@@ -102,7 +100,6 @@ class Register extends React.Component {
     resetForm() {
         this.setState(this.baseState);
     }
-
 
     render() {
         return (
@@ -202,5 +199,3 @@ class Register extends React.Component {
         );
     }
 }
-
-export default Register;
