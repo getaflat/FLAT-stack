@@ -19,7 +19,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 import static org.junit.Assert.*;
 /**
- * findByAppartmentID -> get tests if function will by used
+ * TODO
+ * findByAppartmentID -> unused
  * Created by kathi on 04.06.17.
  */
 @RunWith(SpringRunner.class)

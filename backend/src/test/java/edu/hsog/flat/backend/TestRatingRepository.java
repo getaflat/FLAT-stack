@@ -17,7 +17,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 import static org.junit.Assert.*;
 /**
- * findByContractNumber -> get tested if function will be used
+ * findByContractNumber
+ * TODO
+ * postRating -> unused
  * Created by kathi on 04.06.17.
  */
 @RunWith(SpringRunner.class)
@@ -34,7 +36,7 @@ public class TestRatingRepository {
     public void testRatingFindByContractNumber(){
 
         Rating r = new Rating();
-        r.setRatingId(7L);
+        //r.setRatingId(7L);
         r.setContractNumber(1990L);
         ratRep.save(r);
 

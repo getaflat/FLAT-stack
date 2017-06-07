@@ -22,7 +22,9 @@ import static org.junit.Assert.*;
  * findByEMail
  * findByContractNumber
  * findByLastName
- * Query should be tested
+ * findAll
+ * TODO
+ * Query updateCustomer -> unused
  * Created by kathi on 01.06.17.
  */
 @RunWith(SpringRunner.class)
@@ -76,7 +78,25 @@ public class TestCustomerRepository {
         customerRepository.delete(customer);
     }
 
+    @Test
+    public void testCustomerFindAll(){
+        Customer customer = new Customer();
+        Customer c2 = new Customer();
+        customer.setContractNumber(454545454545L);
+        c2.setContractNumber(121212121212L);
+        customer.setPassword("forUnitTests");
+        c2.setPassword("invalid");
+        customer.setLastName("Meier");
+        c2.setLastName("Mueller");
+        customerRepository.save(customer);
+        customerRepository.save(c2);
 
+        List <Customer> allCust = customerRepository.findAll();
+
+        Assert.assertTrue("Test failed customer findAll()", allCust.size() >= 2);
+
+        customerRepository.deleteAll();
+    }
 
 
 

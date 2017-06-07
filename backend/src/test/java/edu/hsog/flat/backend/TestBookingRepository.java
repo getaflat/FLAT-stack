@@ -18,7 +18,9 @@ import static org.junit.Assert.*;
  * findByContractNumber
  * findByAppartmentID
  * findAll
- * findByBookingId -> get tests if function will by used
+ * findByAppartmentIDAndWeek1
+ * TODO
+ * findByBookingId,Query deleteBooking -> unused
  * Created by kathi on 04.06.17.
  */
 @RunWith(SpringRunner.class)
@@ -164,6 +166,49 @@ public class TestBookingRepository {
         Assert.assertNotNull("get no bookings with fondAll()", allBooks);
         int min = allBooks.size();
         Assert.assertTrue("Test failed Booking findall()", min>=3);
+        bRepository.delete(book1);
+        bRepository.delete(book2);
+        bRepository.delete(book3);
+    }
+
+    @Test
+    public void testFindBookingByAppartmentIdAndWeek1(){
+        Booking book1 = new Booking();
+        Booking book2 = new Booking();
+        Booking book3 = new Booking();
+
+        book1.setContractNumber(2345L);
+        book2.setContractNumber(4567L);
+        book3.setContractNumber(5345L);
+
+        book1.setApartmentId(109L);
+        book2.setApartmentId(209L);
+        book3.setApartmentId(109L);
+
+        book1.setWeek1(32);
+        book2.setWeek1(25);
+        book3.setWeek1(5);
+
+        book1.setPrice(200);
+        book2.setPrice(500);
+        book3.setPrice(900);
+
+        book1.setAdditionalCharge(2.5);
+        book2.setAdditionalCharge(1.5);
+        book3.setAdditionalCharge(0.8);
+
+        book1.setStatus("frei");
+        book2.setStatus("frei");
+        book3.setStatus("frei");
+
+        bRepository.save(book1);
+        bRepository.save(book2);
+        bRepository.save(book3);
+
+        List <Booking> allBooks = bRepository.findByApartmentIdAndWeek1(109L,32);
+
+        assertEquals(book1,allBooks.get(0));
+
         bRepository.delete(book1);
         bRepository.delete(book2);
         bRepository.delete(book3);

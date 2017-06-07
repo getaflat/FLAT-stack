@@ -20,6 +20,7 @@ import static org.junit.Assert.*;
 /**
  * findByName
  * findByResidentialBlockID
+ * TODO findByApartmentID
  * Created by kathi on 04.06.17.
  */
 @RunWith(SpringRunner.class)
