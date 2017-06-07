@@ -1,15 +1,13 @@
 import React from 'react';
-import styles from './regionFewos.css';
-import globalStyles from '../../general-styles/global.css';
+
 import api from '../../services/api';
 
 import { Table, Column, Cell } from 'fixed-data-table';
 
 import { Link } from 'react-router-dom';
 
-
-const propTypes = {};
-const defaultProps = {};
+import styles from './regionFewos.css';
+import globalStyles from '../../general-styles/global.css';
 
 class TextCell extends React.Component {
     render() {
@@ -58,24 +56,21 @@ class TrueFalseCell extends React.Component {
     }
 }
 
-class regionFewos extends React.Component {
-
+export default class regionFewos extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             fewos: [],
             filteredDataList: [],
             picture: '',
             description: ''
-
-            // testfewo: ''
-
         };
+
         this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
-
         api.get('/residential-blocks/search/findByName', {
          params: {
          name: this.props.match.params.id
@@ -189,8 +184,3 @@ class regionFewos extends React.Component {
         );
     }
 }
-
-regionFewos.propTypes = propTypes;
-regionFewos.defaultProps = defaultProps;
-
-export default regionFewos;

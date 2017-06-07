@@ -84,14 +84,21 @@ class User extends React.Component {
                 lastName: this.state.user.lastName,
                 contractNumber: user
             }
+        }).then(() => {
+            s[2].firstChild.data = "Daten erfolgreich gespeichert";
+            s[2].style.display = "flex";
+
+            setTimeout(() => {
+                this.refs.save.style.display = "none";
+            }, 3000);
+        }).catch(() => {
+            s[2].firstChild.data = "Bitte versuchen sie es später erneut";
+            s[2].style.display = "flex";
+
+            setTimeout(() => {
+                this.refs.save.style.display = "none";
+            }, 3000);
         });
-
-        s[2].firstChild.data = "Daten erfolgreich gespeichert";
-        s[2].style.display = "flex";
-
-        setTimeout(() => {
-            this.refs.save.style.display = "none";
-        }, 3000);
     }
 
 
@@ -99,7 +106,7 @@ class User extends React.Component {
         let {name, value} = event.target;
 
         this.setState((prev) => update(prev, {
-            loggedIn: {
+            user: {
                 [name]: {
                     $set: value
                 }

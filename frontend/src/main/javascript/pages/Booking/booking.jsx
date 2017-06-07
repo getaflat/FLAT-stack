@@ -3,7 +3,7 @@ import styles from './booking.css'
 import globalStyles from '../../general-styles/global.css';
 import api from '../../services/api'
 import { isLoggedIn, getUser, getToken } from '../../services/auth';
-
+import { isEmptyObject, isEqual } from '../../util';
 
 import update from 'immutability-helper';
 
@@ -66,13 +66,32 @@ export default class Booking extends React.Component {
 
             description: '',
             picture: '',
-            basebooking: {}
+            basebooking: {},
+            user: {}
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.clearInputs = this.clearInputs.bind(this);
         this.handleInput = this.handleInput.bind(this);
         this.calcCost = this.calcCost.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            user: nextProps.user
+        });
+    }
+
+    componentDidMount() {
+        this.setState({
+            user: this.props.user
+        });
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (isLoggedIn() && !isEmptyObject(this.state.user) && !isEqual(this.state.user, prevState.user)) {
+
+        }
     }
 
     calcCost(event) {

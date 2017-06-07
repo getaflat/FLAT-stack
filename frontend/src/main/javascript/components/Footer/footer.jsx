@@ -5,7 +5,7 @@ import Modal from '../modal/modal';
 import ReactStars from 'react-stars';
 import api from '../../services/api';
 import { isLoggedIn } from '../../services/auth';
-import { isEmptyObject } from '../../util';
+import { isEmptyObject, isEqual } from '../../util';
 
 import styles from './footer.css';
 import globalStyles from '../../general-styles/global.css';
@@ -83,8 +83,8 @@ export default class Footer extends React.Component {
         });
     }
 
-    componentDidUpdate() {
-        if (isLoggedIn() && !isEmptyObject(this.state.user)) {
+    componentDidUpdate(prevProps, prevState) {
+        if (isLoggedIn() && !isEmptyObject(this.state.user) && !isEqual(this.state.user, prevState.user)) {
             api.get('/ratings/search/findByContractNumber', {
                 params: {
                     contractNumber: this.state.user.contractNumber
