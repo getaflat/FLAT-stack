@@ -3,6 +3,7 @@ import styles from './region.css';
 import globalStyles from '../../general-styles/global.css';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
+import { imageBlobToBase64 } from '../../util';
 
 export default class Region extends React.Component {
     constructor(props) {
@@ -30,7 +31,7 @@ export default class Region extends React.Component {
                         this.state.residentialBlocks.map((residentialBlock, key) => {
                             const name = residentialBlock.name;
                             const label = name.split(' ')[1];
-                            const picture = `data:image/png;base64,${residentialBlock.image1}`;
+                            const picture = imageBlobToBase64(residentialBlock.image1);
 
                             return (<div className={styles.concreteRegion} key={key}>
                                 <div><img className={styles.image} src={picture}/></div>

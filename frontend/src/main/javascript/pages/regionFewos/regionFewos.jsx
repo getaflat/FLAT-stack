@@ -72,42 +72,39 @@ export default class regionFewos extends React.Component {
 
     componentDidMount() {
         api.get('/residential-blocks/search/findByName', {
-         params: {
-         name: this.props.match.params.id
-         }
-         }).then(({ data }) => {
-         console.log(data);
-
+            params: {
+                name: this.props.match.params.id
+            }
+        }).then(({ data }) => {
             this.setState({
                 picture: 'data:image/png;base64,' + data.image1,
                 description: data.details
             });
 
-         return api.get('/apartments/search/findByResidentialBlockId', {
-         params: {
-         residentialBlockId: data.residentialBlockId
-         }
-         });
-         }).then(({ data }) => {
+            return api.get('/apartments/search/findByResidentialBlockId', {
+                params: {
+                    residentialBlockId: data.residentialBlockId
+                }
+            });
+        }).then(({ data }) => {
+            let apartments = data._embedded.apartments.map((apartment) => {
+                let infantsAllowed = apartment.infantsAllowed ? "Ja" : "Nein";
+                let isAvailable = apartment.isAvailable ? "Ja" : "Nein";
 
-         console.log(data);
+                return {
+                    ...apartment,
+                    infantsAllowed,
+                    isAvailable
+                }
+            });
 
-         let apartments = data._embedded.apartments.map((apartment) => {
-         let infantsAllowed = apartment.infantsAllowed ? "Ja" : "Nein";
-         let isAvailable = apartment.isAvailable ? "Ja" : "Nein";
-
-         return {
-         ...apartment,
-         infantsAllowed,
-         isAvailable
-         }
-         });
-         this.setState((prev, props) => {
-         return { fewos: apartments, filteredDataList: apartments }
-         });
-         }).catch(() => {
-         console.error(arguments)
-         });
+            this.setState({
+                fewos: apartments,
+                filteredDataList: apartments
+            });
+        }).catch(() => {
+            // console.error(arguments)
+        });
     }
 
     handleClick(event) {
@@ -124,7 +121,6 @@ export default class regionFewos extends React.Component {
         }
 
         let keyword = value.toString().toLowerCase();
-        // let size = this.state.fewos.length;
 
         let filtered = this.state.fewos.filter((fewo) => (
             fewo[field].toString().toLowerCase().indexOf(keyword) !== -1
@@ -148,7 +144,7 @@ export default class regionFewos extends React.Component {
                 <div>
                     {this.state.description}
                 </div>
-                    <br/>
+                <br/>
                 <div>
                     <Table rowsCount={this.state.filteredDataList.length} height={1000}
                            width={750}

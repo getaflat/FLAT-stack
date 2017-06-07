@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ReactRoutesController {
     @RequestMapping({
             "/",
-            "/booking",
+            "/booking/{name}",
             "/gtc",
             "/imprint",
             "/login",

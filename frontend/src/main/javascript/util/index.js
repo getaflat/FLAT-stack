@@ -1,3 +1,7 @@
+export function imageBlobToBase64(blob) {
+    return `data:image/png;base64,${blob}`;
+}
+
 export function isEmptyObject(obj) {
     return Object.keys(obj).length === 0 && obj.constructor === Object;
 }

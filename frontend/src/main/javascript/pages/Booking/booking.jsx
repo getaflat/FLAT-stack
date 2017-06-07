@@ -3,7 +3,7 @@ import styles from './booking.css'
 import globalStyles from '../../general-styles/global.css';
 import api from '../../services/api'
 import { isLoggedIn, getUser, getToken } from '../../services/auth';
-import { isEmptyObject, isEqual } from '../../util';
+import { isEmptyObject, isEqual, imageBlobToBase64 } from '../../util';
 
 import update from 'immutability-helper';
 
@@ -35,17 +35,6 @@ let children;
 let pets;
 let balcony;
 
-/* const customStyles = {
-    content : {
-        top                   : '50%',
-        left                  : '50%',
-        right                 : 'auto',
-        bottom                : 'auto',
-        marginRight           : '-50%',
-        transform             : 'translate(-50%, -50%)'
-    }
-}; */
-
 export default class Booking extends React.Component {
     constructor(props) {
         super(props);
@@ -61,7 +50,14 @@ export default class Booking extends React.Component {
 
             fewo: {
                 name: '',
-                id: ''
+                id: 0,
+                description: '',
+                persons: 0,
+                rooms: 0,
+                size: 0,
+                children: '',
+                pets: '',
+                balcony: ''
             },
 
             description: '',
@@ -85,6 +81,41 @@ export default class Booking extends React.Component {
     componentDidMount() {
         this.setState({
             user: this.props.user
+        });
+
+        this.setState({
+            basebooking: this.state.booking
+        });
+
+        //Bild und Beschreibung und max Personenanzahl (sieht überflüssig aus, leider wird nach dem Klicken auf einen Button die Beschreibung der Fewo nicht mehr angezeigt)
+        api.get('/apartments/search/findByName', {
+            params: {
+                name: this.props.match.params.id
+            }
+        }).then(({ data }) => {
+            this.setState({
+                fewo: {
+                    name: data.name,
+                    id: data.apartmentId,
+                    description: data.description,
+                    persons: data.numberOfPersons,
+                    rooms: data.numberOfRooms,
+                    size: data.size,
+                    children: data.infantsAllowed ? "Ja": "Nein",
+                    pets: data.animalsAllowed ? "Ja": "Nein",
+                    balcony: data.hasBalcony ? "Ja" : "Nein"
+                }
+            });
+
+            return api.get('/images/search/findByApartmentId', {
+                params: {
+                    apartmentId: data.apartmentId
+                }
+            })
+        }).then(({ data }) => {
+            this.setState({
+                picture: imageBlobToBase64(data._embedded.images[0].image)
+            });
         });
     }
 
@@ -180,7 +211,13 @@ export default class Booking extends React.Component {
 
             }).then(({data})=> {
                 console.log(data);
-                this.state.booking.points =this.state.booking.points+ (data.basePrice * factor2);
+
+
+                this.setState((prev, props) => update(prev, {
+                    booking: {
+                        points: { $apply: (points) => (points + (data.basePrice) * factor2) }
+                    }
+                }));
             });
 
         }
@@ -215,7 +252,12 @@ export default class Booking extends React.Component {
 
             }).then(({data})=> {
                 console.log(data);
-                this.state.booking.points =this.state.booking.points+ (data.basePrice * factor3);
+
+                this.setState((prev, props) => update(prev, {
+                    booking: {
+                        points: { $apply: (points) => (points + (data.basePrice) * factor3) }
+                    }
+                }));
             });
 
         }
@@ -256,7 +298,7 @@ export default class Booking extends React.Component {
 
                 this.setState((prev, props) => update(prev, {
                     booking: {
-                        points: { $apply: (points) => (prev.booking.points + (data.basePrice) * factor4) }
+                        points: { $apply: (points) => (points + (data.basePrice) * factor4) }
                     }
                 }));
             });
@@ -279,78 +321,6 @@ export default class Booking extends React.Component {
             }));
         }
 
-    }
-
-    componentDidMount() {
-
-        //Sicherung der leeren Inputfelder, damit nach Klick auf den Button "abbrechen" wieder die Inputfelder geleert werden
-        this.setState({
-            basebooking: this.state.booking
-        });
-
-        //User
-        if (isLoggedIn()) {
-            const token = getToken();
-            const user = getUser();
-
-    // TODO in Konsole werden alle User bzw. Kopie eines users geladen und dadurch kann in input-Feld KW nicht sofort etwas eingetragen werde
-     //TODO bei calcCost() werden auch alle User oder Kopie eines Users geladen
-            api.get(`/customers/search/findByEmail`, {
-                params: {
-                    email: user
-                }
-            }, {
-                headers: {
-                    authorization: token
-                }
-            }).then(({data}) => {
-                console.log(data);
-
-
-                this.setState({
-                    customer: data,
-                });
-            });
-        }
-
-        //Bild und Beschreibung und max Personenanzahl (sieht überflüssig aus, leider wird nach dem Klicken auf einen Button die Beschreibung der Fewo nicht mehr angezeigt)
-        api.get('/apartments/search/findByName', {
-            params: {
-                name: this.props.match.params.id
-            }
-        }).then(({ data }) => {
-            console.log(data);
-
-            descr = data.description;
-            //TODO neu
-            persons = data.numberOfPersons;
-            rooms = data.numberOfRooms;
-            size = data.size;
-            children = (data.infantsAllowed ? "Ja" : "Nein");
-            pets = (data.animalsAllowed ? "Ja" : "Nein");
-            balcony = (data.hasBalcony ? "Ja" : "Nein");
-            //TODO neu ende
-
-            this.setState({
-
-                fewo: {
-                    name: data.name,
-                    id: data.apartmentId
-                }
-
-            });
-
-            return api.get('/images/search/findByApartmentId', {
-                params: {
-                    apartmentId: data.apartmentId
-                }
-            })
-        }).then(({ data }) => {
-            console.log(data);
-            this.setState({
-                picture:'data:image/png;base64,' + data._embedded.images[0].image
-            });
-        });
     }
 
     handleSubmit(event) {
@@ -417,12 +387,12 @@ export default class Booking extends React.Component {
 
         //Label Bestätigung anzeigen
         this.refs.submitLabel.style.display = "flex";
-        setTimeout(function() {
+        setTimeout(() => {
             this.refs.submitLabel.style.display = "none";
 
             //dashboard weiterleiten
             this.props.history.push('/user');
-        }.bind(this), 2000);
+        }, 2000);
 
     }
 
@@ -439,13 +409,10 @@ export default class Booking extends React.Component {
     }
 
     clearInputs() {
-
-        //Zwischengespeicherter State nach dem die Website geladen wurde wiederherstellen
         this.setState({
            booking: this.state.basebooking
         });
 
-        //Button anpassen
         this.refs.submitB.style.display = "none";
         this.refs.calcB.style.display = "flex";
     }
@@ -459,72 +426,98 @@ export default class Booking extends React.Component {
                 <h1>Buchung</h1>
                 <div className={styles.booking}>
                     <div className={styles.leftBooking}>
-                        <div> <img className={styles.image} src={this.state.picture}/> </div>
+                        <div>
+                            <img className={styles.image} src={this.state.picture}/>
+                        </div>
                         <br/>
                         <div>
-                        <h3 className={styles.heading}>{this.props.match.params.id}</h3>
+                            <h3 className={styles.heading}>{this.props.match.params.id}</h3>
                         </div>
                         <div className={styles.facts}>
-                        <section>{descr}</section><br />
-                        <section className={styles.detail}>Details:</section>
-                        <section>Personenanzahl: {persons}</section>
-                        <section>Raumanzahl: {rooms}</section>
-                        <section>Größe: {size}</section>
-                        <section>Balkon vorhanden: {balcony}</section>
-                        <section>Tiere erlaubt: {pets}</section>
-                        <section>Kinder: {children}</section>
+                            <section>{this.state.fewo.description}</section><br />
+                            <section className={styles.detail}>Details:</section>
+                            <section>Personenanzahl: {this.state.fewo.persons}</section>
+                            <section>Raumanzahl: {this.state.fewo.rooms}</section>
+                            <section>Größe: {this.state.fewo.size}</section>
+                            <section>Balkon vorhanden: {this.state.fewo.balcony}</section>
+                            <section>Tiere erlaubt: {this.state.fewo.pets}</section>
+                            <section>Kinder: {this.state.fewo.children}</section>
                         </div>
                     </div>
                     <br/>
                     <div className={styles.rightBooking}>
                         <form onReset={this.clearInputs}>
+                            <label>Von (KW):</label>
+                            <input
+                                required={true}
+                                className={globalStyles.input}
+                                name="start"
+                                value={this.state.booking.start}
+                                ref="startInput"
+                                type="number"
+                                min={1}
+                                max={52}
+                                onChange={this.handleInput}/>
+                            <br/>
+                            <br/>
 
-                            <label>
-                                Von (KW):
-                            </label>
-                            <input required={true} className={globalStyles.input} name="start" value={this.state.booking.start}
-                                   ref="startInput" type="number" min={1} max={52} onChange={this.handleInput}/><br /><br/>
-                            <label>
-                                Bis (KW):
-                            </label>
-                            <input required={true} className={globalStyles.input} name="end" value={this.state.booking.end}
-                                   ref="endInput" type="number" min={1} max={52} onChange={this.handleInput}/><br /><br/>
+                            <label>Bis (KW):</label>
+                            <input
+                                required={true}
+                                className={globalStyles.input}
+                                name="end"
+                                value={this.state.booking.end}
+                                ref="endInput"
+                                type="number"
+                                min={1}
+                                max={52}
+                                onChange={this.handleInput}/>
+                            <br/>
+                            <br/>
 
-                            <label>
-                                Kosten:
-                            </label>
-                            <input className={globalStyles.input + ' ' + styles.cost} name="points" value={this.state.booking.points}
-                                   ref="costsInput" type="text"  readOnly="readOnly" onChange={this.handleInput}/><br /><br/>
+                            <label>Kosten:</label>
+                            <input
+                                className={globalStyles.input + ' ' + styles.cost}
+                                name="points"
+                                value={this.state.booking.points}
+                                ref="costsInput"
+                                type="text"
+                                readOnly="readOnly"
+                                onChange={this.handleInput}/>
+                            <br/>
+                            <br/>
 
-                            <label>
-                                Zusatzkosten:
-                            </label>
-                            <input className={globalStyles.input + ' ' + styles.cost} name="additionalCosts" value={this.state.booking.addtionalCosts}
-                                   ref="additionalCostsInput" type="text"  readOnly="readOnly" onChange={this.handleInput}/><br /><br/>
+                            <label>Zusatzkosten:</label>
+                            <input
+                                className={globalStyles.input + ' ' + styles.cost}
+                                name="additionalCosts"
+                                value={this.state.booking.addtionalCosts}
+                                ref="additionalCostsInput"
+                                type="text"
+                                readOnly="readOnly"
+                                onChange={this.handleInput}/>
+                            <br/>
+                            <br/>
 
                             <div className={styles.button}>
-                            <button className={globalStyles.button} type="reset">
-                                abbrechen
-                            </button>
-                            <button ref="calcB" className={globalStyles.button + ' ' + styles.calcButton} onClick={this.calcCost}>
-                                Kosten berechnen
-                            </button>
-                            <button ref="submitB" className={globalStyles.button + ' ' + styles.submitButton} onClick={this.handleSubmit}>
-                                Buchungswunsch anmelden
-                            </button>
+                                <button className={globalStyles.button} type="reset">
+                                    abbrechen
+                                </button>
+                                <button ref="calcB" className={globalStyles.button + ' ' + styles.calcButton} onClick={this.calcCost}>
+                                    Kosten berechnen
+                                </button>
+                                <button ref="submitB" className={globalStyles.button + ' ' + styles.submitButton} onClick={this.handleSubmit}>
+                                    Buchungswunsch anmelden
+                                </button>
                             </div>
                             <br/>
                             <div className={styles.submitResponse}>
-                            <label ref="submitLabel" className={styles.bookingLabel}>Ihre Buchungsanfrage wird bearbeitet</label>
+                                <label ref="submitLabel" className={styles.bookingLabel}>Ihre Buchungsanfrage wird bearbeitet</label>
                             </div>
                         </form>
                     </div>
                 </div>
-
-
-
             </div>
-
         );
     }
 }
