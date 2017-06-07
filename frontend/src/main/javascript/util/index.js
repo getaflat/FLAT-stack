@@ -11,7 +11,6 @@ export function isPrimitive(value) {
 }
 
 export function isEqual(a, b) {
-    // TODO: replace with a more save function
     return JSON.stringify(a) === JSON.stringify(b);
 
     // This version only works to check shallow equality

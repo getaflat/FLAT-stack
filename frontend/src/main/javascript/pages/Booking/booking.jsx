@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './booking.css'
 import globalStyles from '../../general-styles/global.css';
+import axios from 'axios';
 import api from '../../services/api'
 import { isLoggedIn, getUser, getToken } from '../../services/auth';
 import { isEmptyObject, isEqual, imageBlobToBase64 } from '../../util';
@@ -45,7 +46,7 @@ export default class Booking extends React.Component {
                 start: '',
                 end: '',
                 additionalCosts: '',
-                points: ''
+                points: 0
             },
 
             fewo: {
@@ -63,7 +64,8 @@ export default class Booking extends React.Component {
             description: '',
             picture: '',
             basebooking: {},
-            user: {}
+            user: {},
+            factors: []
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -125,202 +127,63 @@ export default class Booking extends React.Component {
         }
     }
 
+    getFactors(durations) {
+        return axios.all(durations.map((duration) => (
+            api.get('/factors/search/findByCalenderWeek', {
+                params: {
+                    calenderWeek: duration
+                }
+            })
+        ))).then((results) => {
+            return results.map(({ data: factor }) => factor);
+        });
+    };
+
     calcCost(event) {
-        //nach Drücken des Buttons "Kosten berechnen"
         event.preventDefault();
 
-        // TODO: Dies ist ein Hinweis und kein Todo: booking.end entspricht kw2 in DB und booking.start entspricht kw1 in DB, in DB wird nicht mehr jede KW eingetragen sondern nur noch Start- und Endwoche
-        //Dauer des Aufenthalts in Fewo berechnen
-        diff=this.state.booking.end-this.state.booking.start;
+        let { start, end } = this.state.booking;
+        let duration = Math.abs(end - start);
 
-        //in Input-Feld max KW 52 möglich und max 4 Wochen Aufenthalt, -4 falls Aufenthalt über Jahreswechsel geht
-        //TODO Buchung über Jahreswechsel überhaupt möglich? In DB ist ein Feld für Jahr. Inputfeld Jahr noch ergänzen?
-        if(this.state.booking.end > 52 ||this.state.booking.start > 52||(diff)>4||(diff)<(-4))
+        if (end > 52 || start > 52 || duration > 4) {
             return;
+        }
 
-        //Buttons werden angepasst
         this.refs.submitB.style.display = "flex";
         this.refs.calcB.style.display = "none";
 
-        //Bei einer Woche Aufenthalt
-        if(diff>=0||diff<=(0)) {
+        let durations = [];
 
-            //Factor ID suchen
-            api.get('/seasons/search/findByCalenderWeek', {
-                params: {
-                    calenderWeek: this.state.booking.start
-                }
-            }).then(({data}) => {
-                console.log(data);
-
-                //Factor suchen
-                return api.get('factors/search/findByFactorId', {
-                    params: {
-                        factorId: data.factorId
-                    }
-                });
-            }).then(({data})=> {
-                console.log(data);
-                factor1 = data.factor;
-
-                //Grundpreis Fewo suchen
-                return api.get('/apartments/search/findByName', {
-                    params: {
-                        name: this.props.match.params.id
-                    }
-                });
-
-            }).then(({data})=> {
-                console.log(data);
-                //TODO: ggf. Berechnung falsch, weil Variabeln nicht korrekt gesetzt
-                //Berechnung der ersten Woche
-                 price= data.basePrice * factor1;
-            });
-
+        for (let i = 0; i < duration + 1; i += 1) {
+            durations[i] = (+start + i) % 52;
         }
 
-
-        //Bei zwei Wochen Aufenthalt diese if-Bedingung zusätzlich ausgeführt
-        if(diff>=1||diff<=(-1)) {
-
-            //KW um 1 erhöhen
-            kw2=(this.state.booking.start+1)%52;
-
-            api.get('/seasons/search/findByCalenderWeek', {
+        axios.all([
+            this.getFactors(durations),
+            api.get('/apartments/search/findByName', {
                 params: {
-                    calenderWeek: kw2
+                    name: this.props.match.params.id
                 }
-            }).then(({data}) => {
-                console.log(data);
+            })
+        ]).then(axios.spread((factors, { data: apartment }) => {
+            return factors.reduce((accumulator, factor) => {
+                return accumulator + apartment.basePrice * factor
+            }, 0);
+        })).then((points) => {
+            let totalScore = this.state.user.totalScore;
+            let additionalCosts = 0;
 
-                return api.get('factors/search/findByFactorId', {
-                    params: {
-                        factorId: data.factorId
-                    }
-                });
-            }).then(({data})=> {
-                console.log(data);
-                factor2 = data.factor;
-
-                //TODO appartment muss evtl. nicht erneut gefunden werden, da bereits bei Berechnung der erster Woche gesetzt, wg. Copy'n'Paste noch drin
-                return api.get('/apartments/search/findByName', {
-                    params: {
-                        name: this.props.match.params.id
-                    }
-                });
-
-            }).then(({data})=> {
-                console.log(data);
-
-
-                this.setState((prev, props) => update(prev, {
-                    booking: {
-                        points: { $apply: (points) => (points + (data.basePrice) * factor2) }
-                    }
-                }));
-            });
-
-        }
-
-        //Berechnung dritter Woche
-        if(diff>=2||diff<=(-2)) {
-
-            kw3=(this.state.booking.start+1)%52;
-
-            api.get('/seasons/search/findByCalenderWeek', {
-                params: {
-                    calenderWeek: kw3
-                }
-            }).then(({data}) => {
-                console.log(data);
-
-                return api.get('factors/search/findByFactorId', {
-                    params: {
-                        factorId: data.factorId
-                    }
-                });
-            }).then(({data})=> {
-                console.log(data);
-                factor3 = data.factor;
-
-                //TODO appartment muss evtl. nicht erneut gefunden werden, da bereits bei Berechnung der erster Woche gesetzt, wg. Copy'n'Paste noch drin
-                return api.get('/apartments/search/findByName', {
-                    params: {
-                        name: this.props.match.params.id
-                    }
-                });
-
-            }).then(({data})=> {
-                console.log(data);
-
-                this.setState((prev, props) => update(prev, {
-                    booking: {
-                        points: { $apply: (points) => (points + (data.basePrice) * factor3) }
-                    }
-                }));
-            });
-
-        }
-
-        //Berechnung vierter Woche
-        if(diff>=3||diff<=(-3)) {
-
-            kw4=(this.state.booking.start+1)%52;
-
-            api.get('/seasons/search/findByCalenderWeek', {
-                params: {
-                    calenderWeek: kw4
-                }
-            }).then(({data}) => {
-                console.log(data);
-
-                return api.get('factors/search/findByFactorId', {
-                    params: {
-                        factorId: data.factorId
-                    }
-                });
-            }).then(({data})=> {
-                console.log(data);
-                factor4 = data.factor;
-
-                //TODO appartment muss evtl. nicht erneut gefunden werden, da bereits bei Berechnung der erster Woche gesetzt, wg. Copy'n'Paste noch drin
-                return api.get('/apartments/search/findByName', {
-                    params: {
-                        name: this.props.match.params.id
-                    }
-                });
-
-            }).then(({data})=> {
-                console.log(data);
-
-                // TODO Ausgabe in Punkten
-                // this.state.booking.points =this.state.booking.points + (data.basePrice * factor4);
-
-                this.setState((prev, props) => update(prev, {
-                    booking: {
-                        points: { $apply: (points) => (points + (data.basePrice) * factor4) }
-                    }
-                }));
-            });
-
-        }
-
-        //TODO funktionieren ggf. auch nicht, weil Berechnung der Kosten nicht funktioniert
-        //Zusatzkosten
-
-        //Kosten höher als Guthaben (totalScore)
-        if (this.state.booking.points > this.state.customer.totalScore) {
-            // 1 Punkt = 10 Euro, fehlende Punkte werden mit Faktor 2 = 20 Euro berechnet
-            // Ausgabe in Euro
-            // this.state.booking.additionalCosts= (this.state.booking.points-this.state.customer.totalScore)*20
+            if (points > totalScore) {
+                additionalCosts = (points - totalScore) * 20;
+            }
 
             this.setState((prev, props) => update(prev, {
                 booking: {
-                    additionalCosts: { $set: (prev.bookings.points - prev.customer.totalScore) * 20 }
+                    points: { $set: points },
+                    additionalCosts: { $set: additionalCosts }
                 }
             }));
-        }
-
+        });
     }
 
     handleSubmit(event) {
@@ -491,7 +354,7 @@ export default class Booking extends React.Component {
                             <input
                                 className={globalStyles.input + ' ' + styles.cost}
                                 name="additionalCosts"
-                                value={this.state.booking.addtionalCosts}
+                                value={this.state.booking.additionalCosts}
                                 ref="additionalCostsInput"
                                 type="text"
                                 readOnly="readOnly"
