@@ -19,5 +19,10 @@ public interface ApartmentRepository extends PagingAndSortingRepository<Apartmen
     List <Apartment> findByResidentialBlockId(@Param("residentialBlockId") Long residentialBlockId);
     Apartment findByApartmentId(@Param("apartmentId") Long apartmentId);
 
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "DROP TABLE apartment", nativeQuery = true)
+    Integer dropTable();
+
 
 }

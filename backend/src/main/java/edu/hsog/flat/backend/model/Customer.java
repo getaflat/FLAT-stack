@@ -2,6 +2,7 @@ package edu.hsog.flat.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+
 import javax.persistence.*;
 import java.util.Date;
 

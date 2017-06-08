@@ -7,10 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -28,5 +24,10 @@ public interface CustomerRepository extends CrudRepository<Customer, Long> {
     @Modifying(clearAutomatically = true)
     @Query(value = "update customer b set b.first_name= :firstName, b.last_name= :lastName where contract_number= :contractNumber", nativeQuery = true)
     Integer updateCustomer(@Param("firstName") String firstName, @Param("lastName") String lastName, @Param("contractNumber") Long contractNumber);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "DROP TABLE customer", nativeQuery = true)
+    Integer dropTable();
 
 }

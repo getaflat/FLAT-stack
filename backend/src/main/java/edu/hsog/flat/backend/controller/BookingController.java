@@ -5,7 +5,6 @@ import edu.hsog.flat.backend.model.Customer;
 import edu.hsog.flat.backend.repository.ApartmentRepository;
 import edu.hsog.flat.backend.repository.BookingRepository;
 import edu.hsog.flat.backend.repository.CustomerRepository;
-import org.apache.tomcat.jni.Local;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
 import org.joda.time.Weeks;
@@ -13,9 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;

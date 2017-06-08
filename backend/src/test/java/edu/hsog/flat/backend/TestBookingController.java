@@ -1,20 +1,14 @@
 package edu.hsog.flat.backend;
 
 import edu.hsog.flat.backend.controller.BookingController;
-import edu.hsog.flat.backend.model.Apartment;
 import edu.hsog.flat.backend.model.Booking;
-import edu.hsog.flat.backend.model.Customer;
-import edu.hsog.flat.backend.repository.ApartmentRepository;
 import edu.hsog.flat.backend.repository.BookingRepository;
-import edu.hsog.flat.backend.repository.CustomerRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import java.util.List;
-import static org.junit.Assert.*;
 /**
  * addBooking
  *

@@ -7,49 +7,45 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Date;
 
 @Component
 public class DatabaseLoader implements CommandLineRunner {
     private final ApartmentRepository aRepository;
     private final BookingRepository bRepository;
-	private final CustomerRepository cRepository;
-	private final FactorRepository fRepository;
-	private final ImageRepository iRepository;
-	private final RatingRepository raRepository;
-	private final ResidentialBlockRepository rbRepository;
-	private final SeasonRepository sRepository;
-	private final BCryptPasswordEncoder passwordEncoder;
+    private final CustomerRepository cRepository;
+    private final FactorRepository fRepository;
+    private final ImageRepository iRepository;
+    private final RatingRepository raRepository;
+    private final ResidentialBlockRepository rbRepository;
+    private final SeasonRepository sRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-	@Autowired
-	public DatabaseLoader(ApartmentRepository aRepository, BookingRepository bRepository, CustomerRepository cRepository, FactorRepository fRepository, ImageRepository iRepository, RatingRepository raRepository, ResidentialBlockRepository rbRepository, SeasonRepository sRepository, BCryptPasswordEncoder passwordEncoder) {
+    @Autowired
+    public DatabaseLoader(ApartmentRepository aRepository, BookingRepository bRepository, CustomerRepository cRepository, FactorRepository fRepository, ImageRepository iRepository, RatingRepository raRepository, ResidentialBlockRepository rbRepository, SeasonRepository sRepository, BCryptPasswordEncoder passwordEncoder) {
         this.aRepository = aRepository;
         this.bRepository = bRepository;
-	    this.cRepository = cRepository;
-	    this.fRepository = fRepository;
-	    this.iRepository = iRepository;
-	    this.raRepository = raRepository;
-	    this.rbRepository = rbRepository;
-	    this.sRepository = sRepository;
-	    this.passwordEncoder = passwordEncoder;
-	}
+        this.cRepository = cRepository;
+        this.fRepository = fRepository;
+        this.iRepository = iRepository;
+        this.raRepository = raRepository;
+        this.rbRepository = rbRepository;
+        this.sRepository = sRepository;
 
-	@Override
-	public void run(String... strings) throws Exception {
-        this.aRepository.deleteAll();
-//        this.bRepository.deleteAll();
-        this.cRepository.deleteAll();
-        this.fRepository.deleteAll();
-        this.iRepository.deleteAll();
-        this.raRepository.deleteAll();
-        this.rbRepository.deleteAll();
-        this.sRepository.deleteAll();
+        this.passwordEncoder = passwordEncoder;
+    }
 
-	    ResidentialBlock rb1 = new ResidentialBlock();
-	    rb1.setResidentialBlockId(1L);
-	    rb1.setName("Komplex Mallorca");
-	    rb1.setDetails("Der Kontrast auf schroffer Felsküste und herrlichen Sandstränden ist nur eines der Dinge, die den Reiz dieser Mittelmeer-Insel ausmachen. Die Hauptstadt Palma de Mallorca mit ihrem weit bekannten Nachtleben liegt circa eine Stunde mit dem Auto, das im Ort gemietet werden kann, entfernt. Aber auch die öffentlichen Verkehrsmittel sind gut ausgebaut. \n" +
+    @Override
+    public void run(String... strings) throws Exception {
+
+
+        ResidentialBlock rb1 = new ResidentialBlock();
+        rb1.setResidentialBlockId(1L);
+        rb1.setName("Komplex Mallorca");
+        rb1.setDetails("Der Kontrast auf schroffer Felsküste und herrlichen Sandstränden ist nur eines der Dinge, die den Reiz dieser Mittelmeer-Insel ausmachen. Die Hauptstadt Palma de Mallorca mit ihrem weit bekannten Nachtleben liegt circa eine Stunde mit dem Auto, das im Ort gemietet werden kann, entfernt. Aber auch die öffentlichen Verkehrsmittel sind gut ausgebaut. \n" +
                 "In unserer Anlage, bestehend aus 5 Wohnungen und Häuschen, finden sie alles, was einen entspannten Urlaub ausmacht. Ein kleiner Supermarkt ist vor Ort, ebenso wie im Dorf diverse weitere Geschäft und ein Arzt zu finden sind. Der große Gemeinschaftspool steht nur unseren Gästen zur Verfügung, aber auch der Strand ist nur wenige Gehminuten entfernt. Neben Baden stehen auch Wandern, Reiten und Tennis spielen (beides im Ort) zur Freizeitgestaltung zur Auswahl.\n");
         rb1.setImage1(this.readImage("./src/img/residential_blocks/mediterranean_sea/residential_block1/Costa_Brava.JPG"));
         rb1.setImage2(this.readImage("./src/img/residential_blocks/mediterranean_sea/residential_block1/dorf.jpeg"));
@@ -88,20 +84,20 @@ public class DatabaseLoader implements CommandLineRunner {
         this.rbRepository.save(rb5);
 
 
-	    Apartment a1 = new Apartment();
-	    a1.setApartmentId(1L);
+        Apartment a1 = new Apartment();
+        a1.setApartmentId(1L);
         a1.setResidentialBlockId(rb2.getResidentialBlockId());
-	    a1.setIsAvailable(true);
-	    a1.setName("FeWo-Italien-1");
-	    a1.setDescription("Die beiden liebevoll eingerichteten, traditionellen Häuser beherbergen insgesamt 5 Wohnungen. Im Sommer locken die Berge zum Wandern und auch der nahe gelegene Badesee sorgt für Erfrischung. Im Winter bietet sich das Skigebiet mit 3 Liften und Pisten für Anfänger bis Profis an. auch Ski- und Snowboardkurse werden veranstaltet. Einkaufsmöglichkeiten befinden sich direkt im Dorf, die nächste Stadt ist ca 30 Minuten mit dem Auto entfernt.\n");
-	    a1.setNumberOfRooms(4);
-	    a1.setSize(153.5);
-	    a1.setNumberOfPersons(6);
-	    a1.setBasePrice(500);
-	    a1.setHasBalcony(true);
-	    a1.setAnimalsAllowed(false);
-	    a1.setInfantsAllowed(false);
-	    this.aRepository.save(a1);
+        a1.setIsAvailable(true);
+        a1.setName("FeWo-Italien-1");
+        a1.setDescription("Die beiden liebevoll eingerichteten, traditionellen Häuser beherbergen insgesamt 5 Wohnungen. Im Sommer locken die Berge zum Wandern und auch der nahe gelegene Badesee sorgt für Erfrischung. Im Winter bietet sich das Skigebiet mit 3 Liften und Pisten für Anfänger bis Profis an. auch Ski- und Snowboardkurse werden veranstaltet. Einkaufsmöglichkeiten befinden sich direkt im Dorf, die nächste Stadt ist ca 30 Minuten mit dem Auto entfernt.\n");
+        a1.setNumberOfRooms(4);
+        a1.setSize(153.5);
+        a1.setNumberOfPersons(6);
+        a1.setBasePrice(500);
+        a1.setHasBalcony(true);
+        a1.setAnimalsAllowed(false);
+        a1.setInfantsAllowed(false);
+        this.aRepository.save(a1);
 
         Apartment a2 = new Apartment();
         a2.setApartmentId(2L);
@@ -327,170 +323,170 @@ public class DatabaseLoader implements CommandLineRunner {
         a15.setInfantsAllowed(false);
         this.aRepository.save(a15);
 
-        Apartment a21 = new Apartment();
-        a21.setApartmentId(21L);
-        a21.setResidentialBlockId(rb4.getResidentialBlockId());
-        a21.setIsAvailable(true);
-        a21.setName("FeWo-Nordsee-1");
-        a21.setDescription("Diese Wohnung besticht durch ihr luxuriöses Bad sowie den großzügig gestalteten Wohnbereich. Sie ist für 8 Personen geeignet. Es gibt 3 Schlafzimmer (2 Doppelbetten mit Sat-TV, 1 x 2 Einzelbetten) und eine gemütliche Schlafcouch im Essbereich, der ebenfalls mit einem Sat-TV sowie einem DVD-Player ausgestattet ist.. Der Balkon bietet einen tollen Blick auf die Nordsee. Kochutensilien und Geschirr sind ausreichend vorhanden, ebenso wie 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeevollautomat, Toaster, Wasserkocher und elektrische Saftpresse.  Auch eine Waschmaschine und ein Wäschetrockner stehen zur Verfügung.");
-        a21.setNumberOfRooms(4);
-        a21.setSize(125.7);
-        a21.setNumberOfPersons(8);
-        a21.setBasePrice(640);
-        a21.setHasBalcony(true);
-        a21.setAnimalsAllowed(true);
-        a21.setInfantsAllowed(true);
-        this.aRepository.save(a21);
+        Apartment a16 = new Apartment();
+        a16.setApartmentId(21L);
+        a16.setResidentialBlockId(rb4.getResidentialBlockId());
+        a16.setIsAvailable(true);
+        a16.setName("FeWo-Nordsee-1");
+        a16.setDescription("Diese Wohnung besticht durch ihr luxuriöses Bad sowie den großzügig gestalteten Wohnbereich. Sie ist für 8 Personen geeignet. Es gibt 3 Schlafzimmer (2 Doppelbetten mit Sat-TV, 1 x 2 Einzelbetten) und eine gemütliche Schlafcouch im Essbereich, der ebenfalls mit einem Sat-TV sowie einem DVD-Player ausgestattet ist.. Der Balkon bietet einen tollen Blick auf die Nordsee. Kochutensilien und Geschirr sind ausreichend vorhanden, ebenso wie 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeevollautomat, Toaster, Wasserkocher und elektrische Saftpresse.  Auch eine Waschmaschine und ein Wäschetrockner stehen zur Verfügung.");
+        a16.setNumberOfRooms(4);
+        a16.setSize(125.7);
+        a16.setNumberOfPersons(8);
+        a16.setBasePrice(640);
+        a16.setHasBalcony(true);
+        a16.setAnimalsAllowed(true);
+        a16.setInfantsAllowed(true);
+        this.aRepository.save(a16);
 
-        Apartment a22 = new Apartment();
-        a22.setApartmentId(22L);
-        a22.setResidentialBlockId(rb5.getResidentialBlockId());
-        a22.setIsAvailable(true);
-        a22.setName("FeWo-Ostsee-1");
-        a22.setDescription("Helles und freundlich eingerichtetes kleines Häuschen für 5 Personen (2 Erwachsene und 3 Kinder).\n" +
+        Apartment a17 = new Apartment();
+        a17.setApartmentId(22L);
+        a17.setResidentialBlockId(rb5.getResidentialBlockId());
+        a17.setIsAvailable(true);
+        a17.setName("FeWo-Ostsee-1");
+        a17.setDescription("Helles und freundlich eingerichtetes kleines Häuschen für 5 Personen (2 Erwachsene und 3 Kinder).\n" +
                 "Es verfügt über 2 Schlafzimmer ( ein Doppelbett, einmal ein Etagenbett und ein Einzelbett).\n" +
                 "Der kleine Balkon geht direkt übers Wasser, hinten gibt es ein kleines Stück Rasenfläche zur persönlichen Nutzung, Gartenmöbel vorhanden, Grillen erlaubt.\n" +
                 "Die Küche ist mit ausreichend Koch- und Essgeschirr ausgestattet. Des weiteren stehen ein 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeemaschine, Toaster, Wasserkocher und elektrische Saftpresse, sowie eine Waschmaschine zur Verfügung.");
-        a22.setNumberOfRooms(3);
-        a22.setSize(105.7);
-        a22.setNumberOfPersons(5);
-        a22.setBasePrice(440);
+        a17.setNumberOfRooms(3);
+        a17.setSize(105.7);
+        a17.setNumberOfPersons(5);
+        a17.setBasePrice(440);
+        a17.setHasBalcony(true);
+        a17.setAnimalsAllowed(false);
+        a17.setInfantsAllowed(false);
+        this.aRepository.save(a17);
+
+        Apartment a18 = new Apartment();
+        a18.setApartmentId(23L);
+        a18.setResidentialBlockId(rb4.getResidentialBlockId());
+        a18.setIsAvailable(true);
+        a18.setName("FeWo-Nordsee-2");
+        a18.setDescription("Die gehobene Ausstattung dieser 5 Zimmer Wohnung lädt zum Verweilen und Entspannen ein.Im  Erdgeschoss gelegen bietet Sie dennoch ausreichend Privatsphäre. Die Küche mit ihrem nordischen Bauerncharme wird sie bestimmt verzaubern und zu spannenden neuen Gerichten inspirieren. Danach lädt das elegante Wohnzimmer zum gemütlichen Beisammensein ein. Geeignet ist die Wohnung für 6 Personen (2 Doppelbetten mit Sat-TV, 1 x 2 Einzelbetten).\n" +
+                "Kochutensilien und Geschirr sind ausreichend vorhanden, ebenso wie 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeevollautomat, Toaster, Wasserkocher und elektrische Saftpresse.  Auch eine Waschmaschine und ein Wäschetrockner stehen zur Verfügung.  \n");
+        a18.setNumberOfRooms(5);
+        a18.setSize(182.3);
+        a18.setNumberOfPersons(6);
+        a18.setBasePrice(840);
+        a18.setHasBalcony(false);
+        a18.setAnimalsAllowed(false);
+        a18.setInfantsAllowed(true);
+        this.aRepository.save(a18);
+
+        Apartment a19 = new Apartment();
+        a19.setApartmentId(24L);
+        a19.setResidentialBlockId(rb5.getResidentialBlockId());
+        a19.setIsAvailable(false);
+        a19.setName("FeWo-Ostsee-2");
+        a19.setDescription("Dieses gemütliche kleine Haus bietet mit seinen 2 Schlafzimmern ( einmal Doppelbett und einmal 2 Einzelbetten) 2-4 Personen Platz. Im offenen Wohnbereich befindet sich neben dem Essplatz, dem Küchenbereich auch ein Sofa mit TV. \n" +
+                "Der kleine Balkon geht direkt übers Wasser, hinten gibt es ein kleines Stück Rasenfläche zur persönlichen Nutzung, Gartenmöbel vorhanden, Grillen erlaubt.\n" +
+                "Die Küche ist mit ausreichend Koch- und Essgeschirr ausgestattet. Des weiteren stehen ein 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeemaschine, Toaster, Wasserkocher und elektrische Saftpresse, sowie eine Waschmaschine zur Verfügung.");
+        a19.setNumberOfRooms(4);
+        a19.setSize(92.6);
+        a19.setNumberOfPersons(4);
+        a19.setBasePrice(510);
+        a19.setHasBalcony(true);
+        a19.setAnimalsAllowed(true);
+        a19.setInfantsAllowed(true);
+        this.aRepository.save(a19);
+
+        Apartment a20 = new Apartment();
+        a20.setApartmentId(25L);
+        a20.setResidentialBlockId(rb4.getResidentialBlockId());
+        a20.setIsAvailable(false);
+        a20.setName("FeWo-Nordsee-3");
+        a20.setDescription("Sehr helle und freundliche 4 Zimmer Wohnung mit direktem Zugang zur Dachterrasse, von der sie einen herrlichen Blick über die Umgebung, den Strand und die Nordsee haben. Auch zum Relaxen ist sie geeignet, dank entsprechender Möblierung. In dieser Wohnung finden bis zu 4 Personen und 2 Kinder bis 12 Jahren Platz. \n" +
+                "Kochutensilien und Geschirr sind ausreichend vorhanden, ebenso wie 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeevollautomat, Toaster, Wasserkocher und elektrische Saftpresse.  Auch eine Waschmaschine und ein Wäschetrockner stehen zur Verfügung.");
+        a20.setNumberOfRooms(4);
+        a20.setSize(135.7);
+        a20.setNumberOfPersons(6);
+        a20.setBasePrice(640);
+        a20.setHasBalcony(true);
+        a20.setAnimalsAllowed(false);
+        a20.setInfantsAllowed(true);
+        this.aRepository.save(a20);
+
+        Apartment a21 = new Apartment();
+        a21.setApartmentId(26L);
+        a21.setResidentialBlockId(rb4.getResidentialBlockId());
+        a21.setIsAvailable(false);
+        a21.setName("FeWo-Nordsee-4");
+        a21.setDescription("In dieser 3 Zimmer Wohnung finden 4 Personen Platz. Die offene Wohnlandschaft vereint Wohn-, Ess- und Kochbereich, was ein gemütliches Beisammensein verspricht. Das extravagante Badezimmer kommt einer kleinen Wellness-Oase gleich. Vom Balkon aus haben sie einen schönen Blick auf den Strand und die Strandpromenade.\n" +
+                "Kochutensilien und Geschirr sind ausreichend vorhanden, ebenso wie 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeevollautomat, Toaster, Wasserkocher und elektrische Saftpresse.  Auch eine Waschmaschine und ein Wäschetrockner stehen zur Verfügung.");
+        a21.setNumberOfRooms(3);
+        a21.setSize(89.7);
+        a21.setNumberOfPersons(4);
+        a21.setBasePrice(530);
+        a21.setHasBalcony(true);
+        a21.setAnimalsAllowed(false);
+        a21.setInfantsAllowed(false);
+        this.aRepository.save(a21);
+
+        Apartment a22 = new Apartment();
+        a22.setApartmentId(27L);
+        a22.setResidentialBlockId(rb5.getResidentialBlockId());
+        a22.setIsAvailable(false);
+        a22.setName("FeWo-Ostsee-3");
+        a22.setDescription("4 Personen können in diesem Häuschen einen gemütlichen Urlaub verbringen. Das moderne Badezimmer und der helle Wohnbereich bietet das richtige Umfeld um zu entspannen und zur Ruhe zu kommen. Die 2 Schlafzimmern (einmal Doppelbett und einmal 2 Einzelbetten) sind zweckmäßig eingerichtet. \n" +
+                "Der kleine Balkon geht direkt übers Wasser, hinten gibt es ein kleines Stück Rasenfläche zur persönlichen Nutzung, Gartenmöbel vorhanden, Grillen erlaubt.\n" +
+                "Die Küche ist mit ausreichend Koch- und Essgeschirr ausgestattet. Des weiteren stehen ein 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeemaschine, Toaster, Wasserkocher und elektrische Saftpresse, sowie eine Waschmaschine zur Verfügung. ");
+        a22.setNumberOfRooms(4);
+        a22.setSize(151.1);
+        a22.setNumberOfPersons(4);
+        a22.setBasePrice(710);
         a22.setHasBalcony(true);
         a22.setAnimalsAllowed(false);
-        a22.setInfantsAllowed(false);
-        this.aRepository.save(a22);
+        a22.setInfantsAllowed(true);
+        this.aRepository.save(a16);
 
         Apartment a23 = new Apartment();
-        a23.setApartmentId(23L);
-        a23.setResidentialBlockId(rb4.getResidentialBlockId());
+        a23.setApartmentId(28L);
+        a23.setResidentialBlockId(rb5.getResidentialBlockId());
         a23.setIsAvailable(true);
-        a23.setName("FeWo-Nordsee-2");
-        a23.setDescription("Die gehobene Ausstattung dieser 5 Zimmer Wohnung lädt zum Verweilen und Entspannen ein.Im  Erdgeschoss gelegen bietet Sie dennoch ausreichend Privatsphäre. Die Küche mit ihrem nordischen Bauerncharme wird sie bestimmt verzaubern und zu spannenden neuen Gerichten inspirieren. Danach lädt das elegante Wohnzimmer zum gemütlichen Beisammensein ein. Geeignet ist die Wohnung für 6 Personen (2 Doppelbetten mit Sat-TV, 1 x 2 Einzelbetten).\n" +
-                "Kochutensilien und Geschirr sind ausreichend vorhanden, ebenso wie 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeevollautomat, Toaster, Wasserkocher und elektrische Saftpresse.  Auch eine Waschmaschine und ein Wäschetrockner stehen zur Verfügung.  \n");
-        a23.setNumberOfRooms(5);
-        a23.setSize(182.3);
+        a23.setName("FeWo-Ostsee-4");
+        a23.setDescription("Mit Platz für bis zu 6 Personen ist dieses Haus eines der geräumigeren in der Anlage. Es befindet sich am Ende der Häuserreihe. Zur Verfügung stehen 3 Schlafzimmer (zweimal Doppelbett und einmal 2 Einzelbetten) sowie ein gemütlicher Wohnbereich mit angrenzendem Essbereich. \n" +
+                "Der kleine Balkon geht direkt übers Wasser, hinten gibt es ein kleines Stück Rasenfläche zur persönlichen Nutzung, Gartenmöbel vorhanden, Grillen erlaubt.\n" +
+                "Die Küche ist mit ausreichend Koch- und Essgeschirr ausgestattet. Des weiteren stehen ein 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeemaschine, Toaster, Wasserkocher und elektrische Saftpresse, sowie eine Waschmaschine zur Verfügung.");
+        a23.setNumberOfRooms(6);
+        a23.setSize(174.3);
         a23.setNumberOfPersons(6);
-        a23.setBasePrice(840);
-        a23.setHasBalcony(false);
-        a23.setAnimalsAllowed(false);
+        a23.setBasePrice(720);
+        a23.setHasBalcony(true);
+        a23.setAnimalsAllowed(true);
         a23.setInfantsAllowed(true);
         this.aRepository.save(a23);
 
         Apartment a24 = new Apartment();
-        a24.setApartmentId(24L);
+        a24.setApartmentId(29L);
         a24.setResidentialBlockId(rb5.getResidentialBlockId());
-        a24.setIsAvailable(false);
-        a24.setName("FeWo-Ostsee-2");
-        a24.setDescription("Dieses gemütliche kleine Haus bietet mit seinen 2 Schlafzimmern ( einmal Doppelbett und einmal 2 Einzelbetten) 2-4 Personen Platz. Im offenen Wohnbereich befindet sich neben dem Essplatz, dem Küchenbereich auch ein Sofa mit TV. \n" +
+        a24.setIsAvailable(true);
+        a24.setName("FeWo-Ostsee-5");
+        a24.setDescription("Das größte Haus in der Anlage bietet Platz für bis zu 6 Personen, die sich in 3 Schlafzimmern (zweimal Doppelbett und einmal 2 Einzelbetten) in der oberen der 2 Etagen  wohlfühlen können. Im Erdgeschoss bietet der Wohn- und Essbereich genügend Raum zur Geselligkeit.\n" +
                 "Der kleine Balkon geht direkt übers Wasser, hinten gibt es ein kleines Stück Rasenfläche zur persönlichen Nutzung, Gartenmöbel vorhanden, Grillen erlaubt.\n" +
-                "Die Küche ist mit ausreichend Koch- und Essgeschirr ausgestattet. Des weiteren stehen ein 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeemaschine, Toaster, Wasserkocher und elektrische Saftpresse, sowie eine Waschmaschine zur Verfügung.");
-        a24.setNumberOfRooms(4);
-        a24.setSize(92.6);
-        a24.setNumberOfPersons(4);
-        a24.setBasePrice(510);
+                "Die Küche ist mit ausreichend Koch- und Essgeschirr ausgestattet. Des weiteren stehen ein 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeemaschine, Toaster, Wasserkocher und elektrische Saftpresse, sowie eine Waschmaschine zur Verfügung. \n");
+        a24.setNumberOfRooms(5);
+        a24.setSize(192.1);
+        a24.setNumberOfPersons(6);
+        a24.setBasePrice(940);
         a24.setHasBalcony(true);
         a24.setAnimalsAllowed(true);
         a24.setInfantsAllowed(true);
         this.aRepository.save(a24);
 
         Apartment a25 = new Apartment();
-        a25.setApartmentId(25L);
+        a25.setApartmentId(30L);
         a25.setResidentialBlockId(rb4.getResidentialBlockId());
-        a25.setIsAvailable(false);
-        a25.setName("FeWo-Nordsee-3");
-        a25.setDescription("Sehr helle und freundliche 4 Zimmer Wohnung mit direktem Zugang zur Dachterrasse, von der sie einen herrlichen Blick über die Umgebung, den Strand und die Nordsee haben. Auch zum Relaxen ist sie geeignet, dank entsprechender Möblierung. In dieser Wohnung finden bis zu 4 Personen und 2 Kinder bis 12 Jahren Platz. \n" +
-                "Kochutensilien und Geschirr sind ausreichend vorhanden, ebenso wie 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeevollautomat, Toaster, Wasserkocher und elektrische Saftpresse.  Auch eine Waschmaschine und ein Wäschetrockner stehen zur Verfügung.");
-        a25.setNumberOfRooms(4);
-        a25.setSize(135.7);
-        a25.setNumberOfPersons(6);
-        a25.setBasePrice(640);
-        a25.setHasBalcony(true);
-        a25.setAnimalsAllowed(false);
-        a25.setInfantsAllowed(true);
-        this.aRepository.save(a25);
-
-        Apartment a26 = new Apartment();
-        a26.setApartmentId(26L);
-        a26.setResidentialBlockId(rb4.getResidentialBlockId());
-        a26.setIsAvailable(false);
-        a26.setName("FeWo-Nordsee-4");
-        a26.setDescription("In dieser 3 Zimmer Wohnung finden 4 Personen Platz. Die offene Wohnlandschaft vereint Wohn-, Ess- und Kochbereich, was ein gemütliches Beisammensein verspricht. Das extravagante Badezimmer kommt einer kleinen Wellness-Oase gleich. Vom Balkon aus haben sie einen schönen Blick auf den Strand und die Strandpromenade.\n" +
-                "Kochutensilien und Geschirr sind ausreichend vorhanden, ebenso wie 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeevollautomat, Toaster, Wasserkocher und elektrische Saftpresse.  Auch eine Waschmaschine und ein Wäschetrockner stehen zur Verfügung.");
-        a26.setNumberOfRooms(3);
-        a26.setSize(89.7);
-        a26.setNumberOfPersons(4);
-        a26.setBasePrice(530);
-        a26.setHasBalcony(true);
-        a26.setAnimalsAllowed(false);
-        a26.setInfantsAllowed(false);
-        this.aRepository.save(a26);
-
-        Apartment a27 = new Apartment();
-        a27.setApartmentId(27L);
-        a27.setResidentialBlockId(rb5.getResidentialBlockId());
-        a27.setIsAvailable(false);
-        a27.setName("FeWo-Ostsee-3");
-        a27.setDescription("4 Personen können in diesem Häuschen einen gemütlichen Urlaub verbringen. Das moderne Badezimmer und der helle Wohnbereich bietet das richtige Umfeld um zu entspannen und zur Ruhe zu kommen. Die 2 Schlafzimmern (einmal Doppelbett und einmal 2 Einzelbetten) sind zweckmäßig eingerichtet. \n" +
-                "Der kleine Balkon geht direkt übers Wasser, hinten gibt es ein kleines Stück Rasenfläche zur persönlichen Nutzung, Gartenmöbel vorhanden, Grillen erlaubt.\n" +
-                "Die Küche ist mit ausreichend Koch- und Essgeschirr ausgestattet. Des weiteren stehen ein 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeemaschine, Toaster, Wasserkocher und elektrische Saftpresse, sowie eine Waschmaschine zur Verfügung. ");
-        a27.setNumberOfRooms(4);
-        a27.setSize(151.1);
-        a27.setNumberOfPersons(4);
-        a27.setBasePrice(710);
-        a27.setHasBalcony(true);
-        a27.setAnimalsAllowed(false);
-        a27.setInfantsAllowed(true);
-        this.aRepository.save(a21);
-
-        Apartment a28 = new Apartment();
-        a28.setApartmentId(28L);
-        a28.setResidentialBlockId(rb5.getResidentialBlockId());
-        a28.setIsAvailable(true);
-        a28.setName("FeWo-Ostsee-4");
-        a28.setDescription("Mit Platz für bis zu 6 Personen ist dieses Haus eines der geräumigeren in der Anlage. Es befindet sich am Ende der Häuserreihe. Zur Verfügung stehen 3 Schlafzimmer (zweimal Doppelbett und einmal 2 Einzelbetten) sowie ein gemütlicher Wohnbereich mit angrenzendem Essbereich. \n" +
-                "Der kleine Balkon geht direkt übers Wasser, hinten gibt es ein kleines Stück Rasenfläche zur persönlichen Nutzung, Gartenmöbel vorhanden, Grillen erlaubt.\n" +
-                "Die Küche ist mit ausreichend Koch- und Essgeschirr ausgestattet. Des weiteren stehen ein 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeemaschine, Toaster, Wasserkocher und elektrische Saftpresse, sowie eine Waschmaschine zur Verfügung.");
-        a28.setNumberOfRooms(6);
-        a28.setSize(174.3);
-        a28.setNumberOfPersons(6);
-        a28.setBasePrice(720);
-        a28.setHasBalcony(true);
-        a28.setAnimalsAllowed(true);
-        a28.setInfantsAllowed(true);
-        this.aRepository.save(a28);
-
-        Apartment a29 = new Apartment();
-        a29.setApartmentId(29L);
-        a29.setResidentialBlockId(rb5.getResidentialBlockId());
-        a29.setIsAvailable(true);
-        a29.setName("FeWo-Ostsee-5");
-        a29.setDescription("Das größte Haus in der Anlage bietet Platz für bis zu 6 Personen, die sich in 3 Schlafzimmern (zweimal Doppelbett und einmal 2 Einzelbetten) in der oberen der 2 Etagen  wohlfühlen können. Im Erdgeschoss bietet der Wohn- und Essbereich genügend Raum zur Geselligkeit.\n" +
-                "Der kleine Balkon geht direkt übers Wasser, hinten gibt es ein kleines Stück Rasenfläche zur persönlichen Nutzung, Gartenmöbel vorhanden, Grillen erlaubt.\n" +
-                "Die Küche ist mit ausreichend Koch- und Essgeschirr ausgestattet. Des weiteren stehen ein 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeemaschine, Toaster, Wasserkocher und elektrische Saftpresse, sowie eine Waschmaschine zur Verfügung. \n");
-        a29.setNumberOfRooms(5);
-        a29.setSize(192.1);
-        a29.setNumberOfPersons(6);
-        a29.setBasePrice(940);
-        a29.setHasBalcony(true);
-        a29.setAnimalsAllowed(true);
-        a29.setInfantsAllowed(true);
-        this.aRepository.save(a29);
-
-        Apartment a30 = new Apartment();
-        a30.setApartmentId(30L);
-        a30.setResidentialBlockId(rb4.getResidentialBlockId());
-        a30.setIsAvailable(true);
-        a30.setName("FeWo-Nordsee-5");
-        a30.setDescription("Sollte das nordische „Schietwetter“ doch mal zuschlagen, sind sie in dieser Wohnung bestens vorbereitet. Entspannen sie in der eigenen Sauna und genießen sie danach den Tag vor dem offenen Kamin. So hat „Schlecht-Wetter-Laune“ keine Chance! Diese 4 Zimmer Wohnung mit 2 Schlafzimmern (ein Doppelbett und einmal 2 Einzelbetten) bietet 4 Personen Platz. \n" +
+        a25.setIsAvailable(true);
+        a25.setName("FeWo-Nordsee-5");
+        a25.setDescription("Sollte das nordische „Schietwetter“ doch mal zuschlagen, sind sie in dieser Wohnung bestens vorbereitet. Entspannen sie in der eigenen Sauna und genießen sie danach den Tag vor dem offenen Kamin. So hat „Schlecht-Wetter-Laune“ keine Chance! Diese 4 Zimmer Wohnung mit 2 Schlafzimmern (ein Doppelbett und einmal 2 Einzelbetten) bietet 4 Personen Platz. \n" +
                 "Kochutensilien und Geschirr sind ausreichend vorhanden, ebenso wie 4 Platten Induktionsherd, Backofen, Mikrowelle, Kaffeevollautomat, Toaster, Wasserkocher und elektrische Saftpresse.  Auch eine Waschmaschine und ein Wäschetrockner stehen zur Verfügung. ");
-        a30.setNumberOfRooms(4);
-        a30.setSize(110.7);
-        a30.setNumberOfPersons(4);
-        a30.setBasePrice(680);
-        a30.setHasBalcony(false);
-        a30.setAnimalsAllowed(false);
-        a30.setInfantsAllowed(false);
-        this.aRepository.save(a30);
+        a25.setNumberOfRooms(4);
+        a25.setSize(110.7);
+        a25.setNumberOfPersons(4);
+        a25.setBasePrice(680);
+        a25.setHasBalcony(false);
+        a25.setAnimalsAllowed(false);
+        a25.setInfantsAllowed(false);
+        this.aRepository.save(a25);
 
         Rating ra1 = new Rating();
         ra1.setScore(3.5);
@@ -570,25 +566,25 @@ public class DatabaseLoader implements CommandLineRunner {
             this.sRepository.save(s1);
         }
 
-		/*Customer c = new Customer();
-		 c.setContractNumber(123456789001L);
-		 this.cRepository.save(c);
-		c.setContractNumber(123456789002L);
-		 this.cRepository.save(c);
-		c.setContractNumber(123456789003L);
-		this.cRepository.save(c);
-		c.setContractNumber(123456789004L);
-		this.cRepository.save(c);
-		c.setContractNumber(123456789005L);
-		this.cRepository.save(c);
-		c.setContractNumber(123456789006L);
-		this.cRepository.save(c);
-		c.setContractNumber(123456789008L);
-		this.cRepository.save(c);
-		c.setContractNumber(123456789009L);
-		this.cRepository.save(c);
-		c.setContractNumber(123456789010L);
-		this.cRepository.save(c);*/
+        /*Customer c = new Customer();
+         c.setContractNumber(123456789001L);
+         this.cRepository.save(c);
+        c.setContractNumber(123456789002L);
+         this.cRepository.save(c);
+        c.setContractNumber(123456789003L);
+        this.cRepository.save(c);
+        c.setContractNumber(123456789004L);
+        this.cRepository.save(c);
+        c.setContractNumber(123456789005L);
+        this.cRepository.save(c);
+        c.setContractNumber(123456789006L);
+        this.cRepository.save(c);
+        c.setContractNumber(123456789008L);
+        this.cRepository.save(c);
+        c.setContractNumber(123456789009L);
+        this.cRepository.save(c);
+        c.setContractNumber(123456789010L);
+        this.cRepository.save(c);*/
 
         Customer c0 = new Customer();
         c0.setContractNumber(123456789010L);
@@ -601,15 +597,15 @@ public class DatabaseLoader implements CommandLineRunner {
         this.cRepository.save(c0);
 
 
-		Customer c1 = new Customer();
-		c1.setContractNumber(123456789011L);
-		c1.setLastName("Testico1");
-		c1.setFirstName("Test1");
-		c1.setEmail("Test1.Testico1@go.de");
-		c1.setDateOfBirth(new Date(91, 0, 1));
-		c1.setPassword(passwordEncoder.encode("test1"));
-		c1.setTotalScore(400);
-		this.cRepository.save(c1);
+        Customer c1 = new Customer();
+        c1.setContractNumber(123456789011L);
+        c1.setLastName("Testico1");
+        c1.setFirstName("Test1");
+        c1.setEmail("Test1.Testico1@go.de");
+        c1.setDateOfBirth(new Date(91, 0, 1));
+        c1.setPassword(passwordEncoder.encode("test1"));
+        c1.setTotalScore(400);
+        this.cRepository.save(c1);
 
         Customer c2 = new Customer();
         c2.setContractNumber(123456789012L);
@@ -798,43 +794,43 @@ public class DatabaseLoader implements CommandLineRunner {
 
 
         Rating r1 = new Rating();
-      //  r1.setRatingId(1L);
+        //  r1.setRatingId(1L);
         r1.setContractNumber(c1.getContractNumber());
         this.raRepository.save(r1);
 
         Rating r2 = new Rating();
-      //  r2.setRatingId(2L);
+        //  r2.setRatingId(2L);
         r2.setContractNumber(c2.getContractNumber());
         this.raRepository.save(r2);
 
         Rating r3 = new Rating();
-      //  r3.setRatingId(3L);
+        //  r3.setRatingId(3L);
         r3.setContractNumber(c3.getContractNumber());
         this.raRepository.save(r3);
 
         Rating r4 = new Rating();
-     //   r4.setRatingId(4L);
+        //   r4.setRatingId(4L);
         r4.setContractNumber(c4.getContractNumber());
         this.raRepository.save(r4);
 
         Rating r5 = new Rating();
-      //  r5.setRatingId(5L);
+        //  r5.setRatingId(5L);
         r5.setContractNumber(c5.getContractNumber());
         this.raRepository.save(r5);
 
         Rating r6 = new Rating();
-      //  r6.setRatingId(6L);
+        //  r6.setRatingId(6L);
         r6.setContractNumber(c6.getContractNumber());
         this.raRepository.save(r6);
 
         Rating r7 = new Rating();
-       // r7.setRatingId(7L);
+        // r7.setRatingId(7L);
         r7.setContractNumber(c7.getContractNumber());
         this.raRepository.save(r7);
 
 
         Rating r8 = new Rating();
-       // r8.setRatingId(8L);
+        // r8.setRatingId(8L);
         r8.setContractNumber(c7.getContractNumber());
         this.raRepository.save(r8);
 
@@ -908,7 +904,7 @@ public class DatabaseLoader implements CommandLineRunner {
         b4.setAdditionalCharge(0.0);
         factorID1 = this.sRepository.findOne(b4.getWeek1()+0L).getFactorId();
         factorID2 = this.sRepository.findOne(b4.getWeek2()+0L).getFactorId();
-        price = a21.getBasePrice();
+        price = a16.getBasePrice();
         price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
         b4.setPrice(price);
         b4.setStatus("Wartend");
@@ -925,7 +921,7 @@ public class DatabaseLoader implements CommandLineRunner {
         b5.setAdditionalCharge(0.0);
         factorID1 = this.sRepository.findOne(b5.getWeek1()+0L).getFactorId();
         factorID2 = this.sRepository.findOne(b5.getWeek2()+0L).getFactorId();
-        price = a21.getBasePrice();
+        price = a16.getBasePrice();
         price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
         b5.setPrice(price);
         b5.setStatus("Wartend");
@@ -1210,181 +1206,181 @@ public class DatabaseLoader implements CommandLineRunner {
 
         Image i47 = new Image();
         i47.setImageId(47L);
-        i47.setApartmentId(a21.getApartmentId());
+        i47.setApartmentId(a16.getApartmentId());
         i47.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment1/FeWoSeeEss2.jpg"));
         this.iRepository.save(i47);
 
         Image i48 = new Image();
         i48.setImageId(48L);
-        i48.setApartmentId(a21.getApartmentId());
+        i48.setApartmentId(a16.getApartmentId());
         i48.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment1/FeWoSeeSchlaf.jpg"));
         this.iRepository.save(i48);
 
         Image i49 = new Image();
         i49.setImageId(49L);
-        i49.setApartmentId(a21.getApartmentId());
+        i49.setApartmentId(a16.getApartmentId());
         i49.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment1/FeWoSeeBad2.jpg"));
         this.iRepository.save(i49);
 
         Image i50 = new Image();
         i50.setImageId(50L);
-        i50.setApartmentId(a22.getApartmentId());
+        i50.setApartmentId(a17.getApartmentId());
         i50.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment2/FeWoSeeWohn6.jpeg"));
         this.iRepository.save(i50);
 
         Image i51 = new Image();
         i51.setImageId(51L);
-        i51.setApartmentId(a22.getApartmentId());
+        i51.setApartmentId(a17.getApartmentId());
         i51.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment2/FeWoSeeKueche4.jpeg"));
         this.iRepository.save(i51);
 
         Image i52 = new Image();
         i52.setImageId(52L);
-        i52.setApartmentId(a22.getApartmentId());
+        i52.setApartmentId(a17.getApartmentId());
         i52.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment2/FeWoSeeBad7.jpg"));
         this.iRepository.save(i52);
 
         Image i53 = new Image();
         i53.setImageId(53L);
-        i53.setApartmentId(a23.getApartmentId());
+        i53.setApartmentId(a18.getApartmentId());
         i53.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment3/FeWoSeeWohn4.jpg"));
         this.iRepository.save(i53);
 
         Image i54 = new Image();
         i54.setImageId(54L);
-        i54.setApartmentId(a23.getApartmentId());
+        i54.setApartmentId(a18.getApartmentId());
         i54.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment3/FeWoSeeKueche7.jpg"));
         this.iRepository.save(i54);
 
         Image i55 = new Image();
         i55.setImageId(55L);
-        i55.setApartmentId(a23.getApartmentId());
+        i55.setApartmentId(a18.getApartmentId());
         i55.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment3/FeWoSeeBad.jpeg"));
         this.iRepository.save(i55);
 
         Image i56 = new Image();
         i56.setImageId(56L);
-        i56.setApartmentId(a24.getApartmentId());
+        i56.setApartmentId(a19.getApartmentId());
         i56.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment4/FeWoSeeWohn2.jpeg"));
         this.iRepository.save(i56);
 
         Image i57 = new Image();
         i57.setImageId(57L);
-        i57.setApartmentId(a24.getApartmentId());
+        i57.setApartmentId(a19.getApartmentId());
         i57.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment4/FeWoSeeSchlaf4.jpeg"));
         this.iRepository.save(i57);
 
         Image i58 = new Image();
         i58.setImageId(58L);
-        i58.setApartmentId(a24.getApartmentId());
+        i58.setApartmentId(a19.getApartmentId());
         i58.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment4/FeWoSeeBad3.jpeg"));
         this.iRepository.save(i58);
 
         Image i59 = new Image();
         i59.setImageId(59L);
-        i59.setApartmentId(a25.getApartmentId());
+        i59.setApartmentId(a20.getApartmentId());
         i59.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment5/FeWoSeeEsszimmer.jpeg"));
         this.iRepository.save(i59);
 
         Image i60 = new Image();
         i60.setImageId(60L);
-        i60.setApartmentId(a25.getApartmentId());
+        i60.setApartmentId(a20.getApartmentId());
         i60.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment5/FeWoSeeSchlaf6.jpeg"));
         this.iRepository.save(i60);
 
         Image i61 = new Image();
         i61.setImageId(61L);
-        i61.setApartmentId(a25.getApartmentId());
+        i61.setApartmentId(a20.getApartmentId());
         i61.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment5/FeWoSeeDachterasse.jpeg"));
         this.iRepository.save(i61);
 
         Image i62 = new Image();
         i62.setImageId(62L);
-        i62.setApartmentId(a26.getApartmentId());
+        i62.setApartmentId(a21.getApartmentId());
         i62.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment6/FeWoSeeSchlaf7.jpg"));
         this.iRepository.save(i62);
 
         Image i63 = new Image();
         i63.setImageId(63L);
-        i63.setApartmentId(a26.getApartmentId());
+        i63.setApartmentId(a21.getApartmentId());
         i63.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment6/FeWoSeeKueche.jpeg"));
         this.iRepository.save(i63);
 
         Image i64 = new Image();
         i64.setImageId(64L);
-        i64.setApartmentId(a26.getApartmentId());
+        i64.setApartmentId(a21.getApartmentId());
         i64.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment6/FeWoSeeBad6.jpeg"));
         this.iRepository.save(i64);
 
         Image i65 = new Image();
         i65.setImageId(65L);
-        i65.setApartmentId(a27.getApartmentId());
+        i65.setApartmentId(a22.getApartmentId());
         i65.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment7/FeWoSeeWohn8.jpeg"));
         this.iRepository.save(i65);
 
         Image i66 = new Image();
         i66.setImageId(66L);
-        i66.setApartmentId(a27.getApartmentId());
+        i66.setApartmentId(a22.getApartmentId());
         i66.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment7/FeWoSeeEss3.jpeg"));
         this.iRepository.save(i66);
 
         Image i67 = new Image();
         i67.setImageId(67L);
-        i67.setApartmentId(a27.getApartmentId());
+        i67.setApartmentId(a22.getApartmentId());
         i67.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment7/FeWoSeeBad8.jpeg"));
         this.iRepository.save(i67);
 
         Image i68 = new Image();
         i68.setImageId(68L);
-        i68.setApartmentId(a28.getApartmentId());
+        i68.setApartmentId(a23.getApartmentId());
         i68.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment8/FeWoSeeWohn7.jpeg"));
         this.iRepository.save(i68);
 
         Image i69 = new Image();
         i69.setImageId(69L);
-        i69.setApartmentId(a28.getApartmentId());
+        i69.setApartmentId(a23.getApartmentId());
         i69.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment8/FeWoSeeKueche_Wohn.jpeg"));
         this.iRepository.save(i69);
 
         Image i70 = new Image();
         i70.setImageId(70L);
-        i70.setApartmentId(a28.getApartmentId());
+        i70.setApartmentId(a23.getApartmentId());
         i70.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment8/FeWoSeeSchlaf2.jpeg"));
         this.iRepository.save(i70);
 
         Image i71 = new Image();
         i71.setImageId(71L);
-        i71.setApartmentId(a29.getApartmentId());
+        i71.setApartmentId(a24.getApartmentId());
         i71.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment9/FeWoSeeSchlaf5.jpeg"));
         this.iRepository.save(i71);
 
         Image i72 = new Image();
         i72.setImageId(72L);
-        i72.setApartmentId(a29.getApartmentId());
+        i72.setApartmentId(a24.getApartmentId());
         i72.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment9/FeWoSeeKueche2.jpg"));
         this.iRepository.save(i72);
 
         Image i73 = new Image();
         i73.setImageId(73L);
-        i73.setApartmentId(a29.getApartmentId());
+        i73.setApartmentId(a24.getApartmentId());
         i73.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment9/FeWoSeeBad5.jpeg"));
         this.iRepository.save(i73);
 
         Image i74 = new Image();
         i74.setImageId(74L);
-        i74.setApartmentId(a30.getApartmentId());
+        i74.setApartmentId(a25.getApartmentId());
         i74.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment10/FeWoSeeWohn.jpeg"));
         this.iRepository.save(i74);
 
         Image i75 = new Image();
         i75.setImageId(75L);
-        i75.setApartmentId(a30.getApartmentId());
+        i75.setApartmentId(a25.getApartmentId());
         i75.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment10/FeWoSeeBad4.jpeg"));
         this.iRepository.save(i75);
 
         Image i76 = new Image();
         i76.setImageId(76L);
-        i76.setApartmentId(a30.getApartmentId());
+        i76.setApartmentId(a25.getApartmentId());
         i76.setImage(readImage("./src/img/apartments/north_baltic_sea/apartment10/FeWoSeeSauna.jpg"));
         this.iRepository.save(i76);
 

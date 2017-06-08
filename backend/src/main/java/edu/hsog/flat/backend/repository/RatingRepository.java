@@ -20,4 +20,9 @@ public interface RatingRepository extends CrudRepository<Rating, Long> {
     @Query(value = "INSERT into rating(comment, score, contract_number) VALUES (?1, ?2, ?3)", nativeQuery = true)
     Integer postRating(@Param("comment") String comment, @Param("score") Double score, @Param("contractNumber") Long contractNumber);
 
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "DROP TABLE rating", nativeQuery = true)
+    Integer dropTable();
+
 }
