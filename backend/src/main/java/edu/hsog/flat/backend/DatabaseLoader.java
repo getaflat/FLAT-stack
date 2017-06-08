@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.Date;
 
 @Component
@@ -324,7 +325,7 @@ public class DatabaseLoader implements CommandLineRunner {
         this.aRepository.save(a15);
 
         Apartment a16 = new Apartment();
-        a16.setApartmentId(21L);
+        a16.setApartmentId(16L);
         a16.setResidentialBlockId(rb4.getResidentialBlockId());
         a16.setIsAvailable(true);
         a16.setName("FeWo-Nordsee-1");
@@ -339,7 +340,7 @@ public class DatabaseLoader implements CommandLineRunner {
         this.aRepository.save(a16);
 
         Apartment a17 = new Apartment();
-        a17.setApartmentId(22L);
+        a17.setApartmentId(17L);
         a17.setResidentialBlockId(rb5.getResidentialBlockId());
         a17.setIsAvailable(true);
         a17.setName("FeWo-Ostsee-1");
@@ -357,7 +358,7 @@ public class DatabaseLoader implements CommandLineRunner {
         this.aRepository.save(a17);
 
         Apartment a18 = new Apartment();
-        a18.setApartmentId(23L);
+        a18.setApartmentId(18L);
         a18.setResidentialBlockId(rb4.getResidentialBlockId());
         a18.setIsAvailable(true);
         a18.setName("FeWo-Nordsee-2");
@@ -373,7 +374,7 @@ public class DatabaseLoader implements CommandLineRunner {
         this.aRepository.save(a18);
 
         Apartment a19 = new Apartment();
-        a19.setApartmentId(24L);
+        a19.setApartmentId(19L);
         a19.setResidentialBlockId(rb5.getResidentialBlockId());
         a19.setIsAvailable(false);
         a19.setName("FeWo-Ostsee-2");
@@ -390,7 +391,7 @@ public class DatabaseLoader implements CommandLineRunner {
         this.aRepository.save(a19);
 
         Apartment a20 = new Apartment();
-        a20.setApartmentId(25L);
+        a20.setApartmentId(20L);
         a20.setResidentialBlockId(rb4.getResidentialBlockId());
         a20.setIsAvailable(false);
         a20.setName("FeWo-Nordsee-3");
@@ -406,7 +407,7 @@ public class DatabaseLoader implements CommandLineRunner {
         this.aRepository.save(a20);
 
         Apartment a21 = new Apartment();
-        a21.setApartmentId(26L);
+        a21.setApartmentId(21L);
         a21.setResidentialBlockId(rb4.getResidentialBlockId());
         a21.setIsAvailable(false);
         a21.setName("FeWo-Nordsee-4");
@@ -422,7 +423,7 @@ public class DatabaseLoader implements CommandLineRunner {
         this.aRepository.save(a21);
 
         Apartment a22 = new Apartment();
-        a22.setApartmentId(27L);
+        a22.setApartmentId(22L);
         a22.setResidentialBlockId(rb5.getResidentialBlockId());
         a22.setIsAvailable(false);
         a22.setName("FeWo-Ostsee-3");
@@ -436,10 +437,10 @@ public class DatabaseLoader implements CommandLineRunner {
         a22.setHasBalcony(true);
         a22.setAnimalsAllowed(false);
         a22.setInfantsAllowed(true);
-        this.aRepository.save(a16);
+        this.aRepository.save(a22);
 
         Apartment a23 = new Apartment();
-        a23.setApartmentId(28L);
+        a23.setApartmentId(23L);
         a23.setResidentialBlockId(rb5.getResidentialBlockId());
         a23.setIsAvailable(true);
         a23.setName("FeWo-Ostsee-4");
@@ -456,7 +457,7 @@ public class DatabaseLoader implements CommandLineRunner {
         this.aRepository.save(a23);
 
         Apartment a24 = new Apartment();
-        a24.setApartmentId(29L);
+        a24.setApartmentId(24L);
         a24.setResidentialBlockId(rb5.getResidentialBlockId());
         a24.setIsAvailable(true);
         a24.setName("FeWo-Ostsee-5");
@@ -473,7 +474,7 @@ public class DatabaseLoader implements CommandLineRunner {
         this.aRepository.save(a24);
 
         Apartment a25 = new Apartment();
-        a25.setApartmentId(30L);
+        a25.setApartmentId(25L);
         a25.setResidentialBlockId(rb4.getResidentialBlockId());
         a25.setIsAvailable(true);
         a25.setName("FeWo-Nordsee-5");
@@ -488,25 +489,6 @@ public class DatabaseLoader implements CommandLineRunner {
         a25.setInfantsAllowed(false);
         this.aRepository.save(a25);
 
-        Rating ra1 = new Rating();
-        ra1.setScore(3.5);
-        ra1.setComment("Test String");
-        this.raRepository.save(ra1);
-
-        Rating ra2 = new Rating();
-        ra2.setScore(4.5);
-        ra2.setComment("Test String");
-        this.raRepository.save(ra2);
-
-        Rating ra3 = new Rating();
-        ra3.setScore(4.1);
-        ra3.setComment("Test String");
-        this.raRepository.save(ra3);
-
-        Rating ra4 = new Rating();
-        ra4.setScore(2.4);
-        ra4.setComment("Test String");
-        this.raRepository.save(ra4);
 
         Factor f1 = new Factor();
         f1.setFactorId(1L);
@@ -561,8 +543,8 @@ public class DatabaseLoader implements CommandLineRunner {
         Season s1 = new Season();
 
         for (int i = 1; i <= 53; i++) {
-            s1.setCalenderWeek(i+0L);
-            s1.setFactorId((int)(Math.random()*10L)+1L);
+            s1.setCalenderWeek(i + 0L);
+            s1.setFactorId((int) (Math.random() * 10L) + 1L);
             this.sRepository.save(s1);
         }
 
@@ -791,54 +773,170 @@ public class DatabaseLoader implements CommandLineRunner {
         this.cRepository.save(c19);
 
 
-
-
+        double x;
         Rating r1 = new Rating();
+        x = (Math.random() * 4.0) + 1.0;
+        x = (int) (x * 10 + 0.5) / 10.0;
+        r1.setScore(x);
+        r1.setComment("Test String aa");
         //  r1.setRatingId(1L);
         r1.setContractNumber(c1.getContractNumber());
         this.raRepository.save(r1);
 
         Rating r2 = new Rating();
+        x = (Math.random() * 4.0) + 1.0;
+        x = (int) (x * 10 + 0.5) / 10.0;
+        r2.setScore(x);
+        r2.setComment("Test String ak");
         //  r2.setRatingId(2L);
         r2.setContractNumber(c2.getContractNumber());
         this.raRepository.save(r2);
 
         Rating r3 = new Rating();
+        x = (Math.random() * 4.0) + 1.0;
+        x = (int) (x * 10 + 0.5) / 10.0;
+        r3.setScore(x);
+        r3.setComment("Test String au");
         //  r3.setRatingId(3L);
         r3.setContractNumber(c3.getContractNumber());
         this.raRepository.save(r3);
 
         Rating r4 = new Rating();
+        x = (Math.random() * 4.0) + 1.0;
+        x = (int) (x * 10 + 0.5) / 10.0;
+        r4.setScore(x);
+        r4.setComment("Test String be");
         //   r4.setRatingId(4L);
         r4.setContractNumber(c4.getContractNumber());
         this.raRepository.save(r4);
 
         Rating r5 = new Rating();
+        x = (Math.random() * 4.0) + 1.0;
+        x = (int) (x * 10 + 0.5) / 10.0;
+        r5.setScore(x);
+        r5.setComment("Test String bo");
         //  r5.setRatingId(5L);
         r5.setContractNumber(c5.getContractNumber());
         this.raRepository.save(r5);
 
         Rating r6 = new Rating();
+        x = (Math.random() * 4.0) + 1.0;
+        x = (int) (x * 10 + 0.5) / 10.0;
+        r6.setScore(x);
+        r6.setComment("Test String by");
         //  r6.setRatingId(6L);
         r6.setContractNumber(c6.getContractNumber());
         this.raRepository.save(r6);
 
         Rating r7 = new Rating();
+        x = (Math.random() * 4.0) + 1.0;
+        x = (int) (x * 10 + 0.5) / 10.0;
+        r7.setScore(x);
+        r7.setComment("Test String ci");
         // r7.setRatingId(7L);
         r7.setContractNumber(c7.getContractNumber());
         this.raRepository.save(r7);
 
 
         Rating r8 = new Rating();
+        x = (Math.random() * 4.0) + 1.0;
+        x = (int) (x * 10 + 0.5) / 10.0;
+        r8.setScore(x);
+        r8.setComment("Test String cs");
         // r8.setRatingId(8L);
         r8.setContractNumber(c7.getContractNumber());
         this.raRepository.save(r8);
 
 
         Rating r9 = new Rating();
+        x = (Math.random() * 4.0) + 1.0;
+        x = (int) (x * 10 + 0.5) / 10.0;
+        r9.setScore(x);
+        r9.setComment("Test String dc");
         //r9.setRatingId(9L);
         r9.setContractNumber(c9.getContractNumber());
         this.raRepository.save(r9);
+
+        Rating r10 = new Rating();
+        x = (Math.random() * 4.0) + 1.0;
+        x = (int) (x * 10 + 0.5) / 10.0;
+        r10.setScore(x);
+        r10.setComment("Test String dm");
+        r10.setContractNumber(123456789020L);
+        this.raRepository.save(r10);
+
+        Rating r11 = new Rating();
+        x = (Math.random() * 4.0) + 1.0;
+        x = (int) (x * 10 + 0.5) / 10.0;
+        r11.setScore(x);
+        r11.setComment("Test String dw");
+        r11.setContractNumber(123456789021L);
+        this.raRepository.save(r11);
+
+        Rating r12 = new Rating();
+        x = (Math.random() * 4.0) + 1.0;
+        x = (int) (x * 10 + 0.5) / 10.0;
+        r12.setScore(x);
+        r12.setComment("Test String eg");
+        r12.setContractNumber(123456789022L);
+        this.raRepository.save(r12);
+
+        Rating r13 = new Rating();
+        x = (Math.random() * 4.0) + 1.0;
+        x = (int) (x * 10 + 0.5) / 10.0;
+        r13.setScore(x);
+        r13.setComment("Test String eq");
+        r13.setContractNumber(123456789023L);
+        this.raRepository.save(r13);
+
+        Rating r14 = new Rating();
+        x = (Math.random() * 4.0) + 1.0;
+        x = (int) (x * 10 + 0.5) / 10.0;
+        r14.setScore(x);
+        r14.setComment("Test String fa");
+        r14.setContractNumber(123456789024L);
+        this.raRepository.save(r14);
+
+        Rating r15 = new Rating();
+        x = (Math.random() * 4.0) + 1.0;
+        x = (int) (x * 10 + 0.5) / 10.0;
+        r15.setScore(x);
+        r15.setComment("Test String fk");
+        r15.setContractNumber(123456789025L);
+        this.raRepository.save(r15);
+
+        Rating r16 = new Rating();
+        x = (Math.random() * 4.0) + 1.0;
+        x = (int) (x * 10 + 0.5) / 10.0;
+        r16.setScore(x);
+        r16.setComment("Test String fu");
+        r16.setContractNumber(123456789026L);
+        this.raRepository.save(r16);
+
+        Rating r17 = new Rating();
+        x = (Math.random() * 4.0) + 1.0;
+        x = (int) (x * 10 + 0.5) / 10.0;
+        r17.setScore(x);
+        r17.setComment("Test String ge");
+        r17.setContractNumber(123456789027L);
+        this.raRepository.save(r17);
+
+        Rating r18 = new Rating();
+        x = (Math.random() * 4.0) + 1.0;
+        x = (int) (x * 10 + 0.5) / 10.0;
+        r18.setScore(x);
+        r18.setComment("Test String go");
+        r18.setContractNumber(123456789028L);
+        this.raRepository.save(r18);
+
+        Rating r19 = new Rating();
+        x = (Math.random() * 4.0) + 1.0;
+        x = (int) (x * 10 + 0.5) / 10.0;
+        r19.setScore(x);
+        r19.setComment("Test String gy");
+        r19.setContractNumber(123456789029L);
+        this.raRepository.save(r19);
+
 
         Long factorID1;
         Long factorID2;
@@ -850,10 +948,10 @@ public class DatabaseLoader implements CommandLineRunner {
         b1.setWeek1(37);
         b1.setWeek2(38);
         b1.setYear(2017);
-        factorID1 = this.sRepository.findOne(b1.getWeek1()+0L).getFactorId();
-        factorID2 = this.sRepository.findOne(b1.getWeek2()+0L).getFactorId();
+        factorID1 = this.sRepository.findOne(b1.getWeek1() + 0L).getFactorId();
+        factorID2 = this.sRepository.findOne(b1.getWeek2() + 0L).getFactorId();
         price = a1.getBasePrice();
-        price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
+        price = (int) ((((this.fRepository.findOne(factorID1).getFactor() / 100) + 1) * price) + (((this.fRepository.findOne(factorID2).getFactor() / 100) + 1) * price));
         b1.setPrice(price);
         b1.setAdditionalCharge(50.6);
         b1.setStatus("Wartend");
@@ -868,10 +966,10 @@ public class DatabaseLoader implements CommandLineRunner {
         b2.setWeek2(40);
         b2.setYear(2017);
         b2.setAdditionalCharge(0.0);
-        factorID1 = this.sRepository.findOne(b2.getWeek1()+0L).getFactorId();
-        factorID2 = this.sRepository.findOne(b2.getWeek2()+0L).getFactorId();
+        factorID1 = this.sRepository.findOne(b2.getWeek1() + 0L).getFactorId();
+        factorID2 = this.sRepository.findOne(b2.getWeek2() + 0L).getFactorId();
         price = a5.getBasePrice();
-        price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
+        price = (int) ((((this.fRepository.findOne(factorID1).getFactor() / 100) + 1) * price) + (((this.fRepository.findOne(factorID2).getFactor() / 100) + 1) * price));
         b2.setPrice(price);
         b2.setStatus("Wartend");
         b2.setLastModified(new Date(117, 4, 13));
@@ -885,10 +983,10 @@ public class DatabaseLoader implements CommandLineRunner {
         b3.setWeek2(10);
         b3.setYear(2017);
         b3.setAdditionalCharge(0.0);
-        factorID1 = this.sRepository.findOne(b3.getWeek1()+0L).getFactorId();
-        factorID2 = this.sRepository.findOne(b3.getWeek2()+0L).getFactorId();
+        factorID1 = this.sRepository.findOne(b3.getWeek1() + 0L).getFactorId();
+        factorID2 = this.sRepository.findOne(b3.getWeek2() + 0L).getFactorId();
         price = a3.getBasePrice();
-        price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
+        price = (int) ((((this.fRepository.findOne(factorID1).getFactor() / 100) + 1) * price) + (((this.fRepository.findOne(factorID2).getFactor() / 100) + 1) * price));
         b3.setPrice(price);
         b3.setStatus("Bestätigt");
         b3.setLastModified(new Date(117, 4, 12));
@@ -902,10 +1000,10 @@ public class DatabaseLoader implements CommandLineRunner {
         b4.setWeek2(2);
         b4.setYear(2018);
         b4.setAdditionalCharge(0.0);
-        factorID1 = this.sRepository.findOne(b4.getWeek1()+0L).getFactorId();
-        factorID2 = this.sRepository.findOne(b4.getWeek2()+0L).getFactorId();
+        factorID1 = this.sRepository.findOne(b4.getWeek1() + 0L).getFactorId();
+        factorID2 = this.sRepository.findOne(b4.getWeek2() + 0L).getFactorId();
         price = a16.getBasePrice();
-        price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
+        price = (int) ((((this.fRepository.findOne(factorID1).getFactor() / 100) + 1) * price) + (((this.fRepository.findOne(factorID2).getFactor() / 100) + 1) * price));
         b4.setPrice(price);
         b4.setStatus("Wartend");
         b4.setLastModified(new Date(117, 4, 11));
@@ -919,10 +1017,10 @@ public class DatabaseLoader implements CommandLineRunner {
         b5.setWeek2(2);
         b5.setYear(2018);
         b5.setAdditionalCharge(0.0);
-        factorID1 = this.sRepository.findOne(b5.getWeek1()+0L).getFactorId();
-        factorID2 = this.sRepository.findOne(b5.getWeek2()+0L).getFactorId();
+        factorID1 = this.sRepository.findOne(b5.getWeek1() + 0L).getFactorId();
+        factorID2 = this.sRepository.findOne(b5.getWeek2() + 0L).getFactorId();
         price = a16.getBasePrice();
-        price = (int) ((((this.fRepository.findOne(factorID1).getFactor()/ 100)+1) * price) + (((this.fRepository.findOne(factorID2).getFactor()/ 100)+1) * price));
+        price = (int) ((((this.fRepository.findOne(factorID1).getFactor() / 100) + 1) * price) + (((this.fRepository.findOne(factorID2).getFactor() / 100) + 1) * price));
         b5.setPrice(price);
         b5.setStatus("Wartend");
         b5.setLastModified(new Date(117, 4, 10));
@@ -1393,6 +1491,6 @@ public class DatabaseLoader implements CommandLineRunner {
         FileInputStream fileInputStream = new FileInputStream(file);
         fileInputStream.read(picInBytes);
         fileInputStream.close();
-        return  picInBytes;
+        return picInBytes;
     }
 }
