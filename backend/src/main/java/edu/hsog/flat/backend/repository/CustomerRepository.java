@@ -18,6 +18,7 @@ public interface CustomerRepository extends CrudRepository<Customer, Long> {
     Customer findByContractNumber(@Param("contractNumber") Long contractNumber);
     Customer findByLastName(@Param("lastName") String lastName);
     Customer findByEmail(@Param("email") String email);
+    void deleteCustomerByContractNumber(@Param("contractNumber") Long contractNumber);
     List<Customer> findAll();
 
     @Transactional
@@ -29,5 +30,10 @@ public interface CustomerRepository extends CrudRepository<Customer, Long> {
     @Modifying(clearAutomatically = true)
     @Query(value = "DROP TABLE customer", nativeQuery = true)
     Integer dropTable();
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "DELETE from customer where contract_number = :contractNumber", nativeQuery = true)
+    Integer delCustomer(@Param("contractNumber") Long contractNumber);
 
 }

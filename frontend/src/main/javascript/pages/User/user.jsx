@@ -4,6 +4,8 @@ import api from '../../services/api';
 import {isLoggedIn, getToken, getUser} from '../../services/auth';
 import moment from 'moment';
 import globalStyles from '../../general-styles/global.css';
+import { logout } from '../../services/auth';
+
 
 import update from 'immutability-helper';
 
@@ -24,6 +26,7 @@ class User extends React.Component {
         this.handleInput = this.handleInput.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSave = this.handleSave.bind(this);
+        this.handleDel = this.handleDel.bind(this);
     }
 
 
@@ -118,6 +121,28 @@ class User extends React.Component {
                 });
             window.location.reload();
         }
+    }
+
+    handleDel() {
+        console.log(this.state.loggedIn.contractNumber);
+        api.get(`bookings/search/delCustomer`,
+            {
+                params: {
+                    contractNumber: this.state.loggedIn.contractNumber
+                }
+            });
+
+        api.get(`customers/search/delBookings`,
+            {
+                params: {
+                    contractNumber: this.state.loggedIn.contractNumber
+                }
+            });
+        logout().then(() => {
+            this.props.history.push('/');
+        }).catch(() => {
+            console.log(arguments);
+        });
     }
 
     componentWillMount() {
@@ -228,6 +253,9 @@ class User extends React.Component {
                                     className={globalStyles.button + ' ' + styles.buttonSave}>speichern
                             </button>
                         </div>
+                        <button ref="delButton" onClick={this.handleDel}
+                                className={globalStyles.button}>Konto löschen
+                        </button>
                         <label ref="save" className={styles.save}> </label>
 
                     </div>

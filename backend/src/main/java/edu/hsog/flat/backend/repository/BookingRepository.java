@@ -20,6 +20,8 @@ public interface BookingRepository extends CrudRepository<Booking, Long> {
 
     List<Booking> findByApartmentIdAndWeek1(@Param("apartmentId") Long apartmentId, @Param("week1") Integer week1);
 
+    void deleteBookingsByContractNumber(@Param("contractNumber") Long contractNumber);
+
     List<Booking> findAll();
 
     @Transactional
@@ -35,5 +37,9 @@ public interface BookingRepository extends CrudRepository<Booking, Long> {
     @Query(value = "DROP TABLE booking", nativeQuery = true)
     Integer dropTable();
 
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "DELETE from booking where contract_number = :contractNumber", nativeQuery = true)
+    Integer delBookings(@Param("contractNumber") Long contractNumber);
 
 }
