@@ -193,6 +193,8 @@ export default class Booking extends React.Component {
 
         event.preventDefault();
 
+        //TODO endYear nach Buchen an DB übermitteln, startYear nicht
+
         //TODO hier geht gar nix mit der DB :-(
         //TODO Buchungsanfrage übermitteln, ich hab mir hier ein Beispiel überlegt, das jedoch komplett falsch sein kann
         //Beispiel
@@ -288,7 +290,7 @@ export default class Booking extends React.Component {
     }
 
 
-    //TODO Anordnung der Buttons nach calcCost() stimmt ggf. nicht mehr
+
     render() {
         return (
             <div className={globalStyles.wrapper + ' ' + styles.wrapper}>
@@ -372,7 +374,7 @@ export default class Booking extends React.Component {
                             <br/>
                             <br/>
 
-                            <label>Kosten:</label>
+                            <label>Kosten (Punkte):</label>
                             <input
                                 className={globalStyles.input + ' ' + styles.cost}
                                 name="points"
@@ -384,7 +386,7 @@ export default class Booking extends React.Component {
                             <br/>
                             <br/>
 
-                            <label>Zusatzkosten:</label>
+                            <label>Zusatzkosten (€):</label>
                             <input
                                 className={globalStyles.input + ' ' + styles.cost}
                                 name="additionalCosts"
