@@ -3,6 +3,7 @@
     flex-direction: column;
     justify-content: flex-start;
     padding-bottom: 5px;
+    overflow: scroll;
 }
 
 .image {

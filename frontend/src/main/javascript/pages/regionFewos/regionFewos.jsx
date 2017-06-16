@@ -146,7 +146,7 @@ export default class regionFewos extends React.Component {
                 </div>
                 <br/>
                 <div>
-                    <Table rowsCount={this.state.filteredDataList.length} height={1000}
+                    <Table rowsCount={this.state.filteredDataList.length} height={212}
                            width={750}
                            rowHeight={30} headerHeight={60}>
                         <Column
