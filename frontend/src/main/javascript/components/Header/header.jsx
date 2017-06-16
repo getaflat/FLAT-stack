@@ -39,7 +39,7 @@ export default class Header extends React.Component {
                         <div className={styles.userData}>
                             {isLoggedIn() && !isEmptyObject(this.state.user) ? (
                                 <span>
-                                    <div><h3>{this.state.user.username}</h3></div>
+                                    <div><h3>{this.state.user.firstName + ' ' + this.state.user.lastName}</h3></div>
                                     <div><input type="text" disabled={true} value={this.state.user.totalScore + " P."} /></div>
                                 </span>
                             ) : (
