@@ -34,7 +34,7 @@ export default class Region extends React.Component {
                             const picture = imageBlobToBase64(residentialBlock.image1);
 
                             return (<div className={styles.concreteRegion} key={key}>
-                                <div><img className={styles.image} src={picture}/></div>
+                                <div><Link to={`/region/${name}`}> <img className={styles.image} src={picture}/></Link></div>
                                 <br />
                                 <Link className={globalStyles.button + ' ' + styles.button} to={`/region/${name}`}>{label}</Link>
                             </div>);
