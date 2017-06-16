@@ -29,3 +29,20 @@ export const minAge = age => {
 export const maxAge = age => {
     return (name) => `${name} sollte mindestens unter ${age} Jahre liegen`;
 };
+
+//TODO neu von Carmen hinzugefügt
+export const minYear = year => {
+    return (name) => `${name} sollte mindestens ${year} sein`;
+};
+
+export const maxYear = year => {
+    return (name) => `${name} sollte maximal ${year} sein`;
+};
+
+export const minWeek = year => {
+    return (name) => `${name} sollte mindestens ${year} sein`;
+};
+
+export const maxWeek = year => {
+    return (name) => `${name} sollte mindestens ${year} sein`;
+};

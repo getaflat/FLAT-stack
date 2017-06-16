@@ -8,33 +8,30 @@ import { isEmptyObject, isEqual, imageBlobToBase64 } from '../../util';
 
 import update from 'immutability-helper';
 
-//TODO ich hab hier noch ein paar Variabeln angelegt, diese können gelöscht, geändert oder ignoriert werden
-let descr;
-let maxPeople;
-let points;
-let startKW;
-let endKW;
-let diff;
-let price;
-let price1;
-let price2;
-let price3;
-let price4;
-let kw1;
-let kw2;
-let kw3;
-let kw4;
-let factor1;
-let factor2;
-let factor3;
-let factor4;
-let missingPoints;
-let persons;
-let rooms;
-let size;
-let children;
-let pets;
-let balcony;
+import InputValidationField from '../../components/InputValidationField';
+
+//TODO überflüssiges am Ende löschen
+import { run, rule } from '../../services/validation';
+import { mustMatch, maxAge, isEmail, minAge, exactLength, minLength, isRequired } from '../../services/rules';
+
+//Regeln
+//TODO minAge wird zu minWeek, maxAge wird zu maxWeek, Funktion schreiben bzw. minYear und maxYear
+
+//TODO Jahreswechsel berücksichtigen und Ende muss immer nach Beginn liegen
+//TODO Jahreswechsel erst ab KW 50 bei Beginn oder bis max KW 3 bei Ende berücksichtigen, dh. in einem Feld muss 2017 und im anderen 2018 stehen
+//TODO Beim Abnahme ist KW 26, also min 27/2017 und  max 26/2018 möglich, Hardcoden?????
+
+//TODO maximal 4 Wochen bzw. Differenz von end und start max. 3
+//TODO ggf. Problem weil startYear und endYear kein Label haben und es das CSS verhagelt
+
+const rules = [
+
+    rule("start", "Beginn", isRequired, minAge(1), maxAge(52)),
+    rule("end", "Ende", isRequired, minAge(1), maxAge(52)),
+    rule("startYear", " ", isRequired, minAge(2017), maxAge(2018)),//TODO leeres Label?
+    rule("endYear", " ", isRequired, minAge(2017), maxAge(2018)),//TODO leeres Label?
+
+];
 
 export default class Booking extends React.Component {
     constructor(props) {
@@ -67,8 +64,16 @@ export default class Booking extends React.Component {
             picture: '',
             basebooking: {},
             user: {},
-            factors: []
+            factors: [],
+
+            validation: {
+                show: false,
+                errors: {}
+            },
+            error: ''
         };
+
+        this.state.validation.errors = run(this.state.booking, rules);
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.clearInputs = this.clearInputs.bind(this);
@@ -91,7 +96,6 @@ export default class Booking extends React.Component {
             basebooking: this.state.booking
         });
 
-        //Bild und Beschreibung und max Personenanzahl (sieht überflüssig aus, leider wird nach dem Klicken auf einen Button die Beschreibung der Fewo nicht mehr angezeigt)
         api.get('/apartments/search/findByName', {
             params: {
                 name: this.props.match.params.id
@@ -144,6 +148,18 @@ export default class Booking extends React.Component {
     calcCost(event) {
         event.preventDefault();
 
+        //TODO Validation
+
+        /*this.setState((prev) => update(prev, {
+            validation: {
+                show: { $set: true }
+            }
+        }));
+
+        if (Object.keys(this.state.validation.errors).length !== 0) {
+            return null;
+        }*/
+
         let { start, end } = this.state.booking;
         let duration = Math.abs(end - start);
 
@@ -187,6 +203,20 @@ export default class Booking extends React.Component {
                 }
             }));
         });
+
+        //TODO fehler werfen, wenn rules nicht erfüllt
+
+        /*.catch((error) => {
+            let message = 'Fehler, bitte versuchen sie es später erneut';
+
+            if (error.response && error.response.status === 422) {
+                message = 'Bitte überprüfen sie Ihre Angaben';
+            } else if (error.response && error.response.status === 409) {
+                message = 'Diese E-Mail Adresse wird bereits verwendet';
+            }
+
+            this.setState({ error: message });
+        })*/
     }
 
     handleSubmit(event) {
@@ -194,6 +224,7 @@ export default class Booking extends React.Component {
         event.preventDefault();
 
         //TODO endYear nach Buchen an DB übermitteln, startYear nicht
+        //TODO Punkte von User reduzieren (soll im Dashboard, Header ersichtlich sein)
 
         //TODO hier geht gar nix mit der DB :-(
         //TODO Buchungsanfrage übermitteln, ich hab mir hier ein Beispiel überlegt, das jedoch komplett falsch sein kann
@@ -201,6 +232,7 @@ export default class Booking extends React.Component {
 
 
         //TODO in BookingRepository.java habe ich ein maxBooking angelegt, jedoch auskommentiert, weil ich nicht weiß, ob es funktioniert
+
         //höchste vergebene BookingID bekommen um sie dann um 1 zu inkrementieren, damit ich eine id für die aktuelle Buchungsanfrage habe
         api.post('/bookings', { ...this.state.booking }).then(({data}) => {
             console.log(data);
@@ -214,8 +246,8 @@ export default class Booking extends React.Component {
          params: {
          contractNumber: this.state.customer.contractNumber,
          apartmentId: this.state.fewo.name,
-         week1: this.state.booking.start,
-         week2: this.state.booking.end,
+         start: this.state.booking.start,
+         end: this.state.booking.end,
          price: this.state.booking.points,
          addtionalCharge: this.state.booking.additionalCosts
          }
@@ -257,27 +289,33 @@ export default class Booking extends React.Component {
                 }
             });*/
 
-        //Label Bestätigung anzeigen
-        /* this.refs.submitLabel.style.display = "flex";
+
+        //Label Bestätigung anzeigen //TODO am Ende auskommentieren
+        /*this.refs.submitLabel.style.display = "flex";
         setTimeout(() => {
             this.refs.submitLabel.style.display = "none";
 
             //dashboard weiterleiten
             this.props.history.push('/user');
-        }, 2000); */
+        }, 2000)*/;
 
     }
 
     handleInput(event) {
         let {name, value} = event.target;
 
-        this.setState((prev) => update(prev, {
+        let state = this.setState((prev) => update(prev, {
             booking: {
                 [name]: {
                     $set: value
                 }
             }
         }));
+
+        //TODO Fehler, weil validation nicht definiert ist
+
+        // state.validation.errors = run(state.booking, rules);
+        // state.error = '';
     }
 
     clearInputs() {
@@ -290,6 +328,7 @@ export default class Booking extends React.Component {
     }
 
 
+//TODO wg. Input Validation Field muss CSS komplett überarbeitet werden
 
     render() {
         return (
@@ -331,6 +370,22 @@ export default class Booking extends React.Component {
                                 min={1}
                                 max={52}
                                 onChange={this.handleInput}/>
+
+                            {/*<InputValidationField
+                                label="Von:"
+                                required={true}
+                                className={globalStyles.input}
+                                name="start"
+                                value={this.state.booking.start}
+                                ref="startInput"
+                                type="number"
+                                placeholder="KW"
+                                min={1}
+                                max={52}
+                                onChange={this.handleInput}
+                                showError={this.state.validation.show}
+                                errorText={this.state.validation.errors.start}/>*/}
+
                             <br/>
                             <label> </label>
                             <input
@@ -343,6 +398,21 @@ export default class Booking extends React.Component {
                                 min={2017}
                                 max={2018}
                                 onChange={this.handleInput}/>
+
+                            {/*<InputValidationField
+                             label=""
+                             required={true}
+                             className={globalStyles.input}
+                             name="startYear"
+                             value={this.state.booking.startYear}
+                             ref="startYearInput"
+                             type="number"
+                             placeholder="Jahr"
+                             min={2017}
+                             max={2018}
+                             onChange={this.handleInput}
+                             showError={this.state.validation.show}
+                             errorText={this.state.validation.errors.startYear}/>*/}
 
                             <br/>
                             <br/>
@@ -359,6 +429,21 @@ export default class Booking extends React.Component {
                                 min={1}
                                 max={52}
                                 onChange={this.handleInput}/>
+
+                            {/*<InputValidationField
+                             label="Bis:"
+                             required={true}
+                             className={globalStyles.input}
+                             name="end"
+                             value={this.state.booking.end}
+                             ref="endInput"
+                             type="number"
+                             placeholder="KW"
+                             min={1}
+                             max={52}
+                             onChange={this.handleInput}
+                             showError={this.state.validation.show}
+                             errorText={this.state.validation.errors.start}/>*/}
                             <br/>
                             <label> </label>
                             <input
@@ -371,6 +456,22 @@ export default class Booking extends React.Component {
                                 min={2017}
                                 max={2018}
                                 onChange={this.handleInput}/>
+
+                            {/*<InputValidationField
+                             label=""
+                             required={true}
+                             className={globalStyles.input}
+                             name="endYear"
+                             value={this.state.booking.endYear}
+                             ref="endYearInput"
+                             type="number"
+                             placeholder="Jahr"
+                             min={2017}
+                             max={2018}
+                             onChange={this.handleInput}
+                             showError={this.state.validation.show}
+                             errorText={this.state.validation.errors.startYear}/>*/}
+
                             <br/>
                             <br/>
 
