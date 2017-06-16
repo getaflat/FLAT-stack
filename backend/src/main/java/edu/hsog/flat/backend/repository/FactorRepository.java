@@ -16,6 +16,6 @@ public interface FactorRepository extends CrudRepository<Factor, Long> {
     WHERE season.cleander_week = ?;
     */
 
-    @Query(value = "SELECT * FROM season INNER JOIN factor ON season.factor_id = factor.factor_id WHERE season.calender_week = ?", nativeQuery = true)
+    @Query(value = "SELECT factor.factor FROM season INNER JOIN factor ON (season.factor_id = factor.factor_id) WHERE season.calender_week = ?", nativeQuery = true)
     int findByCalenderWeek(@Param("calenderWeek") int calenderWeek);
 }

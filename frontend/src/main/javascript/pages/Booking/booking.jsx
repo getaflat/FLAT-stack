@@ -167,6 +167,7 @@ export default class Booking extends React.Component {
             })
         ]).then(axios.spread((factors, { data: apartment }) => {
             return factors.reduce((accumulator, factor) => {
+                console.log(accumulator, factor);
                 return accumulator + apartment.basePrice * factor
             }, 0);
         })).then((points) => {
@@ -197,7 +198,11 @@ export default class Booking extends React.Component {
 
         //TODO in BookingRepository.java habe ich ein maxBooking angelegt, jedoch auskommentiert, weil ich nicht weiß, ob es funktioniert
         //höchste vergebene BookingID bekommen um sie dann um 1 zu inkrementieren, damit ich eine id für die aktuelle Buchungsanfrage habe
-        /*api.get('booking/search/maxBooking')*/
+        api.post('/bookings', { ...this.state.booking }).then(({data}) => {
+            console.log(data);
+        }).catch(({error}) => {
+            console.log(error);
+        });
 
         //Buchung übermitteln Version 1, jedoch nicht vollständig
         /*api.post('/bookings/search/updateBooking',
@@ -249,13 +254,13 @@ export default class Booking extends React.Component {
             });*/
 
         //Label Bestätigung anzeigen
-        this.refs.submitLabel.style.display = "flex";
+        /* this.refs.submitLabel.style.display = "flex";
         setTimeout(() => {
             this.refs.submitLabel.style.display = "none";
 
             //dashboard weiterleiten
             this.props.history.push('/user');
-        }, 2000);
+        }, 2000); */
 
     }
 
