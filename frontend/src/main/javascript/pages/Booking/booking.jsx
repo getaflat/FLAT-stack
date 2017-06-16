@@ -44,7 +44,9 @@ export default class Booking extends React.Component {
             customer: {},
             booking: {
                 start: '',
+                startYear: '',
                 end: '',
+                endYear: '',
                 additionalCosts: '',
                 points: 0
             },
@@ -168,7 +170,7 @@ export default class Booking extends React.Component {
         ]).then(axios.spread((factors, { data: apartment }) => {
             return factors.reduce((accumulator, factor) => {
                 console.log(accumulator, factor);
-                return accumulator + apartment.basePrice * factor
+                return accumulator + apartment.basePrice * (factor/100)
             }, 0);
         })).then((points) => {
             let totalScore = this.state.user.totalScore;
@@ -315,7 +317,7 @@ export default class Booking extends React.Component {
                     <br/>
                     <div className={styles.rightBooking}>
                         <form onReset={this.clearInputs}>
-                            <label>Von (KW):</label>
+                            <label>Von:</label>
                             <input
                                 required={true}
                                 className={globalStyles.input}
@@ -323,13 +325,27 @@ export default class Booking extends React.Component {
                                 value={this.state.booking.start}
                                 ref="startInput"
                                 type="number"
+                                placeholder="KW"
                                 min={1}
                                 max={52}
                                 onChange={this.handleInput}/>
                             <br/>
+                            <label> </label>
+                            <input
+                                required={true}
+                                className={globalStyles.input}
+                                name="startYear"
+                                ref="startYearInput"
+                                type="number"
+                                placeholder="Jahr"
+                                min={2017}
+                                max={2018}
+                                onChange={this.handleInput}/>
+
+                            <br/>
                             <br/>
 
-                            <label>Bis (KW):</label>
+                            <label>Bis:</label>
                             <input
                                 required={true}
                                 className={globalStyles.input}
@@ -337,8 +353,21 @@ export default class Booking extends React.Component {
                                 value={this.state.booking.end}
                                 ref="endInput"
                                 type="number"
+                                placeholder="KW"
                                 min={1}
                                 max={52}
+                                onChange={this.handleInput}/>
+                            <br/>
+                            <label> </label>
+                            <input
+                                required={true}
+                                className={globalStyles.input}
+                                name="startYear"
+                                ref="startYearInput"
+                                type="number"
+                                placeholder="Jahr"
+                                min={2017}
+                                max={2018}
                                 onChange={this.handleInput}/>
                             <br/>
                             <br/>
