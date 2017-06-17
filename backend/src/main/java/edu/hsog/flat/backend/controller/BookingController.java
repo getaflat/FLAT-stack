@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Null;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -122,7 +123,16 @@ public class BookingController {
         int months = calcMonthsDifference(today, deadline);
 
         if (months <= 2) {
-            newBooking.setStatus("Bestätigt");
+            List<Booking> bookings = findAllBookingsByApartmentIdAndWeek1(booking.getApartmentId().toString(), booking.getWeek1().toString());
+            boolean isBooked = false;
+            for (Booking searchBooking: bookings) {
+                if(searchBooking.getStatus().equals("Bestaetigt"));
+                    isBooked = true;
+                    break;
+            }
+            String status;
+            status = isBooked ? "Abgelehnt" : "Bestaetigt";
+            newBooking.setStatus(status);
 
         } else if (months <= 12) {
             newBooking.setStatus("Wartend");
@@ -131,12 +141,12 @@ public class BookingController {
             // Throw some fancy errors
         }
         bookingRepository.save(newBooking);
-        System.out.println("======================================");
+        /*System.out.println("======================================");
         System.out.println(booking);
         System.out.println(today);
         System.out.println(deadline);
         System.out.println(months);
-        System.out.println("======================================");
+        System.out.println("======================================");*/
     }
 
     @RequestMapping(path = "${spring.data.rest.base-path}/bookingsnew/search/findByApartmentIdAndWeek/{id}/{week1}", method = RequestMethod.GET)
