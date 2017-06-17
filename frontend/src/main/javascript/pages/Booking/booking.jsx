@@ -12,7 +12,7 @@ import InputValidationField from '../../components/InputValidationField';
 
 //TODO überflüssiges am Ende löschen
 import { run, rule } from '../../services/validation';
-import { mustMatch, maxAge, isEmail, minAge, exactLength, minLength, isRequired } from '../../services/rules';
+import { mustMatch, maxAge, isEmail, minAge, exactLength, minLength, isRequired, minWeek, maxWeek, minYear, maxYear} from '../../services/rules';
 
 //Regeln
 //TODO minAge wird zu minWeek, maxAge wird zu maxWeek, Funktion schreiben bzw. minYear und maxYear
@@ -26,13 +26,14 @@ import { mustMatch, maxAge, isEmail, minAge, exactLength, minLength, isRequired 
 
 const rules = [
 
-    rule("start", "Beginn", isRequired, minAge(1), maxAge(52)),
-    rule("end", "Ende", isRequired, minAge(1), maxAge(52)),
-    rule("startYear", " ", isRequired, minAge(2017), maxAge(2018)),//TODO leeres Label?
-    rule("endYear", " ", isRequired, minAge(2017), maxAge(2018)),//TODO leeres Label?
+    rule("start", "Beginn", isRequired, minWeek(1), maxWeek(52)),
+    rule("end", "Ende", isRequired, minWeek(1), maxWeek(52)),
+    rule("startYear", " ", isRequired, minYear(2017), maxYear(2018)),//TODO ohne Label möglich?
+    rule("endYear", " ", isRequired, minYear(2017), maxYear(2018)),//TODO ohne Label möglich?
 
 ];
 
+//TODO startYear und endYear wieder zum state booking, jedoch startYear wird nicht an DB gesendet
 export default class Booking extends React.Component {
     constructor(props) {
         super(props);
@@ -41,15 +42,14 @@ export default class Booking extends React.Component {
             customer: {},
             booking: {
                 start: '',
-
                 end: '',
-
+                startYear: '',
+                endYear: '',
                 additionalCosts: 0,
                 points: 0
             },
 
-            startYear: '',
-            endYear: 2017,
+
 
             fewo: {
                 name: '',
@@ -236,12 +236,25 @@ export default class Booking extends React.Component {
 
         //TODO in BookingRepository.java habe ich ein maxBooking angelegt, jedoch auskommentiert, weil ich nicht weiß, ob es funktioniert, ggf. überflüssig wg. post
 
+        //TODO fehler Can not deserialize value of type java.lang.Long from String \"FeWo-Mallorca-1\": not a valid Long value\n at [Source: HttpInputOverHTTP@5da7173c[c=87,q=0,[0]=null,s=STREAM];
+        api.post('/bookings', {
+
+                contractNumber: this.state.customer.contractNumber,
+                apartmentId: this.state.fewo.name,
+                start: this.state.booking.start,
+                end: this.state.booking.end,
+                price: this.state.booking.points,
+                addtionalCharge: this.state.booking.additionalCosts
+        }).then(({data}) => {
+            console.log(data);
+            });
+
         //höchste vergebene BookingID bekommen um sie dann um 1 zu inkrementieren, damit ich eine id für die aktuelle Buchungsanfrage habe ->sollte post erledigen
-        api.post('/bookings', { ...this.state.booking }).then(({data}) => {
+        /*api.post('/bookings', { ...this.state.booking }).then(({data}) => {
             console.log(data);
         }).catch(({error}) => {
             console.log(error);
-        });
+        });*/
 
         //Buchung übermitteln Version 1, jedoch nicht vollständig
         /*api.post('/bookings/search/updateBooking',
@@ -331,7 +344,7 @@ export default class Booking extends React.Component {
     }
 
 
-//TODO wg. Input Validation Field muss CSS komplett überarbeitet werden
+//TODO wg. Input Validation Field muss CSS ggf. komplett überarbeitet werden
 
     render() {
         return (
