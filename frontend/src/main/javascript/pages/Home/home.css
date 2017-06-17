@@ -9,6 +9,7 @@
 
 .rightStart {
 
+    overflow: scroll;
 }
 
 .image {
@@ -52,12 +53,12 @@ h2 {
     }
 
     .leftStart {
-        width: 30%;
+        width: 40%;
         float: left;
     }
 
     .rightStart {
-        width: 70%;
+        width: 80%;
         float: left;
     }
 

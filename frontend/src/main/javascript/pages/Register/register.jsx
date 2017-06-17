@@ -18,14 +18,12 @@ const rules = [
     rule("lastName", "Nachname"),
     rule("dateOfBirth", "Geburtsdatum", isRequired, minAge(18), maxAge(100)),
     rule("password", "Passwort", isRequired, mustMatch("passwordMatch", "wiederholtem Passwort")),
-    rule("passwordMatch", "Passwort...", isRequired),
+    rule("passwordMatch", "Wiederholtes Passwort", isRequired),
     rule("email", "Email Adresse", isRequired, isEmail),
     rule("contractNumber", "Vertragsnummer", isRequired, exactLength(12))
 ];
 
-
-
-class Register extends React.Component {
+export default class Register extends React.Component {
     constructor(props) {
         super(props);
 
@@ -84,12 +82,15 @@ class Register extends React.Component {
         }
 
         register({ ...this.state.customer }).then(() => {
+            this.props.onUserChange();
             this.props.history.push('/user');
         }).catch((error) => {
             let message = 'Fehler, bitte versuchen sie es später erneut';
 
-            if (error.response && error.response.status === 401) {
+            if (error.response && error.response.status === 422) {
                 message = 'Bitte überprüfen sie Ihre Angaben';
+            } else if (error.response && error.response.status === 409) {
+                message = 'Diese E-Mail Adresse wird bereits verwendet';
             }
 
             this.setState({ error: message });
@@ -99,7 +100,6 @@ class Register extends React.Component {
     resetForm() {
         this.setState(this.baseState);
     }
-
 
     render() {
         return (
@@ -199,5 +199,3 @@ class Register extends React.Component {
         );
     }
 }
-
-export default Register;

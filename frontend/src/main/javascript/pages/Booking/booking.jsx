@@ -1,52 +1,40 @@
 import React from 'react';
 import styles from './booking.css'
 import globalStyles from '../../general-styles/global.css';
+import axios from 'axios';
 import api from '../../services/api'
 import { isLoggedIn, getUser, getToken } from '../../services/auth';
-
+import { isEmptyObject, isEqual, imageBlobToBase64 } from '../../util';
 
 import update from 'immutability-helper';
 
-//TODO ich hab hier noch ein paar Variabeln angelegt, diese können gelöscht, geändert oder ignoriert werden
-let descr;
-let maxPeople;
-let points;
-let startKW;
-let endKW;
-let diff;
-let price;
-let price1;
-let price2;
-let price3;
-let price4;
-let kw1;
-let kw2;
-let kw3;
-let kw4;
-let factor1;
-let factor2;
-let factor3;
-let factor4;
-let missingPoints;
-let persons;
-let rooms;
-let size;
-let children;
-let pets;
-let balcony;
+import InputValidationField from '../../components/InputValidationField';
 
-const customStyles = {
-    content : {
-        top                   : '50%',
-        left                  : '50%',
-        right                 : 'auto',
-        bottom                : 'auto',
-        marginRight           : '-50%',
-        transform             : 'translate(-50%, -50%)'
-    }
-};
+//TODO überflüssiges am Ende löschen
+import { run, rule } from '../../services/validation';
+import { mustMatch, maxAge, isEmail, minAge, exactLength, minLength, isRequired, minWeek, maxWeek, minYear, maxYear} from '../../services/rules';
 
-class Booking extends React.Component {
+//Regeln
+//TODO minAge wird zu minWeek, maxAge wird zu maxWeek, Funktion schreiben bzw. minYear und maxYear
+
+//TODO Jahreswechsel berücksichtigen und Ende muss immer nach Beginn liegen
+//TODO Jahreswechsel erst ab KW 50 bei Beginn oder bis max KW 3 bei Ende berücksichtigen, dh. in einem Feld muss 2017 und im anderen 2018 stehen
+//TODO Beim Abnahme ist KW 26, also min 27/2017 und  max 26/2018 möglich, Hardcoden?????
+
+//TODO maximal 4 Wochen bzw. Differenz von end und start max. 3
+//TODO ggf. Problem weil startYear und endYear kein Label haben und es das CSS verhagelt
+
+const rules = [
+
+    rule("start", "Beginn", isRequired, minWeek(1), maxWeek(52)),
+    rule("end", "Ende", isRequired, minWeek(1), maxWeek(52)),
+    rule("startYear", " ", isRequired, minYear(2017), maxYear(2018)),//TODO ohne Label möglich?
+    rule("endYear", " ", isRequired, minYear(2017), maxYear(2018)),//TODO ohne Label möglich?
+
+];
+
+//TODO startYear und endYear wieder zum state booking, jedoch startYear wird nicht an DB gesendet
+export default class Booking extends React.Component {
     constructor(props) {
         super(props);
 
@@ -55,19 +43,40 @@ class Booking extends React.Component {
             booking: {
                 start: '',
                 end: '',
-                additionalCosts: '',
-                points: ''
+                startYear: '',
+                endYear: '',
+                additionalCosts: 0,
+                points: 0
             },
+
+
 
             fewo: {
                 name: '',
-                id: ''
+                id: 0,
+                description: '',
+                persons: 0,
+                rooms: 0,
+                size: 0,
+                children: '',
+                pets: '',
+                balcony: ''
             },
 
             description: '',
             picture: '',
-            basebooking: {}
+            basebooking: {},
+            user: {},
+            factors: [],
+
+            validation: {
+                show: false,
+                errors: {}
+            },
+            error: ''
         };
+
+        this.state.validation.errors = run(this.state.booking, rules);
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.clearInputs = this.clearInputs.bind(this);
@@ -75,250 +84,38 @@ class Booking extends React.Component {
         this.calcCost = this.calcCost.bind(this);
     }
 
-    calcCost(event) {
-        //nach Drücken des Buttons "Kosten berechnen"
-        event.preventDefault();
-
-        // TODO: Dies ist ein Hinweis und kein Todo: booking.end entspricht kw2 in DB und booking.start entspricht kw1 in DB, in DB wird nicht mehr jede KW eingetragen sondern nur noch Start- und Endwoche
-        //Dauer des Aufenthalts in Fewo berechnen
-        diff=this.state.booking.end-this.state.booking.start;
-
-        //in Input-Feld max KW 52 möglich und max 4 Wochen Aufenthalt, -4 falls Aufenthalt über Jahreswechsel geht
-        //TODO Buchung über Jahreswechsel überhaupt möglich? In DB ist ein Feld für Jahr. Inputfeld Jahr noch ergänzen?
-        if(this.state.booking.end > 52 ||this.state.booking.start > 52||(diff)>4||(diff)<(-4))
-            return;
-
-        //Buttons werden angepasst
-        this.refs.submitB.style.display = "flex";
-        this.refs.calcB.style.display = "none";
-
-        //Bei einer Woche Aufenthalt
-        if(diff>=0||diff<=(0)) {
-
-            //Factor ID suchen
-            api.get('/seasons/search/findByCalenderWeek', {
-                params: {
-                    calenderWeek: this.state.booking.start
-                }
-            }).then(({data}) => {
-                console.log(data);
-
-                //Factor suchen
-                return api.get('factors/search/findByFactorId', {
-                    params: {
-                        factorId: data.factorId
-                    }
-                });
-            }).then(({data})=> {
-                console.log(data);
-                factor1 = data.factor;
-
-                //Grundpreis Fewo suchen
-                return api.get('/apartments/search/findByName', {
-                    params: {
-                        name: this.props.match.params.id
-                    }
-                });
-
-            }).then(({data})=> {
-                console.log(data);
-                //TODO: ggf. Berechnung falsch, weil Variabeln nicht korrekt gesetzt
-                //Berechnung der ersten Woche
-                 price= data.basePrice * factor1;
-            });
-
-        }
-
-
-        //Bei zwei Wochen Aufenthalt diese if-Bedingung zusätzlich ausgeführt
-        if(diff>=1||diff<=(-1)) {
-
-            //KW um 1 erhöhen
-            kw2=(this.state.booking.start+1)%52;
-
-            api.get('/seasons/search/findByCalenderWeek', {
-                params: {
-                    calenderWeek: kw2
-                }
-            }).then(({data}) => {
-                console.log(data);
-
-                return api.get('factors/search/findByFactorId', {
-                    params: {
-                        factorId: data.factorId
-                    }
-                });
-            }).then(({data})=> {
-                console.log(data);
-                factor2 = data.factor;
-
-                //TODO appartment muss evtl. nicht erneut gefunden werden, da bereits bei Berechnung der erster Woche gesetzt, wg. Copy'n'Paste noch drin
-                return api.get('/apartments/search/findByName', {
-                    params: {
-                        name: this.props.match.params.id
-                    }
-                });
-
-            }).then(({data})=> {
-                console.log(data);
-                this.state.booking.points =this.state.booking.points+ (data.basePrice * factor2);
-            });
-
-        }
-
-        //Berechnung dritter Woche
-        if(diff>=2||diff<=(-2)) {
-
-            kw3=(this.state.booking.start+1)%52;
-
-            api.get('/seasons/search/findByCalenderWeek', {
-                params: {
-                    calenderWeek: kw3
-                }
-            }).then(({data}) => {
-                console.log(data);
-
-                return api.get('factors/search/findByFactorId', {
-                    params: {
-                        factorId: data.factorId
-                    }
-                });
-            }).then(({data})=> {
-                console.log(data);
-                factor3 = data.factor;
-
-                //TODO appartment muss evtl. nicht erneut gefunden werden, da bereits bei Berechnung der erster Woche gesetzt, wg. Copy'n'Paste noch drin
-                return api.get('/apartments/search/findByName', {
-                    params: {
-                        name: this.props.match.params.id
-                    }
-                });
-
-            }).then(({data})=> {
-                console.log(data);
-                this.state.booking.points =this.state.booking.points+ (data.basePrice * factor3);
-            });
-
-        }
-
-        //Berechnung vierter Woche
-        if(diff>=3||diff<=(-3)) {
-
-            kw4=(this.state.booking.start+1)%52;
-
-            api.get('/seasons/search/findByCalenderWeek', {
-                params: {
-                    calenderWeek: kw4
-                }
-            }).then(({data}) => {
-                console.log(data);
-
-                return api.get('factors/search/findByFactorId', {
-                    params: {
-                        factorId: data.factorId
-                    }
-                });
-            }).then(({data})=> {
-                console.log(data);
-                factor4 = data.factor;
-
-                //TODO appartment muss evtl. nicht erneut gefunden werden, da bereits bei Berechnung der erster Woche gesetzt, wg. Copy'n'Paste noch drin
-                return api.get('/apartments/search/findByName', {
-                    params: {
-                        name: this.props.match.params.id
-                    }
-                });
-
-            }).then(({data})=> {
-                console.log(data);
-
-                // TODO Ausgabe in Punkten
-                // this.state.booking.points =this.state.booking.points + (data.basePrice * factor4);
-
-                this.setState((prev, props) => update(prev, {
-                    booking: {
-                        points: { $apply: (points) => (prev.booking.points + (data.basePrice) * factor4) }
-                    }
-                }));
-            });
-
-        }
-
-        //TODO funktionieren ggf. auch nicht, weil Berechnung der Kosten nicht funktioniert
-        //Zusatzkosten
-
-        //Kosten höher als Guthaben (totalScore)
-        if (this.state.booking.points > this.state.customer.totalScore) {
-            // 1 Punkt = 10 Euro, fehlende Punkte werden mit Faktor 2 = 20 Euro berechnet
-            // Ausgabe in Euro
-            // this.state.booking.additionalCosts= (this.state.booking.points-this.state.customer.totalScore)*20
-
-            this.setState((prev, props) => update(prev, {
-                booking: {
-                    additionalCosts: { $set: (prev.bookings.points - prev.customer.totalScore) * 20 }
-                }
-            }));
-        }
-
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            user: nextProps.user
+        });
     }
 
     componentDidMount() {
+        this.setState({
+            user: this.props.user
+        });
 
-        //Sicherung der leeren Inputfelder, damit nach Klick auf den Button "abbrechen" wieder die Inputfelder geleert werden
         this.setState({
             basebooking: this.state.booking
         });
 
-        //User
-        if (isLoggedIn()) {
-            const token = getToken();
-            const user = getUser();
-
-    // TODO in Konsole werden alle User bzw. Kopie eines users geladen und dadurch kann in input-Feld KW nicht sofort etwas eingetragen werde
-     //TODO bei calcCost() werden auch alle User oder Kopie eines Users geladen
-            api.get(`/customers/search/findByEmail`, {
-                params: {
-                    email: user
-                }
-            }, {
-                headers: {
-                    authorization: token
-                }
-            }).then(({data}) => {
-                console.log(data);
-
-
-                this.setState({
-                    customer: data,
-                });
-            });
-        }
-
-        //Bild und Beschreibung und max Personenanzahl (sieht überflüssig aus, leider wird nach dem Klicken auf einen Button die Beschreibung der Fewo nicht mehr angezeigt)
         api.get('/apartments/search/findByName', {
             params: {
                 name: this.props.match.params.id
             }
         }).then(({ data }) => {
-            console.log(data);
-
-            descr = data.description;
-            //TODO neu
-            persons = data.numberOfPersons;
-            rooms = data.numberOfRooms;
-            size = data.size;
-            children = (data.infantsAllowed ? "Ja" : "Nein");
-            pets = (data.animalsAllowed ? "Ja" : "Nein");
-            balcony = (data.hasBalcony ? "Ja" : "Nein");
-            //TODO neu ende
-
             this.setState({
-
                 fewo: {
                     name: data.name,
-                    id: data.apartmentId
+                    id: data.apartmentId,
+                    description: data.description,
+                    persons: data.numberOfPersons,
+                    rooms: data.numberOfRooms,
+                    size: data.size,
+                    children: data.infantsAllowed ? "Ja": "Nein",
+                    pets: data.animalsAllowed ? "Ja": "Nein",
+                    balcony: data.hasBalcony ? "Ja" : "Nein"
                 }
-
             });
 
             return api.get('/images/search/findByApartmentId', {
@@ -327,25 +124,137 @@ class Booking extends React.Component {
                 }
             })
         }).then(({ data }) => {
-            console.log(data);
             this.setState({
-                picture:'data:image/png;base64,' + data._embedded.images[0].image
+                picture: imageBlobToBase64(data._embedded.images[0].image)
             });
         });
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (isLoggedIn() && !isEmptyObject(this.state.user) && !isEqual(this.state.user, prevState.user)) {
+
+        }
+    }
+
+    getFactors(durations) {
+        return axios.all(durations.map((duration) => (
+            api.get('/factors/search/findByCalenderWeek', {
+                params: {
+                    calenderWeek: duration
+                }
+            })
+        ))).then((results) => {
+            return results.map(({ data: factor }) => factor);
+        });
+    };
+
+    calcCost(event) {
+        event.preventDefault();
+
+        //TODO Validation
+
+        /*this.setState((prev) => update(prev, {
+            validation: {
+                show: { $set: true }
+            }
+        }));
+
+        if (Object.keys(this.state.validation.errors).length !== 0) {
+            return null;
+        }*/
+
+        let { start, end } = this.state.booking;
+        let duration = Math.abs(end - start);
+
+        if (end > 52 || start > 52 || duration > 4) {
+            return;
+        }
+
+        this.refs.submitB.style.display = "flex";
+        this.refs.calcB.style.display = "none";
+
+        let durations = [];
+
+        for (let i = 0; i < duration + 1; i += 1) {
+            durations[i] = (+start + i) % 52;
+        }
+
+        axios.all([
+            this.getFactors(durations),
+            api.get('/apartments/search/findByName', {
+                params: {
+                    name: this.props.match.params.id
+                }
+            })
+        ]).then(axios.spread((factors, { data: apartment }) => {
+            return factors.reduce((accumulator, factor) => {
+                console.log(accumulator, factor);
+                return accumulator + apartment.basePrice + apartment.basePrice * (factor/100)
+            }, 0);
+        })).then((points) => {
+            let totalScore = this.state.user.totalScore;
+            let additionalCosts = 0;
+
+            if (points > totalScore) {
+                additionalCosts = (points - totalScore) * 20;
+            }
+
+            this.setState((prev, props) => update(prev, {
+                booking: {
+                    points: { $set: points },
+                    additionalCosts: { $set: additionalCosts }
+                }
+            }));
+        });
+
+        //TODO fehler werfen, wenn rules nicht erfüllt
+
+        /*.catch((error) => {
+            let message = 'Fehler, bitte versuchen sie es später erneut';
+
+            if (error.response && error.response.status === 422) {
+                message = 'Bitte überprüfen sie Ihre Angaben';
+            } else if (error.response && error.response.status === 409) {
+                message = 'Diese E-Mail Adresse wird bereits verwendet';
+            }
+
+            this.setState({ error: message });
+        })*/
     }
 
     handleSubmit(event) {
 
         event.preventDefault();
 
+        //TODO endYear nach Buchen an DB übermitteln, startYear nicht
+        //TODO Punkte von User reduzieren (soll im Dashboard, Header ersichtlich sein)
+
         //TODO hier geht gar nix mit der DB :-(
         //TODO Buchungsanfrage übermitteln, ich hab mir hier ein Beispiel überlegt, das jedoch komplett falsch sein kann
         //Beispiel
 
 
-        //TODO in BookingRepository.java habe ich ein maxBooking angelegt, jedoch auskommentiert, weil ich nicht weiß, ob es funktioniert
-        //höchste vergebene BookingID bekommen um sie dann um 1 zu inkrementieren, damit ich eine id für die aktuelle Buchungsanfrage habe
-        /*api.get('booking/search/maxBooking')*/
+        //TODO in BookingRepository.java habe ich ein maxBooking angelegt, jedoch auskommentiert, weil ich nicht weiß, ob es funktioniert, ggf. überflüssig wg. post
+
+        //TODO fehler Can not deserialize value of type java.lang.Long from String \"FeWo-Mallorca-1\": not a valid Long value\n at [Source: HttpInputOverHTTP@5da7173c[c=87,q=0,[0]=null,s=STREAM];
+        api.post('/bookings', {
+
+                contractNumber: this.state.customer.contractNumber,
+                apartmentId: this.state.fewo.name,
+                start: this.state.booking.start,
+                end: this.state.booking.end,
+                price: this.state.booking.points,
+                addtionalCharge: this.state.booking.additionalCosts
+        }).then(({data}) => {
+            console.log(data);
+            });
+
+        //höchste vergebene BookingID bekommen um sie dann um 1 zu inkrementieren, damit ich eine id für die aktuelle Buchungsanfrage habe ->sollte post erledigen
+        /*api.post('/bookings', { ...this.state.booking }).then(({data}) => {
+            console.log(data);
+        }).catch(({error}) => {
+            console.log(error);
+        });*/
 
         //Buchung übermitteln Version 1, jedoch nicht vollständig
         /*api.post('/bookings/search/updateBooking',
@@ -353,8 +262,8 @@ class Booking extends React.Component {
          params: {
          contractNumber: this.state.customer.contractNumber,
          apartmentId: this.state.fewo.name,
-         week1: this.state.booking.start,
-         week2: this.state.booking.end,
+         start: this.state.booking.start,
+         end: this.state.booking.end,
          price: this.state.booking.points,
          addtionalCharge: this.state.booking.additionalCosts
          }
@@ -396,43 +305,47 @@ class Booking extends React.Component {
                 }
             });*/
 
-        //Label Bestätigung anzeigen
-        this.refs.submitLabel.style.display = "flex";
-        setTimeout(function() {
+
+        //Label Bestätigung anzeigen //TODO am Ende auskommentieren
+        /*this.refs.submitLabel.style.display = "flex";
+        setTimeout(() => {
             this.refs.submitLabel.style.display = "none";
 
             //dashboard weiterleiten
             this.props.history.push('/user');
-        }.bind(this), 2000);
+        }, 2000)*/;
 
     }
 
     handleInput(event) {
         let {name, value} = event.target;
 
-        this.setState((prev) => update(prev, {
+        let state = this.setState((prev) => update(prev, {
             booking: {
                 [name]: {
                     $set: value
                 }
             }
         }));
+
+        //TODO Fehler, weil validation nicht definiert ist
+
+        // state.validation.errors = run(state.booking, rules);
+        // state.error = '';
     }
 
     clearInputs() {
-
-        //Zwischengespeicherter State nach dem die Website geladen wurde wiederherstellen
         this.setState({
            booking: this.state.basebooking
         });
 
-        //Button anpassen
         this.refs.submitB.style.display = "none";
         this.refs.calcB.style.display = "flex";
     }
 
 
-    //TODO Anordnung der Buttons nach calcCost() stimmt ggf. nicht mehr
+//TODO wg. Input Validation Field muss CSS ggf. komplett überarbeitet werden
+
     render() {
         return (
             <div className={globalStyles.wrapper + ' ' + styles.wrapper}>
@@ -440,74 +353,187 @@ class Booking extends React.Component {
                 <h1>Buchung</h1>
                 <div className={styles.booking}>
                     <div className={styles.leftBooking}>
-                        <div> <img className={styles.image} src={this.state.picture}/> </div>
+                        <div>
+                            <img className={styles.image} src={this.state.picture}/>
+                        </div>
                         <br/>
                         <div>
-                        <h3 className={styles.heading}>{this.props.match.params.id}</h3>
+                            <h3 className={styles.heading}>{this.props.match.params.id}</h3>
                         </div>
                         <div className={styles.facts}>
-                        <section>{descr}</section><br />
-                        <section className={styles.detail}>Details:</section>
-                        <section>Personenanzahl: {persons}</section>
-                        <section>Raumanzahl: {rooms}</section>
-                        <section>Größe: {size}</section>
-                        <section>Balkon vorhanden: {balcony}</section>
-                        <section>Tiere erlaubt: {pets}</section>
-                        <section>Kinder: {children}</section>
+                            <section>{this.state.fewo.description}</section><br />
+                            <section className={styles.detail}>Details:</section>
+                            <section>Personenanzahl: {this.state.fewo.persons}</section>
+                            <section>Raumanzahl: {this.state.fewo.rooms}</section>
+                            <section>Größe: {this.state.fewo.size}</section>
+                            <section>Balkon vorhanden: {this.state.fewo.balcony}</section>
+                            <section>Tiere erlaubt: {this.state.fewo.pets}</section>
+                            <section>Kinder: {this.state.fewo.children}</section>
                         </div>
                     </div>
                     <br/>
                     <div className={styles.rightBooking}>
                         <form onReset={this.clearInputs}>
+                            <label>Von:</label>
+                            <input
+                                required={true}
+                                className={globalStyles.input}
+                                name="start"
+                                value={this.state.booking.start}
+                                ref="startInput"
+                                type="number"
+                                placeholder="KW"
+                                min={1}
+                                max={52}
+                                onChange={this.handleInput}/>
 
-                            <label>
-                                Von (KW):
-                            </label>
-                            <input required={true} className={globalStyles.input} name="start" value={this.state.booking.start}
-                                   ref="startInput" type="number" min={1} max={52} onChange={this.handleInput}/><br /><br/>
-                            <label>
-                                Bis (KW):
-                            </label>
-                            <input required={true} className={globalStyles.input} name="end" value={this.state.booking.end}
-                                   ref="endInput" type="number" min={1} max={52} onChange={this.handleInput}/><br /><br/>
+                            {/*<InputValidationField
+                                label="Von:"
+                                required={true}
+                                className={globalStyles.input}
+                                name="start"
+                                value={this.state.booking.start}
+                                ref="startInput"
+                                type="number"
+                                placeholder="KW"
+                                min={1}
+                                max={52}
+                                onChange={this.handleInput}
+                                showError={this.state.validation.show}
+                                errorText={this.state.validation.errors.start}/>*/}
 
-                            <label>
-                                Kosten:
-                            </label>
-                            <input className={globalStyles.input + ' ' + styles.cost} name="points" value={this.state.booking.points}
-                                   ref="costsInput" type="text"  readOnly="readOnly" onChange={this.handleInput}/><br /><br/>
+                            <br/>
+                            <label> </label>
+                            <input
+                                required={true}
+                                className={globalStyles.input}
+                                name="startYear"
+                                ref="startYearInput"
+                                type="number"
+                                placeholder="Jahr"
+                                min={2017}
+                                max={2018}
+                                onChange={this.handleInput}/>
 
-                            <label>
-                                Zusatzkosten:
-                            </label>
-                            <input className={globalStyles.input + ' ' + styles.cost} name="additionalCosts" value={this.state.booking.addtionalCosts}
-                                   ref="additionalCostsInput" type="text"  readOnly="readOnly" onChange={this.handleInput}/><br /><br/>
+                            {/*<InputValidationField
+                             label=""
+                             required={true}
+                             className={globalStyles.input}
+                             name="startYear"
+                             value={this.state.booking.startYear}
+                             ref="startYearInput"
+                             type="number"
+                             placeholder="Jahr"
+                             min={2017}
+                             max={2018}
+                             onChange={this.handleInput}
+                             showError={this.state.validation.show}
+                             errorText={this.state.validation.errors.startYear}/>*/}
+
+                            <br/>
+                            <br/>
+
+                            <label>Bis:</label>
+                            <input
+                                required={true}
+                                className={globalStyles.input}
+                                name="end"
+                                value={this.state.booking.end}
+                                ref="endInput"
+                                type="number"
+                                placeholder="KW"
+                                min={1}
+                                max={52}
+                                onChange={this.handleInput}/>
+
+                            {/*<InputValidationField
+                             label="Bis:"
+                             required={true}
+                             className={globalStyles.input}
+                             name="end"
+                             value={this.state.booking.end}
+                             ref="endInput"
+                             type="number"
+                             placeholder="KW"
+                             min={1}
+                             max={52}
+                             onChange={this.handleInput}
+                             showError={this.state.validation.show}
+                             errorText={this.state.validation.errors.start}/>*/}
+                            <br/>
+                            <label> </label>
+                            <input
+                                required={true}
+                                className={globalStyles.input}
+                                name="startYear"
+                                ref="startYearInput"
+                                type="number"
+                                placeholder="Jahr"
+                                min={2017}
+                                max={2018}
+                                onChange={this.handleInput}/>
+
+                            {/*<InputValidationField
+                             label=""
+                             required={true}
+                             className={globalStyles.input}
+                             name="endYear"
+                             value={this.state.booking.endYear}
+                             ref="endYearInput"
+                             type="number"
+                             placeholder="Jahr"
+                             min={2017}
+                             max={2018}
+                             onChange={this.handleInput}
+                             showError={this.state.validation.show}
+                             errorText={this.state.validation.errors.startYear}/>*/}
+
+                            <br/>
+                            <br/>
+
+                            <label>Kosten (Punkte):</label>
+                            <input
+                                className={globalStyles.input + ' ' + styles.cost}
+                                name="points"
+                                value={this.state.booking.points}
+                                ref="costsInput"
+                                type="text"
+                                readOnly="readOnly"
+                                onChange={this.handleInput}/>
+                            <br/>
+                            <br/>
+
+                            <label>Zusatzkosten (€):</label>
+                            <input
+                                className={globalStyles.input + ' ' + styles.cost}
+                                name="additionalCosts"
+                                value={this.state.booking.additionalCosts}
+                                ref="additionalCostsInput"
+                                type="text"
+                                readOnly="readOnly"
+                                onChange={this.handleInput}/>
+                            <br/>
+                            <br/>
 
                             <div className={styles.button}>
-                            <button className={globalStyles.button} type="reset">
-                                abbrechen
-                            </button>
-                            <button ref="calcB" className={globalStyles.button + ' ' + styles.calcButton} onClick={this.calcCost}>
-                                Kosten berechnen
-                            </button>
-                            <button ref="submitB" className={globalStyles.button + ' ' + styles.submitButton} onClick={this.handleSubmit}>
-                                Buchungswunsch anmelden
-                            </button>
+                                <button className={globalStyles.button} type="reset">
+                                    abbrechen
+                                </button>
+                                <button ref="calcB" className={globalStyles.button + ' ' + styles.calcButton} onClick={this.calcCost}>
+                                    Kosten berechnen
+                                </button>
+                                <button ref="submitB" className={globalStyles.button + ' ' + styles.submitButton} onClick={this.handleSubmit}>
+                                    Buchungswunsch anmelden
+                                </button>
                             </div>
                             <br/>
                             <div className={styles.submitResponse}>
-                            <label ref="submitLabel" className={styles.bookingLabel}>Ihre Buchungsanfrage wird bearbeitet</label>
+                                <label ref="submitLabel" className={styles.bookingLabel}>Ihre Buchungsanfrage wird bearbeitet</label>
                             </div>
                         </form>
                     </div>
                 </div>
-
-
-
             </div>
-
         );
     }
 }
-
-export default Booking;

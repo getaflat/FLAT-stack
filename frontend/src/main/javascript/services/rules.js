@@ -47,3 +47,36 @@ export const maxAge = (age) => {
         return difference <= age ? null : errors.maxAge(age);
     }
 };
+
+//TODO neu von Carmen hinzugefügt
+export const minYear = (year) => {
+    return (number) => {
+        //TODO was ist 'years'
+        const difference = moment().diff(number, 'years', true);
+        return difference >= year ? null : errors.minYear(year);
+    }
+};
+
+export const maxYear = (year) => {
+    return (number) => {
+        //TODO was ist 'years'
+        const difference = moment().diff(number, 'years', true);
+        return difference >= year ? null : errors.maxYear(year);
+    }
+};
+
+export const minWeek = (week) => {
+    return (number) => {
+        //TODO was ist 'week'
+        const difference = moment().diff(number, 'week', true);
+        return difference >= week ? null : errors.minWeek(week);
+    }
+};
+
+export const maxWeek = (week) => {
+    return (number) => {
+        //TODO was ist 'week'
+        const difference = moment().diff(number, 'week', true);
+        return difference >= week ? null : errors.maxWeek(week);
+    }
+};

@@ -6,11 +6,9 @@ import moment from 'moment';
 import globalStyles from '../../general-styles/global.css';
 import { logout } from '../../services/auth';
 
+import { isEmptyObject, isEqual } from '../../util';
 
 import update from 'immutability-helper';
-
-const propTypes = {};
-const defaultProps = {};
 
 class User extends React.Component {
     constructor(props) {
@@ -18,9 +16,10 @@ class User extends React.Component {
         this.state = {
             customer: {},
             bookings: [],
-            loggedIn: {},
+            user: {},
             loading: true
         };
+
         this.handleStorno = this.handleStorno.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
         this.handleInput = this.handleInput.bind(this);
@@ -34,7 +33,7 @@ class User extends React.Component {
         let s = [this.refs.firstName, this.refs.lastName];
 
         this.setState({
-            customer: this.state.loggedIn
+            customer: this.state.user
         });
 
         for (let i = 0; i < s.length; i++) {
@@ -56,8 +55,9 @@ class User extends React.Component {
             s[i].style.border = "none";
             s[i].style.backgroundColor = "inherit";
         }
+
         this.setState({
-            loggedIn: this.state.customer
+            user: this.state.customer
         });
 
         this.refs.saveButton.style.display = "none";
@@ -66,8 +66,7 @@ class User extends React.Component {
     }
 
     handleSave() {
-        const user = this.state.loggedIn.contractNumber;
-        console.log(user);
+        const user = this.state.user.contractNumber;
 
         let s = [this.refs.firstName, this.refs.lastName, this.refs.save];
 
@@ -76,25 +75,32 @@ class User extends React.Component {
             s[i].style.border = "none";
             s[i].style.backgroundColor = "inherit";
         }
+
         this.refs.saveButton.style.display = "none";
         this.refs.cancelButton.style.display = "none";
         this.refs.editButton.style.display = "flex";
 
-        api.get('/customers/search/updateCustomer',
-            {
-                params: {
-                    firstName: this.state.loggedIn.firstName,
-                    lastName: this.state.loggedIn.lastName,
-                    contractNumber: user
-                }
-            });
+        api.get('/customers/search/updateCustomer', {
+            params: {
+                firstName: this.state.user.firstName,
+                lastName: this.state.user.lastName,
+                contractNumber: user
+            }
+        }).then(() => {
+            s[2].firstChild.data = "Daten erfolgreich gespeichert";
+            s[2].style.display = "flex";
 
-        s[2].firstChild.data = "Daten erfolgreich gespeichert";
-        s[2].style.display = "flex";
+            setTimeout(() => {
+                this.refs.save.style.display = "none";
+            }, 3000);
+        }).catch(() => {
+            s[2].firstChild.data = "Bitte versuchen sie es später erneut";
+            s[2].style.display = "flex";
 
-        setTimeout(function () {
-            this.refs.save.style.display = "none";
-        }.bind(this), 3000);
+            setTimeout(() => {
+                this.refs.save.style.display = "none";
+            }, 3000);
+        });
     }
 
 
@@ -102,7 +108,7 @@ class User extends React.Component {
         let {name, value} = event.target;
 
         this.setState((prev) => update(prev, {
-            loggedIn: {
+            user: {
                 [name]: {
                     $set: value
                 }
@@ -112,136 +118,96 @@ class User extends React.Component {
 
     handleStorno(event) {
         console.log(event.target);
+
         if (isLoggedIn()) {
-            api.get(`bookings/search/deleteBooking`,
-                {
-                    params: {
-                        bookingId: event.target.alt
-                    }
-                });
+            api.get(`bookings/search/deleteBooking`, {
+                params: {
+                    bookingId: event.target.alt
+                }
+            });
             window.location.reload();
         }
     }
 
-    handleDel() {
-
-        console.log(this.state.loggedIn.contractNumber);
-        api.get(`customers/search/delCustomer`,
-            {
+    componentDidUpdate(prevProps, prevState) {
+        if (isLoggedIn() && !isEmptyObject(this.state.user) && !isEqual(this.state.user, prevState.user)) {
+            api.get(`/bookings/search/findByContractNumber`, {
                 params: {
-                    contractNumber: this.state.loggedIn.contractNumber
-                    //contractNumber: "0123456789012"
+                    contractNumber: this.state.user.contractNumber
                 }
-            });
+            }).then(({ data }) => {
+                let bookings = data._embedded.bookings;
 
-        api.get(`bookings/search/delBookings`,
-            {
-                params: {
-                    contractNumber: this.state.loggedIn.contractNumber
-                    //contractNumber: "0123456789012"
-                }
+                api.get(`/apartments`).then(({ data }) => {
+                    const apartments = data._embedded.apartments;
+                    const booked = bookings.map((booking) => {
+                        const apartment = apartments.find((apartment) => {
+                            return apartment.apartmentId === booking.apartmentId;
+                        });
+                        const name = apartment.name;
+
+                        return {
+                            ...booking,
+                            name
+                        }
+                    });
+
+                    this.setState({
+                       bookings: booked
+                    });
+                });
             });
-        logout().then(() => {
-            this.props.history.push('/');
-        }).catch(() => {
-            console.log(arguments);
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            user: nextProps.user
         });
     }
 
-    componentWillMount() {
-        if (isLoggedIn()) {
-            const token = getToken();
-            const user = getUser();
-
-            api.get(`/customers/search/findByEmail`, {
-                params: {
-                    email: user
-                }
-            }, {
-                headers: {
-                    authorization: token
-                }
-            }).then(({data}) => {
-
-                this.setState({
-                    loggedIn: data
-                });
-
-                api.get(`/bookings/search/findByContractNumber`, {
-                    params: {
-                        contractNumber: this.state.loggedIn.contractNumber
-                    }
-                }, {
-                    headers: {
-                        authorization: token
-                    }
-                }).then(({data}) => {
-                    this.setState({
-                        bookings: data._embedded.bookings
-                    });
-                    let apartments = [];
-
-                    api.get(`/apartments`).then(({data}) => {
-                        apartments = data._embedded.apartments;
-                        //console.log(apartments);
-                        this.state.bookings.map((booking) => {
-                            //console.log("bookingId: " + booking.apartmentId);
-                            booking["name"] = apartments.find((apartment) => {
-
-                                if (apartment.apartmentId === booking.apartmentId) {
-                                    //  console.log(apartment.name);
-                                    return apartment.name;
-                                }
-                            });
-                        });
-                        let self = this;
-                        setTimeout(() => {
-                            self.setState({loading: false}); }, 10); // 10 msec Delay for Render
-                    });
-                });
-            });
-        }
+    componentDidMount() {
+        this.setState({
+            user: this.props.user
+        });
     }
 
     render() {
-        if (this.state.loading) {
+        if (!this.state.loading) {
             return (
                 <div>
                     <div className='loading-state'>Loading...</div>
-                </div>)
-        }
-        else {
+                </div>
+            )
+        } else {
             return (
                 <div className={globalStyles.wrapper + ' ' + styles.wrapper}>
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                     <div className={styles.leftDash}>
-                        {/*<h3>{this.state.loggedIn.username}</h3>*/}
-                        <hr />
                         <div className={styles.userStats}>
                             <label>Vorname: </label>
                             <input ref="firstName" onChange={this.handleInput} name="firstName" className={styles.test1}
                                    disabled={true}
-                                   value={this.state.loggedIn.firstName}/>
+                                   value={this.state.user.firstName}/>
                             <br />
                             <label>Nachname: </label>
                             <input ref="lastName" onChange={this.handleInput} name="lastName" className={styles.test1}
                                    disabled={true}
-                                   value={this.state.loggedIn.lastName}/>
+                                   value={this.state.user.lastName}/>
                             <br />
                             <label>Vertragsnummer: </label>
                             <input ref="contractNumber" onChange={this.handleInput} className={styles.test1}
                                    disabled={true}
-                                   value={this.state.loggedIn.contractNumber}/>
+                                   value={this.state.user.contractNumber}/>
                             <br />
                             <label>Email-Adresse:</label>
                             <input ref="email" onChange={this.handleInput} name="email" className={styles.test1}
-                                   disabled={true} value={this.state.loggedIn.email}/>
+                                   disabled={true} value={this.state.user.email}/>
                             <br />
                             <label>Geburtsdatum:</label>
                             <input ref="birthdate" onChange={this.handleInput} name="dateOfBirth"
                                    className={styles.test1}
                                    disabled={true}
-                                   value={moment(this.state.loggedIn.dateOfBirth).format('DD.MM.YYYY')}/>
+                                   value={moment(this.state.user.dateOfBirth).format('DD.MM.YYYY')}/>
                             <br />
                         </div>
 
@@ -278,7 +244,7 @@ class User extends React.Component {
                                 </tr>
                                 {this.state.bookings.map((booking, index) =>
                                     <tr key={index}>
-                                        <td>{booking.name.name}</td>
+                                        <td>{booking.name}</td>
                                         <td>{booking.week1}.{booking.year}</td>
                                         <td>{booking.week2}.{booking.year}</td>
                                         <td>{booking.status}</td>
@@ -300,10 +266,6 @@ class User extends React.Component {
         }
     }
 }
-
-
-User.propTypes = propTypes;
-User.defaultProps = defaultProps;
 
 export default User;
 

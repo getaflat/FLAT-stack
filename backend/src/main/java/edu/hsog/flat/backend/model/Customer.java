@@ -1,5 +1,7 @@
 package edu.hsog.flat.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -12,6 +14,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class Customer {
+	@JsonIgnore
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	@NonNull
@@ -38,6 +41,7 @@ public class Customer {
 
 	private Integer totalScore;
 
+	@JsonIgnore
 	public Customer getCopy(){
 	    Customer c = new Customer();
 	    c.setContractNumber(this.getContractNumber());

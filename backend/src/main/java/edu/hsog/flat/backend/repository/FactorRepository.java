@@ -8,13 +8,18 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Created by hauss on 08.05.2017.
- */
 @RepositoryRestResource(collectionResourceRel = "factors", path = "factors")
 public interface FactorRepository extends CrudRepository<Factor, Long> {
     Factor findByFactorId(@Param("factorId") Long factorId);
+    /*
+    SELECT *
+    FROM season
+    INNER JOIN factor ON season.factor_id = factor.factor_id
+    WHERE season.cleander_week = ?;
+    */
 
+    @Query(value = "SELECT factor.factor FROM season INNER JOIN factor ON (season.factor_id = factor.factor_id) WHERE season.calender_week = ?", nativeQuery = true)
+    int findByCalenderWeek(@Param("calenderWeek") int calenderWeek);
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query(value = "DROP TABLE factor", nativeQuery = true)

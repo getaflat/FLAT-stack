@@ -84,7 +84,7 @@ public class BookingController {
             //check if the saveDate has changed
             if (today.compareTo(saveDate) < 0) {
                 int weeks = calcWeeksDifference(saveDate, today);
-                if (weeks <= 2) {
+                if (weeks >= 2) {
                     Customer customer = getOldestCustomerByBooking(booking1.getApartmentId().toString(), booking1.getWeek1().toString());
                     if(booking1.getContractNumber().equals(customer.getContractNumber())){
                         booking1.setStatus("Bestätigt");

@@ -1,5 +1,5 @@
 export const isRequired = name => {
-    return `${name} darf nicht leer sein`;
+    return `${name} wird benötigt`;
 };
 
 export const isEmail = name => {
@@ -28,4 +28,21 @@ export const minAge = age => {
 
 export const maxAge = age => {
     return (name) => `${name} sollte mindestens unter ${age} Jahre liegen`;
+};
+
+//TODO neu von Carmen hinzugefügt
+export const minYear = year => {
+    return (name) => `${name} sollte mindestens ${year} sein`;
+};
+
+export const maxYear = year => {
+    return (name) => `${name} sollte maximal ${year} sein`;
+};
+
+export const minWeek = year => {
+    return (name) => `${name} sollte mindestens ${year} sein`;
+};
+
+export const maxWeek = year => {
+    return (name) => `${name} sollte mindestens ${year} sein`;
 };
