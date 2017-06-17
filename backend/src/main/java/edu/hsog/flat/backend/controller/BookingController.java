@@ -110,19 +110,27 @@ public class BookingController {
     public void addBooking(@RequestBody Booking booking) {
         LocalDate today = getToday();
         LocalDate deadline = getDeadline(booking);
-
+        Booking newBooking = new Booking();
+        newBooking.setAdditionalCharge(booking.getAdditionalCharge());
+        newBooking.setApartmentId(booking.getApartmentId());
+        newBooking.setBookingId(booking.getBookingId());
+        newBooking.setContractNumber(booking.getContractNumber());
+        newBooking.setPrice(booking.getPrice());
+        newBooking.setWeek1(booking.getWeek1());
+        newBooking.setWeek2(booking.getWeek2());
+        newBooking.setYear(booking.getYear());
         int months = calcMonthsDifference(today, deadline);
 
         if (months <= 2) {
-            booking.setStatus("Bestätigt");
-            // Ok + evtl. Daten zurücksenden und pruefen, ob ein Booking schon auf Bestaetigt ist
+            newBooking.setStatus("Bestätigt");
+
         } else if (months <= 12) {
-            booking.setStatus("Wartend");
-            booking.setLastModified(getToday().toDate());
+            newBooking.setStatus("Wartend");
+            newBooking.setLastModified(getToday().toDate());
         } else {
             // Throw some fancy errors
         }
-
+        bookingRepository.save(newBooking);
         System.out.println("======================================");
         System.out.println(booking);
         System.out.println(today);
