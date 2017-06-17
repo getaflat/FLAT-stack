@@ -41,12 +41,15 @@ export default class Booking extends React.Component {
             customer: {},
             booking: {
                 start: '',
-                startYear: '',
+
                 end: '',
-                endYear: '',
-                additionalCosts: '',
+
+                additionalCosts: 0,
                 points: 0
             },
+
+            startYear: '',
+            endYear: 2017,
 
             fewo: {
                 name: '',
@@ -186,7 +189,7 @@ export default class Booking extends React.Component {
         ]).then(axios.spread((factors, { data: apartment }) => {
             return factors.reduce((accumulator, factor) => {
                 console.log(accumulator, factor);
-                return accumulator + apartment.basePrice * (factor/100)
+                return accumulator + apartment.basePrice + apartment.basePrice * (factor/100)
             }, 0);
         })).then((points) => {
             let totalScore = this.state.user.totalScore;
@@ -231,9 +234,9 @@ export default class Booking extends React.Component {
         //Beispiel
 
 
-        //TODO in BookingRepository.java habe ich ein maxBooking angelegt, jedoch auskommentiert, weil ich nicht weiß, ob es funktioniert
+        //TODO in BookingRepository.java habe ich ein maxBooking angelegt, jedoch auskommentiert, weil ich nicht weiß, ob es funktioniert, ggf. überflüssig wg. post
 
-        //höchste vergebene BookingID bekommen um sie dann um 1 zu inkrementieren, damit ich eine id für die aktuelle Buchungsanfrage habe
+        //höchste vergebene BookingID bekommen um sie dann um 1 zu inkrementieren, damit ich eine id für die aktuelle Buchungsanfrage habe ->sollte post erledigen
         api.post('/bookings', { ...this.state.booking }).then(({data}) => {
             console.log(data);
         }).catch(({error}) => {
