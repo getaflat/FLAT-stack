@@ -129,14 +129,32 @@ class User extends React.Component {
         }
     }
 
+    handleDel() {
+        console.log(this.state.loggedIn.contractNumber);
+        api.get(`bookings/search/delCustomer`,
+            {
+                params: {
+                    contractNumber: this.state.loggedIn.contractNumber
+                }
+            });
+
+        api.get(`customers/search/delBookings`,
+            {
+                params: {
+                    contractNumber: this.state.loggedIn.contractNumber
+                }
+            });
+        logout().then(() => {
+            this.props.history.push('/');
+        }).catch(() => {
+            console.log(arguments);
+        });
+    }
+
     componentDidUpdate(prevProps, prevState) {
         if (isLoggedIn() && !isEmptyObject(this.state.user) && !isEqual(this.state.user, prevState.user)) {
-            api.get(`/bookings/search/findByContractNumber`, {
-                params: {
-                    contractNumber: this.state.user.contractNumber
-                }
-            }).then(({ data }) => {
-                let bookings = data._embedded.bookings;
+            api.get(`/bookingsnew/search/findByContractNumber/${this.state.user.contractNumber}`).then(({ data }) => {
+                let bookings = data;
 
                 api.get(`/apartments`).then(({ data }) => {
                     const apartments = data._embedded.apartments;

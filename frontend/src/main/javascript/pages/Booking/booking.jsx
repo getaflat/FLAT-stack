@@ -237,17 +237,17 @@ export default class Booking extends React.Component {
         //TODO in BookingRepository.java habe ich ein maxBooking angelegt, jedoch auskommentiert, weil ich nicht weiß, ob es funktioniert, ggf. überflüssig wg. post
 
         //TODO fehler Can not deserialize value of type java.lang.Long from String \"FeWo-Mallorca-1\": not a valid Long value\n at [Source: HttpInputOverHTTP@5da7173c[c=87,q=0,[0]=null,s=STREAM];
-        api.post('/bookings', {
-
-                contractNumber: this.state.customer.contractNumber,
-                apartmentId: this.state.fewo.name,
-                start: this.state.booking.start,
-                end: this.state.booking.end,
-                price: this.state.booking.points,
-                addtionalCharge: this.state.booking.additionalCosts
+        api.post('/bookingsnew/add', {
+            contractNumber: this.state.user.contractNumber,
+            week1: this.state.booking.start,
+            week2: this.state.booking.end,
+            apartmentId: this.state.fewo.id,
+            price: this.state.booking.points,
+            year: this.state.booking.startYear,
+            additionalCharge: this.state.booking.additionalCosts
         }).then(({data}) => {
             console.log(data);
-            });
+        });
 
         //höchste vergebene BookingID bekommen um sie dann um 1 zu inkrementieren, damit ich eine id für die aktuelle Buchungsanfrage habe ->sollte post erledigen
         /*api.post('/bookings', { ...this.state.booking }).then(({data}) => {

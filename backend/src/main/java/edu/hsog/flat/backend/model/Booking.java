@@ -1,5 +1,6 @@
 package edu.hsog.flat.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -19,6 +20,7 @@ public class Booking {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	@NonNull
+	@JsonIgnore
 	private Long id;
 
 	@NonNull

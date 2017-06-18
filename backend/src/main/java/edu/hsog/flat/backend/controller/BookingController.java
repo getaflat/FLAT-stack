@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.Null;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -107,14 +106,14 @@ public class BookingController {
         return bookings;
     }
 
-    @RequestMapping(path = "${spring.data.rest.base-path}/bookingsnew", method = RequestMethod.POST)
-    public void addBooking(@RequestBody Booking booking) {
+    @RequestMapping(path = "${spring.data.rest.base-path}/bookingsnew/add", method = RequestMethod.POST)
+    public Booking addBooking(@RequestBody Booking booking) {
         LocalDate today = getToday();
         LocalDate deadline = getDeadline(booking);
         Booking newBooking = new Booking();
         newBooking.setAdditionalCharge(booking.getAdditionalCharge());
         newBooking.setApartmentId(booking.getApartmentId());
-        newBooking.setBookingId(booking.getBookingId());
+        // newBooking.setBookingId(booking.getBookingId());
         newBooking.setContractNumber(booking.getContractNumber());
         newBooking.setPrice(booking.getPrice());
         newBooking.setWeek1(booking.getWeek1());
@@ -147,6 +146,8 @@ public class BookingController {
         System.out.println(deadline);
         System.out.println(months);
         System.out.println("======================================");*/
+
+        return newBooking;
     }
 
     @RequestMapping(path = "${spring.data.rest.base-path}/bookingsnew/search/findByApartmentIdAndWeek/{id}/{week1}", method = RequestMethod.GET)
