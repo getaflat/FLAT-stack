@@ -28,24 +28,23 @@ export default class Footer extends React.Component {
         this.handleText = this.handleText.bind(this);
     }
 
-    ratingChanged(newRating) {
-        this.setState({
-            stars: newRating
-        });
+    ratingChanged (newRating)
+    {
+        this.state.stars = newRating;
     }
 
-    handleText(event) {
-        this.setState({
-            ratingText: event.target.value
-        });
+    handleText(event)
+    {
+        this.state.ratingText = event.target.value;
     }
 
     handleRating() {
+        console.log(this.state.stars + " " + this.state.ratingText);
         api.get('/ratings/search/postRating', {
             params: {
                 comment: this.state.ratingText,
                 score: this.state.stars,
-                contractNumber: this.state.contractNumber
+                contractNumber: this.state.user.contractNumber
             }
         });
 
