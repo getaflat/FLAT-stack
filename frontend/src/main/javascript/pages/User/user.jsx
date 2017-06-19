@@ -120,14 +120,18 @@ class User extends React.Component {
         return (event) => {
             event.preventDefault();
 
+            console.log("Storno", bookingId);
+
             if (isLoggedIn()) {
                 api.get(`bookings/search/deleteBooking`, {
                     params: {
-                        bookingId: bookingId
+                        bookingId
                     }
+                }).then(() => {
+                    this.props.history.push('/user');
+                }).catch(() => {
+                    console.log(arguments);
                 });
-
-                this.props.history.push('/user');
             }
         }
     }
@@ -135,20 +139,19 @@ class User extends React.Component {
     handleDel() {
         let contractNumber = this.state.user.contractNumber;
 
-        api.get(`customers/search/delCustomer`,
-            {
+        api.get(`bookings/search/delBookings`, {
+            params: {
+                contractNumber
+            }
+        }).then(() => {
+            return api.get(`customers/search/delCustomer`, {
                 params: {
-                    contractNumber: contractNumber
+                    contractNumber
                 }
             });
-
-        api.get(`bookings/search/delBookings`,
-            {
-                params: {
-                    contractNumber: contractNumber
-                }
-            });
-        logout().then(() => {
+        }).then(() => {
+            return logout();
+        }).then(() => {
             this.props.history.push('/');
         }).catch(() => {
             console.log(arguments);

@@ -54,7 +54,9 @@ public class BookingController {
         Booking newBooking = new Booking();
         newBooking.setAdditionalCharge(booking.getAdditionalCharge());
         newBooking.setApartmentId(booking.getApartmentId());
-        // newBooking.setBookingId(booking.getBookingId());
+
+
+
 
         newBooking.setLastModified(today.toDate());
 
@@ -77,9 +79,10 @@ public class BookingController {
             List<Booking> bookings = findAllBookingsByApartmentIdAndWeek1(booking.getApartmentId().toString(), booking.getWeek1().toString());
             boolean isBooked = false;
             for (Booking searchBooking: bookings) {
-                if(searchBooking.getStatus().equals("Bestaetigt"));
-                isBooked = true;
-                break;
+                if (searchBooking.getStatus().equals("Bestaetigt")) {
+                    isBooked = true;
+                    break;
+                }
             }
             String status;
             status = isBooked ? "Abgelehnt" : "Bestaetigt";
@@ -92,6 +95,12 @@ public class BookingController {
             // Throw some fancy errors
         }
         bookingRepository.save(newBooking);
+
+        newBooking.setBookingId(newBooking.getId());
+
+        bookingRepository.save(newBooking);
+
+
         /*System.out.println("======================================");
         System.out.println(booking);
         System.out.println(today);
