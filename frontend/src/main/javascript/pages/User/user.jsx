@@ -130,18 +130,19 @@ class User extends React.Component {
     }
 
     handleDel() {
-        console.log(this.state.loggedIn.contractNumber);
-        api.get(`bookings/search/delCustomer`,
+        let contractNumber = this.state.user.contractNumber;
+
+        api.get(`customers/search/delCustomer`,
             {
                 params: {
-                    contractNumber: this.state.loggedIn.contractNumber
+                    contractNumber: contractNumber
                 }
             });
 
-        api.get(`customers/search/delBookings`,
+        api.get(`bookings/search/delBookings`,
             {
                 params: {
-                    contractNumber: this.state.loggedIn.contractNumber
+                    contractNumber: contractNumber
                 }
             });
         logout().then(() => {
