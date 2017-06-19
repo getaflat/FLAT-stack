@@ -19,12 +19,15 @@ import java.util.List;
 @Controller
 public class BookingController {
     @Autowired
+    private
     BookingRepository bookingRepository;
 
     @Autowired
+    private
     ApartmentRepository apartmentRepository;
 
     @Autowired
+    private
     CustomerRepository customerRepository;
 
     BookingController(BookingRepository bookingRepository, ApartmentRepository apartmentRepository, CustomerRepository customerRepository) {
@@ -36,25 +39,75 @@ public class BookingController {
     @RequestMapping(path = "${spring.data.rest.base-path}/bookingsnew", method = RequestMethod.GET)
     @ResponseBody
     public List<Booking> findAllBookings() {
-        List<Booking> bookings = bookingRepository.findAll();
+        return bookingRepository.findAll();
+    }
 
-        return bookings;
+    @RequestMapping(path = "${spring.data.rest.base-path}/bookingsnew/add", method = RequestMethod.POST)
+    @ResponseBody
+    public void addBooking(@RequestBody Booking booking) {
+        Customer customer = customerRepository.findByContractNumber(booking.getContractNumber());
+
+        customerRepository.save(customer);
+
+        LocalDate today = getToday();
+        LocalDate deadline = getDeadline(booking);
+        Booking newBooking = new Booking();
+        newBooking.setAdditionalCharge(booking.getAdditionalCharge());
+        newBooking.setApartmentId(booking.getApartmentId());
+        // newBooking.setBookingId(booking.getBookingId());
+
+        newBooking.setLastModified(today.toDate());
+
+
+        newBooking.setContractNumber(booking.getContractNumber());
+        newBooking.setPrice(booking.getPrice());
+        newBooking.setWeek1(booking.getWeek1());
+        newBooking.setWeek2(booking.getWeek2());
+        newBooking.setYear(booking.getYear());
+
+        // TODO: Preis muss noch richtig berechnet werden. Wie ist das mit den Zusatzkosten?
+        customer.setTotalScore(customer.getTotalScore() - newBooking.getPrice());
+
+        int months = calcMonthsDifference(today, deadline);
+
+        if (months <= 2) {
+            List<Booking> bookings = findAllBookingsByApartmentIdAndWeek1(booking.getApartmentId().toString(), booking.getWeek1().toString());
+            boolean isBooked = false;
+            for (Booking searchBooking: bookings) {
+                if(searchBooking.getStatus().equals("Bestaetigt"));
+                isBooked = true;
+                break;
+            }
+            String status;
+            status = isBooked ? "Abgelehnt" : "Bestaetigt";
+            newBooking.setStatus(status);
+
+        } else if (months <= 12) {
+            newBooking.setStatus("Wartend");
+            newBooking.setLastModified(getToday().toDate());
+        } else {
+            // Throw some fancy errors
+        }
+        bookingRepository.save(newBooking);
+        /*System.out.println("======================================");
+        System.out.println(booking);
+        System.out.println(today);
+        System.out.println(deadline);
+        System.out.println(months);
+        System.out.println("======================================");*/
+
     }
 
     @RequestMapping(path = "${spring.data.rest.base-path}/bookingsnew/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Booking findById(@PathVariable(value = "id") String id) {
-        Booking booking = bookingRepository.findOne(Long.parseLong(id));
-
-        return booking;
+        return bookingRepository.findOne(Long.parseLong(id));
     }
 
     @RequestMapping(path = "${spring.data.rest.base-path}/bookingsnew/search/findByApartmentId/{id}", method = RequestMethod.GET)
     @ResponseBody
     public List<Booking> findAllBookingsByApartmentId(@PathVariable(value = "id") String id) {
-        List<Booking> bookings = bookingRepository.findByApartmentId(Long.parseLong(id));
-
-        return bookings;
+        return bookingRepository.findByApartmentId(Long.parseLong(id));
     }
 
     @RequestMapping(path = "${spring.data.rest.base-path}/bookingsnew/search/findByContractNumber/{id}", method = RequestMethod.GET)
@@ -101,53 +154,7 @@ public class BookingController {
     @RequestMapping(path = "${spring.data.rest.base-path}/bookingsnew/search/findByApartmentIdAndWeek/{id}/{week}", method = RequestMethod.GET)
     @ResponseBody
     public List<Booking> findAllBookingsByApartmentIdAndWeek1(@PathVariable(value = "id") String id, @PathVariable(value = "week") String calenderWeek) {
-        List<Booking> bookings = bookingRepository.findByApartmentIdAndWeek1(Long.parseLong(id), Integer.parseInt(calenderWeek));
-
-        return bookings;
-    }
-
-    @RequestMapping(path = "${spring.data.rest.base-path}/bookingsnew/add", method = RequestMethod.POST)
-    public Booking addBooking(@RequestBody Booking booking) {
-        LocalDate today = getToday();
-        LocalDate deadline = getDeadline(booking);
-        Booking newBooking = new Booking();
-        newBooking.setAdditionalCharge(booking.getAdditionalCharge());
-        newBooking.setApartmentId(booking.getApartmentId());
-        // newBooking.setBookingId(booking.getBookingId());
-        newBooking.setContractNumber(booking.getContractNumber());
-        newBooking.setPrice(booking.getPrice());
-        newBooking.setWeek1(booking.getWeek1());
-        newBooking.setWeek2(booking.getWeek2());
-        newBooking.setYear(booking.getYear());
-        int months = calcMonthsDifference(today, deadline);
-
-        if (months <= 2) {
-            List<Booking> bookings = findAllBookingsByApartmentIdAndWeek1(booking.getApartmentId().toString(), booking.getWeek1().toString());
-            boolean isBooked = false;
-            for (Booking searchBooking: bookings) {
-                if(searchBooking.getStatus().equals("Bestaetigt"));
-                    isBooked = true;
-                    break;
-            }
-            String status;
-            status = isBooked ? "Abgelehnt" : "Bestaetigt";
-            newBooking.setStatus(status);
-
-        } else if (months <= 12) {
-            newBooking.setStatus("Wartend");
-            newBooking.setLastModified(getToday().toDate());
-        } else {
-            // Throw some fancy errors
-        }
-        bookingRepository.save(newBooking);
-        /*System.out.println("======================================");
-        System.out.println(booking);
-        System.out.println(today);
-        System.out.println(deadline);
-        System.out.println(months);
-        System.out.println("======================================");*/
-
-        return newBooking;
+        return bookingRepository.findByApartmentIdAndWeek1(Long.parseLong(id), Integer.parseInt(calenderWeek));
     }
 
     @RequestMapping(path = "${spring.data.rest.base-path}/bookingsnew/search/findByApartmentIdAndWeek/{id}/{week1}", method = RequestMethod.GET)

@@ -247,6 +247,10 @@ export default class Booking extends React.Component {
             additionalCharge: this.state.booking.additionalCosts
         }).then(({data}) => {
             console.log(data);
+            this.props.onUserChange();
+            this.props.history.push('/user');
+        }).catch((error) => {
+            console.log(error);
         });
 
         //höchste vergebene BookingID bekommen um sie dann um 1 zu inkrementieren, damit ich eine id für die aktuelle Buchungsanfrage habe ->sollte post erledigen

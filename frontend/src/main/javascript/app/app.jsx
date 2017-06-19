@@ -95,7 +95,7 @@ export default class App extends React.Component {
                         <Route exact path="/" component={Home} />
 
                         <PrivateRouteWithProps path="/user" component={User} props={{ user }} />
-                        <RouteWithProps path="/booking/:id" component={Booking} props={{ user }} />
+                        <RouteWithProps path="/booking/:id" component={Booking} props={{ user, onUserChange: this.handleUserChange }} />
                         <RouteWithProps path="/register" component={Register} props={{ onUserChange: this.handleUserChange }} />
                         <RouteWithProps path="/login" component={Login} props={{ user, onUserChange: this.handleUserChange }} />
                         <RouteWithProps path="/logout" component={Logout} props={{ onUserChange: this.handleUserChange }} />
