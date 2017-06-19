@@ -30,7 +30,7 @@ export const maxLength = (length) => {
 
 export const exactLength = (length) => {
     return (text) => {
-        return text.length == length ? null : errors.exactLength(length);
+        return text.length === length ? null : errors.exactLength(length);
     }
 };
 
@@ -48,35 +48,26 @@ export const maxAge = (age) => {
     }
 };
 
-//TODO neu von Carmen hinzugefügt
 export const minYear = (year) => {
     return (number) => {
-        //TODO was ist 'years'
-        const difference = moment().diff(number, 'years', true);
-        return difference >= year ? null : errors.minYear(year);
+        return number >= year ? null : errors.minYear(year);
     }
 };
 
 export const maxYear = (year) => {
     return (number) => {
-        //TODO was ist 'years'
-        const difference = moment().diff(number, 'years', true);
-        return difference >= year ? null : errors.maxYear(year);
+        return number <= year ? null : errors.maxYear(year);
     }
 };
 
 export const minWeek = (week) => {
     return (number) => {
-        //TODO was ist 'week'
-        const difference = moment().diff(number, 'week', true);
-        return difference >= week ? null : errors.minWeek(week);
+        return number >= week ? null : errors.minWeek(week);
     }
 };
 
 export const maxWeek = (week) => {
     return (number) => {
-        //TODO was ist 'week'
-        const difference = moment().diff(number, 'week', true);
-        return difference >= week ? null : errors.maxWeek(week);
+        return number <= week ? null : errors.maxWeek(week);
     }
 };

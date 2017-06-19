@@ -25,12 +25,10 @@ import { mustMatch, maxAge, isEmail, minAge, exactLength, minLength, isRequired,
 //TODO ggf. Problem weil startYear und endYear kein Label haben und es das CSS verhagelt
 
 const rules = [
-
     rule("start", "Beginn", isRequired, minWeek(1), maxWeek(52)),
     rule("end", "Ende", isRequired, minWeek(1), maxWeek(52)),
     rule("startYear", " ", isRequired, minYear(2017), maxYear(2018)),//TODO ohne Label möglich?
     rule("endYear", " ", isRequired, minYear(2017), maxYear(2018)),//TODO ohne Label möglich?
-
 ];
 
 //TODO startYear und endYear wieder zum state booking, jedoch startYear wird nicht an DB gesendet
@@ -153,7 +151,7 @@ export default class Booking extends React.Component {
 
         //TODO Validation
 
-        /*this.setState((prev) => update(prev, {
+        this.setState((prev) => update(prev, {
             validation: {
                 show: { $set: true }
             }
@@ -161,7 +159,7 @@ export default class Booking extends React.Component {
 
         if (Object.keys(this.state.validation.errors).length !== 0) {
             return null;
-        }*/
+        }
 
         let { start, end } = this.state.booking;
         let duration = Math.abs(end - start);
@@ -188,8 +186,7 @@ export default class Booking extends React.Component {
             })
         ]).then(axios.spread((factors, { data: apartment }) => {
             return factors.reduce((accumulator, factor) => {
-                console.log(accumulator, factor);
-                return accumulator + apartment.basePrice + apartment.basePrice * (factor/100)
+                return accumulator + apartment.basePrice + Math.round(apartment.basePrice * (factor/100))
             }, 0);
         })).then((points) => {
             let totalScore = this.state.user.totalScore;
@@ -223,20 +220,18 @@ export default class Booking extends React.Component {
     }
 
     handleSubmit(event) {
-
         event.preventDefault();
 
-        //TODO endYear nach Buchen an DB übermitteln, startYear nicht
-        //TODO Punkte von User reduzieren (soll im Dashboard, Header ersichtlich sein)
+        this.setState((prev) => update(prev, {
+            validation: {
+                show: { $set: true }
+            }
+        }));
 
-        //TODO hier geht gar nix mit der DB :-(
-        //TODO Buchungsanfrage übermitteln, ich hab mir hier ein Beispiel überlegt, das jedoch komplett falsch sein kann
-        //Beispiel
+        if (Object.keys(this.state.validation.errors).length !== 0) {
+            return null;
+        }
 
-
-        //TODO in BookingRepository.java habe ich ein maxBooking angelegt, jedoch auskommentiert, weil ich nicht weiß, ob es funktioniert, ggf. überflüssig wg. post
-
-        //TODO fehler Can not deserialize value of type java.lang.Long from String \"FeWo-Mallorca-1\": not a valid Long value\n at [Source: HttpInputOverHTTP@5da7173c[c=87,q=0,[0]=null,s=STREAM];
         api.post('/bookingsnew/add', {
             contractNumber: this.state.user.contractNumber,
             week1: this.state.booking.start,
@@ -245,97 +240,31 @@ export default class Booking extends React.Component {
             price: this.state.booking.points,
             year: this.state.booking.startYear,
             additionalCharge: this.state.booking.additionalCosts
-        }).then(({data}) => {
-            console.log(data);
+        }).then(() => {
             this.props.onUserChange();
-            this.props.history.push('/user');
+
+            setTimeout(() => {
+                this.props.history.push('/user');
+            }, 2000);
         }).catch((error) => {
             console.log(error);
         });
-
-        //höchste vergebene BookingID bekommen um sie dann um 1 zu inkrementieren, damit ich eine id für die aktuelle Buchungsanfrage habe ->sollte post erledigen
-        /*api.post('/bookings', { ...this.state.booking }).then(({data}) => {
-            console.log(data);
-        }).catch(({error}) => {
-            console.log(error);
-        });*/
-
-        //Buchung übermitteln Version 1, jedoch nicht vollständig
-        /*api.post('/bookings/search/updateBooking',
-         {
-         params: {
-         contractNumber: this.state.customer.contractNumber,
-         apartmentId: this.state.fewo.name,
-         start: this.state.booking.start,
-         end: this.state.booking.end,
-         price: this.state.booking.points,
-         addtionalCharge: this.state.booking.additionalCosts
-         }
-         });*/
-
-        //Buchung übermitteln Teilcode Variante2
-        /*register({ ...this.state.customer }).then(() => {
-            this.props.history.push('/user');
-        })*/
-
-        //alte Variante von Josua
-        /*api.get(`/booking/${this.state.booking.contractnumber}`).then(({data}) => {
-            this.setState({contractnumberCurrent: data.contract_number});
-        }).then(() => {
-            api.post('/booking', {
-
-                numberOfPeople: this.state.booking.numberOfPeople,
-                animals: this.state.booking.animals,
-                children: this.state.booking.children,
-                start: this.state.booking.start,
-                end: this.state.booking.end,
-
-                //get costs and additonalCosts
-
-
-            });
-
-
-        }).catch(
-            function (error) {
-                if (error.response) {
-                    console.log(error.response.data);
-                    console.log(error.response.status);
-                    console.log(error.response.headers);
-                    if(error.response.status === 404) {
-                        input.style.borderColor = "red";
-                        alert("Buchung konnte nicht erfolgen");
-                    }
-                }
-            });*/
-
-
-        //Label Bestätigung anzeigen //TODO am Ende auskommentieren
-        /*this.refs.submitLabel.style.display = "flex";
-        setTimeout(() => {
-            this.refs.submitLabel.style.display = "none";
-
-            //dashboard weiterleiten
-            this.props.history.push('/user');
-        }, 2000)*/;
-
     }
 
     handleInput(event) {
         let {name, value} = event.target;
 
-        let state = this.setState((prev) => update(prev, {
+        let state = update(this.state, {
             booking: {
-                [name]: {
-                    $set: value
-                }
+                // On this page we are only validating numeric inputs
+                [name]: { $set: parseInt(value, 10) }
             }
-        }));
+        });
 
-        //TODO Fehler, weil validation nicht definiert ist
+        state.validation.errors = run(state.booking, rules);
+        state.error = '';
 
-        // state.validation.errors = run(state.booking, rules);
-        // state.error = '';
+        this.setState(state);
     }
 
     clearInputs() {
@@ -378,119 +307,49 @@ export default class Booking extends React.Component {
                     <br/>
                     <div className={styles.rightBooking}>
                         <form onReset={this.clearInputs}>
-                            <label>Von:</label>
-                            <input
-                                required={true}
-                                className={globalStyles.input}
-                                name="start"
-                                value={this.state.booking.start}
-                                ref="startInput"
+                            <InputValidationField
+                                label="Von: "
                                 type="number"
-                                placeholder="KW"
-                                min={1}
-                                max={52}
-                                onChange={this.handleInput}/>
-
-                            {/*<InputValidationField
-                                label="Von:"
-                                required={true}
-                                className={globalStyles.input}
                                 name="start"
-                                value={this.state.booking.start}
-                                ref="startInput"
-                                type="number"
                                 placeholder="KW"
-                                min={1}
-                                max={52}
+                                value={this.state.booking.start}
                                 onChange={this.handleInput}
                                 showError={this.state.validation.show}
-                                errorText={this.state.validation.errors.start}/>*/}
+                                errorText={this.state.validation.errors.start}
+                            />
 
-                            <br/>
-                            <label> </label>
-                            <input
-                                required={true}
-                                className={globalStyles.input}
-                                name="startYear"
-                                ref="startYearInput"
+                            <InputValidationField
+                                label=""
                                 type="number"
+                                name="startYear"
                                 placeholder="Jahr"
-                                min={2017}
-                                max={2018}
-                                onChange={this.handleInput}/>
+                                value={this.state.booking.startYear}
+                                onChange={this.handleInput}
+                                showError={this.state.validation.show}
+                                errorText={this.state.validation.errors.startYear}
+                            />
 
-                            {/*<InputValidationField
-                             label=""
-                             required={true}
-                             className={globalStyles.input}
-                             name="startYear"
-                             value={this.state.booking.startYear}
-                             ref="startYearInput"
-                             type="number"
-                             placeholder="Jahr"
-                             min={2017}
-                             max={2018}
-                             onChange={this.handleInput}
-                             showError={this.state.validation.show}
-                             errorText={this.state.validation.errors.startYear}/>*/}
-
-                            <br/>
-                            <br/>
-
-                            <label>Bis:</label>
-                            <input
-                                required={true}
-                                className={globalStyles.input}
+                            <InputValidationField
+                                label="Bis: "
+                                type="number"
                                 name="end"
-                                value={this.state.booking.end}
-                                ref="endInput"
-                                type="number"
                                 placeholder="KW"
-                                min={1}
-                                max={52}
-                                onChange={this.handleInput}/>
+                                value={this.state.booking.end}
+                                onChange={this.handleInput}
+                                showError={this.state.validation.show}
+                                errorText={this.state.validation.errors.end}
+                            />
 
-                            {/*<InputValidationField
-                             label="Bis:"
-                             required={true}
-                             className={globalStyles.input}
-                             name="end"
-                             value={this.state.booking.end}
-                             ref="endInput"
-                             type="number"
-                             placeholder="KW"
-                             min={1}
-                             max={52}
-                             onChange={this.handleInput}
-                             showError={this.state.validation.show}
-                             errorText={this.state.validation.errors.start}/>*/}
-                            <br/>
-                            <label> </label>
-                            <input
-                                required={true}
-                                className={globalStyles.input}
-                                name="startYear"
-                                ref="startYearInput"
+                            <InputValidationField
+                                label=""
                                 type="number"
+                                name="endYear"
                                 placeholder="Jahr"
-                                min={2017}
-                                max={2018}
-                                onChange={this.handleInput}/>
-
-                            {/*<InputValidationField
-                             label=""
-                             required={true}
-                             className={globalStyles.input}
-                             name="endYear"
-                             value={this.state.booking.endYear}
-                             ref="endYearInput"
-                             type="number"
-                             placeholder="Jahr"
-                             min={2017}
-                             max={2018}
-                             onChange={this.handleInput}
-                             showError={this.state.validation.show}
-                             errorText={this.state.validation.errors.startYear}/>*/}
+                                value={this.state.booking.endYear}
+                                onChange={this.handleInput}
+                                showError={this.state.validation.show}
+                                errorText={this.state.validation.errors.endYear}
+                            />
 
                             <br/>
                             <br/>

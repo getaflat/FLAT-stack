@@ -116,16 +116,19 @@ class User extends React.Component {
         }));
     }
 
-    handleStorno(event) {
-        console.log(event.target);
+    handleStorno(bookingId) {
+        return (event) => {
+            event.preventDefault();
 
-        if (isLoggedIn()) {
-            api.get(`bookings/search/deleteBooking`, {
-                params: {
-                    bookingId: event.target.alt
-                }
-            });
-            window.location.reload();
+            if (isLoggedIn()) {
+                api.get(`bookings/search/deleteBooking`, {
+                    params: {
+                        bookingId: bookingId
+                    }
+                });
+
+                this.props.history.push('/user');
+            }
         }
     }
 
@@ -270,8 +273,8 @@ class User extends React.Component {
                                         <td>{booking.price}</td>
                                         <td>{booking.additionalCharge}</td>
                                         <td className={styles.check} ref="button">
-                                            <input className={globalStyles.button} alt={booking.bookingId}
-                                                   value="stornieren" onClick={this.handleStorno}
+                                            <input className={globalStyles.button}
+                                                   value="stornieren" onClick={this.handleStorno(booking.bookingId)}
                                                    type="button"/>
                                         </td>
                                     </tr>

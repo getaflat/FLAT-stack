@@ -65,8 +65,11 @@ public class BookingController {
         newBooking.setWeek2(booking.getWeek2());
         newBooking.setYear(booking.getYear());
 
-        // TODO: Preis muss noch richtig berechnet werden. Wie ist das mit den Zusatzkosten?
-        customer.setTotalScore(customer.getTotalScore() - newBooking.getPrice());
+        if (newBooking.getAdditionalCharge() > 0) {
+            customer.setTotalScore(0);
+        } else {
+            customer.setTotalScore(customer.getTotalScore() - newBooking.getPrice());
+        }
 
         int months = calcMonthsDifference(today, deadline);
 
