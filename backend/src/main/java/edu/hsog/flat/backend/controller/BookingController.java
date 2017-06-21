@@ -8,6 +8,7 @@ import edu.hsog.flat.backend.repository.CustomerRepository;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
 import org.joda.time.Weeks;
+import org.joda.time.Years;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -54,13 +55,7 @@ public class BookingController {
         Booking newBooking = new Booking();
         newBooking.setAdditionalCharge(booking.getAdditionalCharge());
         newBooking.setApartmentId(booking.getApartmentId());
-
-
-
-
         newBooking.setLastModified(today.toDate());
-
-
         newBooking.setContractNumber(booking.getContractNumber());
         newBooking.setPrice(booking.getPrice());
         newBooking.setWeek1(booking.getWeek1());
@@ -75,7 +70,7 @@ public class BookingController {
 
         int months = calcMonthsDifference(today, deadline);
 
-        if (months <= 2) {
+        if (months <= 2 && months >= 0) {
             List<Booking> bookings = findAllBookingsByApartmentIdAndWeek1(booking.getApartmentId().toString(), booking.getWeek1().toString());
             boolean isBooked = false;
             for (Booking searchBooking: bookings) {
