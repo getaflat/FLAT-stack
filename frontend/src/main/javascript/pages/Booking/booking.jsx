@@ -193,7 +193,7 @@ export default class Booking extends React.Component {
             let additionalCosts = 0;
 
             if (points > totalScore) {
-                additionalCosts = (points - totalScore) * 20;
+                additionalCosts = (points - totalScore);
             }
 
             this.setState((prev, props) => update(prev, {
@@ -366,7 +366,7 @@ export default class Booking extends React.Component {
                             <br/>
                             <br/>
 
-                            <label>Zusatzkosten (€):</label>
+                            <label>Zusatzkosten (Punkte):</label>
                             <input
                                 className={globalStyles.input + ' ' + styles.cost}
                                 name="additionalCosts"
