@@ -162,7 +162,7 @@ export default class regionFewos extends React.Component {
                             cell = {<TextCell data={this.state.filteredDataList} field="numberOfPersons" />}
                             width={125} />
                         <Column
-                            header={<SortableHeaderCell onFilterChange={this.onFilterChange.bind(this)} field="size" label="Größe (in cm²)" />}
+                            header={<SortableHeaderCell onFilterChange={this.onFilterChange.bind(this)} field="size" label="Größe (in m²)" />}
                             cell = {<TextCell data={this.state.filteredDataList} field="size" />}
                             width={125} />
                         <Column
