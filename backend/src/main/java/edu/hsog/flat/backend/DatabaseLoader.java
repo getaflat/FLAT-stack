@@ -954,7 +954,7 @@ public class DatabaseLoader implements CommandLineRunner {
         price = (int) ((((this.fRepository.findOne(factorID1).getFactor() / 100) + 1) * price) + (((this.fRepository.findOne(factorID2).getFactor() / 100) + 1) * price));
         b1.setPrice(price);
         b1.setAdditionalCharge(50.6);
-        b1.setStatus("Wartend");
+        b1.setStatus("Ausstehend");
         b1.setLastModified(new Date(117, 4, 14));
         this.bRepository.save(b1);
 
@@ -971,7 +971,7 @@ public class DatabaseLoader implements CommandLineRunner {
         price = a5.getBasePrice();
         price = (int) ((((this.fRepository.findOne(factorID1).getFactor() / 100) + 1) * price) + (((this.fRepository.findOne(factorID2).getFactor() / 100) + 1) * price));
         b2.setPrice(price);
-        b2.setStatus("Wartend");
+        b2.setStatus("Ausstehend");
         b2.setLastModified(new Date(117, 4, 13));
         this.bRepository.save(b2);
 
@@ -1005,7 +1005,7 @@ public class DatabaseLoader implements CommandLineRunner {
         price = a16.getBasePrice();
         price = (int) ((((this.fRepository.findOne(factorID1).getFactor() / 100) + 1) * price) + (((this.fRepository.findOne(factorID2).getFactor() / 100) + 1) * price));
         b4.setPrice(price);
-        b4.setStatus("Wartend");
+        b4.setStatus("Ausstehend");
         b4.setLastModified(new Date(117, 4, 11));
         this.bRepository.save(b4);
 
@@ -1022,7 +1022,7 @@ public class DatabaseLoader implements CommandLineRunner {
         price = a16.getBasePrice();
         price = (int) ((((this.fRepository.findOne(factorID1).getFactor() / 100) + 1) * price) + (((this.fRepository.findOne(factorID2).getFactor() / 100) + 1) * price));
         b5.setPrice(price);
-        b5.setStatus("Wartend");
+        b5.setStatus("Ausstehend");
         b5.setLastModified(new Date(117, 4, 10));
         this.bRepository.save(b5);
 

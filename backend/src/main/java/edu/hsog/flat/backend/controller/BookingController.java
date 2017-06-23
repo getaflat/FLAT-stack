@@ -84,7 +84,7 @@ public class BookingController {
             newBooking.setStatus(status);
 
         } else if (months <= 12) {
-            newBooking.setStatus("Wartend");
+            newBooking.setStatus("Ausstehend");
             newBooking.setLastModified(getToday().toDate());
         } else {
             // Throw some fancy errors
