@@ -76,6 +76,7 @@ module.exports = {
                 prependPath: false
             }
         },
+        disableHostCheck: true,
         publicPath: 'http://localhost:9090/dist/',
         historyApiFallback: true
     }
