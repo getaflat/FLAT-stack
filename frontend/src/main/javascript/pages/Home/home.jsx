@@ -17,7 +17,7 @@ export default class Home extends React.Component {
     componentDidMount() {
         api.get('/images/search/findByApartmentId', {
             params: {
-                apartmentId: (Math.floor(Math.random() * 14) + 1)
+                apartmentId: (Math.floor(Math.random() * 25) + 1)
             }
         }).then(({ data }) => {
             this.setState({
