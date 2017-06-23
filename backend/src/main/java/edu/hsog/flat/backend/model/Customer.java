@@ -21,6 +21,7 @@ public class Customer {
 	private Long id;
 
 	@NonNull
+	@Column(unique=true)
 	private Long contractNumber;
 
 	/*@OneToMany(mappedBy = "bookingId", targetEntity = Booking.class, fetch=FetchType.EAGER)
