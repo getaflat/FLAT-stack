@@ -25,10 +25,10 @@ import { mustMatch, maxAge, isEmail, minAge, exactLength, minLength, isRequired,
 //TODO ggf. Problem weil startYear und endYear kein Label haben und es das CSS verhagelt
 
 const rules = [
-    rule("start", "Beginn", isRequired, minWeek(1), maxWeek(52)),
-    rule("end", "Ende", isRequired, minWeek(1), maxWeek(52)),
-    rule("startYear", " ", isRequired, minYear(2017), maxYear(2018)),//TODO ohne Label möglich?
-    rule("endYear", " ", isRequired, minYear(2017), maxYear(2018)),//TODO ohne Label möglich?
+    rule("start", "Startwoche ", isRequired, minWeek(27), maxWeek(52)),
+    rule("end", "Endwoche ", isRequired, minWeek(1), maxWeek(26)),
+    rule("startYear", "Startjahr ", isRequired, minYear(2017), maxYear(2018)),//TODO ohne Label möglich?
+    rule("endYear", "Endjahr ", isRequired, minYear(2017), maxYear(2018)),//TODO ohne Label möglich?
 ];
 
 //TODO startYear und endYear wieder zum state booking, jedoch startYear wird nicht an DB gesendet
@@ -253,11 +253,12 @@ export default class Booking extends React.Component {
 
     handleInput(event) {
         let {name, value} = event.target;
+        let parsed = parseInt(value, 10);
 
         let state = update(this.state, {
             booking: {
                 // On this page we are only validating numeric inputs
-                [name]: { $set: parseInt(value, 10) }
+                [name]: { $set: parsed }
             }
         });
 
