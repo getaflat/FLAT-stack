@@ -12,8 +12,16 @@
     width: 100%;
     /*border: 1px solid red;*/
     text-align: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    display: flex;
 
 }
+
+.bookingText{
+    text-align: left;
+}
+
 
 .rightBooking label {
     width: 160px;

@@ -10,12 +10,10 @@ import update from 'immutability-helper';
 
 import InputValidationField from '../../components/InputValidationField';
 
-//TODO überflüssiges am Ende löschen
 import { run, rule } from '../../services/validation';
-import { mustMatch, maxAge, isEmail, minAge, exactLength, minLength, isRequired, minWeek, maxWeek, minYear, maxYear} from '../../services/rules';
+import { isRequired, minWeek, maxWeek, minYear, maxYear} from '../../services/rules';
 
 //Regeln
-//TODO minAge wird zu minWeek, maxAge wird zu maxWeek, Funktion schreiben bzw. minYear und maxYear
 
 //TODO Jahreswechsel berücksichtigen und Ende muss immer nach Beginn liegen
 //TODO Jahreswechsel erst ab KW 50 bei Beginn oder bis max KW 3 bei Ende berücksichtigen, dh. in einem Feld muss 2017 und im anderen 2018 stehen
@@ -27,11 +25,10 @@ import { mustMatch, maxAge, isEmail, minAge, exactLength, minLength, isRequired,
 const rules = [
     rule("start", "Startwoche ", isRequired, minWeek(27), maxWeek(52)),
     rule("end", "Endwoche ", isRequired, minWeek(1), maxWeek(26)),
-    rule("startYear", "Startjahr ", isRequired, minYear(2017), maxYear(2018)),//TODO ohne Label möglich?
-    rule("endYear", "Endjahr ", isRequired, minYear(2017), maxYear(2018)),//TODO ohne Label möglich?
+    rule("startYear", "Startjahr ", isRequired, minYear(2017), maxYear(2018)),
+    rule("endYear", "Endjahr ", isRequired, minYear(2017), maxYear(2018)),
 ];
 
-//TODO startYear und endYear wieder zum state booking, jedoch startYear wird nicht an DB gesendet
 export default class Booking extends React.Component {
     constructor(props) {
         super(props);
@@ -149,8 +146,6 @@ export default class Booking extends React.Component {
     calcCost(event) {
         event.preventDefault();
 
-        //TODO Validation
-
         this.setState((prev) => update(prev, {
             validation: {
                 show: { $set: true }
@@ -204,19 +199,7 @@ export default class Booking extends React.Component {
             }));
         });
 
-        //TODO fehler werfen, wenn rules nicht erfüllt
 
-        /*.catch((error) => {
-            let message = 'Fehler, bitte versuchen sie es später erneut';
-
-            if (error.response && error.response.status === 422) {
-                message = 'Bitte überprüfen sie Ihre Angaben';
-            } else if (error.response && error.response.status === 409) {
-                message = 'Diese E-Mail Adresse wird bereits verwendet';
-            }
-
-            this.setState({ error: message });
-        })*/
     }
 
     handleSubmit(event) {
@@ -277,9 +260,6 @@ export default class Booking extends React.Component {
         this.refs.calcB.style.display = "flex";
     }
 
-
-//TODO wg. Input Validation Field muss CSS ggf. komplett überarbeitet werden
-
     render() {
         return (
             <div className={globalStyles.wrapper + ' ' + styles.wrapper}>
@@ -307,6 +287,17 @@ export default class Booking extends React.Component {
                     </div>
                     <br/>
                     <div className={styles.rightBooking}>
+                        <div className={styles.bookingText}>
+                        <p> Frühstmöglicher Buchungsbeginn ist Kalenderwoche 27 in 2017. <br />
+                            Spätmöglichster Buchungsbeginn ist Kalenderwoche 26 in 2018. <br />
+                            Es darf maximal ein Jahr im Vorraus gebucht werden. <br />
+                            Eine Buchung darf maximal vier Kalenderwochen umfassen.</p>
+
+                        <br />
+
+                        </div>
+
+                        <div className={styles.bookingForm}>
                         <form onReset={this.clearInputs}>
                             <InputValidationField
                                 label="Von: "
@@ -395,6 +386,7 @@ export default class Booking extends React.Component {
                                 <label ref="submitLabel" className={styles.bookingLabel}>Ihre Buchungsanfrage wird bearbeitet</label>
                             </div>
                         </form>
+                        </div>
                     </div>
                 </div>
             </div>
