@@ -23,8 +23,8 @@ import { isRequired, minWeek, maxWeek, minYear, maxYear} from '../../services/ru
 //TODO ggf. Problem weil startYear und endYear kein Label haben und es das CSS verhagelt
 
 const rules = [
-    rule("start", "Startwoche ", isRequired, minWeek(27), maxWeek(52)),
-    rule("end", "Endwoche ", isRequired, minWeek(1), maxWeek(26)),
+    rule("start", "Startwoche ", isRequired, minWeek(1), maxWeek(52)),
+    rule("end", "Endwoche ", isRequired, minWeek(1), maxWeek(52)),
     rule("startYear", "Startjahr ", isRequired, minYear(2017), maxYear(2018)),
     rule("endYear", "Endjahr ", isRequired, minYear(2017), maxYear(2018)),
 ];
